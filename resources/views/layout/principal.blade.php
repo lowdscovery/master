@@ -37,16 +37,6 @@
 <span class="float-right text-muted text-sm">3 mins</span>
 </a>
 <div class="dropdown-divider"></div>
-<a href="#" class="dropdown-item">
-<i class="fas fa-users mr-2"></i> 8 friend requests
-<span class="float-right text-muted text-sm">12 hours</span>
-</a>
-<div class="dropdown-divider"></div>
-<a href="#" class="dropdown-item">
-<i class="fas fa-file mr-2"></i> 3 new reports
-<span class="float-right text-muted text-sm">2 days</span>
-</a>
-<div class="dropdown-divider"></div>
 <a href="#" class="dropdown-item dropdown-footer">See All Notifications</a>
 </div>
 </li>
@@ -57,7 +47,7 @@
 </li>
 <li class="nav-item">
 <a class="nav-link" data-widget="control-sidebar" data-slide="true" href="#" role="button">
-<i class="fas fa-th-large"></i>
+<i class="fas fa-user"></i>
 </a>
 </li>
 </ul>
@@ -66,8 +56,8 @@
 
 <aside class="main-sidebar sidebar-dark-primary elevation-4">
 
-<a href="index3.html" class="brand-link">
-<span class="brand-text font-weight-light">JIRAMA</span>
+<a href="#" class="brand-link">
+<span class="brand-text font-weight-bold" style="font-size: 1.3em"><b>JIRAMA</b></span>
 </a>
 
 <div class="sidebar">
@@ -157,7 +147,6 @@ Simple Link
 
 </div>
 
-
 <aside class="control-sidebar control-sidebar-dark" style="display: none;">
 
 <div class="p-3">
@@ -176,8 +165,6 @@ Anything you want
 <strong>Copyright © 2023-2024 <a href="https://Jirama">Jirama</a>.</strong> All rights reserved.
 </footer>
 <div id="sidebar-overlay"></div></div>
-
-
 
 
 <script src="{{mix("js/app.js")}}"></script>
