@@ -4,7 +4,7 @@
 <!-- Le can est relié avec le  Gate-->
 
   <li class="nav-item">
-            <a href="" class="nav-link">
+            <a href="{{route('home')}}" class="nav-link {{setMenuActive('home')}}">
               <i class="nav-icon fas fa-home"></i>
               <p>
                 Accueil
@@ -38,8 +38,8 @@
      </ul>
 </li>
 
-<li class="nav-item">
-            <a href="#" class="nav-link ">
+<li class="nav-item {{setMenuClass('manager.habilitations.', 'menu-open')}}">
+            <a href="#" class="nav-link {{setMenuClass('manager.habilitations.', 'active')}}">
               <i class=" nav-icon fas fa-user-shield"></i>
               <p>
                 Habilitations
@@ -48,7 +48,7 @@
             </a>
             <ul class="nav nav-treeview">
               <li class="nav-item ">
-                <a href="" class="nav-link">
+                <a href="{{route('manager.habilitations.users.index')}}" class="nav-link {{setMenuActive('manager.habilitations.users.index')}}">
                   <i class=" nav-icon fas fa-users-cog"></i>
                   <p>Utilisateurs</p>
                 </a>
