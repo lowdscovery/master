@@ -3,75 +3,121 @@
 @section('content')
 <div class="container">
     <div class="row justify-content-center">
-        <div class="col-md-8">
-            <div class="card">
-                <div class="card-header">{{ __('Register') }}</div>
+       
+       <div class="row p-2">
+            <div class="col-md-12">
+            <!-- general form elements -->
+            <div class="card card-primary">
+              <div class="card-header">
+                <h3 class="card-title"><i class="fas fa-user-plus fa-2x"></i> Formulaire de création d'un nouvel utilisateur</h3>
+              </div>
+              <!-- /.card-header -->
+              <!-- form start -->
+              <form role="form" class="bg-info" wire:submit.prevent="addUser()">
+                <div class="card-body" style="color:darkblue">
 
-                <div class="card-body">
-                    <form method="POST" action="{{ route('register') }}">
-                        @csrf
+                    <div class="d-flex">
+                        <div class="form-group flex-grow-1 mr-2">
+                            <label >Nom</label>
+                            <input type="text" wire:model="newUser.nom" class="form-control @error('newUser.nom') is-invalid @enderror">
 
-                        <div class="row mb-3">
-                            <label for="name" class="col-md-4 col-form-label text-md-end">{{ __('Name') }}</label>
+                            @error("newUser.nom")
+                                <span class="text-danger">{{ $message }}</span>
+                            @enderror
+                        </div>
+                        <div class="form-group flex-grow-1">
+                            <label >Prenom</label>
+                            <input type="text" wire:model="newUser.prenom" class="form-control @error('newUser.prenom') is-invalid @enderror">
 
-                            <div class="col-md-6">
-                                <input id="name" type="text" class="form-control @error('name') is-invalid @enderror" name="name" value="{{ old('name') }}" required autocomplete="name" autofocus>
+                            @error("newUser.prenom")
+                                <span class="text-danger">{{ $message }}</span>
+                            @enderror
+                        </div>
+                    </div>
 
-                                @error('name')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
-                            </div>
+                  <div class="form-group">
+                    <label >Sexe</label>
+                    <select class="form-control @error('newUser.sexe') is-invalid @enderror" wire:model="newUser.sexe">
+                        <option value="">---------</option>
+                        <option value="H">Homme</option>
+                        <option value="F">Femme</option>
+                    </select>
+                    @error("newUser.sexe")
+                                <span class="text-danger">{{ $message }}</span>
+                            @enderror
+                  </div>
+
+                  <div class="form-group">
+                    <label >Adresse e-mail</label>
+                    <input type="text" class="form-control @error('newUser.email') is-invalid @enderror" wire:model="newUser.email">
+                    @error("newUser.email")
+                                <span class="text-danger">{{ $message }}</span>
+                            @enderror
+                  </div>
+
+                  <div class="form-group">
+                            <label >Telephone </label>
+                            <input type="text" class="form-control @error('newUser.telephone1') is-invalid @enderror" wire:model="newUser.telephone1">
+                            @error("newUser.telephone1")
+                                <span class="text-danger">{{ $message }}</span>
+                            @enderror
+                    </div>
+
+                <div class="form-group">
+                    <label >Piece d'identité</label>
+                    <select class="form-control @error('newUser.pieceIdentite') is-invalid @enderror" wire:model="newUser.pieceIdentite">
+                        <option value="">---------</option>
+                        <option value="CNI">CNI</option>
+                        <option value="PASSPORT">PASSPORT</option>
+                        <option value="PERMIS DE CONDUIRE">PERMIS DE CONDUIRE</option>
+                    </select>
+                    @error("newUser.pieceIdentite")
+                        <span class="text-danger">{{ $message }}</span>
+                    @enderror
+                  </div>
+
+                  <div class="form-group">
+                            <label >Numero de piece d'identité</label>
+                            <input type="text" class="form-control @error('newUser.numeroPieceIdentite') is-invalid @enderror" wire:model="newUser.numeroPieceIdentite">
+                            @error("newUser.numeroPieceIdentite")
+                                <span class="text-danger">{{ $message }}</span>
+                            @enderror
                         </div>
 
-                        <div class="row mb-3">
-                            <label for="email" class="col-md-4 col-form-label text-md-end">{{ __('Email Address') }}</label>
 
-                            <div class="col-md-6">
-                                <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email">
+                  <div class="form-group">
+                    <label for="exampleInputPassword1">Mot de passe</label>
+                    <input type="text" class="form-control">
+                  </div>
 
-                                @error('email')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
-                            </div>
-                        </div>
 
-                        <div class="row mb-3">
-                            <label for="password" class="col-md-4 col-form-label text-md-end">{{ __('Password') }}</label>
-
-                            <div class="col-md-6">
-                                <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="new-password">
-
-                                @error('password')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
-                            </div>
-                        </div>
-
-                        <div class="row mb-3">
-                            <label for="password-confirm" class="col-md-4 col-form-label text-md-end">{{ __('Confirm Password') }}</label>
-
-                            <div class="col-md-6">
-                                <input id="password-confirm" type="password" class="form-control" name="password_confirmation" required autocomplete="new-password">
-                            </div>
-                        </div>
-
-                        <div class="row mb-0">
-                            <div class="col-md-6 offset-md-4">
-                                <button type="submit" class="btn btn-primary">
-                                    {{ __('Register') }}
-                                </button>
-                            </div>
-                        </div>
-                    </form>
                 </div>
+                <!-- /.card-body -->
+
+                <div class="card-footer">
+                  <button type="submit" class="btn btn-success form-control">Enregistrer</button>
+                </div>
+              </form>
             </div>
+            <!-- /.card -->
+
+          </div>
         </div>
+
+<script>
+    window.addEventListener("showSuccessMessage", event=>{
+        Swal.fire({
+                position: 'top-end',
+                icon: 'success',
+                toast:true,
+                title: event.detail.message || "Opération effectuée avec succès!",
+                showConfirmButton: false,
+                timer: 2000
+                }
+            )
+    })
+</script>
+
     </div>
 </div>
 @endsection
