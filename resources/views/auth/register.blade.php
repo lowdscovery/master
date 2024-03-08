@@ -1,4 +1,3 @@
-
 @extends('layouts.app')
 
 @section('content')
@@ -95,7 +94,7 @@
                 </div>
                 <!-- /.card-body -->
 
-                <div class="card-footer">
+                <div class="card-footer ">
                   <button type="submit" class="btn btn-success form-control">Enregistrer</button>
                 </div>
               </form>
@@ -122,4 +121,3 @@
     </div>
 </div>
 @endsection
-
