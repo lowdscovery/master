@@ -49,18 +49,12 @@
                         @enderror
                 </div>
 
-                <div class="d-flex">
-                    <div class="form-group flex-grow-1 mr-2">
-                        <label >Telephone 1</label>
+                <div class="form-group">
+                        <label >Telephone </label>
                         <input type="text" class="form-control @error('editUser.telephone1') is-invalid @enderror" wire:model="editUser.telephone1">
                         @error("editUser.telephone1")
                             <span class="text-danger">{{ $message }}</span>
                         @enderror
-                    </div>
-                    <div class="form-group flex-grow-1">
-                        <label >Telephone 2</label>
-                        <input type="text" class="form-control" wire:model="editUser.telephone2">
-                    </div>
                 </div>
 
             <div class="form-group">
@@ -99,7 +93,10 @@
 
     </div>
 
-    <div class="col-md-6">
+
+
+<!-- /.partie reinitialisation -->
+       <div class="col-md-6">
         <div class="row ">
             <div class="col-md-12">
                 <div class="card card-primary">
@@ -117,6 +114,7 @@
                     </div>
                 </div>
             </div>
+            
             <div class="col-md-12 mt-4">
                 <div class="card card-primary">
                     <div class="card-header d-flex align-items-center">
@@ -177,4 +175,45 @@
             </div>
         </div>
     </div>
+
 </div>
+
+
+<script>
+    window.addEventListener("showSuccessMessage", event=>{
+        Swal.fire({
+                position: 'top-end',
+                icon: 'success',
+                toast:true,
+                title: event.detail.message || "Utilisateur mis à jour avec succès!",
+                showConfirmButton: false,
+                timer: 3000
+                }
+            )
+    })
+</script>
+
+<script>
+    window.addEventListener("showConfirmMessage", event=>{
+       Swal.fire({
+        title: event.detail.message.title,
+        text: event.detail.message.text,
+        icon: event.detail.message.type,
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Continuer',
+        cancelButtonText: 'Annuler'
+        }).then((result) => {
+        if (result.isConfirmed) {
+            if(event.detail.message.data){
+                @this.deleteUser(event.detail.message.data.user_id)
+            }
+
+            @this.resetPassword()
+
+        }
+        })
+    })
+
+</script>

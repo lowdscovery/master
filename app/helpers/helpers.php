@@ -1,5 +1,12 @@
 <?php
 use Illuminate\Support\Str;
+
+
+define("PAGELIST", "liste");
+define("PAGECREATEFORM", "create");
+define("PAGEEDITFORM", "edit");
+define("DEFAULTPASSOWRD", "password");
+
 /*Affiche le nom et prenom*/
 function userFullName(){
  return auth()->user()->prenom." ".auth()->user()->nom;
@@ -16,11 +23,8 @@ function getRolesName(){
         if($i < sizeof(auth()->user()->roles) - 1 ){
             $rolesName .= ",";
         }
-
         $i++;
-
     }
-
     return $rolesName;
 
 }
