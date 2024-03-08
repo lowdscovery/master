@@ -5,6 +5,7 @@ namespace App\Http\Livewire;
 use App\Models\Maintenance as ModelsMaintenance;
 use App\Models\Intervenant as ModelsIntervenant;
 use App\Models\CaracteristiqueMoteur;
+use Carbon\Carbon;
 use Livewire\Component;
 use Livewire\WithPagination;
 
@@ -15,7 +16,17 @@ class Maintenance extends Component
     public $search = "";
     public $addMaintenance = [];
     public $editMaintenance = [];
+    public $button = true;
+    //calcute date
+    public $dates = false;
 
+    public function cacheButton(){
+        $this->button = false;
+    }
+    public function mount(){
+        $today = Carbon::today();
+        $this->dates = ModelsMaintenance::whereDate('dateMaintenance',$today)->exists();
+    }
     public function render()
     {
        $searchCriteria = "%".$this->search."%";
@@ -24,6 +35,7 @@ class Maintenance extends Component
         "inters" => ModelsIntervenant::get(),
         "caracteristiques" => CaracteristiqueMoteur::get(),
        ];
+       $this ->mount();
         return view('livewire.maintenance.maintenance', $data)
         ->extends("layouts.principal")
         ->section("contenu");

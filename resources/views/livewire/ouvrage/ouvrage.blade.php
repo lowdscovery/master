@@ -61,6 +61,9 @@
                         <div class="col pt-3">
       <input class="form-control " type="file" wire:model="image" required="required"> 
                         </div>
+                        <div class="col pt-3">
+      <input class="form-control " type="file" wire:model="fichier" required="required"> 
+                        </div>
                       <div class="col pt-3">
                     <select class="form-control @error("addOuvrage.ressource_id") is-invalid @enderror" wire:model="addOuvrage.ressource_id" required="required">
                         @error("addOuvrage.ressource_id")

@@ -22,22 +22,13 @@
                     </div>
                     <div class="form-group">
                         <label >Index CH</label>
-                        <input type="text"  class="form-control @error("editIncident.indexCH") is-invalid 
-                        @enderror" wire:model="editIncident.indexCH" placeholder="Index"> 
-                      @error("editIncident.indexCH")
+                        <input type="text"  class="form-control @error("indexCH") is-invalid 
+                        @enderror" wire:model="indexCH" placeholder="Index"> 
+                      @error("indexCH")
                           <span class="text-danger">{{$message}}</span>
                        @enderror
-                    </div>
-                    <div class="d-flex">
-                     <div class="form-group flex-grow-1 mr-2">
-                        <label >Heure</label>
-                        <input type="text"  class="form-control @error("editIncident.heure") is-invalid 
-                        @enderror" wire:model="editIncident.heure" placeholder="Heure">
-                         @error("editIncident.heure")
-                          <span class="text-danger">{{$message}}</span>
-                       @enderror
-                     </div>
-                     <div class="form-group flex-grow-1">
+                    </div>                     
+                     <div class="form-group">
                         <label >Nature d'indice</label>
                         <input type="text"  class="form-control @error("editIncident.natureIncident") is-invalid 
                         @enderror" wire:model="editIncident.natureIncident" placeholder="Nature"> 
@@ -45,8 +36,7 @@
                           <span class="text-danger">{{$message}}</span>
                        @enderror             
                      </div>
-                    </div>
-
+                   
                    <div class="form-group">
                     <label >Caracteristique</label>
                     <select class="form-control @error("editIncident.caracteristique_moteur_id") is-invalid 

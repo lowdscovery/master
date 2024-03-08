@@ -11,6 +11,8 @@ use App\Http\Livewire\Intervenant;
 use App\Http\Livewire\Maintenance;
 use App\Http\Livewire\Mesure;
 use App\Http\Livewire\Ouvrage;
+use App\Http\Livewire\Calcules;
+use App\Http\Livewire\Teste;
 use App\Http\Livewire\Uploads;
 use App\Http\Livewire\Utilisateurs;
 use App\Models\CaracteristiqueMoteur;
@@ -70,10 +72,12 @@ Route::group([
 Route::get("/intervenants", Intervenant::class)->name("Intervenant.intervenant")->middleware("auth.manager");
 Route::get("/incidents", Incident::class)->name("Incident.incident")->middleware("auth.manager");
 Route::get("/uploads", Uploads::class)->name("uploads")->middleware("auth.manager");
+Route::get("/tes", Teste::class)->name("teste")->middleware("auth.manager");
 Route::get("/maintenances", Maintenance::class)->name("maintenance.maintenance")->middleware("auth.manager");
 Route::get("/commandes", Commande::class)->name("commande.commande")->middleware("auth.manager");
 Route::get("/bis", BisList::class)->name("bis.bis")->middleware("auth.manager");
 Route::get("/mesures", Mesure::class)->name("mesure.mesure")->middleware("auth.manager");
+Route::get("/calcule", Calcules::class)->name("calcules")->middleware("auth.manager");
 //Route::get("/Affichage", Affichage::class)->name("affichage.affichage")->middleware("auth.manager");
 
 Route::group([

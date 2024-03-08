@@ -18,6 +18,7 @@ class Ouvrage extends Component
     public $addOuvrage = [];
     public $editOuvrage = [];
     public $image;
+    public $fichier;
 
     public function render()
     {
@@ -54,13 +55,20 @@ public function Ouvrage(){
         "addOuvrage.etatActuel" =>"required",
         "addOuvrage.observation" =>"required",
         "addOuvrage.ressource_id"=>"required|numeric|unique:ouvrages,ressource_id",
-        "image" => "image|max:10240"
+        "image" => "image|max:10240",
+        "fichier" => "required|mimes:pdf|max:10240",
     ]);
     $path="";
     if($this->image){
      $path=$this->image->store('forage', 'public');
      $imagePath = "storage/".$path;
    }
+   $filePathPdf="";
+   if($this->fichier){
+   $filePathPdf=$this->fichier->store('document', 'public');
+   $filePath = "storage/".$filePathPdf;
+   }
+   
     ModelsOuvrage::create(
         [
             "annee" => $this->addOuvrage["annee"],
@@ -70,10 +78,11 @@ public function Ouvrage(){
             "etatActuel" => $this->addOuvrage["etatActuel"],
             "observation" => $this->addOuvrage["observation"],
             "ressource_id"=> $this->addOuvrage["ressource_id"],
-            "photo" => $imagePath,            
+            "photo" => $imagePath,
+            "filePdf"=>$filePath,            
         ]
      );
-
+    $this->reset(['fichier']);
     $this->resetErrorBag();
     $this->addOuvrage = [];
     $this->addOuvrage["edit"] = false;
@@ -106,6 +115,12 @@ public function updateOuvrage(){
         Storage::disk("local")->delete(str_replace("storage/", "public/", $ouvrage->photo));
         $ouvrage->photo = $imagePath;
     }
+    if($this->fichier){
+        $filePathPdf = $this->fichier->store("document", "public");
+        $filePath = "storage/".$filePathPdf;
+        Storage::disk("local")->delete(str_replace("storage/", "public/", $ouvrage->filePdf));
+        $ouvrage->filePdf = $filePath;
+    }
   
     $ouvrage->save();
     $this->resetErrorBag();
@@ -126,5 +141,11 @@ public function updateOuvrage(){
   public function deleteOuvrage(ModelsOuvrage $ouvrage){
     $ouvrage->delete();
     $this->dispatchBrowserEvent("showSuccessMessage", ["message"=>"Forage supprimé avec succès!"]);
+  }
+
+  public $pdfPath;
+  public function showPdf($pdfId){
+    $pdf = ModelsOuvrage::find($pdfId);
+    $this->pdfPath = $pdf->filePdf;
   }
 }

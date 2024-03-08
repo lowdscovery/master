@@ -18,6 +18,7 @@ class CreateIncidentsTable extends Migration
             $table->date('dateIncident');
             $table->string('indexCH');
             $table->string('heure');
+            $table->string('old_value');
             $table->string('natureIncident');
             $table->string('cause');
             $table->string('action');

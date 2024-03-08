@@ -28,8 +28,8 @@
                                     </div>
                                     <div class="col">
                                     <label class="form-label">H</label>
-                                        <input type="text" wire:model="addMesure.H" class="form-control @error('addMesure.H') is-invalid @enderror" placeholder="H" required="required">
-                                        @error("addMesure.H")
+                                        <input type="number" wire:model="H" class="form-control @error('H') is-invalid @enderror" placeholder="H" required="required">
+                                        @error("H")
                                         <span class="text-danger">{{$message}}</span>
                                         @enderror
                                     </div>
@@ -79,8 +79,8 @@
                                     </div>
                                     <div class="col">
                                     <label class="form-label">Puissance</label>
-                                        <input type="text" wire:model="addMesure.Puissance" class="form-control @error('addMesure.Puissance') is-invalid @enderror" placeholder="Puissance" required="required">
-                                        @error("addMesure.Puissance")
+                                        <input type="number" wire:model="Puissance" class="form-control @error('Puissance') is-invalid @enderror" placeholder="Puissance" required="required">
+                                        @error("Puissance")
                                         <span class="text-danger">{{$message}}</span>
                                         @enderror
                                     </div>
@@ -159,8 +159,8 @@
                                     <div class="form-row">
                                     <div class="col">
                                     <label class="form-label">Debit</label>
-                                        <input type="text" wire:model="addMesure.Debit" class="form-control @error('addMesure.Debit') is-invalid @enderror" placeholder="Debit" required="required">
-                                        @error("addMesure.Debit")
+                                        <input type="number" wire:model="Debit" class="form-control @error('Debit') is-invalid @enderror" placeholder="Debit" required="required">
+                                        @error("Debit")
                                         <span class="text-danger">{{$message}}</span>
                                         @enderror
                                     </div>
@@ -179,14 +179,14 @@
                                     </div>
                                     <div class="col">
                                     <label class="form-label">ND</label>
-                                        <input type="text" wire:model="addMesure.ND" class="form-control @error('addMesure.ND') is-invalid @enderror" placeholder="ND" required="required" step="0.01">
+                                        <input type="number" id="ND" wire:model="ND" class="form-control @error('addMesure.ND') is-invalid @enderror" placeholder="ND" required="required" step="0.01">
                                         @error("addMesure.ND")
                                         <span class="text-danger">{{$message}}</span>
                                         @enderror
                                     </div>
                                     <div class="col">
                                     <label class="form-label">NS</label>
-                                        <input type="text" wire:model="addMesure.NS" class="form-control @error('addMesure.NS') is-invalid @enderror" placeholder="NS" required="required" step="0.01">
+                                        <input type="number" id="NS" wire:model="NS" class="form-control @error('addMesure.NS') is-invalid @enderror" placeholder="NS" required="required" step="0.01">
                                         @error("addMesure.NS")
                                         <span class="text-danger">{{$message}}</span>
                                         @enderror
@@ -195,22 +195,22 @@
                                     <div class="form-row">
                                     <div class="col">
                                     <label class="form-label">Rab</label>
-                                        <input type="text" wire:model.defer="addMesure.Rab" class="form-control @error('addMesure.Rab') is-invalid @enderror" placeholder="Rab" required="required" step="0.01">
-                                        @error("addMesure.Rab")
+                                        <input type="number" wire:model="Rab"  class="form-control @error('Rab') is-invalid @enderror" placeholder="Rab" required="required" disabled>
+                                        @error("Rab")
                                         <span class="text-danger">{{$message}}</span>
                                         @enderror
                                     </div>                                   
                                     <div class="col">
                                     <label class="form-label">Cs</label>
-                                        <input type="text" wire:model="addMesure.Cs" class="form-control @error('addMesure.Cs') is-invalid @enderror" placeholder="Cs" required="required">
-                                        @error("addMesure.Cs")
+                                        <input type="number" wire:model="Cs" class="form-control @error('Cs') is-invalid @enderror" placeholder="Cs" required="required" disabled>
+                                        @error("Cs")
                                         <span class="text-danger">{{$message}}</span>
                                         @enderror
                                     </div>
                                     <div class="col">
                                     <label class="form-label">Conspé</label>
-                                        <input type="text" wire:model="addMesure.Conspé" class="form-control @error('addMesure.Conspé') is-invalid @enderror" placeholder="Conspé" required="required">
-                                        @error("addMesure.Conspé")
+                                        <input type="number" wire:model="Conspé" class="form-control @error('Conspé') is-invalid @enderror" placeholder="Conspé" required="required" disabled>
+                                        @error("Conspé")
                                         <span class="text-danger">{{$message}}</span>
                                         @enderror
                                     </div>

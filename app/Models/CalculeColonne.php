@@ -5,10 +5,10 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Upload extends Model
+class CalculeColonne extends Model
 {
     use HasFactory;
-
-    protected $table = "uploads";
-    protected $fillable = ['dat','title', 'filename'];
+    protected $fillable = [
+        'value','old_value','difference',
+    ]; 
 }

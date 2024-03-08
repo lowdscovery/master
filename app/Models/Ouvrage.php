@@ -10,7 +10,7 @@ class Ouvrage extends Model
     use HasFactory;
 
     protected $fillable = [
-        'annee','debitExploite','profondeur','type','photo','ressource_id',
+        'annee','debitExploite','profondeur','type','photo','filePdf','ressource_id',
         'etatActuel','observation',
     ];
 

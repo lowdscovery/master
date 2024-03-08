@@ -1,5 +1,4 @@
 <div>
-  
 <div>
 <div class="modal fade" id="addModal"tabindex="-1" role="dialog" aria-hidden="true" wire:ignore.self>
 <div class="modal-dialog" role="document">
@@ -61,7 +60,7 @@
   </div>
 </div> 
 
-<div class="modal fade" id="editModal" style="z-index: 1900;" tabindex="-1" role="dialog" aria-hidden="true" wire:ignore.self>
+<div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-hidden="true" wire:ignore.self>
 @includeIf("livewire.maintenance.edite")
 </div>
 
@@ -71,11 +70,27 @@
 <div class="row p-4" >
  <div class="col-12">
      <div class="card">
-  
+        
          <div class="card-header bg-gradient-cyan d-flex align-items-center">
           <h3 class="card-title flex-grow-1"><i class="nav-icon fas fa-cogs"></i>Maintenance</h3>
-
             <div class="card-tools d-flex align-items-center ">
+            @if ($dates)
+                      <audio id ="notificationSound" src="{{asset('/path/zaza.mp3')}}" autoplay loop></audio>
+                      @if($button)
+                      <button onclick="stopSound()" class="btn btn-danger mr-4 d-block" wire:click="cacheButton()">Stop Alarme</button>
+                      @else
+
+                      @endif      
+                  @else
+                      <audio id ="notificationSound" src="{{asset('/path/zaza.mp3')}}" style="display:none;"></audio>
+                  @endif
+                      <script>
+                          function stopSound(){
+                            var sound = document.getElementById('notificationSound');
+                            sound.pause();
+                            sound.currentTime = 0;
+                          }
+                      </script>
                 <div class="input-group input-group-md" style="width: 250px;">
             <input type="text" name="table_search" wire:model.debounce.250ms="search" class="form-control float-right" placeholder="Search">
 

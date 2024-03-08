@@ -16,7 +16,38 @@ class Uploads extends Component
     public $date1;
     public $daty;
     public $da;
+    //chat
+    public $number1;
+    public $number2;
+    public $result;
 
+    public function calculate(){
+      $this->result = $this->number1 + $this->number2;
+      $this->triggerNotification();
+    }
+   //diff date
+   public $inputDate;
+   public $diffInDays;
+
+   public function calculateDiff(){
+    $today = Carbon::today();
+    $input = Carbon::parse($this->inputDate);
+    $this->diffInDays = $today->diffInDays($input);
+   }
+   //calcute date
+   public $posts;
+
+   public function mount(){
+       $this->posts = Upload::all()->map(function ($post){
+            $post->days_diff = Carbon::now()->diffInDays(Carbon::parse($post->date_diff));
+            return $post;
+       });
+   }
+
+   //notificationSound
+   public function triggerNotification(){
+    $this->emit('playNotificationSound');
+   }
     
    
 
@@ -36,7 +67,7 @@ class Uploads extends Component
     }
     public function render()
     {
-     
+      $this->calculate();
       $data = [
         //notification//"somme" =>Upload::where("title","3")->count(),
         "somme" =>Upload::where("title","")->sum("id"),

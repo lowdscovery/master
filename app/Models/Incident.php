@@ -10,7 +10,7 @@ class Incident extends Model
     use HasFactory;
 
     protected $fillable = [
-        "dateIncident","indexCH","heure","natureIncident",
+        "dateIncident","indexCH","heure","old_value","natureIncident",
         "cause","action","resultat","intervenant_id","caracteristique_moteur_id",
     ];
 

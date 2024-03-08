@@ -43,7 +43,7 @@
                     </tr>
                   </thead>
                   <tbody>                             
-                 @forelse ($incidents as $incident)
+                 @forelse ($this->transactions as $incident)
                     <tr>
                       <td class="text-center">{{$incident->dateIncident}}</td>
                       <td class="text-center">{{$incident->indexCH}}</td>
@@ -60,7 +60,7 @@
                     </a>
                     <ul class="dropdown-menu" style="padding:10px; z-index: 10;" >
                         <li><button class="btn btn-link" data-toggle="modal" data-target="#addModal"> <i class="fa fa-plus-circle"></i> Ajouter</button></li>
-                        <li><button class="btn btn-link" wire:click="editIncident({{$incident->id}})" data-toggle="modal" data-target="#editModal"> <i class="far fa-edit"></i> Edit</button></li>
+                        <li><button class="btn btn-link" wire:click="editTransaction({{$incident->id}})" data-toggle="modal" data-target="#addModal"> <i class="far fa-edit"></i> Edit</button></li>
                         <li><button class="btn btn-link" wire:click="confirmDelete({{$incident->id}})"> <i class="far fa-trash-alt"></i> Delete</button></li>
                     </ul>
                     </div>
@@ -93,7 +93,7 @@
               <!-- /.card-body -->
               <div class="card-footer">
                 <div class="float-right">
-                {{$incidents->links()}}
+                
                 </div>
             </div>
 </div>

@@ -22,6 +22,7 @@ class Ouvrages extends Migration
             $table->string('etatActuel');
             $table->string('observation');
             $table->string('photo')->nullable();
+            $table->string('filePdf')->nullable();
             $table->foreignId('ressource_id')->nullable();
             $table->timestamps();
         });

@@ -13,12 +13,135 @@ class Incident extends Component
     use WithPagination;
     protected $paginationTheme ="bootstrap";
     public $search = "";
+    public $dateIncident,$indexCH,$natureIncident,$caracteristique_moteur_id;
+    public $cause,$action,$resultat,$intervenant_id;
+    public $transactions;
+
+    //edit
+    public $editId;
+
+
+    public function render()
+    {
+        $this->transactions = ModelsIncident::all();
+       // $searchCriteria = "%".$this->search."%";
+        $data= [
+         //   "transactions" => ModelsIncident::where("natureIncident","like",$searchCriteria)->latest()->paginate(1),
+            "inters" => ModelsIntervenant::get(),
+            "caracteristiques" => CaracteristiqueMoteur::get(),
+        ];
+
+        return view('livewire.Incident.liste',$data)
+        ->extends("layouts.principal")
+        ->section("contenu");
+
+    }
+   
+    public function addTransaction(){
+        $lastTransaction = ModelsIncident::latest()->first();
+        $oldValue = $lastTransaction ? $lastTransaction->indexCH : 0;
+        $difference = $this->indexCH - $oldValue;
+        ModelsIncident::create([
+            'indexCH' => $this->indexCH,
+            'old_value' => $oldValue,
+            'dateIncident' => $this->dateIncident,
+            'natureIncident' => $this->natureIncident,
+            'caracteristique_moteur_id' => $this->caracteristique_moteur_id,
+            'cause' => $this->cause,
+            'action' => $this->action,
+            'resultat' => $this->resultat,
+            'intervenant_id' => $this->intervenant_id,
+           // 'old_value' => $oldValue,
+            'heure' => $difference,
+        ]);
+        $this->dispatchBrowserEvent("showSuccessMessage", ["message"=>"Incident ajoutée avec succès!"]);
+        $this->transactions = ModelsIncident::all();
+        $this->indexCH = '';
+        $this->dateIncident = '';
+        $this->natureIncident = '';
+        $this->caracteristique_moteur_id = '';
+        $this->cause = '';
+        $this->action = '';
+        $this->resultat = '';
+        $this->intervenant_id = '';
+    }
+
+   
+//update
+    public function editTransaction($id){
+        $transaction = ModelsIncident::find($id);
+        $this->editId = $id;
+        $this->indexCH = $transaction->indexCH;
+        $this->dateIncident = $transaction->dateIncident;
+        $this->natureIncident = $transaction->natureIncident;
+        $this->caracteristique_moteur_id = $transaction->caracteristique_moteur_id;
+        $this->cause = $transaction->cause;
+        $this->action = $transaction->action;
+        $this->resultat = $transaction->resultat;
+        $this->intervenant_id = $transaction->intervenant_id;
+
+    }
+    //update
+    public function updateTransaction(){
+        $transaction = ModelsIncident::find($this->editId);
+        $oldValue = $transaction->old_value;
+        $difference = $this->indexCH - $oldValue;
+        $transaction->update([
+            'indexCH' => $this->indexCH,
+            'dateIncident' => $this->dateIncident,
+            'natureIncident' => $this->natureIncident,
+            'caracteristique_moteur_id' => $this->caracteristique_moteur_id,
+            'cause' => $this->cause,
+            'action' => $this->action,
+            'resultat' => $this->resultat,
+            'intervenant_id' => $this->intervenant_id,
+            'heure' => $difference,
+        ]);
+        $this->dispatchBrowserEvent("showSuccessMessage", ["message"=> "Incident mis à jour avec succès!"]);
+        $this->transactions = ModelsIncident::all();
+        $this->indexCH = '';
+        $this->dateIncident = '';
+        $this->natureIncident = '';
+        $this->caracteristique_moteur_id = '';
+        $this->cause = '';
+        $this->action = '';
+        $this->resultat = '';
+        $this->intervenant_id = '';
+        $this->editId = null;
+    }
+
+     //supression
+     public function confirmDelete(ModelsIncident $incident){
+        $this->dispatchBrowserEvent("showConfirmMessage", [
+            "message"=> 
+        [
+            "text" => "Vous êtes sur le point de supprimer ". $incident->cause ." sur la liste des intervenants. Voulez-vous continuer?",
+            "title" => "Êtes-vous sûr de continuer?",
+            "type" => "warning",
+            "data" => ["models_incident_id" => $incident->id]
+        ]]);
+    }
+
+    public function deleteIncident(ModelsIncident $incident){
+        $incident->delete();
+        $this->dispatchBrowserEvent("showSuccessMessage", ["message"=>"L'incident supprimé avec succès!"]);
+      }
+   /* use WithPagination;
+    protected $paginationTheme ="bootstrap";
+    public $search = "";
     public $changed;
     public $oldValue = [];
     public $addIncident = [];
     public $editIncident = [];
 
-   //showButton
+    public $previousValue;
+    public $indexCH;
+    public $heure;
+
+    public function mount(){
+        $lastTransaction = ModelsIncident::latest()->first();
+        $this->previousValue = $lastTransaction ? $lastTransaction->indexCH : 1;
+        }
   
 
     public function render()
@@ -61,8 +184,7 @@ class Incident extends Component
     protected function rules(){
         return[
             'editIncident.dateIncident'=> 'required',
-            'editIncident.indexCH'=> 'required',
-            'editIncident.heure'=> 'required',
+            'indexCH'=> 'required',
             'editIncident.natureIncident'=> 'required',
             'editIncident.cause'=> 'required',
             'editIncident.action'=> 'required',
@@ -75,8 +197,8 @@ class Incident extends Component
     public function addIncident(){
         $this->validate([
             "addIncident.dateIncident"=> "string|required",
-            "addIncident.indexCH"=> "string|required",
-            "addIncident.heure"=> "string|required",
+           //"addIncident.indexCH"=> "numeric|required",
+            "indexCH"=> "numeric|required",
             "addIncident.natureIncident"=> "string|required",
             "addIncident.cause"=> "string|required",
             "addIncident.action"=> "string|required",
@@ -84,11 +206,12 @@ class Incident extends Component
             "addIncident.intervenant_id"=> "string",
             "addIncident.caracteristique_moteur_id"=> "string",
         ]);
-
+        $this->heure = $this->indexCH - $this->previousValue;
         ModelsIncident::create([
             "dateIncident" => $this->addIncident["dateIncident"],
-            "indexCH" => $this->addIncident["indexCH"],
-            "heure" => $this->addIncident["heure"],
+          //"indexCH" => $this->addIncident["indexCH"],
+            "indexCH" => $this->indexCH,
+            "heure" => $this->heure,
             "natureIncident" => $this->addIncident["natureIncident"],
             "cause" => $this->addIncident["cause"],
             "action" => $this->addIncident["action"],
@@ -96,9 +219,11 @@ class Incident extends Component
             "intervenant_id" => $this->addIncident["intervenant_id"],
             "caracteristique_moteur_id" => $this->addIncident["caracteristique_moteur_id"],
         ]);
+        $this->previousValue = $this->indexCH;
+        $this->reset('indexCH');
+
     $this->resetErrorBag();
     $this->addIncident = [];
-  //  session()->flash('message', 'Incident ajoutée avec succès!');
     $this->dispatchBrowserEvent("showSuccessMessage", ["message"=>"Incident ajoutée avec succès!"]);
     }
 
@@ -122,7 +247,7 @@ class Incident extends Component
       //modifier
     public function editIncident(ModelsIncident $incident){
      $this->editIncident = $incident->toArray();
-
+     $this->indexCH = $incident['indexCH'];
      $this->oldValue = $this->editIncident;
     }
     public function updateIncident(){
@@ -131,5 +256,5 @@ class Incident extends Component
         $incident->fill($this->editIncident);
         $incident->save();
         $this->dispatchBrowserEvent("showSuccessMessage", ["message"=> "Incident mis à jour avec succès!"]);
-    }
+    }*/
 }

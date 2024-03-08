@@ -8,11 +8,17 @@ use Livewire\Component;
 class Mesure extends Component
 {
     public $input= false;
+    public $NS,$ND,$Debit,$Puissance,$H;
     public $addMesure = [];
     public $editMesure = [];
     public $currentPage = PAGELIST;
+    public $Rab,$Cs,$Conspé = 0;
+    
     public function render()
-    {    
+    {   
+        $this->calculate();
+        $this->calculate1();
+        $this->calculate2();
         $data = [
             "mesures" => ModelsMesure::get(),
             ];
@@ -39,14 +45,14 @@ class Mesure extends Component
         return[
             "editMesure.Date"=> "string|required",
             "editMesure.IndexCH"=> "string|required",
-            "editMesure.H"=> "string|required",
+            "H"=> "numeric|required",
             "editMesure.U1"=> "string|required",
             "editMesure.U2"=> "string|required",
             "editMesure.U3"=> "string|required",
             "editMesure.I1"=> "string|required",
             "editMesure.I2"=> "string|required",
             "editMesure.I3"=> "string|required",
-            "editMesure.Puissance"=> "string|required",
+            "Puissance"=> "numeric|required",
             "editMesure.Cos"=> "string|required",
             "editMesure.Ph1/PH2"=> "string|required",
             "editMesure.Ph1/PH3"=> "string|required",
@@ -57,30 +63,30 @@ class Mesure extends Component
             "editMesure.X1/X2"=> "string|required",
             "editMesure.Y1/Y2"=> "string|required",
             "editMesure.Z1/Z2"=> "string|required",
-            "editMesure.Debit"=> "string|required",
+            "Debit"=> "numeric|required",
             "editMesure.Vacuo"=> "string|required",
             "editMesure.Mano"=> "string|required",
-            "editMesure.ND"=> "string|required",
-            "editMesure.NS"=> "string|required",
-            "editMesure.Rab"=> "string|required",
-            "editMesure.Cs"=> "string|required",
-            "editMesure.Conspé"=> "string|required",
+            "ND"=> "numeric|required",
+            "NS"=> "numeric|required",
+            "Rab"=> "numeric|required",
+            "Cs"=> "numeric|required",
+            "Conspé"=> "numeric|required",
             "editMesure.Agent"=> "string|required",
         ];
       }
 
     public function addMesure(){
-        $this->validate([
+        $this->validate([         
             "addMesure.Date"=> "string|required",
             "addMesure.IndexCH"=> "string|required",
-            "addMesure.H"=> "string|required",
+            "H"=> "numeric|required",
             "addMesure.U1"=> "string|required",
             "addMesure.U2"=> "string|required",
             "addMesure.U3"=> "string|required",
             "addMesure.I1"=> "string|required",
             "addMesure.I2"=> "string|required",
             "addMesure.I3"=> "string|required",
-            "addMesure.Puissance"=> "string|required",
+            "Puissance"=> "numeric|required",
             "addMesure.Cos"=> "string|required",
             "addMesure.Ph1/PH2"=> "string|required",
             "addMesure.Ph1/PH3"=> "string|required",
@@ -91,28 +97,27 @@ class Mesure extends Component
             "addMesure.X1/X2"=> "string|required",
             "addMesure.Y1/Y2"=> "string|required",
             "addMesure.Z1/Z2"=> "string|required",
-            "addMesure.Debit"=> "string|required",
+            "Debit"=> "numeric|required",
             "addMesure.Vacuo"=> "string|required",
             "addMesure.Mano"=> "string|required",
-            "addMesure.ND"=> "string|required",
-            "addMesure.NS"=> "string|required",
-            "addMesure.Rab"=> "string|required",
-            "addMesure.Cs"=> "string|required",
-            "addMesure.Conspé"=> "string|required",
+            "ND"=> "numeric|required",
+            "NS"=> "numeric|required",
+            "Rab"=> "numeric|required",
+            "Cs"=> "numeric|required",
+            "Conspé"=> "numeric|required",
             "addMesure.Agent"=> "string|required",
         ]);
-
         ModelsMesure::create([
             "Date" => $this->addMesure["Date"],
             "IndexCH" => $this->addMesure["IndexCH"],
-            "H" => $this->addMesure["H"],
+            "H" => $this->H,
             "U1" => $this->addMesure["U1"],
             "U2" => $this->addMesure["U2"],
             "U3" => $this->addMesure["U3"],
             "I1" => $this->addMesure["I1"],
             "I2" => $this->addMesure["I2"],
             "I3" => $this->addMesure["I3"],
-            "Puissance" => $this->addMesure["Puissance"],
+            "Puissance" => $this->Puissance,
             "Cos" => $this->addMesure["Cos"],
             "Ph1/PH2" => $this->addMesure["Ph1/PH2"],
             "Ph1/PH3" => $this->addMesure["Ph1/PH3"],
@@ -123,14 +128,14 @@ class Mesure extends Component
             "X1/X2" => $this->addMesure["X1/X2"],
             "Y1/Y2" => $this->addMesure["Y1/Y2"],
             "Z1/Z2" => $this->addMesure["Z1/Z2"],
-            "Debit" => $this->addMesure["Debit"],
+            "Debit" => $this->Debit,
             "Vacuo" => $this->addMesure["Vacuo"],
             "Mano" => $this->addMesure["Mano"],
-            "ND" => $this->addMesure["ND"],
-            "NS" => $this->addMesure["NS"],
-            "Rab" => $this->addMesure["Rab"],
-            "Cs" => $this->addMesure["Cs"],
-            "Conspé" => $this->addMesure["Conspé"],
+            "ND" => $this->ND,
+            "NS" => $this->NS,
+            "Rab" => $this->Rab,
+            "Cs" => $this->Cs,
+            "Conspé" => $this->Conspé,
             "Agent" => $this->addMesure["Agent"],
         ]);
     $this->resetErrorBag();
@@ -169,11 +174,15 @@ class Mesure extends Component
     $this->dispatchBrowserEvent("showSuccessMessage", ["message"=> "Mis à jour avec succès!"]);
     }
 
-    //calcul
-    public function updated($key, $value){
-        if(in_array($key, ['addMesure.ND', 'addMesure.NS'])){
-           $this->addMesure["Rab"] = $this->addMesure["ND"]; 
-           //* $this->addMesure["NS"];
-        }
+    //calcule
+    
+    public function calculate(){
+      $this->Rab = $this->NS - $this->ND;
     }
+    public function calculate1(){
+        $this->Cs = $this->Debit * $this->Rab;
+      }
+      public function calculate2(){
+        $this->Conspé = $this->Puissance * $this->H + $this->Debit;
+      }
 }

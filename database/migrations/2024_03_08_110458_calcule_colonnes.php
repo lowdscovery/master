@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateUploadsTable extends Migration
+class CalculeColonnes extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +13,11 @@ class CreateUploadsTable extends Migration
      */
     public function up()
     {
-        Schema::create('uploads', function (Blueprint $table) {
+        Schema::create('calcule_colonnes', function (Blueprint $table) {
             $table->id();
-            $table->date('dat');
-            $table->string('title');
-            $table->string('filename');
+            $table->integer('value');
+            $table->integer('old_value');
+            $table->integer('difference');
             $table->timestamps();
         });
     }
@@ -29,6 +29,6 @@ class CreateUploadsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('uploads');
+        //
     }
 }
