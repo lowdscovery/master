@@ -6,6 +6,7 @@ define("PAGELIST", "liste");
 define("PAGECREATEFORM", "create");
 define("PAGEEDITFORM", "edit");
 define("DEFAULTPASSOWRD", "password");
+define("PAGEADDFORM", "add");
 
 /*Affiche le nom et prenom*/
 function userFullName(){

@@ -1,17 +1,15 @@
- 
- @if ($isBtnAddClicked)
-   @include("livewire.caracteristique.create")
- @else
-   
- @endif
- <div class="row p-4 pt-5">
+<div class="row p-4 pt-5">
           <div class="col-12">
+          <div class="bg-success col-2" style="border-radius: 5%;">
+    <button class="btn btn-link" wire:click.prevent="goToaddCaracteristique()" > <span class="brand-text font-weight-bold" style="color:white">Nouvel moteur</span></button>
+          </div>
+          <br>
             <div class="card">
-              <div class="card-header bg-gradient-primary d-flex align-items-center">
+  
+              <div class="card-header bg-gradient-gray d-flex align-items-center">
                 <h3 class="card-title flex-grow-1"><i class="nav-icon fas fa-cogs"></i> Caracteristiques des moteurs</h3>
 
                 <div class="card-tools d-flex align-items-center ">
-                <a class="btn btn-link text-white mr-4 d-block" wire:click.prevent="goToaddCaracteristique()"><i class="nav-icon fas fa-cog"></i> Nouvel moteur</a>
                   <div class="input-group input-group-md" style="width: 250px;">
                     <input type="text" name="table_search" class="form-control float-right" placeholder="Search">
 
@@ -40,9 +38,14 @@
                       <td style="width:20%;">{{$caracteristique->marque}}</td>
                       <td style="width:20%;"> {{$caracteristique->type}}</td>
                       <td style="width:20%;" class="text-center"> {{$caracteristique->numeroSerie}}</td>
-                      <td style="width:20%;" class="text-center"><span class="tag tag-success">Moteur</span></td>
+                      @if ($caracteristique->moteurs=="POMPE")
+                         <td style="width:20%;" class="text-center"><span class="badge badge-success">Pompe</span></td>
+                      @else
+                         <td style="width:20%;" class="text-center"><span class="badge badge-warning">Electrique</span></td>
+                      @endif
+
                       <td style="width:20%;" class="text-center">
-                        <button class="btn btn-link"> <i class="far fa-edit"></i> </button>                 
+                        <button class="btn btn-link" wire:click="goToEditCaract({{$caracteristique->id}})"> <i class="far fa-edit"></i> </button>                 
                         <button class="btn btn-link" > <i class="far fa-trash-alt"></i> </button>
                        
                       </td>
