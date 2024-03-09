@@ -1,14 +1,6 @@
-<div class="row p-4 pt-5">
-            <div class="col-md-6">
-            <!-- general form elements -->
-            <div class="card card-primary">
-              <div class="card-header">
-                <h3 class="card-title"><i class="fas fa-user-plus fa-2x"></i> Formulaire d'ajout un moteur </h3>
-              </div>
-              <!-- /.card-header -->
-              <!-- form start -->
-              <form role="form" wire:submit.prevent="addUser()">
-                <div class="card-body">
+<div>
+    <h1>Bonjour</h1>
+</div>
 
                 {{-- <div class="row">
                         <div class="col-6">

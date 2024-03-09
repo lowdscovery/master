@@ -11,7 +11,7 @@
                 <h3 class="card-title flex-grow-1"><i class="nav-icon fas fa-cogs"></i> Caracteristiques des moteurs</h3>
 
                 <div class="card-tools d-flex align-items-center ">
-                <a class="btn btn-link text-white mr-4 d-block" wire:click.prevent="goToaddCaract()"><i class="nav-icon fas fa-cog"></i> Nouvel moteur</a>
+                <a class="btn btn-link text-white mr-4 d-block" wire:click.prevent="goToaddCaracteristique()"><i class="nav-icon fas fa-cog"></i> Nouvel moteur</a>
                   <div class="input-group input-group-md" style="width: 250px;">
                     <input type="text" name="table_search" class="form-control float-right" placeholder="Search">
 
@@ -26,41 +26,35 @@
                 <table class="table table-head-fixed">
                   <thead>
                     <tr>
-                      <th style="width:5%;"></th>
-                      <th style="width:25%;">Utilisateurs</th>
-                      <th style="width:20%;" >Roles</th>
-                      <th style="width:20%;" class="text-center">Ajouté</th>
-                      <th style="width:30%;" class="text-center">Action</th>
+                      <th style="width:20%;">Marque</th>
+                      <th style="width:20%;" >Type</th>
+                      <th style="width:20%;" class="text-center">Numero de serie</th>
+                      <th style="width:20%;" class="text-center">Moteur</th>
+                      <th style="width:20%;" class="text-center">Action</th>
                     </tr>
                   </thead>
                   <tbody>
-                   
+                   @foreach ($caracteristiques as $caracteristique)
+              
                     <tr>
-                      <td>
-                    
-                            <img src="{{asset('image/woman.png')}}" width="24"/>
-                    
-                         <!--    <img src="{{asset('image/man.png')}}" width="24"/> -->
-                        
-                      </td>
-                      <td>nom</td>
-                      <td> roles</td>
-                      <td class="text-center"><span class="tag tag-success">date</span></td>
-                      <td class="text-center">
-                        <button class="btn btn-link"> <i class="far fa-edit"></i> </button>
-                         
-                         <button class="btn btn-link" > <i class="far fa-trash-alt"></i> </button>
+                      <td style="width:20%;">{{$caracteristique->marque}}</td>
+                      <td style="width:20%;"> {{$caracteristique->type}}</td>
+                      <td style="width:20%;" class="text-center"> {{$caracteristique->numeroSerie}}</td>
+                      <td style="width:20%;" class="text-center"><span class="tag tag-success">Moteur</span></td>
+                      <td style="width:20%;" class="text-center">
+                        <button class="btn btn-link"> <i class="far fa-edit"></i> </button>                 
+                        <button class="btn btn-link" > <i class="far fa-trash-alt"></i> </button>
                        
                       </td>
                     </tr>
-                    
+                @endforeach
                   </tbody>
                 </table>
               </div>
               <!-- /.card-body -->
               <div class="card-footer">
                 <div class="float-right">
-                 
+                  {{ $caracteristiques->links() }}
                 </div>
               </div>
             </div>

@@ -26,6 +26,8 @@ class CreateCaracteristiqueMoteursTable extends Migration
             $table->dateTime('dateAcquisition');
             $table->dateTime('dateMiseEnService');
             $table->string('roulement');
+            $table->string('misesEnServices');
+            $table->string('observations');
             $table->foreignId('user_id');
             $table->foreignId('moteur_pompe_id');
             $table->foreignId('moteur_electrique_id');
