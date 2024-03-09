@@ -21,6 +21,7 @@ class Utilisateurs extends Component
     public $editUser = [];
     public $currentPage = PAGELIST;
     public $rolePermissions = [];
+    public $search = "";
 
     /*protected $rules = [
         'newUser.nom' => 'required',
@@ -62,9 +63,12 @@ class Utilisateurs extends Component
     public function render()
     {
         Carbon::setLocale("fr");
-        return view('livewire.utilisateurs.index',[
-            "users" => User::latest()->paginate(5)
-        ])
+        $searchCriteria = "%".$this->search."%";
+        
+        $data = [
+            "users" => User::where("nom", "like", $searchCriteria)->latest()->paginate(5),
+        ];
+        return view('livewire.utilisateurs.index',$data)
         ->extends("layouts.principal")
         ->section("contenu");
     }

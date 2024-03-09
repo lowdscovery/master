@@ -62,20 +62,20 @@
             </ul>
         </li>
 
-        <li class="nav-item">
-            <a href="#" class="nav-link">
+        <li class="nav-item {{setMenuClass('manager.caracteristiques.', 'menu-open')}}">
+            <a href="#" class="nav-link {{setMenuClass('manager.caracteristiques.', 'active')}}">
                 <i class="nav-icon fas fa-cogs"></i>
                 <p>
-                Gestion articles
+                Caracteristiques
                 <i class="right fas fa-angle-left"></i>
                 </p>
             </a>
             <ul class="nav nav-treeview">
                 <li class="nav-item">
-                    <a href=""
-                        class="nav-link">
+                    <a href="{{route('manager.caracteristiques.caracteristique.caracteristique')}}"
+                        class="nav-link {{setMenuActive('manager.caracteristiques.caracteristique.caracteristique')}}">
                     <i class="nav-icon far fa-circle"></i>
-                    <p>Type d'articles</p>
+                    <p>Moteurs</p>
                     </a>
                 </li>
                 <li class="nav-item">

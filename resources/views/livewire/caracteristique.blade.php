@@ -2,12 +2,12 @@
           <div class="col-12">
             <div class="card">
               <div class="card-header bg-gradient-primary d-flex align-items-center">
-                <h3 class="card-title flex-grow-1"><i class="fas fa-users fa-2x"></i> Liste des utilisateurs</h3>
+                <h3 class="card-title flex-grow-1"><i class="nav-icon fas fa-cogs"></i> Caracteristiques des moteurs</h3>
 
                 <div class="card-tools d-flex align-items-center ">
-                <a class="btn btn-link text-white mr-4 d-block" wire:click.prevent="goToAddUser()"><i class="fas fa-user-plus"></i> Nouvel utilisateur</a>
+                <a class="btn btn-link text-white mr-4 d-block"><i class="nav-icon fas fa-cog"></i> Nouvel moteur</a>
                   <div class="input-group input-group-md" style="width: 250px;">
-                    <input type="text" name="table_search" wire:model.debounce.250ms="search" class="form-control float-right" placeholder="Search">
+                    <input type="text" name="table_search" class="form-control float-right" placeholder="Search">
 
                     <div class="input-group-append">
                       <button type="submit" class="btn btn-default"><i class="fas fa-search"></i></button>
@@ -28,42 +28,33 @@
                     </tr>
                   </thead>
                   <tbody>
-                    @forelse($users as $user)
+                   
                     <tr>
                       <td>
-                        @if($user->sexe == "0")
+                    
                             <img src="{{asset('image/woman.png')}}" width="24"/>
-                        @else
-                            <img src="{{asset('image/man.png')}}" width="24"/>
-                        @endif
+                    
+                         <!--    <img src="{{asset('image/man.png')}}" width="24"/> -->
+                        
                       </td>
-                      <td>{{ $user->prenom }} {{ $user->nom }}</td>
-                      <td> {{$user->allRoleNames}}</td>
-                      <td class="text-center"><span class="tag tag-success">{{ $user->created_at->diffForHumans() }}</span></td>
+                      <td>nom</td>
+                      <td> roles</td>
+                      <td class="text-center"><span class="tag tag-success">date</span></td>
                       <td class="text-center">
-                        <button class="btn btn-link" wire:click="goToEditUser({{$user->id}})"> <i class="far fa-edit"></i> </button>
-                         @if(count($user->roles) == 0 && count($user->permissions)==0)
-                         <button class="btn btn-link" wire:click="confirmDelete('{{ $user->prenom }} {{ $user->nom }}', {{$user->id}})"> <i class="far fa-trash-alt"></i> </button>
-                         @endif
+                        <button class="btn btn-link"> <i class="far fa-edit"></i> </button>
+                         
+                         <button class="btn btn-link" > <i class="far fa-trash-alt"></i> </button>
+                       
                       </td>
                     </tr>
-                     @empty
-                          <tr>
-                            <td colspan="6">
-                                <div class="alert alert-danger">
-                                     <h5><i class="icon fas fa-ban"></i> Information!</h5>
-                                            Aucune donnée trouvée par rapport aux éléments de recherche entrés.
-                                            </div>
-                                    </td>
-                                </tr>
-                    @endforelse
+                    
                   </tbody>
                 </table>
               </div>
               <!-- /.card-body -->
               <div class="card-footer">
                 <div class="float-right">
-                     {{ $users->links() }}
+                 
                 </div>
               </div>
             </div>

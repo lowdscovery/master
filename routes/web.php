@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\UserController;
+use App\Http\Livewire\Caracteristique;
 use App\Http\Livewire\Utilisateurs;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
@@ -34,9 +35,21 @@ Route::group([
     ], function(){
 
         Route::get("/utilisateurs", Utilisateurs::class)->name("users.index")->middleware("auth.manager");
-        //Route::get("/rolesetpermissions", [UserController::class, "index"])->name("rolespermissions.index");
-        
+    });
+});
 
+//
+Route::group([
+    "middleware" => ["auth", "auth.manager"],
+    'as' => 'manager.'
+], function(){
+
+    Route::group([
+        "prefix" => "caracteristiques",
+        'as' => 'caracteristiques.'
+    ], function(){
+
+        Route::get("/moteurs", Caracteristique::class)->name("caracteristique.caracteristique")->middleware("auth.manager");
     });
 });
 
