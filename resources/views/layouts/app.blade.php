@@ -27,9 +27,7 @@
     <div id="app">
         <nav class="navbar navbar-expand-md navbar-dark bg-primary shadow-sm">
             <div class="container">
-                <a class="navbar-brand" href="{{ url('/') }}">
-                    {{ config('app.name', 'Laravel') }}
-                </a>
+                
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
                     <span class="navbar-toggler-icon"></span>
                 </button>
@@ -52,7 +50,7 @@
 
                             @if (Route::has('register'))
                                 <li class="nav-item">
-                                <a class="nav-link" href="{{ route('register') }}" style="font-size:1.2em">{{ __('Register') }}</a>
+                                <a class="nav-link" href="{{ route('register') }}" style="font-size:1.2em">{{ __('Registre') }}</a>
                                 </li>
                             @endif
                         @else

@@ -1,3 +1,9 @@
+ 
+ @if ($isBtnAddClicked)
+   @include("livewire.caracteristique.create")
+ @else
+   
+ @endif
  <div class="row p-4 pt-5">
           <div class="col-12">
             <div class="card">
@@ -5,7 +11,7 @@
                 <h3 class="card-title flex-grow-1"><i class="nav-icon fas fa-cogs"></i> Caracteristiques des moteurs</h3>
 
                 <div class="card-tools d-flex align-items-center ">
-                <a class="btn btn-link text-white mr-4 d-block"><i class="nav-icon fas fa-cog"></i> Nouvel moteur</a>
+                <a class="btn btn-link text-white mr-4 d-block" wire:click.prevent="goToaddCaract()"><i class="nav-icon fas fa-cog"></i> Nouvel moteur</a>
                   <div class="input-group input-group-md" style="width: 250px;">
                     <input type="text" name="table_search" class="form-control float-right" placeholder="Search">
 

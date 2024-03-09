@@ -23,8 +23,8 @@
                       <th style="width:5%;"></th>
                       <th style="width:25%;">Utilisateurs</th>
                       <th style="width:20%;" >Roles</th>
-                      <th style="width:20%;" class="text-center">Ajouté</th>
-                      <th style="width:30%;" class="text-center">Action</th>
+                      <th style="width:38%;" class="text-center">Ajouté</th>
+                      <th style="width:12%;" class="text-center"> Actions </th>
                     </tr>
                   </thead>
                   <tbody>
@@ -40,7 +40,7 @@
                       <td>{{ $user->prenom }} {{ $user->nom }}</td>
                       <td> {{$user->allRoleNames}}</td>
                       <td class="text-center"><span class="tag tag-success">{{ $user->created_at->diffForHumans() }}</span></td>
-                      <td class="text-center">
+                      <td class="">
                         <button class="btn btn-link" wire:click="goToEditUser({{$user->id}})"> <i class="far fa-edit"></i> </button>
                          @if(count($user->roles) == 0 && count($user->permissions)==0)
                          <button class="btn btn-link" wire:click="confirmDelete('{{ $user->prenom }} {{ $user->nom }}', {{$user->id}})"> <i class="far fa-trash-alt"></i> </button>

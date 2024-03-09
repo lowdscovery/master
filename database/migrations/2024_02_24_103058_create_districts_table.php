@@ -16,7 +16,7 @@ class CreateDistrictsTable extends Migration
         Schema::create('districts', function (Blueprint $table) {
             $table->id();
             $table->string('nom');
-            $table->foreignId('user_id');
+      //      $table->foreignId('user_id');
             $table->timestamps();
         });
 
@@ -30,9 +30,9 @@ class CreateDistrictsTable extends Migration
      */
     public function down()
     {
-        Schema::table('districs', function(Blueprint $table){
+       /* Schema::table('districs', function(Blueprint $table){
             $table->dropForeign(["user_id"]);
-        });
+        });*/
         Schema::dropIfExists('districts');
     }
 }
