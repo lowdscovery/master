@@ -100,9 +100,7 @@ public function confirmDelete($name, $id){
         "text" => "Vous êtes sur le point de supprimer $name de la liste des utilisateurs. Voulez-vous continuer?",
         "title" => "Êtes-vous sûr de continuer?",
         "type" => "warning",
-        "data" => [
-            "user_id" => $id
-        ]
+        "data" => [ "user_id" => $id]
     ]]);
 }  
 

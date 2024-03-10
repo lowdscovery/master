@@ -134,7 +134,10 @@
                 <!-- /.card-body -->
 
                 <div class="card-footer">
-                  <button type="submit" class="btn btn-primary">Enregistrer</button>
+                <div wire:loading.delay wire:target="addCaract">
+                   <span class="text-green">Sending...</span>
+                </div>
+                  <button type="submit" class="btn btn-primary" wire:loading.attr="disabled">Enregistrer</button>
                   <button type="button" wire:click="goToList()" class="btn btn-danger">Retour à la liste</button>
                 </div>
               </form>

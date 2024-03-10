@@ -132,9 +132,12 @@
 
                 </div>
                 <!-- /.card-body -->
-
+                
                 <div class="card-footer">
-                  <button type="submit" class="btn btn-primary">Appliquer les modifications</button>
+                <div wire:loading.delay wire:target="updateCaract">
+                   <span class="text-green">Sending...</span>
+                </div>
+                  <button type="submit" class="btn btn-primary" wire:loading.attr="disabled">Appliquer les modifications</button>
                   <button type="button" wire:click="goToList()" class="btn btn-danger">Retour à la liste</button>
                 </div>
               </form>
