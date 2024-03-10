@@ -22,6 +22,7 @@ class MoteurElectriqueFactory extends Factory
             'indiceDeProtection' => $this->faker->buildingNumber,
             'classeIsolant' => $this->faker->address,
             'typeDeDemarrage' => $this->faker->macAddress,
+            'caracteristique_moteur_id' => rand(1,10),
         ];
     }
 }

@@ -19,6 +19,7 @@ class CreateMoteurPompesTable extends Migration
             $table->string('hauteurManometrique');
             $table->string('corpsDePompe');
             $table->string('chemiseArbre');
+            $table->foreignId('caracteristique_moteur_id')->nullable();
             $table->timestamps();
         });
     }
@@ -30,6 +31,9 @@ class CreateMoteurPompesTable extends Migration
      */
     public function down()
     {
+        Schema::table('moteur_pompes', function(Blueprint $table){
+            $table->dropForeign(["caracteristique_moteur_id"]);
+        });
         Schema::dropIfExists('moteur_pompes');
     }
 }

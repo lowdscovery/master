@@ -23,6 +23,7 @@ class CreateMoteurElectriquesTable extends Migration
             $table->string('indiceDeProtection');
             $table->string('classeIsolant');
             $table->string('typeDeDemarrage');
+            $table->foreignId('caracteristique_moteur_id')->nullable();
             $table->timestamps();
         });
     }
@@ -34,6 +35,9 @@ class CreateMoteurElectriquesTable extends Migration
      */
     public function down()
     {
+        Schema::table('moteur_electriques', function(Blueprint $table){
+            $table->dropForeign(["caracteristique_moteur_id"]);
+        });
         Schema::dropIfExists('moteur_electriques');
     }
 }

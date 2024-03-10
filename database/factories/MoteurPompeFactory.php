@@ -16,8 +16,9 @@ class MoteurPompeFactory extends Factory
         return [
             'debitNominal' => $this->faker->swiftBicNumber,
             'hauteurManometrique' => $this->faker->buildingNumber,
-            'corpsDePompe' => $this->faker->address,
+            'corpsDePompe' => $this->faker->swiftBicNumber,
             'chemiseArbre' => $this->faker->macAddress,
+            'caracteristique_moteur_id' => rand(1,10),
         ];
     }
 }

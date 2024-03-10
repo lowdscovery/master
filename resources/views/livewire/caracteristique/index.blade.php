@@ -7,7 +7,7 @@
         @include("livewire.caracteristique.edit")
     @endif
 
-    @if($currentPage == PAGELIST)
+    @if($currentPage == PAGELISTFORM)
         @include("livewire.caracteristique.liste")
     @endif
 

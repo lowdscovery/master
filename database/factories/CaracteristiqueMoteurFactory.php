@@ -29,8 +29,6 @@ class CaracteristiqueMoteurFactory extends Factory
             'observations' => $this->faker->address,
             'moteurs' => $this->faker->firstName,
             'user_id' => rand(1,10),
-            'moteur_pompe_id' => rand(1,10),
-            'moteur_electrique_id' => rand(1,10),
         ];
     }
 }

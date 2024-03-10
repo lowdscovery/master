@@ -30,8 +30,6 @@ class CreateCaracteristiqueMoteursTable extends Migration
             $table->string('observations');
             $table->string('moteurs');
             $table->foreignId('user_id')->nullable();
-            $table->foreignId('moteur_pompe_id')->nullable();
-            $table->foreignId('moteur_electrique_id')->nullable();
             $table->timestamps();
         });
         Schema::enableForeignKeyConstraints();

@@ -3,6 +3,7 @@
 namespace App\Http\Livewire;
 
 use App\Models\CaracteristiqueMoteur;
+use App\Models\MoteurPompe;
 use Livewire\Component;
 use Livewire\WithPagination;
 
@@ -12,8 +13,9 @@ class Caracteristique extends Component
     protected $paginationTheme = "bootstrap";
     public $newCaract = [];
     public $editCaract = [];
-    public $currentPage = PAGELIST;
+    public $currentPage = PAGELISTFORM;
     public $search = "";
+    public $selectedMoteur;
 
     public function rules(){
         if($this->currentPage == PAGEEDITFORM){
@@ -56,7 +58,9 @@ class Caracteristique extends Component
     {
         $searchCriteria = "%".$this->search."%";
         $data = [
-            "caracteristiques" => CaracteristiqueMoteur::where("marque","like",$searchCriteria)->latest()->paginate(5),
+        "caracteristiques" => CaracteristiqueMoteur::where("marque","like",$searchCriteria)->latest()->paginate(5),
+        "pompes" => MoteurPompe::where("debitNominal","like",$searchCriteria)->latest()->paginate(3)
+           // "pompes" => MoteurPompe::where("moteur_pompe_id",optional($this->selectedMoteur)->id)->get()
         ];
         
         return view('livewire.caracteristique.index',$data)
@@ -70,7 +74,7 @@ class Caracteristique extends Component
         $this->resetErrorBag();
     }
     public function goToList(){
-        $this->currentPage=PAGELIST;
+        $this->currentPage=PAGELISTFORM;
         $this->resetErrorBag();
        // $this->editCaract=[];
     }
@@ -105,7 +109,7 @@ public function updateCaract(){
 //supression
 public function confirmDelete($marque, $id){
     $this->dispatchBrowserEvent("showConfirmMessage", ["message"=> [
-        "text" => "Vous êtes supprimer la marque $marque sur la liste des moteurs. Voulez-vous continuer?",
+        "text" => "Vous êtes sur le point de supprimer la marque $marque sur la liste des moteurs. Voulez-vous continuer?",
         "title" => "Êtes-vous sûr de continuer?",
         "type" => "warning",
         "data" => ["caracteristique_moteur_id" => $id]
@@ -118,8 +122,9 @@ public function deleteCaract($id){
 
 //afficher modal
 public function showModal(){
-    $this->dispatchBrowserEvent("Modal", []);
+    $this->dispatchBrowserEvent("showModal", []);
 }
+
 public function closeModal(){
     $this->dispatchBrowserEvent("closeModal", []);
 }
