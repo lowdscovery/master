@@ -4,38 +4,38 @@
   <div class="modal-dialog modal-lg">
     <div class="modal-content">
         <div class="modal-header">
-            <h5 class="modal-title">Gestion des caracteristique de "stephan" </h5>
+            <h5 class="modal-title">Gestion des caracteristique de "{{optional($selectedMoteur)->moteurs}}" </h5>
       </div>
       <div class="modal-body">
           <div class="d-flex my-4 bg-gray-light p-3">
               <div class="d-flex flex-grow-1 mr-2">
                   <div class="flex-grow-1 mr-2">
-                      <input type="text" placeholder="Debit Nominal"  wire:model="newPropModel.nom" class="form-control @error("newPropModel.nom") is-invalid @enderror">
-                      @error("newPropModel.nom")
+                      <input type="text" placeholder="Debit Nominal"  wire:model="addModal.debitNominal" class="form-control @error("addModal.debitNominal") is-invalid @enderror">
+                      @error("addModal.debitNominal")
                           <span class="text-danger">{{$message}}</span>
                       @enderror
                   </div>
                   <div class="flex-grow-1 mr-2">
-                      <input type="text" placeholder="Hateur Manometrique"  wire:model="newPropModel.nom" class="form-control @error("newPropModel.nom") is-invalid @enderror">
-                      @error("newPropModel.nom")
+                      <input type="text" placeholder="Hateur Manometrique"  wire:model="addModal.hauteurManometrique" class="form-control @error("addModal.hauteurManometrique") is-invalid @enderror">
+                      @error("addModal.hauteurManometrique")
                           <span class="text-danger">{{$message}}</span>
                       @enderror
                   </div>
                   <div class="flex-grow-1 mr-2">
-                      <input type="text" placeholder="Corps de Pompe"  wire:model="newPropModel.nom" class="form-control @error("newPropModel.nom") is-invalid @enderror">
-                      @error("newPropModel.nom")
+                      <input type="text" placeholder="Corps de Pompe"  wire:model="addModal.corpsDePompe" class="form-control @error("addModal.corpsDePompe") is-invalid @enderror">
+                      @error("addModal.corpsDePompe")
                           <span class="text-danger">{{$message}}</span>
                       @enderror
                   </div>
                   <div class="flex-grow-1 mr-2">
-                      <input type="text" placeholder="Chemise d'arbre"  wire:model="newPropModel.nom" class="form-control @error("newPropModel.nom") is-invalid @enderror">
-                      @error("newPropModel.nom")
+                      <input type="text" placeholder="Chemise d'arbre"  wire:model="addModal.chemiseArbre" class="form-control @error("addModal.chemiseArbre") is-invalid @enderror">
+                      @error("addModal.chemiseArbre")
                           <span class="text-danger">{{$message}}</span>
                       @enderror
                   </div>
               </div>
               <div>
-              <button class="btn btn-success" wire:click="addProp()">Ajouter</button>
+              <button class="btn btn-success" wire:click="addModalPompe()">Ajouter</button>
               </div>
               </div>
               <table class="table table-bordered">
@@ -55,13 +55,13 @@
               <td>{{$pompe->chemiseArbre}}</td>
               <td class="text-center">
                 <button class="btn btn-warning"> <i class="far fa-edit"></i> </button>  
-                <button class="btn btn-danger"> <i class="far fa-trash-alt"></i> </button>     
+                <button class="btn btn-danger" wire:click="confirmDeleteModal({{$pompe->id}})"> <i class="far fa-trash-alt"></i> </button>     
               </td>
           </tr>
       @empty
           <tr>
               <td colspan="3">
-                  <span class="text-info">Vous n'avez pas encore des moteurs dfinies</span>
+                  <span class="text-info">Vous n'avez pas encore des moteurs définies</span>
               </td>
           </tr>
     @endforelse

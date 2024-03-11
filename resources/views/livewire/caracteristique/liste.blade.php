@@ -36,7 +36,7 @@
                       <th style="width:20%;">Type</th>
                       <th style="width:20%;" class="text-center">Numero de serie</th>
                       <th style="width:20%;" class="text-center">Moteur</th>
-                      <th style="width:20%;" class="text-center">Action</th>
+                      <th style="width:20%;" >Action</th>
                     </tr>
                   </thead>
                   <tbody>
@@ -52,16 +52,12 @@
           <td style="width:20%;" class="text-center"><span class="badge badge-success">ELECTRIQUE</span></td>
                         @endif
                       
-                      <td style="width:20%;" class="text-center">
-                        <button class="btn btn-link" wire:click="goToEditCaract({{$caracteristique->id}})"> <i class="far fa-edit"></i> </button>                 
-          <button class="btn btn-link" wire:click="confirmDelete('{{$caracteristique->marque}}',{{$caracteristique->id}})"> <i class="far fa-trash-alt"></i> </button>
-          <button class="btn btn-link" wire:click="showModal({{$caracteristique->id}})" data-bs-toggle="modal" data-bs-target="#exampleModal"> <i class="nav-icon fas fa-list-ul"></i> </button>
-                 <!--<button class="btn btn-link" data-toggle="modal" data-target=".bd-example-modal-lg" aria-hidden="false" // data-toggle="modal" data-target="#exampleModal" > <i class="nav-icon fas fa-list-ul"></i> </button>
-                   <button class="btn btn-link" id="btn" > <i class="nav-icon fas fa-list-ul"></i> </button>
-                         <button class="btn btn-link" wire:click="showModal({{$caracteristique->id}})" > <i class="nav-icon fas fa-list-ul"></i> </button>
-
-                         -->
-                       
+                      <td style="width:20%;">
+          <button class="btn btn-link" wire:click="goToEditCaract({{$caracteristique->id}})"> <i class="far fa-edit"></i> </button>       
+          <button class="btn btn-link" wire:click="showModal({{$caracteristique->id}})" data-bs-toggle="modal" data-bs-target="#exampleModal"> <i class="nav-icon fas fa-list-ul"></i> </button> 
+          @if(count($caracteristique->pompes) == 0)         
+          <button class="btn btn-link" wire:click="confirmDelete('{{$caracteristique->marque}}',{{$caracteristique->id}})"> <i class="far fa-trash-alt"></i> </button> 
+          @endif              
                       </td>
                     </tr>
                      @empty
@@ -109,10 +105,14 @@
         confirmButtonText: 'Continuer',
         cancelButtonText: 'Annuler'
         }).then((result) => {
-        if (result.isConfirmed) {   
-            //appel fuction livewire @  
-        @this.deleteCaract(event.detail.message.data.caracteristique_moteur_id)
-        }
+         if(event.detail.message.data.caracteristique_moteur_id){
+               //appelle fonction livewire
+                @this.deleteCaract(event.detail.message.data.caracteristique_moteur_id)
+            }
+            if(event.detail.message.data.moteur_pompe_id){
+                @this.deleteModalPompe(event.detail.message.data.moteur_pompe_id)
+            }
+
         })
 
         
@@ -130,26 +130,4 @@
             )
     })
 
-</script>
-
-
-
-
-<!--
-<script type="text/javascript">
-$('#btn').on('click', function(){
-  $('#goalmodal').modal('show');
-});
-</script>
--->
-<script>
-    window.addEventListener("showModal", event=>{
-       $('#exampleModal').modal({
-           "show": true,
-           "backdrop": "static"
-       })
-    window.addEventListener("closeModal", event=>{
-       $("#exampleModal").modal("hide")
-    })
-    })
 </script>

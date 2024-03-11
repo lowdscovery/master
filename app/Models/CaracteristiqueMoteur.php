@@ -25,4 +25,7 @@ class CaracteristiqueMoteur extends Model
         'observations',
         'moteurs'
     ];
+    public function pompes(){
+        return $this->hasMany(MoteurPompe::class);
+    }
 }

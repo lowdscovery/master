@@ -16,6 +16,7 @@ class Caracteristique extends Component
     public $currentPage = PAGELISTFORM;
     public $search = "";
     public $selectedMoteur;
+    public $addModal = [];
 
     public function rules(){
         if($this->currentPage == PAGEEDITFORM){
@@ -59,7 +60,7 @@ class Caracteristique extends Component
         $searchCriteria = "%".$this->search."%";
         $data = [
         "caracteristiques" => CaracteristiqueMoteur::where("marque","like",$searchCriteria)->latest()->paginate(5),
-        "pompes" => MoteurPompe::where("debitNominal","like",$searchCriteria)->latest()->paginate(3)
+        "pompes" => MoteurPompe::where("caracteristique_moteur_id",optional($this->selectedMoteur)->id)->get()
            // "pompes" => MoteurPompe::where("moteur_pompe_id",optional($this->selectedMoteur)->id)->get()
         ];
         
@@ -121,8 +122,44 @@ public function deleteCaract($id){
 }
 
 //afficher modal
-public function showModal(){
-    $this->dispatchBrowserEvent("showModal", []);
+public function showModal(CaracteristiqueMoteur $caracteristique){
+    $this->selectedMoteur = $caracteristique;
+    $this->addModal = [];
+    $this->resetErrorBag();
+}
+public function addModalPompe(){
+    $validated = $this->validate([
+        "addModal.debitNominal" =>"required",
+        "addModal.hauteurManometrique" =>"required",
+        "addModal.corpsDePompe" =>"required",
+        "addModal.chemiseArbre" =>"required"
+    ]);
+    MoteurPompe::create([
+        "debitNominal" => $this->addModal["debitNominal"],
+        "hauteurManometrique" => $this->addModal["hauteurManometrique"],
+        "corpsDePompe" => $this->addModal["corpsDePompe"],
+        "chemiseArbre" => $this->addModal["chemiseArbre"],
+        "caracteristique_moteur_id"=> $this->selectedMoteur->id,
+    ]);
+
+    $this->resetErrorBag();
+    $this->dispatchBrowserEvent("showSuccessMessage", ["message"=>"Moteur pompe ajoutée avec succès!"]);
+}
+
+//delete modal pompe
+public function confirmDeleteModal($id){
+    $this->dispatchBrowserEvent("showConfirmMessage", ["message"=> [
+        "text" => "Vous êtes sur le point de supprimer. Voulez-vous continuer?",
+        "title" => "Êtes-vous sûr de continuer?",
+        "type" => "warning",
+        "data" => [
+            "moteur_pompe_id" => $id
+        ]
+    ]]);
+}
+public function deleteModalPompe(MoteurPompe $pompe){
+    $pompe->delete();
+    $this->dispatchBrowserEvent("showSuccessMessage", ["message"=>"Suppression avec succès!"]);
 }
 
 public function closeModal(){
