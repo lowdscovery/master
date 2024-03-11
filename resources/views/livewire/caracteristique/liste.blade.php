@@ -1,8 +1,23 @@
 
 <div>
-<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-hidden="true" wire:ignore.self>
+<div class="modal fade" id="editModal" style="z-index: 1900;" tabindex="-1" role="dialog" aria-hidden="true" wire:ignore.self>
+@include("livewire.pompe.edit")
+</div> 
+@foreach ($caracteristiques as $caracteristique) 
+  
+@if($caracteristique->moteurs=="POMPE")
+ <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-hidden="true" wire:ignore.self>
 @include("livewire.pompe.add")
-</div>            
+</div>  
+@else
+<div class="modal fade" id="electriqueModal" tabindex="-1" role="dialog" aria-hidden="true" wire:ignore.self>
+@include("livewire.electrique.add")
+</div>           
+@endif
+@endforeach
+    
+
+
                           
         
 
@@ -53,8 +68,13 @@
                         @endif
                       
                       <td style="width:20%;">
-          <button class="btn btn-link" wire:click="goToEditCaract({{$caracteristique->id}})"> <i class="far fa-edit"></i> </button>       
-          <button class="btn btn-link" wire:click="showModal({{$caracteristique->id}})" data-bs-toggle="modal" data-bs-target="#exampleModal"> <i class="nav-icon fas fa-list-ul"></i> </button> 
+          <button class="btn btn-link" wire:click="goToEditCaract({{$caracteristique->id}})"> <i class="far fa-edit"></i> </button>   
+          @if($caracteristique->moteurs=="POMPE")
+        <button class="btn btn-link" wire:click="showModal({{$caracteristique->id}})" data-bs-toggle="modal" data-bs-target="#exampleModal"> <i class="nav-icon fas fa-list-ul"></i> </button>     
+          @else
+        <button class="btn btn-link" wire:click="showModal({{$caracteristique->id}})" data-bs-toggle="modal" data-bs-target="#electriqueModal"> <i class="nav-icon fas fa-list-ul"></i> </button>      
+          @endif    
+          
           @if(count($caracteristique->pompes) == 0)         
           <button class="btn btn-link" wire:click="confirmDelete('{{$caracteristique->marque}}',{{$caracteristique->id}})"> <i class="far fa-trash-alt"></i> </button> 
           @endif              

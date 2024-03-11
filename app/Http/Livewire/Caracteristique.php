@@ -3,6 +3,7 @@
 namespace App\Http\Livewire;
 
 use App\Models\CaracteristiqueMoteur;
+use App\Models\MoteurElectrique;
 use App\Models\MoteurPompe;
 use Livewire\Component;
 use Livewire\WithPagination;
@@ -16,7 +17,7 @@ class Caracteristique extends Component
     public $currentPage = PAGELISTFORM;
     public $search = "";
     public $selectedMoteur;
-    public $addModal = [];
+    public $editModal = [];
 
     public function rules(){
         if($this->currentPage == PAGEEDITFORM){
@@ -60,7 +61,8 @@ class Caracteristique extends Component
         $searchCriteria = "%".$this->search."%";
         $data = [
         "caracteristiques" => CaracteristiqueMoteur::where("marque","like",$searchCriteria)->latest()->paginate(5),
-        "pompes" => MoteurPompe::where("caracteristique_moteur_id",optional($this->selectedMoteur)->id)->get()
+        "pompes" => MoteurPompe::where("caracteristique_moteur_id",optional($this->selectedMoteur)->id)->get(),
+        "electriques" => MoteurElectrique::where("caracteristique_moteur_id",optional($this->selectedMoteur)->id)->get()
            // "pompes" => MoteurPompe::where("moteur_pompe_id",optional($this->selectedMoteur)->id)->get()
         ];
         
@@ -124,21 +126,21 @@ public function deleteCaract($id){
 //afficher modal
 public function showModal(CaracteristiqueMoteur $caracteristique){
     $this->selectedMoteur = $caracteristique;
-    $this->addModal = [];
+    $this->editModal = [];
     $this->resetErrorBag();
 }
-public function addModalPompe(){
+public function editModalPompe(){
     $validated = $this->validate([
-        "addModal.debitNominal" =>"required",
-        "addModal.hauteurManometrique" =>"required",
-        "addModal.corpsDePompe" =>"required",
-        "addModal.chemiseArbre" =>"required"
+        "editModal.debitNominal" =>"required",
+        "editModal.hauteurManometrique" =>"required",
+        "editModal.corpsDePompe" =>"required",
+        "editModal.chemiseArbre" =>"required"
     ]);
     MoteurPompe::create([
-        "debitNominal" => $this->addModal["debitNominal"],
-        "hauteurManometrique" => $this->addModal["hauteurManometrique"],
-        "corpsDePompe" => $this->addModal["corpsDePompe"],
-        "chemiseArbre" => $this->addModal["chemiseArbre"],
+        "debitNominal" => $this->editModal["debitNominal"],
+        "hauteurManometrique" => $this->editModal["hauteurManometrique"],
+        "corpsDePompe" => $this->editModal["corpsDePompe"],
+        "chemiseArbre" => $this->editModal["chemiseArbre"],
         "caracteristique_moteur_id"=> $this->selectedMoteur->id,
     ]);
 
@@ -160,6 +162,30 @@ public function confirmDeleteModal($id){
 public function deleteModalPompe(MoteurPompe $pompe){
     $pompe->delete();
     $this->dispatchBrowserEvent("showSuccessMessage", ["message"=>"Suppression avec succès!"]);
+}
+//edit modal
+public function EditModal(MoteurPompe $pompe){
+    $this->editModal["debitNominal"] = $pompe->debitNominal ;
+    $this->editModal["hauteurManometrique"] = $pompe->hauteurManometrique ;
+    $this->editModal["corpsDePompe"] = $pompe->corpsDePompe;
+    $this->editModal["chemiseArbre"] = $pompe->chemiseArbre ;
+    $this->editModal["id"] = $pompe->id;
+}
+public function updateModal(){
+    $this->validate([
+        "editModal.debitNominal" => "required",
+        "editModal.hauteurManometrique" => "required",
+        "editModal.corpsDePompe" => "required",
+        "editModal.chemiseArbre" => "required"
+    ]);
+    MoteurPompe::find($this->editModal["id"])->update([
+        "debitNominal" => $this->editModal["debitNominal"],
+        "hauteurManometrique" => $this->editModal["hauteurManometrique"],
+        "corpsDePompe" => $this->editModal["corpsDePompe"],
+        "chemiseArbre" => $this->editModal["chemiseArbre"]
+    ]);
+
+    $this->dispatchBrowserEvent("showSuccessMessage", ["message"=>"Mise à jour avec succès!"]);
 }
 
 public function closeModal(){
