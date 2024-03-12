@@ -2,6 +2,9 @@
 
 use App\Http\Controllers\UserController;
 use App\Http\Livewire\Caracteristique;
+use App\Http\Livewire\Information;
+use App\Http\Livewire\Intervenant;
+use App\Http\Livewire\Uploads;
 use App\Http\Livewire\Utilisateurs;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
@@ -52,7 +55,11 @@ Route::group([
         Route::get("/moteurs", Caracteristique::class)->name("caracteristique.caracteristique")->middleware("auth.manager");
     });
 });
+//
+Route::get("/intervenants", Intervenant::class)->name("Intervenant.intervenant")->middleware("auth.manager");
 
+Route::get("/uploads", Uploads::class)->name("uploads")->middleware("auth.manager");
+Route::get("/information", Information::class)->name("information")->middleware("auth.manager");
 
 
 

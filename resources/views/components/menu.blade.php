@@ -90,15 +90,15 @@
 
          <li class="nav-header">LOCATION</li>
         <li class="nav-item">
-            <a href="" class="nav-link ">
+            <a href="{{route('Intervenant.intervenant')}}" class="nav-link {{setMenuActive('Intervenant.intervenant')}}">
                 <i class="nav-icon fas fa-users"></i>
                 <p>
-                Gestion des clients
+                Intervenant
                 </p>
             </a>
         </li>
         <li class="nav-item">
-            <a href="#" class="nav-link">
+            <a href="{{route('uploads')}}" class="nav-link {{setMenuActive('uploads')}}">
                 <i class="nav-icon fas fa-exchange-alt"></i>
                 <p>
                 Gestion des locations

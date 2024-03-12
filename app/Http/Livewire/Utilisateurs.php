@@ -43,7 +43,7 @@ class Utilisateurs extends Component
                 'editUser.telephone1' => ['required', 'numeric', Rule::unique("users", "telephone1")->ignore($this->editUser['id']) ]  ,
                 'editUser.pieceIdentite' => ['required'],
                 'editUser.sexe' => 'required',
-                'editUser.numeroPieceIdentite' => ['required', Rule::unique("users", "pieceIdentite")->ignore($this->editUser['id']) ],
+                'editUser.numeroPieceIdentite' => ['required','numeric', Rule::unique("users", "pieceIdentite")->ignore($this->editUser['id']) ],
             ];
         }
 
@@ -54,11 +54,18 @@ class Utilisateurs extends Component
             'newUser.telephone1' => 'required|numeric|unique:users,telephone1',
             'newUser.pieceIdentite' => 'required',
             'newUser.sexe' => 'required',
-            'newUser.numeroPieceIdentite' => 'required|unique:users,numeroPieceIdentite',
+            'newUser.numeroPieceIdentite' => 'required|numeric|unique:users,numeroPieceIdentite',
         ];
     }
 
-    protected $messages = ['newUser.nom.required' => "Le nom de l'utilisateur est requis.", ];
+    protected $messages = ['newUser.nom.required' => "Le nom de l'utilisateur est vide.",
+                           'newUser.prenom.required' => "Le prenom de l'utilisateur est vide.",
+                           'newUser.email.required' => "L'email de l'utilisateur est vide.",
+                           'newUser.telephone1.required' => "Le numero de telephone est vide.",
+                           'newUser.pieceIdentite.required' => "Le piece d'identité est vide.",
+                           'newUser.sexe.required' => "Le sexe est vide.",
+                           'newUser.numeroPieceIdentite.required' => "Le numero de piece d'identité est vide.",
+                     ];
 
     public function render()
     {
