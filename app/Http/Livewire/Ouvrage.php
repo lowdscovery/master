@@ -17,8 +17,10 @@ class Ouvrage extends Component
     public $isSelectededit = false;
     public $addOuvrage = [];
     public $editOuvrage = [];
+    public $resetValueInput = 0;
     public $image;
     public $fichier;
+    public $ouvre = false;
 
     public function render()
     {
@@ -34,11 +36,18 @@ class Ouvrage extends Component
     public function selected(){
         $this->isSelected = true;
     }
+    public function select(){
+      $this->ouvre = true;
+  }
+    public function selectede(){
+      $this->ouvre = false;
+      $this->cancel();
+  }
     public function cancel(){
         $this->isSelected = false;
         $this->resetErrorBag();
         $this->addOuvrage = [];
-        $this->addOuvrage["edit"] = false;
+    //    $this->addOuvrage["edit"] = false;
     }
     public function editselect(){
         $this->isSelectededit = true;
@@ -46,7 +55,7 @@ class Ouvrage extends Component
 
 
 public function Ouvrage(){
-
+   sleep(2);
     $this->validate([
         "addOuvrage.annee" =>"required",
         "addOuvrage.type" =>"required",
@@ -92,36 +101,42 @@ public function Ouvrage(){
      );
     $this->reset(['fichier']);
     $this->resetErrorBag();
+    $this->image =null;
+    $this->fichier =null;
+    $this->resetValueInput++;
     $this->addOuvrage = [];
-    $this->addOuvrage["edit"] = false;
+ //   $this->addOuvrage["edit"] = false;
     $this->dispatchBrowserEvent("showSuccessMessage", ["message"=>"Votre demande reussi avec succès!"]);
 }
 
 public function editOuvrage(ModelsOuvrage $ouvrage){
-    $this->addOuvrage = $ouvrage->toArray();
-    $this->addOuvrage["edit"] = true;
+   // $this->addOuvrage = $ouvrage->toArray();
+   $this->editOuvrage = $ouvrage->toArray();
+   // $this->addOuvrage["edit"] = true;
     $this->isSelected = true;
+    $this->select();
     $this->editselect();
 }
 
 public function updateOuvrage(){
+  sleep(2);
     $this->validate([
-      "addOuvrage.annee" =>"required",
-      "addOuvrage.type" =>"required",
-      "addOuvrage.debitNominale" =>"required",
-      "addOuvrage.profondeur" =>"required",
-      "addOuvrage.debitConseiller" =>"required",
-      "addOuvrage.debitExploite" =>"required",
-      "addOuvrage.diametre" =>"required",
-      "addOuvrage.nombreExhaur" =>"required",  
-      "addOuvrage.sondeBas" =>"required",
-      "addOuvrage.sondeHaut" =>"required",
+      "editOuvrage.annee" =>"required",
+      "editOuvrage.type" =>"required",
+      "editOuvrage.debitNominale" =>"required",
+      "editOuvrage.profondeur" =>"required",
+      "editOuvrage.debitConseiller" =>"required",
+      "editOuvrage.debitExploite" =>"required",
+      "editOuvrage.diametre" =>"required",
+      "editOuvrage.nombreExhaur" =>"required",  
+      "editOuvrage.sondeBas" =>"required",
+      "editOuvrage.sondeHaut" =>"required",
       "image" => "image|max:10240",
       "fichier" => "required|mimes:pdf|max:10240",
-      "addOuvrage.ressource_id"=>"required|numeric|unique:ouvrages,ressource_id",
+      "editOuvrage.ressource_id"=>"required|numeric|unique:ouvrages,ressource_id",
     ]);
-    $ouvrage = ModelsOuvrage::find($this->addOuvrage["id"]);
-    $ouvrage->fill($this->addOuvrage);
+    $ouvrage = ModelsOuvrage::find($this->editOuvrage["id"]);
+    $ouvrage->fill($this->editOuvrage);
 
     if($this->image){
         $path = $this->image->store("forage", "public");
@@ -138,8 +153,8 @@ public function updateOuvrage(){
   
     $ouvrage->save();
     $this->resetErrorBag();
-    $this->addOuvrage = [];
-    $this->addOuvrage["edit"] = false;
+    $this->editOuvrage = [];
+   // $this->editOuvrage["edit"] = false;
     $this->dispatchBrowserEvent("showSuccessMessage", ["message"=> "Forage mis à jour avec succès!"]);
   }
 

@@ -1,4 +1,10 @@
+@if ($ouvre)
+ @include("livewire.ouvrage.update")
+@else 
 <div class="pt-4">
+    <div class="col-12">
+
+
 
 <div class="modal fade" id="addModal"tabindex="-1" role="dialog" aria-hidden="true" wire:ignore.self>
 <div class="modal-dialog  modal-xl">
@@ -19,49 +25,50 @@
     </div>
   </div>
 </div> 
-</div> 
+</div>
 
-    <div class="col-12">
+
+
         <div class="card">
             <div class="card-header bg-gradient-primary d-flex align-items-center">
-                <h3 class="card-title flex-grow-1"><i class="fa fa-list fa-2x"></i> Forage </h3>
+                <h3 class="card-title flex-grow-1"><i class="fa fa-list fa-2x"></i> Forage -Puits </h3>
 
-                <div class="card-tools d-flex align-items-center ">
+
                     <a class="btn btn-link btn-db text-white mr-4 d-block" wire:click="selected"><i
-                            class="fas fa-user-plus"></i> Nouveau Forage</a>
+                            class="fas fa-user-plus"></i> Ajouter Nouveau</a>
+
                 </div>
             </div>
             <!-- /.card-header -->
-    <div class="card-body table-responsive p-0 table-striped">
-         
+            <div class="card-body table-responsive p-0 table-striped">
+            <form wire:submit.prevent="Ouvrage">
         @if ($isSelected)
-        <form wire:submit.prevent="Ouvrage">
-        <div class="p-4">
-       
-                <div class="form-row">
+            <div class="p-4">
+                    <div>
+                    <div class="form-row">
                     <div class="col">
      <input type="text" class="form-control @error('addOuvrage.annee') is-invalid @enderror" wire:model="addOuvrage.annee" placeholder="Annee" required="required" title="L'année doit être en 4 chiffre" pattern="\d{4}">
                     @error("addOuvrage.annee")
                     <span class="text-danger">{{$message}}</span>
                     @enderror
-                        </div>
+                     </div>
 
                     <div class="col">
-     <input type="text" class="form-control @error('addOuvrage.type') is-invalid @enderror" wire:model="addOuvrage.type" placeholder="Type">
+     <input type="text" class="form-control @error('addOuvrage.type') is-invalid @enderror" wire:model="addOuvrage.type" placeholder="Type" required="required" title="Saisissez le type">
                    @error("addOuvrage.type")
                     <span class="text-danger">{{$message}}</span>
                     @enderror
                     </div>
 
                     <div class="col">
-     <input type="text" class="form-control @error('addOuvrage.debitNominale') is-invalid @enderror" wire:model="addOuvrage.debitNominale" placeholder="Debit Nominale">
+     <input type="text" class="form-control @error('addOuvrage.debitNominale') is-invalid @enderror" wire:model="addOuvrage.debitNominale" placeholder="Debit Nominale" required="required" title="Saisissez le debit nominal">
                    @error("addOuvrage.debitNominale")
                     <span class="text-danger">{{$message}}</span>
                     @enderror
                     </div>
 
                     <div class="col">
-     <input type="text" class="form-control @error('addOuvrage.profondeur') is-invalid @enderror" wire:model="addOuvrage.profondeur" placeholder="Profondeur">
+     <input type="text" class="form-control @error('addOuvrage.profondeur') is-invalid @enderror" wire:model="addOuvrage.profondeur" placeholder="Profondeur" required="required" title="Saisissez le profondeur">
                    @error("addOuvrage.profondeur")
                     <span class="text-danger">{{$message}}</span>
                     @enderror
@@ -69,61 +76,59 @@
                 </div>
 
                 <div class="form-row pt-3">
-
                     <div class="col">
-     <input type="text" class="form-control @error('addOuvrage.debitConseiller') is-invalid @enderror" wire:model="addOuvrage.debitConseiller" placeholder="Debit Conseiller">
+     <input type="text" class="form-control @error('addOuvrage.debitConseiller') is-invalid @enderror" wire:model="addOuvrage.debitConseiller" placeholder="Debit Conseiller" required="required" title="Saisissez le debit conseiller">
                     @error("addOuvrage.debitConseiller")
                    <span class="text-danger">{{$message}}</span>
                     @enderror
                     </div>
 
                     <div class="col">
-     <input type="text" class="form-control @error('addOuvrage.debitExploite') is-invalid @enderror" wire:model="addOuvrage.debitExploite" placeholder="Debit exploiter">
+     <input type="text" class="form-control @error('addOuvrage.debitExploite') is-invalid @enderror" wire:model="addOuvrage.debitExploite" placeholder="Debit exploiter" required="required" title="Saisissez le debit exploiter">
                     @error("addOuvrage.debitExploite")
                    <span class="text-danger">{{$message}}</span>
                     @enderror
                     </div>
 
                     <div class="col">
-     <input type="text" class="form-control @error('addOuvrage.diametre') is-invalid @enderror" wire:model="addOuvrage.diametre" placeholder="Diametre">
+     <input type="text" class="form-control @error('addOuvrage.diametre') is-invalid @enderror" wire:model="addOuvrage.diametre" placeholder="Diametre" required="required" title="Saisissez le diamètre">
                    @error("addOuvrage.diametre")
                     <span class="text-danger">{{$message}}</span>
                     @enderror
                     </div>
 
                     <div class="col">
-     <input type="text" class="form-control @error('addOuvrage.nombreExhaur') is-invalid @enderror" wire:model="addOuvrage.nombreExhaur" placeholder="Nombre Exhaure">
+     <input type="text" class="form-control @error('addOuvrage.nombreExhaur') is-invalid @enderror" wire:model="addOuvrage.nombreExhaur" placeholder="Nombre Exhaure" required="required" title="Saisissez le nombre exhaure">
                    @error("addOuvrage.nombreExhaur")
                     <span class="text-danger">{{$message}}</span>
                     @enderror
-                    </div> 
-                       
+                    </div>                   
                 </div>
 
                 <div class="form-row">
                   <div class="col pt-3">
-      <input type="text" class="form-control @error('addOuvrage.sondeBas') is-invalid @enderror" wire:model="addOuvrage.sondeBas" placeholder="Sonde Bas">
+      <input type="text" class="form-control @error('addOuvrage.sondeBas') is-invalid @enderror" wire:model="addOuvrage.sondeBas" placeholder="Sonde Bas" required="required" title="Saisissez le sonde bas">
                     @error("addOuvrage.sondeBas")
                     <span class="text-danger">{{$message}}</span>
                     @enderror
                     </div>
 
                     <div class="col pt-3">
-     <input type="text" class="form-control @error('addOuvrage.sondeHaut') is-invalid @enderror" wire:model="addOuvrage.sondeHaut" placeholder="Sond Haut">
+     <input type="text" class="form-control @error('addOuvrage.sondeHaut') is-invalid @enderror" wire:model="addOuvrage.sondeHaut" placeholder="Sond Haut" required="required" title="Saisissez le sond haut">
                     @error("addOuvrage.sondeHaut")
                     <span class="text-danger">{{$message}}</span>
                     @enderror
                     </div>
 
                     <div class="col pt-3">
-      <input class="form-control " type="file" wire:model="image" required="required"> 
+      <input class="form-control " type="file" wire:model="image" wire:loading.attr="disabled" id="image{{$resetValueInput}}"  required="required" title="Selectionner l'image"> 
                         </div>
                         <div class="col pt-3">
-      <input class="form-control " type="file" wire:model="fichier" required="required"> 
+      <input class="form-control " type="file" wire:model="fichier" wire:loading.attr="disabled" id="fichier{{$resetValueInput}}"  required="required" title="Selectionner le pdf"> 
                         </div>
 
                       <div class="col pt-3">
-                    <select class="form-control @error("addOuvrage.ressource_id") is-invalid @enderror" wire:model="addOuvrage.ressource_id" required="required">
+                    <select class="form-control @error("addOuvrage.ressource_id") is-invalid @enderror" wire:model="addOuvrage.ressource_id" required="required" required="required" title="Choisissez le type de forage ou puits">
                         @error("addOuvrage.ressource_id")
                                 <span class="text-danger">{{$message}}</span>
                         @enderror 
@@ -133,21 +138,20 @@
                             @endforeach
                         </select>
                     </div>                  
-                  </div>
-                   
-                    <div>
-                    @if ($isSelectededit == true)
-    <button  wire:click="updateOuvrage()" class="btn btn-link" > <i class="fa fa-check"></i>Edit</button>
-                   @else
-    <button type="submit" class="btn btn-link" > <i class="fa fa-check"></i>Valider</button>
-                    @endif
-   <button class="btn btn-link" wire:click="cancel"> <i class="fa fa-times"></i> Annuler</button>
+                  </div>      
                     </div>
-                 </div>
-                  </form>   
-                   @endif  
-                           
-                       
+                    
+                    <div class="pt-3">
+                    <div wire:loading.delay wire:target="Ouvrage">
+                        <span class="text-green">Encours...</span>
+                    </div>                
+   <button type="submit" wire:loading.attr="disabled" class="btn btn-primary" > <i class="fa fa-check"></i> Valider</button>
+   <button type="button" wire:click="cancel" class="btn btn-warning"> <i class="fa fa-times"></i> Annuler</button>
+                    </div>
+                </div>
+                
+        @endif  
+        </form>           
                 <div style="height:350px;">
                     <table class="table table-head-fixed">
                         <thead>
@@ -162,7 +166,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                       @forelse ($documents as $ouvrage)
+                       @forelse ($ouvrages as $ouvrage)
                          <tr>
                             <td><img src="{{asset($ouvrage->photo)}}" style="width:60px; height:60px;"></td>
                             <td class="text-center">{{$ouvrage->annee}}</td>
@@ -173,10 +177,9 @@
                             <td class="text-center">
                                 <button wire:click="editOuvrage({{$ouvrage->id}})" class="btn btn-link"> <i class="far fa-edit"></i> </button>
                                 <button class="btn btn-link" wire:click="confirmDelete({{$ouvrage->id}})"> <i class="far fa-trash-alt"></i> </button>
-                                <button class="btn btn-link" wire:click="selectDocument({{$ouvrage->id}})" data-toggle="modal" data-target="#addModal"> <i class="fa fa-file-pdf" aria-hidden="true" style="coloor:white;"></i></button>
+                                <button class="btn btn-link" wire:click="selectDocument({{$ouvrage->id}})" data-toggle="modal" data-target="#addModal"> <i class="fa fa-file-pdf"  style="coloor:white;"></i></button>
                             </td>
                         </tr>
-                        
                        @empty
                          <tr>
                             <td colspan="9">
@@ -191,17 +194,19 @@
                         </tbody>
                     </table>
                 </div>
-
                 <div class="card-footer">
                 <div class="float-right">
                  {{ $ouvrages->links() }}
                 </div>
-                </div>
-
             </div>
+            </div>
+
         </div>
-     </div> 
+        <!-- /.card -->
+    </div>
 </div>
+  
+@endif
 
 <script>
     window.addEventListener("showSuccessMessage", event=>{
@@ -238,4 +243,3 @@
     })
 
 </script>
-
