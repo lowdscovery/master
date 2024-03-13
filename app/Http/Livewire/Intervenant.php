@@ -6,28 +6,49 @@ use App\Models\Intervenant as ModelsIntervenant;
 use Illuminate\Support\Facades\Storage;
 use Livewire\Component;
 use Livewire\WithFileUploads;
+use Illuminate\Validation\Rule;
+use Livewire\WithPagination;
 
 class Intervenant extends Component
 {
     public $addIntervenant = [];
     public $editIntervenant = [];
-    use WithFileUploads;
+    use WithFileUploads,WithPagination;
+    protected $paginationTheme = "bootstrap";
     public $image;
+    public $editImage;
     public $search = "";
     public $resetValueInput = 0;
     public $info=false;
     public $selectedId;
+    public $changed;
+    public $oldvalue = [];
     
-    
+    protected function rules(){
+      return[
+        'editIntervenant.nom'=> 'required',
+        'editIntervenant.prenom'=> 'required',
+        'editIntervenant.service'=> 'required',
+        'editIntervenant.matricule'=> 'required',
+        'editIntervenant.sexe'=> 'required',
+        'editIntervenant.telephone'=> 'required',
+        'editIntervenant.dateEmbauche'=> 'required',
+      ];
+    }
 
     public function render()
     {
       $searchCriteria = "%".$this->search."%";
 
       $data = [
-        "intervenants" => ModelsIntervenant::where("nom", "like", $searchCriteria)->latest()->paginate(5),
+        "intervenants" => ModelsIntervenant::where("nom", "like", $searchCriteria)->latest()->paginate(1),
         "selectIds" => ModelsIntervenant::where("id",optional($this->selectedId)->id)->get(),
       ];
+
+      if($this->editIntervenant != []){
+        $this->showButton();
+    }
+
         return view('livewire.Intervenant.intervenant',$data)
         ->extends("layouts.principal")
         ->section("contenu");
@@ -36,6 +57,22 @@ class Intervenant extends Component
     public function showInformation(ModelsIntervenant $intervenant){
       $this->info=INFORMATION;
       $this->selectedId = $intervenant;
+  }
+  //showButton
+  public function showButton(){
+    $this->changed = false;
+    if(
+      $this->editIntervenant["nom"] != $this->oldvalue["nom"] ||
+      $this->editIntervenant["prenom"] != $this->oldvalue["prenom"] ||
+      $this->editIntervenant["service"] != $this->oldvalue["service"] ||
+      $this->editIntervenant["matricule"] != $this->oldvalue["matricule"] ||
+      $this->editIntervenant["sexe"] != $this->oldvalue["sexe"] ||
+      $this->editIntervenant["telephone"] != $this->oldvalue["telephone"] ||
+      $this->editIntervenant["dateEmbauche"] != $this->oldvalue["dateEmbauche"] ||
+      $this->editImage
+  ){
+      $this->changed = true;
+  }
   }
 
     public function AjoutIntervenant(){
@@ -54,6 +91,7 @@ class Intervenant extends Component
        $path="";
        if($this->image){
         $path=$this->image->store('upload', 'public');
+        $imagePath = "storage/".$path;
       }
       ModelsIntervenant::create([
         "nom" => $this->addIntervenant["nom"],
@@ -63,7 +101,7 @@ class Intervenant extends Component
         "sexe" => $this->addIntervenant["sexe"],
         "telephone" => $this->addIntervenant["telephone"],
         "dateEmbauche" => $this->addIntervenant["dateEmbauche"],
-        "photo" => $path
+        "photo" => $imagePath
        ]);
     $this->resetErrorBag();
     $this->dispatchBrowserEvent("showSuccessMessage", ["message"=>"Intervenant ajoutée avec succès!"]);
@@ -103,7 +141,27 @@ public function deleteIntervenant(ModelsIntervenant $intervenant){
   $this->dispatchBrowserEvent("showSuccessMessage", ["message"=>"L'intervenant supprimé avec succès!"]);
 }
 //modifier
-public function updateIntervenant(){
+public function editIntervenant(ModelsIntervenant $intervenant){
+  $this->editIntervenant = $intervenant->toArray();
+
+  $this->selectedId = $intervenant;
   $this->info= UPDATEINTERVENANT;
+  $this->oldvalue = $this->editIntervenant;
+
+}
+
+public function updateintervenants(){
+  $this->validate();
+  $intervenant = ModelsIntervenant::find($this->editIntervenant["id"]);
+  $intervenant->fill($this->editIntervenant);
+
+  if($this->editImage){
+      $path = $this->editImage->store("upload", "public");
+      $imagePath = "storage/".$path;
+      Storage::disk("local")->delete(str_replace("storage/", "public/", $intervenant->photo));
+      $intervenant->photo = $imagePath;
+  }
+  $intervenant->save();
+  $this->dispatchBrowserEvent("showSuccessMessage", ["message"=> "Intervenant mis à jour avec succès!"]);
 }
 }

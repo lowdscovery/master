@@ -14,7 +14,7 @@
 	<div class="container">
 		<div class="header">
 		<div class="img-area">
-			<img src="{{asset('storage/'.optional($selectedId)->photo)}}" style="width:100%; height:100%;">
+			<img src="{{asset(optional($selectedId)->photo)}}" style="width:100%; height:100%;">
 		</div>
 		<h1>{{optional($selectedId)->nom}} {{optional($selectedId)->prenom}}</h1>
 		<h3>{{optional($selectedId)->service}}</h3>

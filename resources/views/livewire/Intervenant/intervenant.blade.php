@@ -9,7 +9,7 @@
     <div class="row p-2 pt-3">
     <div class="col-md-5">
        
-        <div class="card card-primary">
+        <div class="card card-teal">
             <div class="card-header">
             <h3 class="card-title"><i class="fas fa-user-plus fa-2x"></i> Formulaire d'ajout intervenants</h3>
             </div>
@@ -107,10 +107,16 @@
        <div class="col-md-7">
         <div class="row ">       
             <div class="col-md-12">
-                <div class="card card-primary" style=".card:blue;">
+                <div class="card card-info" style=".card:blue;">
                     <div class="card-header d-flex align-items-center">
                     <h3 class="card-title flex-grow-1"><i class="fa fa-user-circle fa-2x"></i> Liste d'intervenant</h3>
-                    <button class="btn bg-gradient-success" ><i class="fas fa-check"></i> Appliquer les modifications</button>
+                    <div class="input-group input-group-md" style="width: 250px;">
+                    <input type="text" name="table_search" wire:model.debounce.250ms="search" class="form-control float-right" placeholder="Search">
+
+                    <div class="input-group-append">
+                      <button type="submit" class="btn btn-default"><i class="fas fa-search"></i></button>
+                    </div>
+                  </div>
                     </div>
                     <!-- /.card-header -->
                     <div class="p-3 table-striped">
@@ -121,24 +127,36 @@
                                 <th class="text-center" style="width:30%;">Action</th>
                             </thead>
                             <tbody>
-                              @foreach ($intervenants as $intervenant)
+                              @forelse ($intervenants as $intervenant)
                               <tr>
                             <td style="width:10%;">
-                            <img src="{{asset('storage/'.$intervenant->photo)}}" style="width:60px; height:60px;">
+                          <!--  <img src="{{asset('storage/'.$intervenant->photo)}}" style="width:60px; height:60px;"> -->
+                            <img src="{{asset($intervenant->photo)}}" style="width:60px; height:60px;">
                             </td>
                              <td class="text-center" style="width:60%;">{{$intervenant->nom}} {{$intervenant->prenom}}</td>
                             <td class="text-center" style="width:30%;">
-                               <button class="btn btn-link" wire:click="updateIntervenant()"> <i class="far fa-edit"></i> </button>
+                               <button class="btn btn-link" wire:click="editIntervenant({{$intervenant->id}})"> <i class="far fa-edit"></i> </button>
                             <button class="btn btn-link" wire:click="confirmDelete({{$intervenant->id}})"> <i class="far fa-trash-alt"></i> </button>
                             
                             <button class="btn btn-link" wire:click="showInformation({{$intervenant->id}})"> <i class="fa fa-eye"></i> </button>
                             
                             </td>
                             </tr>
-                                  @endforeach
+                            @empty
+                         <tr>
+                            <td colspan="3">
+                                <span class="text-info">Cette personne n'existe pas sur la liste</span>
+                            </td>
+                         </tr>
+                             @endforelse
                             </tbody>
                         </table>
                     </div>
+            <div class="card-footer">
+                <div class="float-right">
+                 {{ $intervenants->links() }}
+                </div>
+            </div>
                 </div>
             </div>         
 
