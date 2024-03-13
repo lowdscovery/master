@@ -11,7 +11,8 @@
                         @csrf
 
                         <div class="input-group mb-3">
-                                <input id="nom" type="text" class="form-control @error('nom') is-invalid @enderror" name="nom" placeholder="Nom" value="{{ old('nom') }}" required autocomplete="nom" autofocus>
+                                <input id="nom" type="text" class="form-control @error('nom') is-invalid @enderror" name="nom" placeholder="Nom" value="{{ old('nom') }}" required autocomplete="nom" autofocus
+                                title="Le nom doit être en majuscule" pattern="[A-Z]+">
                                 <div class="input-group-append">
                                <div class="input-group-text">
                              <span class="fas fa-user"></span>
@@ -25,7 +26,8 @@
                         </div>
 
                         <div class="input-group mb-3">
-                                <input id="prenom" type="text" class="form-control @error('prenom') is-invalid @enderror" name="prenom" placeholder="Prenom" value="{{ old('prenom') }}" required autocomplete="prenom" autofocus>
+                                <input id="prenom" type="text" class="form-control @error('prenom') is-invalid @enderror" name="prenom" placeholder="Prenom" value="{{ old('prenom') }}" required autocomplete="prenom" autofocus
+                                title="Saisir votre prenom">
                                 <div class="input-group-append">
                                <div class="input-group-text">
                              <span class="fa fa-user-circle"></span>
@@ -39,7 +41,8 @@
                         </div>
 
                          <div class="input-group mb-3">
-                                <input id="telephone1" type="text" class="form-control @error('telephone1') is-invalid @enderror" name="telephone1" placeholder="Telephone" value="{{ old('telephone1') }}" required autocomplete="prtelephone1" autofocus>
+                                <input id="telephone1" type="text" class="form-control @error('telephone1') is-invalid @enderror" name="telephone1" placeholder="Telephone" value="{{ old('telephone1') }}" required autocomplete="prtelephone1" autofocus
+                                title="Le numero de telephone doit être en 10 chiffre" pattern="\d{10}">
                                 <div class="input-group-append">
                                <div class="input-group-text">
                              <span class="fas fa-phone"></span>
@@ -51,10 +54,11 @@
                                     </span>
                                 @enderror                          
                         </div>
-
+                        
                         
                     <div class="input-group mb-3">
-                    <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" placeholder="Email" value="{{ old('email') }}" required autocomplete="email">
+                    <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" placeholder="Email" value="{{ old('email') }}" required autocomplete="email"
+                    title="Saisir votre email">
                       <div class="input-group-append">
                          <div class="input-group-text">
                              <span class="fas fa-envelope"></span>
@@ -69,7 +73,8 @@
                         </div>
                       
                 <div class="input-group mb-3">
-                    <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" placeholder="Password" required autocomplete="new-password">
+                    <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" placeholder="Password" required autocomplete="new-password"
+                    title="Saisir votre mot de passe">
                       <div class="input-group-append">
                          <div class="input-group-text">
                              <span class="fas fa-lock"></span>
@@ -82,7 +87,8 @@
                                 @enderror
                         </div>  
                             <div class="input-group mb-3">
-                                <input id="password-confirm" type="password" class="form-control" name="password_confirmation" placeholder="Confirm-password" required autocomplete="new-password">
+                                <input id="password-confirm" type="password" class="form-control" name="password_confirmation" placeholder="Confirm-password" required autocomplete="new-password"
+                                title="Resaisir votre mot de passe">
                             <div class="input-group-append">
                          <div class="input-group-text">
                              <span class="fas fa-lock"></span>

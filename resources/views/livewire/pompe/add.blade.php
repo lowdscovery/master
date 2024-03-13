@@ -1,6 +1,6 @@
 <!-- xl ou lg modal-->
 
-        <div class="modal-header" style="background-color:#FFA500;">
+        <div class="modal-header">
             <h5 class="modal-title">Caracteristique des <strong>POMPE</strong> </h5>
       </div>
       <div class="modal-body">

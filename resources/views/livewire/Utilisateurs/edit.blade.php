@@ -13,7 +13,7 @@
                 <div class="d-flex">
                     <div class="form-group flex-grow-1 mr-2">
                         <label >Nom</label>
-                        <input type="text" wire:model="editUser.nom" class="form-control @error('editUser.nom') is-invalid @enderror">
+                        <input type="text" wire:model="editUser.nom" class="form-control @error('editUser.nom') is-invalid @enderror" title="Le nom doit être en majuscule" pattern="[A-Z]+">
 
                         @error("editUser.nom")
                             <span class="text-danger">{{ $message }}</span>
@@ -21,7 +21,7 @@
                     </div>
                     <div class="form-group flex-grow-1">
                         <label >Prenom</label>
-                        <input type="text" wire:model="editUser.prenom" class="form-control @error('editUser.prenom') is-invalid @enderror">
+                        <input type="text" wire:model="editUser.prenom" class="form-control @error('editUser.prenom') is-invalid @enderror" title="Saisir votre prenom">
 
                         @error("editUser.prenom")
                             <span class="text-danger">{{ $message }}</span>
@@ -31,7 +31,8 @@
 
                 <div class="form-group">
                 <label >Sexe</label>
-                <select class="form-control @error('editUser.sexe') is-invalid @enderror" wire:model="editUser.sexe">
+                <select class="form-control @error('editUser.sexe') is-invalid @enderror" wire:model="editUser.sexe"
+                 title="Choisir votre sexe">
                     <option value="">---------</option>
                     <option value="Homme">Homme</option>
                     <option value="Femme">Femme</option>
@@ -43,7 +44,7 @@
 
                 <div class="form-group">
                 <label >Adresse e-mail</label>
-                <input type="text" class="form-control @error('editUser.email') is-invalid @enderror" wire:model="editUser.email">
+                <input type="text" class="form-control @error('editUser.email') is-invalid @enderror" wire:model="editUser.email" title="Saisir votre addresse email">
                 @error("editUser.email")
                             <span class="text-danger">{{ $message }}</span>
                         @enderror
@@ -51,7 +52,7 @@
 
                 <div class="form-group">
                         <label >Telephone </label>
-                        <input type="text" class="form-control @error('editUser.telephone1') is-invalid @enderror" wire:model="editUser.telephone1">
+                        <input type="text" class="form-control @error('editUser.telephone1') is-invalid @enderror" wire:model="editUser.telephone1" title="Le numero de telephone doit être 10 chiffre" pattern="\d{10}">
                         @error("editUser.telephone1")
                             <span class="text-danger">{{ $message }}</span>
                         @enderror
@@ -59,7 +60,7 @@
 
             <div class="form-group">
                 <label >Piece d'identité</label>
-                <select class="form-control @error('editUser.pieceIdentite') is-invalid @enderror" wire:model="editUser.pieceIdentite">
+                <select class="form-control @error('editUser.pieceIdentite') is-invalid @enderror" wire:model="editUser.pieceIdentite" title="Choisir votre piece d'identité">
                     <option value="">---------</option>
                     <option value="CIN">CIN</option>
                     <option value="PASSPORT">PASSPORT</option>
@@ -72,14 +73,22 @@
 
                 <div class="form-group">
                         <label >Numero de piece d'identité</label>
-                        <input type="text" class="form-control @error('editUser.numeroPieceIdentite') is-invalid @enderror" wire:model="editUser.numeroPieceIdentite">
+                        <input type="text" class="form-control @error('editUser.numeroPieceIdentite') is-invalid @enderror" wire:model="editUser.numeroPieceIdentite" title="Le numero de piece d'identité doit être 12 chiffre" pattern="\d{12}">
                         @error("editUser.numeroPieceIdentite")
                             <span class="text-danger">{{ $message }}</span>
                         @enderror
                 </div>
+         
+                    <div class="form-group">
+                        <label class="form-label">Mot de passe</label>
+                        <input type="password" class="form-control @error('editUser.password') is-invalid @enderror" wire:model="editUser.password" placeholder="password" required="required" title="Saisir votre mot de passe">
+                        @error("editUser.password")
+                            <span class="text-danger">{{ $message }}</span>
+                        @enderror
+                    </div>
 
                 <div class="form-group flex-grow-1">
-                   <input type="file" wire:model="editImage" id="editImage{{$resetValueInput}}" wire:loading.attr="disabled">                   
+                   <input type="file" wire:model="editImage" id="editImage{{$resetValueInput}}" wire:loading.attr="disabled" title="Selectionner votre photo">                   
                 </div>
                 <div style="border: 1px solid #d0d1d3; border-radius: 20px; height: 200px; width:200px; overflow:hidden;">
                     @if (isset($editImage))
@@ -101,8 +110,11 @@
             <!-- /.card-body -->
 
             <div class="card-footer">
-                <button type="submit" class="btn btn-primary">Appliquer les modifications</button>
-                <button type="button" wire:click="goToListUser()" class="btn btn-danger">Retouner à la liste des utilisateurs</button>
+            <div wire:loading.delay wire:target="updateUser">
+                <span class="text-green">Encours...</span>
+            </div>
+                <button type="submit" class="btn btn-primary" wire:loading.attr="disabled">Appliquer les modifications</button>
+                <button type="button" wire:click="goToListUser()" class="btn btn-danger">Retour à la liste</button>
             </div>
             </form>
         </div>

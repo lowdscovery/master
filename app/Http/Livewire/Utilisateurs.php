@@ -51,6 +51,7 @@ class Utilisateurs extends Component
                 'editUser.pieceIdentite' => ['required'],
                 'editUser.sexe' => 'required',
                 'editUser.numeroPieceIdentite' => ['required','numeric', Rule::unique("users", "pieceIdentite")->ignore($this->editUser['id']) ],
+                'editUser.password' => 'required|string|min:8',
             ];
         }
 
@@ -62,6 +63,7 @@ class Utilisateurs extends Component
             'newUser.pieceIdentite' => 'required',
             'newUser.sexe' => 'required',
             'newUser.numeroPieceIdentite' => 'required|numeric|unique:users,numeroPieceIdentite',
+            'newUser.password' => 'required|string|min:8',
             "image" => "image|max:10240"
         ];
     }
@@ -73,6 +75,7 @@ class Utilisateurs extends Component
                            'newUser.pieceIdentite.required' => "Le piece d'identité est vide.",
                            'newUser.sexe.required' => "Le sexe est vide.",
                            'newUser.numeroPieceIdentite.required' => "Le numero de piece d'identité est vide.",
+                           
                      ];
 
     public function render()
@@ -81,7 +84,7 @@ class Utilisateurs extends Component
         $searchCriteria = "%".$this->search."%";
         
         $data = [
-            "users" => User::where("nom", "like", $searchCriteria)->latest()->paginate(4),
+            "users" => User::where("nom", "like", $searchCriteria)->latest()->paginate(5),
         ];
         return view('livewire.utilisateurs.index',$data)
         ->extends("layouts.principal")
@@ -89,6 +92,7 @@ class Utilisateurs extends Component
     }
 
     public function goToAddUser(){
+        sleep(2);
         $this->currentPage = PAGECREATEFORM;
     }
     public function goToListUser(){
@@ -101,6 +105,7 @@ class Utilisateurs extends Component
 
     //partie ajouter
     public function addUser(){
+        sleep(2);
         // Vérifier que les informations envoyées par le formulaire sont correctes
        $this->validate([
             'newUser.nom' => 'required',
@@ -110,6 +115,7 @@ class Utilisateurs extends Component
             'newUser.pieceIdentite' => 'required',
             'newUser.sexe' => 'required',
             'newUser.numeroPieceIdentite' => 'required|numeric|unique:users,numeroPieceIdentite',
+            'newUser.password' => 'required|string|min:8',
             "image" => "image|max:10240"
        ]);
        $path="";
@@ -164,9 +170,12 @@ public function goToEditUser(User $user){
 }
 
 public function updateUser(){
+    sleep(2);
     $this->validate();
     $user = User::find($this->editUser["id"]);
+  //  $user = User::find(Hash::make($this->editUser["password"]));
     $user->fill($this->editUser);
+ //   $user->fill($user1);
   
     if($this->editImage){
         $path = $this->editImage->store("upload", "public");

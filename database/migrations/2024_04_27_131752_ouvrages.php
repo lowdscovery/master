@@ -16,13 +16,17 @@ class Ouvrages extends Migration
         Schema::create('ouvrages', function(Blueprint $table){
             $table->id();
             $table->string('annee');
-            $table->string('debitExploite');
-            $table->string('profondeur');
             $table->string('type');
-            $table->string('etatActuel');
-            $table->string('observation');
-            $table->string('photo')->nullable();
-            $table->string('filePdf')->nullable();
+            $table->string('debitNominale');
+            $table->string('profondeur');
+            $table->string('debitConseiller');
+            $table->string('debitExploite');
+            $table->string('diametre');
+            $table->string('nombreExhaur');
+            $table->string('sondeBas');
+            $table->string('sondeHaut');
+            $table->string('photo');
+            $table->string('filePdf');
             $table->foreignId('ressource_id')->nullable();
             $table->timestamps();
         });

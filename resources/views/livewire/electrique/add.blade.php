@@ -1,8 +1,8 @@
 
   <!-- xl ou lg modal-->
 
-        <div class="modal-header" style="background-color:#D307FA;">
-            <h4 class="modal-title" style="color:white;">Caracteristique des <strong>MOTEURS</strong> </h4>
+        <div class="modal-header">
+            <h4 class="modal-title">Caracteristique des <strong>MOTEURS</strong> </h4>
       </div>
       <div class="modal-body">
       @if ($showInputPompe)

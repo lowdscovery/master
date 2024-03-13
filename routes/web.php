@@ -104,11 +104,9 @@ route::get('/teste/page', function(){
     dd(phpinfo());
 });*/
 // teste relation
-Route::get('/teste', function(){
-//return Forage::with("ressources")->paginate(1);
-      $date = Carbon::parse('2024-06-30');
-      return today()->diffInDays($date);
-});
+/*Route::get('/teste', function(){
+return Forage::with("ressources")->paginate(1);
+});*/
 
 /*Route::get('/teste',function(){
     return ModelsOuvrage::with("ressource")->paginate(2);

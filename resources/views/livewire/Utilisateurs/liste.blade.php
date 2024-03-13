@@ -9,7 +9,10 @@
                 <h3 class="card-title flex-grow-1"><i class="fas fa-users fa-2x"></i> Liste des utilisateurs</h3>
 
                 <div class="card-tools d-flex align-items-center ">
-                <a wire:click.prevent="goToAddUser()" class="btn btn-primary mr-4 d-block" style="background-color:#00F2D8;"><i class="fas fa-user-plus"></i> Nouvel utilisateur</a>
+                <div wire:loading.delay wire:target="goToAddUser">
+											<span class="text-white">Encours...</span>
+								</div>
+                <a wire:loading.attr="disabled" wire:click.prevent="goToAddUser()" class="btn btn-primary mr-4 d-block" style="background-color:#00F2D8;"><i class="fas fa-user-plus"></i> Nouvel utilisateur</a>
                   <div class="input-group input-group-md" style="width: 250px;">
                     <input type="text" name="table_search" wire:model.debounce.250ms="search" class="form-control float-right" placeholder="Search">
 
@@ -33,7 +36,28 @@
                   </thead>
                   <tbody>
                     @forelse($users as $user)
-                    <tr>
+                    @if ($user->allRoleNames =="" || $user->allRoleNames ==null)
+                     <tr>
+                     <td>
+                      @if ($user->photo !="" || $user->photo !=null)
+                        <img class="rounded-circle" width="40" height="40" src="{{asset($user->photo)}}">
+                      @else
+                        <img class="rounded-circle" width="40" height="40" src="{{asset('image/user.png')}}">
+                      @endif
+                      </td>
+                      <td style="color:green;">{{ $user->nom }} {{ $user->prenom }}</td>
+                      <td style="color:green;"> {{$user->allRoleNames}}</td>
+                      <td class="text-center" style="color:green;"><span class="tag tag-success">{{ $user->created_at->diffForHumans() }}</span></td>
+                      <td style="color:green;">
+                        <button class="btn btn-link" wire:click="goToEditUser({{$user->id}})" style="color:green;"> <i class="far fa-edit"></i> </button>
+                         @if(count($user->roles) == 0)
+                         <button class="btn btn-link" wire:click="confirmDelete('{{ $user->prenom }} {{ $user->nom }}', {{$user->id}})" style="color:green;"> <i class="far fa-trash-alt"></i> </button>
+                         @endif
+                      </td>
+                    </tr>
+
+                    @else
+                      <tr>
                       <td>
                       @if ($user->photo !="" || $user->photo !=null)
                         <img class="rounded-circle" width="40" height="40" src="{{asset($user->photo)}}">
@@ -51,6 +75,7 @@
                          @endif
                       </td>
                     </tr>
+                    @endif
                      @empty
                           <tr>
                             <td colspan="6">

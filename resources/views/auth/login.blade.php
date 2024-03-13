@@ -15,7 +15,8 @@
                         @csrf
                         <label>Adresse mail</label>
                         <div class="input-group mb-3">
-    <input id="email" type="email" placeholder="Email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email" autofocus>
+    <input id="email" type="email" placeholder="Email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email" autofocus
+    title="Saisir votre email">
                          <div class="input-group-append">
                             <div class="input-group-text">
                              <span class="fas fa-envelope"></span>
@@ -25,7 +26,8 @@
                          
                         <label>Mot de passe</label>
                         <div class="input-group mb-3">
-                                <input id="password" type="password" placeholder="Password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="current-password">
+                                <input id="password" type="password" placeholder="Password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="current-password"
+    title="Saisir votre mot de passe">
                                 <div class="input-group-append">
                                 <div class="input-group-text">
                                 <span class="fas fa-lock"></span>

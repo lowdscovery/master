@@ -92,7 +92,7 @@
 
             <div class="card-footer">
             <div wire:loading.delay wire:target="AjoutIntervenant">
-                   <span class="text-green">Sending...</span>
+                   <span class="text-green">Encours...</span>
             </div>
                 <button type="submit" class="btn btn-primary" wire:loading.attr="disabled">Enregistrer</button>
             </div>

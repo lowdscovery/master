@@ -49,14 +49,18 @@ public function Ouvrage(){
 
     $this->validate([
         "addOuvrage.annee" =>"required",
-        "addOuvrage.debitExploite" =>"required",
-        "addOuvrage.profondeur" =>"required",
         "addOuvrage.type" =>"required",
-        "addOuvrage.etatActuel" =>"required",
-        "addOuvrage.observation" =>"required",
-        "addOuvrage.ressource_id"=>"required|numeric|unique:ouvrages,ressource_id",
+        "addOuvrage.debitNominale" =>"required",
+        "addOuvrage.profondeur" =>"required",
+        "addOuvrage.debitConseiller" =>"required",
+        "addOuvrage.debitExploite" =>"required",
+        "addOuvrage.diametre" =>"required",
+        "addOuvrage.nombreExhaur" =>"required",  
+        "addOuvrage.sondeBas" =>"required",
+        "addOuvrage.sondeHaut" =>"required",
         "image" => "image|max:10240",
         "fichier" => "required|mimes:pdf|max:10240",
+        "addOuvrage.ressource_id"=>"required|numeric|unique:ouvrages,ressource_id",
     ]);
     $path="";
     if($this->image){
@@ -72,11 +76,15 @@ public function Ouvrage(){
     ModelsOuvrage::create(
         [
             "annee" => $this->addOuvrage["annee"],
-            "debitExploite" => $this->addOuvrage["debitExploite"],
-            "profondeur" => $this->addOuvrage["profondeur"],
             "type" => $this->addOuvrage["type"],
-            "etatActuel" => $this->addOuvrage["etatActuel"],
-            "observation" => $this->addOuvrage["observation"],
+            "debitNominale" => $this->addOuvrage["debitNominale"],
+            "profondeur" => $this->addOuvrage["profondeur"],
+            "debitConseiller" => $this->addOuvrage["debitConseiller"],
+            "debitExploite" => $this->addOuvrage["debitExploite"],      
+            "diametre" => $this->addOuvrage["diametre"],
+            "nombreExhaur" => $this->addOuvrage["nombreExhaur"],
+            "sondeBas" => $this->addOuvrage["sondeBas"],
+            "sondeHaut" => $this->addOuvrage["sondeHaut"],
             "ressource_id"=> $this->addOuvrage["ressource_id"],
             "photo" => $imagePath,
             "filePdf"=>$filePath,            
@@ -98,13 +106,19 @@ public function editOuvrage(ModelsOuvrage $ouvrage){
 
 public function updateOuvrage(){
     $this->validate([
-        "addOuvrage.annee" =>"required",
-        "addOuvrage.debitExploite" =>"required",
-        "addOuvrage.profondeur" =>"required",
-        "addOuvrage.type" =>"required",
-        "addOuvrage.etatActuel" =>"required",
-        "addOuvrage.observation" =>"required",
-        "addOuvrage.ressource_id"=>"required",
+      "addOuvrage.annee" =>"required",
+      "addOuvrage.type" =>"required",
+      "addOuvrage.debitNominale" =>"required",
+      "addOuvrage.profondeur" =>"required",
+      "addOuvrage.debitConseiller" =>"required",
+      "addOuvrage.debitExploite" =>"required",
+      "addOuvrage.diametre" =>"required",
+      "addOuvrage.nombreExhaur" =>"required",  
+      "addOuvrage.sondeBas" =>"required",
+      "addOuvrage.sondeHaut" =>"required",
+      "image" => "image|max:10240",
+      "fichier" => "required|mimes:pdf|max:10240",
+      "addOuvrage.ressource_id"=>"required|numeric|unique:ouvrages,ressource_id",
     ]);
     $ouvrage = ModelsOuvrage::find($this->addOuvrage["id"]);
     $ouvrage->fill($this->addOuvrage);
@@ -142,10 +156,23 @@ public function updateOuvrage(){
     $ouvrage->delete();
     $this->dispatchBrowserEvent("showSuccessMessage", ["message"=>"Forage supprimé avec succès!"]);
   }
+//show pdf
+  public $documents;
+  public $selectedDocument;
+  public $cachebutton=false;
 
-  public $pdfPath;
-  public function showPdf($pdfId){
-    $pdf = ModelsOuvrage::find($pdfId);
-    $this->pdfPath = $pdf->filePdf;
+  public function affichebutton(){
+    $this->cachebutton=true;
+  }
+  public function masquebutton(){
+    $this->cachebutton=false;
+  }
+
+  public function mount(){
+    $this->documents = ModelsOuvrage::all();
+  }
+  public function selectDocument($documentId){
+    $this->affichebutton();
+    $this->selectedDocument = ModelsOuvrage::find($documentId);
   }
 }
