@@ -8,9 +8,9 @@ class Information extends Component
 {
     public function render()
     {
-        return view('livewire.intervenant.information')
-        ->extends("layouts.principal")
-        ->section("contenu");
+      //  return view('livewire.intervenant.information')
+      //  ->extends("layouts.principal")
+       // ->section("contenu");
     }
 
 }

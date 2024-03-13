@@ -8,6 +8,8 @@ define("PAGEEDITFORM", "edit");
 define("DEFAULTPASSOWRD", "password");
 define("PAGEADDFORM", "add");
 define("PAGELISTFORM", "liste");
+define("INFORMATION", "information");
+define("UPDATEINTERVENANT", "update");
 
 /*Affiche le nom et prenom*/
 function userFullName(){

@@ -1,3 +1,11 @@
+   
+    <div wire:ignore.self>
+
+    @if ($info == INFORMATION)
+     @include("livewire.Intervenant.information")
+    @elseif ($info == UPDATEINTERVENANT)
+    @include("livewire.Intervenant.update")
+    @else
     <div class="row p-2 pt-3">
     <div class="col-md-5">
        
@@ -47,8 +55,8 @@
                           <span class="text-danger">{{$message}}</span>
                  @enderror 
                     <option value="">---------</option>
-                    <option value="H">Homme</option>
-                    <option value="F">Femme</option>
+                    <option value="HOMME">Homme</option>
+                    <option value="FEMME">Femme</option>
                 </select>
                 </div>
 
@@ -120,9 +128,11 @@
                             </td>
                              <td class="text-center" style="width:60%;">{{$intervenant->nom}} {{$intervenant->prenom}}</td>
                             <td class="text-center" style="width:30%;">
-                               <button class="btn btn-link" wire:click="showInformation()"> <i class="far fa-edit"></i> </button>
+                               <button class="btn btn-link" wire:click="updateIntervenant()"> <i class="far fa-edit"></i> </button>
                             <button class="btn btn-link" wire:click="confirmDelete({{$intervenant->id}})"> <i class="far fa-trash-alt"></i> </button>
-                            <button class="btn btn-link" wire:click="showInformation()"> <i class="fa fa-eye"></i> </button>
+                            
+                            <button class="btn btn-link" wire:click="showInformation({{$intervenant->id}})"> <i class="fa fa-eye"></i> </button>
+                            
                             </td>
                             </tr>
                                   @endforeach
@@ -139,6 +149,9 @@
     </div>
     </div>
     </div>
+    @endif
+    </div>
+    
  
     
    

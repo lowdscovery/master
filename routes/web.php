@@ -59,7 +59,7 @@ Route::group([
 Route::get("/intervenants", Intervenant::class)->name("Intervenant.intervenant")->middleware("auth.manager");
 
 Route::get("/uploads", Uploads::class)->name("uploads")->middleware("auth.manager");
-Route::get("/information", Information::class)->name("information")->middleware("auth.manager");
+//Route::get("/information", Information::class)->name("information")->middleware("auth.manager");
 
 
 

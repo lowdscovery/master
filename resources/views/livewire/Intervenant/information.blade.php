@@ -1,6 +1,5 @@
 <div>
 
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -9,36 +8,32 @@
 	<meta name="viewport" content="width=device-width, initial-scale1.0">
 	<title>Inforamtion</title>
 	<link rel="stylesheet" href="{{asset('css/information.css')}}">
-    <link rel="stylesheet" type="text/css" href="print.css">
+    <link rel="stylesheet" type="text/css" href="{{asset('css/print.css')}}">
 </head>
 <body>
 	<div class="container">
 		<div class="header">
 		<div class="img-area">
-			<img src="" width="400">
+			<img src="{{asset('storage/'.optional($selectedId)->photo)}}" style="width:100%; height:100%;">
 		</div>
-		<h1>Georges Stephan</h1>
-		<h3>Poste Développeur</h3>
+		<h1>{{optional($selectedId)->nom}} {{optional($selectedId)->prenom}}</h1>
+		<h3>{{optional($selectedId)->service}}</h3>
 		</div>
+		<h2>Information Personnel</h2>
 		<div class="main">
 		<div class="left">
-        <h2>Personnal Information</h2>
-        <p><strong>Nom :</strong> Stephan Georges</p>
-        <p><strong>Prenom :</strong> 25ans</p>
-        <p><strong>Service :</strong> stephangeorges@gmail.com</p>
-        <p><strong>Matricule :</strong> stephangeorges@gmail.com</p>
-        <p><strong>Sexe :</strong> 032 69 121 32</p>
-        <p><strong>Telephone :</strong> 032 69 121 32</p>
-        <p><strong>Date d'embauche :</strong> 032 69 121 32</p>
-                <button onclick="window.print();" class="enregistrer" >Imprimer</button>
+        <p><strong>Nom :</strong> {{optional($selectedId)->nom}}</p>
+        <p><strong>Prenom :</strong> {{optional($selectedId)->prenom}}</p>
+        <p><strong>Service :</strong> {{optional($selectedId)->service}}</p>
+        <p><strong>Matricule :</strong> {{optional($selectedId)->matricule}}</p>
+    
+        
+        <button onclick="window.print();" class="enregistrer" >Imprimer</button>
 		</div>
-		<div class="right">
-			<h2>Education</h2>
-        	<h3>Genie Informatique</h3>
-        	<p><strong>Position :</strong>Université de Mahajanga</p>
-        	<p><strong>Duration :</strong>Université de Mahajanga</p>
-        <ul>
-        	<li>Université de Mahajanga Université de Mahajanga Université de Mahajanga</li>
+		<div class="right">		
+        	<p><strong>Sexe :</strong> {{optional($selectedId)->sexe}}</p>
+        	<p><strong>Telephone :</strong> {{optional($selectedId)->telephone}}</p>
+            <p><strong>Date d'embauche :</strong> {{optional($selectedId)->dateEmbauche}}</p>
 		</div>
 		</div>
 	</div>

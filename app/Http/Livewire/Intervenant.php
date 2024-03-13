@@ -10,11 +10,13 @@ use Livewire\WithFileUploads;
 class Intervenant extends Component
 {
     public $addIntervenant = [];
+    public $editIntervenant = [];
     use WithFileUploads;
     public $image;
     public $search = "";
     public $resetValueInput = 0;
     public $info=false;
+    public $selectedId;
     
     
 
@@ -24,14 +26,16 @@ class Intervenant extends Component
 
       $data = [
         "intervenants" => ModelsIntervenant::where("nom", "like", $searchCriteria)->latest()->paginate(5),
-    ];
+        "selectIds" => ModelsIntervenant::where("id",optional($this->selectedId)->id)->get(),
+      ];
         return view('livewire.Intervenant.intervenant',$data)
         ->extends("layouts.principal")
         ->section("contenu");
     }
     //showinfo
-    public function showInformation(){
-      $this->info=true;
+    public function showInformation(ModelsIntervenant $intervenant){
+      $this->info=INFORMATION;
+      $this->selectedId = $intervenant;
   }
 
     public function AjoutIntervenant(){
@@ -97,5 +101,9 @@ class Intervenant extends Component
 public function deleteIntervenant(ModelsIntervenant $intervenant){
   $intervenant->delete();
   $this->dispatchBrowserEvent("showSuccessMessage", ["message"=>"L'intervenant supprimé avec succès!"]);
+}
+//modifier
+public function updateIntervenant(){
+  $this->info= UPDATEINTERVENANT;
 }
 }
