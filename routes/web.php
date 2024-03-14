@@ -1,7 +1,9 @@
 <?php
 
 use App\Http\Controllers\UserController;
+use App\Http\Livewire\BisList;
 use App\Http\Livewire\Caracteristique;
+use App\Http\Livewire\Commande;
 use App\Http\Livewire\Incident;
 use App\Http\Livewire\Information;
 use App\Http\Livewire\Intervenant;
@@ -62,7 +64,8 @@ Route::get("/intervenants", Intervenant::class)->name("Intervenant.intervenant")
 Route::get("/incidents", Incident::class)->name("Incident.incident")->middleware("auth.manager");
 //Route::get("/uploads", Uploads::class)->name("uploads")->middleware("auth.manager");
 Route::get("/maintenances", Maintenance::class)->name("maintenance.maintenance")->middleware("auth.manager");
-
+Route::get("/commandes", Commande::class)->name("commande.commande")->middleware("auth.manager");
+Route::get("bis", BisList::class)->name("bis.bis")->middleware("auth.manager");
 
 
 

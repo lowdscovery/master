@@ -113,6 +113,22 @@
                 </p>
             </a>
         </li>
+        <li class="nav-item">
+            <a href="{{route('commande.commande')}}" class="nav-link {{setMenuActive('commande.commande')}}">
+                <i class="fa fa-cog fa-fw"></i>
+                <p>
+                Commande
+                </p>
+            </a>
+        </li>
+         <li class="nav-item">
+            <a href="{{route('bis.bis')}}" class="nav-link {{setMenuActive('bis.bis')}}">
+                <i class="fa fa-cog fa-fw"></i>
+                <p>
+                Bis List
+                </p>
+            </a>
+        </li>
         
   @endcan
 </ul>

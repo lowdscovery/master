@@ -104,7 +104,9 @@ class Incident extends Component
 
       //supression
       public function confirmDelete(ModelsIncident $incident){
-        $this->dispatchBrowserEvent("showConfirmMessage", ["message"=> [
+        $this->dispatchBrowserEvent("showConfirmMessage", [
+            "message"=> 
+        [
             "text" => "Vous êtes sur le point de supprimer ". $incident->cause ." sur la liste des intervenants. Voulez-vous continuer?",
             "title" => "Êtes-vous sûr de continuer?",
             "type" => "warning",
