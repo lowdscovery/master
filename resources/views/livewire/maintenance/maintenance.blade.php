@@ -10,7 +10,7 @@
         </button>
       </div>
       <div class="modal-body">
-        <form wire:submit.prevent="addMaintenance">
+        <form wire:submit.prevent="ajoutMaintenance">
           <div class="form-group">
             <label for="recipient-name" class="col-form-label">Date</label>
             <input type="Date" class="form-control  @error("addMaintenance.dateMaintenance") is-invalid @enderror" wire:model="addMaintenance.dateMaintenance">
@@ -20,20 +20,27 @@
           </div>
           <div class="form-group">
             <label for="recipient-name" class="col-form-label">Intervenant</label>
-           <select class="form-control @error("addIntervenant.intervenant") is-invalid @enderror" wire:model="addMaintenance.intervenant">
-                @error("addIntervenant.intervenant")
+           <select class="form-control @error("addIntervenant.intervenant_id") is-invalid @enderror" wire:model="addMaintenance.intervenant_id">
+                @error("addIntervenant.intervenant_id")
                           <span class="text-danger">{{$message}}</span>
                  @enderror 
                     <option value="">---------</option>
                 @foreach ($inters as $inter)
-                    <option value="{{$inter->nom}} {{$inter->prenom}}">{{$inter->nom}} {{$inter->prenom}}</option>
+                    <option value="{{$inter->id}}">{{$inter->nom}} {{$inter->prenom}}</option>
                 @endforeach       
            </select>
           </div>
           <div class="form-group">
+            <label for="recipient-name" class="col-form-label">Duree Intervention</label>
+            <input type="number" class="form-control  @error("addMaintenance.DureeIntervention") is-invalid @enderror" wire:model="addMaintenance.DureeIntervention">
+            @error("addMaintenance.DureeIntervention")
+                          <span class="text-danger">{{$message}}</span>
+            @enderror
+          </div>
+          <div class="form-group">
             <label for="recipient-name" class="col-form-label">Caracteristique</label>
-            <select class="form-control @error("addMaintenance.caracteristique") is-invalid @enderror" wire:model="addMaintenance.caracteristique">
-                @error("addMaintenance.caracteristique")
+            <select class="form-control @error("addMaintenance.caracteristique_moteurs_id") is-invalid @enderror" wire:model="addMaintenance.caracteristique_moteurs_id">
+                @error("addMaintenance.caracteristique_moteurs_id")
                           <span class="text-danger">{{$message}}</span>
                  @enderror 
                     <option value="">---------</option>
@@ -64,7 +71,25 @@
 @includeIf("livewire.maintenance.edite")
 </div>
 
-                          
+
+<div class="modal fade" id="pdfmodal"tabindex="-1" role="dialog" aria-hidden="true" wire:ignore.self>
+<div class="modal-dialog  modal-xl">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+           <form>   
+            @if ($selectedDocument)
+            <iframe src="{{ asset($selectedDocument->Rapport)}}" width="100%" height="600px"></iframe>
+            @endif
+   </form>
+    </div>
+  </div>
+</div> 
+</div>                        
         
 
 <div class="row p-4" >
@@ -108,18 +133,41 @@
                       <th class="text-center"> Date </th>
                       <th class="text-center"> Action entreprise </th>
                       <th class="text-center"> Intervenant </th>
+                      <th class="text-center"> Duree intervention </th>
+                      <th class="text-center"> Duree reel </th>
+                      <th class="text-center"> Rapport </th>
                       <th class="text-center"> Forage</th>
                       <th class="text-center"> Action</th>
                     </tr>
                   </thead>
                   <tbody>                             
-                @forelse ($maintenances as $maintenance)          
-                    <tr>
+                @forelse ($maintenances as $maintenance) 
+                @if ($maintenance->DureeReel==null || $maintenance->Rapport==null)  
+                 <tr style="color:red;">
+                     @if ($input)             
                       <td class="text-center">{{ date('d/m/Y',strtotime($maintenance->dateMaintenance))}}</td>
                       <td class="text-center">{{ $maintenance->actionEntreprise}}</td>
-                      <td class="text-center">{{ $maintenance->intervenant}}</td>
+                      <td class="text-center">{{ $maintenance->inters->nom}} {{ $maintenance->inters->prenom}}</td>
+                      <td class="text-center">{{ $maintenance->DureeIntervention}}</td>
+                      <td class="text-center"><input type="number" wire:model="editMaintenance.DureeReel" class="form-control" required></td>
+                      <td class="text-center">
+                      <div class="pb-2">
+                      <input type="file" class="form-control" id="editImage{{$resetValueInput}}" required wire:model="editImage">
+                      </div>        
+                      <button class="btn btn-primary" wire:click="updateMaintenance">Enregistrer</button>
+                      <button class="btn btn-danger" wire:click="cacheInput">Annuler</button>
+                      </td>
+                      <td class="text-center">{{ $caracteristique->ressources->nom}}</td>  
+                     @else
+                    <td class="text-center">{{ date('d/m/Y',strtotime($maintenance->dateMaintenance))}}</td>
+                      <td class="text-center">{{ $maintenance->actionEntreprise}}</td>
+                      <td class="text-center">{{ $maintenance->inters->nom}} {{ $maintenance->inters->prenom}}</td>
+                      <td class="text-center">{{ $maintenance->DureeIntervention}}</td>
+                      <td class="text-center" style="color:black;"><span style="background-color:#9ECC2D;border-radius:5px;font-size:16px;"> En attente.. </span></td>
+                      <td class="text-center" style="color:black;"><span style="background-color:#9ECC2D;border-radius:5px;font-size:16px;"> En attente.. </span></td>                        
                       <td class="text-center">{{ $caracteristique->ressources->nom}}</td>
-                      <td class="text-center">       
+                     @endif    
+                     <td class="text-center">       
                     <div class="btn-group open">
                     <a class="btn btn-info dropdown-toggle" data-toggle="dropdown">
                         <span class="fa fa-caret-down" title="Toggle dropdown menu"></span>
@@ -130,11 +178,36 @@
                         <li><button class="btn btn-link" wire:click="confirmDelete({{$maintenance->id}})"> <i class="far fa-trash-alt"></i> Delete</button></li>
                     </ul>
                     </div>
+                    <button class="btn btn-success" wire:click="editMaintenance({{$maintenance->id}})"> Rapport</button>
                       </td>
                     </tr>
+                    @else
+                    <td class="text-center">{{ date('d/m/Y',strtotime($maintenance->dateMaintenance))}}</td>
+                      <td class="text-center">{{ $maintenance->actionEntreprise}}</td>
+                      <td class="text-center">{{ $maintenance->inters->nom}} {{ $maintenance->inters->prenom}}</td>
+                      <td class="text-center">{{ $maintenance->DureeIntervention}}</td>
+                      <td class="text-center">{{ $maintenance->DureeReel}}</td>
+                      <td class="text-center">
+                      <button class="btn btn-link" wire:click="selectDocument({{$maintenance->id}})" data-toggle="modal" data-target="#pdfmodal"> <i class="fa fa-file-pdf"  style="color:red;font-size:25px;"></i></button>        
+                      </td>
+                      <td class="text-center">{{ $caracteristique->ressources->nom}}</td>  
+                     <td class="text-center">       
+                    <div class="btn-group open">
+                    <a class="btn btn-info dropdown-toggle" data-toggle="dropdown">
+                      <span class="fa fa-caret-down" title="Toggle dropdown menu"></span>
+                    </a>
+                    <ul class="dropdown-menu" style="padding:10px; z-index: 10;" >
+                        <li><button class="btn btn-link" data-toggle="modal" data-target="#addModal"> <i class="fa fa-plus-circle"></i> Ajouter</button></li>
+                        <li><button class="btn btn-link" wire:click="editMaintenance({{$maintenance->id}})" data-toggle="modal" data-target="#editModal"> <i class="far fa-edit"></i> Edit</button></li>
+                        <li><button class="btn btn-link" wire:click="confirmDelete({{$maintenance->id}})"> <i class="far fa-trash-alt"></i> Delete</button></li>
+                    </ul>
+                    </div>
+                    </td>
+                    </tr>
+                    @endif
                     @empty
                           <tr>
-                              <td colspan="4">
+                              <td colspan="7">
                                   <div class="alert alert-danger">
                                       <h5><i class="icon fas fa-ban"></i> Information!</h5>
                                       Aucune donnée trouvée par rapport aux éléments de recherche entrés.

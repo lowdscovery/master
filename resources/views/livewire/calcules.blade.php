@@ -1,7 +1,7 @@
 <div>
-    <form wire:submit.prevent="{{ $editId ? 'updateTransaction' : 'addTransaction'}}">
-     <input type="number" wire:model="value" placeholder="Entrer" step="0.01">
-     <button type="submit">{{ $editId ? 'Update Transaction' : 'Add Transaction'}}</button>
+    <form wire:submit.prevent="{{ $editMode ? 'update' : 'calculateAndAdd'}}">
+     <input type="number" wire:model="value" id="value">
+     <button type="submit">{{ $editMode ? 'Mettre à jour' : 'Ajouter'}}</button>
      </form>
 <div class="pt-4">
     <div class="col-12">
@@ -12,21 +12,26 @@
                         <thead>
                             <tr>
                                 <th class="text-center">ID</th>
-                                <th class="text-center">Old Value</th>
-                                <th class="text-center">New Value</th>
+                                <th class="text-center">Valeur</th>
                                 <th class="text-center">Difference</th>
+                                <th class="text-center">Difference cumulative</th>
                                 <th class="text-center">Actions</th>
                             </tr>
                         </thead>
                         <tbody>
-                       @forelse ($this->transactions as $transaction)
+                       @forelse ($values as $index => $value)
                          <tr>         
-                            <td class="text-center">{{$transaction->id}}</td>
-                            <td class="text-center">{{$transaction->old_value}}</td>
-                            <td class="text-center">{{$transaction->value}}</td>
-                            <td class="text-center">{{$transaction->difference}}</td>
+                            <td class="text-center">{{$value->id}}</td>
+                            <td class="text-center">{{$value->value}}</td>
+                            <td class="text-center">{{$value->difference}}</td>
+                            <td class="text-center">{{$value->old_value}}</td>
                             <td class="text-center">
-                                <button wire:click="editTransaction({{$transaction->id}})">Edit</button>
+                            @if ($index == 0 && isset($values[1]))
+                                {{$value->difference + $values[1]->difference}}
+                            @endif
+                            </td>
+                            <td class="text-center">
+                                <button wire:click="edit({{$value->id}})">Edit</button>
                             </td>
                         </tr>
                        @empty

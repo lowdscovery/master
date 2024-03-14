@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\UserController;
 use App\Http\Livewire\Affichage;
+use App\Http\Livewire\Armoire;
 use App\Http\Livewire\BisList;
 use App\Http\Livewire\Caracteristique;
 use App\Http\Livewire\Commande;
@@ -12,6 +13,7 @@ use App\Http\Livewire\Maintenance;
 use App\Http\Livewire\Mesure;
 use App\Http\Livewire\Ouvrage;
 use App\Http\Livewire\Calcules;
+use App\Http\Livewire\Rapport;
 use App\Http\Livewire\Teste;
 use App\Http\Livewire\Uploads;
 use App\Http\Livewire\Utilisateurs;
@@ -77,6 +79,8 @@ Route::get("/maintenances", Maintenance::class)->name("maintenance.maintenance")
 Route::get("/commandes", Commande::class)->name("commande.commande")->middleware("auth.manager");
 Route::get("/bis", BisList::class)->name("bis.bis")->middleware("auth.manager");
 Route::get("/mesures", Mesure::class)->name("mesure.mesure")->middleware("auth.manager");
+Route::get("/rapports", Rapport::class)->name("rapport.rapport")->middleware("auth.manager");
+Route::get("/armoires", Armoire::class)->name("armoire.armoire")->middleware("auth.manager");
 Route::get("/calcule", Calcules::class)->name("calcules")->middleware("auth.manager");
 //Route::get("/Affichage", Affichage::class)->name("affichage.affichage")->middleware("auth.manager");
 

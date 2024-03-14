@@ -7,7 +7,53 @@ use App\Models\CalculeColonne;
 
 class Calcules extends Component
 {
-    public $transactions;
+
+    public $value;
+    public $editMode=false;
+    public $editId;
+
+    public function calculateAndAdd(){
+        $previousValue= CalculeColonne::latest()->first();
+        $previousValue = $previousValue ? $previousValue->value : 0;
+        $difference = $previousValue - $this->value;
+
+        $differenceSum = CalculeColonne::sum('difference') + $difference;
+        CalculeColonne::create([
+            'value' => $this->value,
+            'difference' => $difference,
+            'old_value' => $differenceSum,
+        ]);
+        $this->reset('value');
+    }
+
+    public function edit($id){
+        $value = CalculeColonne::find($id);
+        $this->value = $value->value;
+        $this->editMode = true;
+        $this->editId = $id;
+    }
+
+    public function update(){
+        $value = CalculeColonne::find($this->editId);
+        $previousValue = CalculeColonne::where('id','<', $this->editId)->orderBy('id','desc')->first();
+        $previousValue = $previousValue ? $previousValue->value : 0;
+        $difference = $previousValue - $this->value;
+        
+        $value->update([
+            'value' => $this->value,
+            'difference'=> $difference,
+        ]);
+
+        $values = CalculeColonne::all();
+        $cumulativeSum = 0;
+        foreach($values as $val){
+            $cumulativeSum += $val->difference;
+            $val->update(['old_value' => $cumulativeSum]);
+        }
+        $this->editMode = false;
+        $this->reset(['value', 'editId']);
+    }
+  /*  public $transactions;
     public $value;
 
     //edit
@@ -45,7 +91,14 @@ class Calcules extends Component
         $this->transactions = CalculeColonne::all();
         $this->value = '';
         $this->editId = null;
-    }
+    }*/
+
+
+
+
+
+
+
     /*public $previousValue;
     public $value;
     public $difference;
@@ -70,7 +123,8 @@ class Calcules extends Component
     }*/
     public function render()
     {
-        return view('livewire.calcules')
+        $values = CalculeColonne::all();
+        return view('livewire.calcules',['values'=>$values])
         ->extends("layouts.principal")
         ->section("contenu");
     }

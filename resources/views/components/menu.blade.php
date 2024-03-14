@@ -133,6 +133,22 @@
                 </p>
             </a>
         </li>
+        <li class="nav-item">
+            <a href="{{route('rapport.rapport')}}" class="nav-link {{setMenuActive('rapport.rapport')}}">
+                <i class="fa fa-cog fa-fw"></i>
+                <p>
+                Rapport de mission
+                </p>
+            </a>
+        </li>
+        <li class="nav-item">
+            <a href="{{route('armoire.armoire')}}" class="nav-link {{setMenuActive('armoire.armoire')}}">
+                <i class="fa fa-cog fa-fw"></i>
+                <p>
+                Armoire de commande
+                </p>
+            </a>
+        </li>
         
   @endcan
 </ul>

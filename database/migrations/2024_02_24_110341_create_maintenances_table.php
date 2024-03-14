@@ -17,8 +17,11 @@ class CreateMaintenancesTable extends Migration
             $table->id();
             $table->date('dateMaintenance');
             $table->string('actionEntreprise');
-            $table->string('intervenant');
-            $table->string('caracteristique');
+            $table->string('DureeIntervention');
+            $table->string('DureeReel')->nullable();
+            $table->string('intervenant_id');
+            $table->string('caracteristique_moteurs_id');
+            $table->string('Rapport')->nullable();
             $table->timestamps();
         });
         Schema::enableForeignKeyConstraints();

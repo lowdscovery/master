@@ -8,6 +8,7 @@ use App\Models\District;
 use App\Models\Site;
 use App\Models\Ressource;
 use App\Models\Forage;
+use App\Models\Maintenance;
 class CaracteristiqueMoteur extends Model
 {
     use HasFactory;
@@ -37,5 +38,8 @@ class CaracteristiqueMoteur extends Model
     }
     public function forages(){
         return $this->belongsTo(Forage::class, "forage_id", "id");
+    }
+    public function maintenances(){
+        return $this->hasMany(Maintenance::class);
     }
 }

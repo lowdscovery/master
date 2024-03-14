@@ -22,7 +22,7 @@ class CreateIntervenantsTable extends Migration
             $table->string('sexe');
             $table->string('telephone');
             $table->date('dateEmbauche');
-            $table->string('photo')->nullable();
+            $table->string('photo');
             $table->timestamps();
         });
     }
