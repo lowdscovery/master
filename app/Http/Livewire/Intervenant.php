@@ -41,7 +41,7 @@ class Intervenant extends Component
       $searchCriteria = "%".$this->search."%";
 
       $data = [
-        "intervenants" => ModelsIntervenant::where("nom", "like", $searchCriteria)->latest()->paginate(1),
+        "intervenants" => ModelsIntervenant::where("nom", "like", $searchCriteria)->latest()->paginate(5),
         "selectIds" => ModelsIntervenant::where("id",optional($this->selectedId)->id)->get(),
       ];
 

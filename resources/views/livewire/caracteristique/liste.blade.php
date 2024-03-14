@@ -114,6 +114,20 @@
 </div>
 
 <script>
+    window.addEventListener("showSuccessMessage", event=>{
+        Swal.fire({
+                position: 'top-end',
+                icon: 'success',
+                toast:true,
+                title: event.detail.message || "Caracteristique mis à jour avec succès!",
+                showConfirmButton: false,
+                timer: 3000
+                }
+            )
+    })
+</script>
+
+<script>
     window.addEventListener("showConfirmMessage", event=>{
        Swal.fire({
         title: event.detail.message.title,
@@ -125,29 +139,16 @@
         confirmButtonText: 'Continuer',
         cancelButtonText: 'Annuler'
         }).then((result) => {
-         if(event.detail.message.data.caracteristique_moteur_id){
+           if (result.isConfirmed) {
+       if(event.detail.message.data.caracteristique_moteur_id){
                //appelle fonction livewire
                 @this.deleteCaract(event.detail.message.data.caracteristique_moteur_id)
             }
             if(event.detail.message.data.moteur_pompe_id){
                 @this.deleteModalPompe(event.detail.message.data.moteur_pompe_id)
             }
-
+        }
         })
-
-        
-    })
-
-    window.addEventListener("showSuccessMessage", event=>{
-        Swal.fire({
-                position: 'top-end',
-                icon: 'success',
-                toast:true,
-                title: event.detail.message || "Opération effectuée avec succès!",
-                showConfirmButton: false,
-                timer: 2000
-                }
-            )
     })
 
 </script>

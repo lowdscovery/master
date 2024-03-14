@@ -98,23 +98,22 @@
             </a>
         </li>
         <li class="nav-item">
-            <a href="{{route('uploads')}}" class="nav-link {{setMenuActive('uploads')}}">
+            <a href="{{route('Incident.incident')}}" class="nav-link {{setMenuActive('Incident.incident')}}">
                 <i class="nav-icon fas fa-exchange-alt"></i>
                 <p>
-                Gestion des locations
+                Incident
                 </p>
             </a>
         </li>
-
-        <li class="nav-header">CAISSE</li>
-        <li class="nav-item">
-            <a href="#" class="nav-link">
-                <i class="nav-icon fas fa-coins"></i>
+       <li class="nav-item">
+            <a href="{{route('maintenance.maintenance')}}" class="nav-link {{setMenuActive('maintenance.maintenance')}}">
+                <i class="fa fa-cog fa-fw"></i>
                 <p>
-                Gestion des paiements
+                Maintenance
                 </p>
             </a>
         </li>
+        
   @endcan
 </ul>
 </nav>

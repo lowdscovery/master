@@ -15,10 +15,10 @@ class CreateMaintenancesTable extends Migration
     {
         Schema::create('maintenances', function (Blueprint $table) {
             $table->id();
-            $table->dateTime('dateMaintenance');
+            $table->date('dateMaintenance');
             $table->string('actionEntreprise');
-            $table->foreignId('intervenant_id');
-            $table->foreignId('caracteristique_moteur_id');
+            $table->string('intervenant');
+            $table->string('caracteristique');
             $table->timestamps();
         });
         Schema::enableForeignKeyConstraints();

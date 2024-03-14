@@ -2,8 +2,10 @@
 
 use App\Http\Controllers\UserController;
 use App\Http\Livewire\Caracteristique;
+use App\Http\Livewire\Incident;
 use App\Http\Livewire\Information;
 use App\Http\Livewire\Intervenant;
+use App\Http\Livewire\Maintenance;
 use App\Http\Livewire\Uploads;
 use App\Http\Livewire\Utilisateurs;
 use App\Models\User;
@@ -57,9 +59,10 @@ Route::group([
 });
 //
 Route::get("/intervenants", Intervenant::class)->name("Intervenant.intervenant")->middleware("auth.manager");
+Route::get("/incidents", Incident::class)->name("Incident.incident")->middleware("auth.manager");
+//Route::get("/uploads", Uploads::class)->name("uploads")->middleware("auth.manager");
+Route::get("/maintenances", Maintenance::class)->name("maintenance.maintenance")->middleware("auth.manager");
 
-Route::get("/uploads", Uploads::class)->name("uploads")->middleware("auth.manager");
-//Route::get("/information", Information::class)->name("information")->middleware("auth.manager");
 
 
 

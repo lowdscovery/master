@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 use App\Models\CaracteristiqueMoteur;
+use App\Models\Incident;
 use App\Models\MoteurElectrique;
 use App\Models\MoteurPompe;
 use App\Models\User;
@@ -21,6 +22,7 @@ class DatabaseSeeder extends Seeder
          CaracteristiqueMoteur::factory(10)->create();
          MoteurPompe::factory(10)->create();
          MoteurElectrique::factory(10)->create();
+         Incident::factory(5)->create();
 
          $this->call(PermissionTableSeeder::class);
          $this->call(RoleTableSeeder::class);

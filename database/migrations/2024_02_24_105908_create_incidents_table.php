@@ -15,15 +15,15 @@ class CreateIncidentsTable extends Migration
     {
         Schema::create('incidents', function (Blueprint $table) {
             $table->id();
-            $table->dateTime('dateIncident');
+            $table->date('dateIncident');
+            $table->string('indexCH');
             $table->string('heure');
             $table->string('natureIncident');
             $table->string('cause');
             $table->string('action');
-            $table->string('resultat');
-            $table->string('indexCH');
-            $table->foreignId('intervenant_id');
-            $table->foreignId('caracteristique_moteur_id');
+            $table->string('resultat');       
+            $table->string('intervenant');
+            $table->string('marque|numero');
             $table->timestamps();
         });
 

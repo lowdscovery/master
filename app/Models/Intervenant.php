@@ -12,4 +12,8 @@ protected $table = "intervenants";
 protected $fillable = [
     "nom","prenom", "service", "matricule","sexe", "telephone", "dateEmbauche", "photo",
 ];
+
+public function incidents(){
+    return $this->hasMany(Incident::class);
+}
 }
