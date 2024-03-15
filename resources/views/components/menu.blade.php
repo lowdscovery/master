@@ -53,12 +53,6 @@
                   <p>Utilisateurs</p>
                 </a>
               </li>
-              <li class="nav-item">
-                <a href="#" class="nav-link">
-                  <i class="nav-icon fas fa-fingerprint"></i>
-                  <p>Roles et permissions</p>
-                </a>
-              </li>
             </ul>
         </li>
 
@@ -77,14 +71,7 @@
                     <i class="nav-icon far fa-circle"></i>
                     <p>Moteurs</p>
                     </a>
-                </li>
-                <li class="nav-item">
-                    <a href="" class="nav-link ">
-                    <i class="nav-icon fas fa-list-ul"></i>
-                    <p>Articles</p>
-                    </a>
-                </li>
-                
+                </li>     
             </ul>
         </li>
 

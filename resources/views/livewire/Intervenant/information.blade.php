@@ -33,7 +33,7 @@
 		<div class="right">		
         	<p><strong>Sexe :</strong> {{optional($selectedId)->sexe}}</p>
         	<p><strong>Telephone :</strong> {{optional($selectedId)->telephone}}</p>
-            <p><strong>Date d'embauche :</strong> {{optional($selectedId)->dateEmbauche}}</p>
+            <p><strong>Date d'embauche :</strong> {{date('d/m/y',strtotime(optional($selectedId)->dateEmbauche))}}</p>
 		</div>
 		</div>
 	</div>

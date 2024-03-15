@@ -1,7 +1,7 @@
 <div class="row p-4 pt-5">
             <div class="col-md-6">
             <!-- general form elements -->
-            <div class="card card-primary">
+            <div class="card card-cyan">
               <div class="card-header">
                 <h3 class="card-title"><i class="fas fa-user-plus fa-2x"></i> Formulaire de création d'un nouvel utilisateur</h3>
               </div>
@@ -28,7 +28,7 @@
                     <div class="d-flex">
                         <div class="form-group flex-grow-1 mr-2">
                             <label >Nom</label>
-                            <input type="text" wire:model="newUser.nom" class="form-control @error('newUser.nom') is-invalid @enderror">
+                            <input type="text" wire:model="newUser.nom" class="form-control @error('newUser.nom') is-invalid @enderror" placeholder="Nom">
 
                             @error("newUser.nom")
                                 <span class="text-danger">{{ $message }}</span>
@@ -36,7 +36,7 @@
                         </div>
                         <div class="form-group flex-grow-1">
                             <label >Prenom</label>
-                            <input type="text" wire:model="newUser.prenom" class="form-control @error('newUser.prenom') is-invalid @enderror">
+                            <input type="text" wire:model="newUser.prenom" class="form-control @error('newUser.prenom') is-invalid @enderror" placeholder="Prenom">
 
                             @error("newUser.prenom")
                                 <span class="text-danger">{{ $message }}</span>
@@ -58,7 +58,7 @@
 
                   <div class="form-group">
                     <label >Adresse e-mail</label>
-                    <input type="text" class="form-control @error('newUser.email') is-invalid @enderror" wire:model="newUser.email">
+                    <input type="text" class="form-control @error('newUser.email') is-invalid @enderror" wire:model="newUser.email" placeholder="Email">
                     @error("newUser.email")
                                 <span class="text-danger">{{ $message }}</span>
                             @enderror
@@ -66,7 +66,7 @@
 
                   <div class="form-group">
                             <label >Telephone </label>
-                            <input type="text" class="form-control @error('newUser.telephone1') is-invalid @enderror" wire:model="newUser.telephone1">
+                            <input type="text" class="form-control @error('newUser.telephone1') is-invalid @enderror" wire:model="newUser.telephone1" placeholder="Telephone">
                             @error("newUser.telephone1")
                                 <span class="text-danger">{{ $message }}</span>
                             @enderror
@@ -87,7 +87,7 @@
 
                   <div class="form-group">
                             <label >Numero de piece d'identité</label>
-                            <input type="text" class="form-control @error('newUser.numeroPieceIdentite') is-invalid @enderror" wire:model="newUser.numeroPieceIdentite">
+                            <input type="text" class="form-control @error('newUser.numeroPieceIdentite') is-invalid @enderror" wire:model="newUser.numeroPieceIdentite" placeholder="Numero de piece d'identité">
                             @error("newUser.numeroPieceIdentite")
                                 <span class="text-danger">{{ $message }}</span>
                             @enderror
