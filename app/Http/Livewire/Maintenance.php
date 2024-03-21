@@ -31,6 +31,8 @@ class Maintenance extends Component
           }
     //calcute date
     public $dates = false;
+    public $events;
+
 
     public function cacheButton(){
         $this->button = false;
@@ -38,13 +40,14 @@ class Maintenance extends Component
     public function mount(){
         $this->documents = ModelsMaintenance::all();
         $today = Carbon::today();
-        $this->dates = ModelsMaintenance::whereDate('dateMaintenance',$today)->exists();
+        $this->events = ModelsMaintenance::all();
+        $this->dates = ModelsMaintenance::whereDate('dateMaintenance', $today)->exists();
     }
     public function render()
     {
        $searchCriteria = "%".$this->search."%";
        $data = [
-        "maintenances" => ModelsMaintenance::where("dateMaintenance","like",$searchCriteria)->latest()->paginate(2),
+        "maintenances" => ModelsMaintenance::where("dateMaintenance","like",$searchCriteria)->latest()->paginate(5),
         "inters" => ModelsIntervenant::get(),
         "caracteristiques" => CaracteristiqueMoteur::get(),
        ];
@@ -120,6 +123,7 @@ class Maintenance extends Component
         $this->dispatchBrowserEvent("showSuccessMessage", ["message"=> "Mis à jour avec succès!"]);
         $this->resetValueInput++;
         $this->editMaintenance = [];
+        $this->cacheInput();
     }
 
     //show pdf

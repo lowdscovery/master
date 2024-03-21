@@ -111,47 +111,48 @@
                       <th class="text-center"> Action</th>
                     </tr>
                   </thead>
-                  <tbody>                             
+                  <tbody>
+                   @if ($input)
+                        <tr>
+                          <td colspan="2">
+                          <label class="col-form-label">Date Fin</label>
+                            <input type="date" wire:model="editRapport.dateFin" class="form-control" required>
+                          </td>
+                          <td colspan="3">
+                          <label class="col-form-label">Rapport de mission</label>
+                            <input type="file" class="form-control" id="editImage{{$resetValueInput}}" required wire:model="editImage">
+                          </td>
+                          <td class="pb-4" colspan="2">
+                          <label class="col-form-label"> </label>
+                            <button class="btn btn-primary" wire:click="updateInput">Enregistrer</button>
+                             <button class="btn btn-danger" wire:click="cacheInput">Annuler</button>
+                          </td>
+                        </tr>
+                      @endif                             
                 @forelse ($rapports as $rapport)      
                 @if ($rapport->dateFin==null || $rapport->rapport==null)
-                  <tr style="color:red;">
-                      
-                      @if ($input)
-                      <td class="text-center">{{ $rapport->dateDebut}}</td>
-                      <td><input type="date" wire:model="editRapport.dateFin" class="form-control" required></td>
-                      <td class="text-center">{{ $rapport->inters->nom}} {{ $rapport->inters->prenom}}</td>
-                      <td class="text-center">{{ $rapport->lieu}}</td>
-                      <td class="text-center">{{ $rapport->motif}}</td>
-                      <td>
-                      <div class="pb-2">
-                      <input type="file" class="form-control" id="editImage{{$resetValueInput}}" required wire:model="editImage">
-                      </div>        
-                      <button class="btn btn-primary" wire:click="updateInput">Enregistrer</button>
-                      <button class="btn btn-danger" wire:click="cacheInput">Annuler</button>
-                      </td>
-                      @else
-                      <td class="text-center">{{ $rapport->dateDebut}}</td>
-                      <td class="text-center" style="color:black;"><span style="background-color:#9ECC2D;border-radius:5px;font-size:16px;"> En attente.. </span></td>
-                      <td class="text-center">{{ $rapport->inters->nom}} {{ $rapport->inters->prenom}}</td>
-                      <td class="text-center">{{ $rapport->lieu}}</td>
-                      <td class="text-center">{{ $rapport->motif}}</td>
-                      <td class="text-center" style="color:black;"><span style="background-color:#9ECC2D;border-radius:5px;font-size:16px;"> En attente.. </span></td>
-                      @endif
-                      <td>       
-                    <div class="btn-group open pb-1">
-                    <a class="btn btn-info dropdown-toggle" data-toggle="dropdown">
-                        <span class="fa fa-caret-down" title="Toggle dropdown menu"></span>
-                    </a>
-                    <ul class="dropdown-menu" style="padding:10px; z-index: 10;" >
-                        <li><button class="btn btn-link" data-toggle="modal" data-target="#addModal"> <i class="fa fa-plus-circle"></i> Ajouter</button></li>
-                        <li><button class="btn btn-link" wire:click="editRapport({{$rapport->id}})" data-toggle="modal" data-target="#editModal"> <i class="far fa-edit"></i> Edit</button></li>
-                        <li><button class="btn btn-link" wire:click="confirmDelete({{$rapport->id}})"> <i class="far fa-trash-alt"></i> Delete</button></li>
-                    </ul>
-                    </div>
-                    <button class="btn btn-success" wire:click="editInput({{$rapport->id}})"> Rapport</button>
-                      </td>
+                    <tr style="color:red;">
+                        <td class="text-center">{{ $rapport->dateDebut}}</td>
+                        <td class="text-center" style="color:black;"><i class="fa fa-spinner fa-2x fa-fw"></i></td>
+                        <td class="text-center">{{ $rapport->inters->nom}} {{ $rapport->inters->prenom}}</td>
+                        <td class="text-center">{{ $rapport->lieu}}</td>
+                        <td class="text-center">{{ $rapport->motif}}</td>
+                        <td class="text-center" style="color:black;"><i class="fa fa-spinner fa-2x fa-fw"></i></td>
+                        <td>       
+                        <div class="btn-group open">
+                        <a class="btn btn-info dropdown-toggle" data-toggle="dropdown">
+                            <span class="fa fa-caret-down" title="Toggle dropdown menu"></span>
+                        </a>
+                        <ul class="dropdown-menu" style="padding:10px; z-index: 10;" >
+                            <li><button class="btn btn-link" data-toggle="modal" data-target="#addModal"> <i class="fa fa-plus-circle"></i> Ajouter</button></li>
+                            <li><button class="btn btn-link" wire:click="editRapport({{$rapport->id}})" data-toggle="modal" data-target="#editModal"> <i class="far fa-edit"></i> Edit</button></li>
+                            <li><button class="btn btn-link" wire:click="confirmDelete({{$rapport->id}})"> <i class="far fa-trash-alt"></i> Delete</button></li>
+                        </ul>
+                        </div>
+                        <button class="btn btn-success" wire:click="editInput({{$rapport->id}})"> Rapport</button>
+                          </td>
                     </tr>
-                @else
+                 @else
                     <tr>
                       <td class="text-center">{{ $rapport->dateDebut}}</td>
                       <td class="text-center">{{ $rapport->dateFin}}</td>
@@ -174,7 +175,7 @@
                     </div>
                       </td>
                     </tr>
-                @endif    
+                  @endif    
                     @empty
                           <tr>
                               <td colspan="6">
