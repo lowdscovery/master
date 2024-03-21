@@ -119,14 +119,14 @@
                     </div>
 
                     <div class="col pt-3">
-      <input class="form-control " type="file" wire:model="image" wire:loading.attr="disabled" id="image{{$resetValueInput}}" required="required" title="Selectionner l'image"> 
+      <input class="form-control " type="file" wire:model="image" wire:loading.attr="disabled" id="image{{$resetValueInput}}" title="Selectionner l'image"> 
                         </div>
                         <div class="col pt-3">
-      <input class="form-control " type="file" wire:model="fichier" wire:loading.attr="disabled" id="fichier{{$resetValueInput}}" required="required" title="Selectionner le pdf"> 
+      <input class="form-control " type="file" wire:model="fichier" wire:loading.attr="disabled" id="fichier{{$resetValueInput}}" title="Selectionner le pdf"> 
                         </div>
 
                       <div class="col pt-3">
-                    <select class="form-control @error("addOuvrage.ressource_id") is-invalid @enderror" wire:model="addOuvrage.ressource_id" required="required" required="required" title="Choisissez le type de forage ou puits">
+                    <select class="form-control @error("addOuvrage.ressource_id") is-invalid @enderror" wire:model="addOuvrage.ressource_id" required="required" title="Choisissez le type de forage ou puits">
                         @error("addOuvrage.ressource_id")
                                 <span class="text-danger">{{$message}}</span>
                         @enderror 
@@ -139,22 +139,15 @@
                   </div>      
                     </div>
                     
-                    <div class="pt-3">
-                    
-                    
-                   @if ($isSelectededit == true)
-                   <div wire:loading.delay wire:target="updateOuvrage">
-                        <span class="text-green">Encours...</span>
-                    </div>
-    <button wire:click="updateOuvrage()" wire:loading.attr="disabled" class="btn btn-success" > <i class="fa fa-check"></i> Edit</button>
-                   @else
-                   <div wire:loading.delay wire:target="Ouvrage">
-                        <span class="text-green">Encours...</span>
-                    </div>
-    <button type="submit" wire:loading.attr="disabled" class="btn btn-primary" > <i class="fa fa-check"></i> Valider</button>
+                    <div class="pt-3">  
+                   @if ($isSelectededit == true)      
+    <button type="button" wire:click="updateOuvrage()" class="btn btn-success" > <i class="fa fa-check"></i> Edit</button>
+                   @else               
+    <button type="submit" class="btn btn-primary" > <i class="fa fa-check"></i> Valider</button>
                     @endif
    <button type="button" wire:click="cancel" class="btn btn-warning"> <i class="fa fa-times"></i> Annuler</button>
                     </div>
+                    
                 </div>
                 
         @endif  

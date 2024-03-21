@@ -7,8 +7,25 @@ use App\Models\CalculeColonne;
 
 class Calcules extends Component
 {
+    /*public $values;
 
-    public $value;
+    public function mount(){
+        $this->values = CalculeColonne::all();
+    }*/
+    public $chartData;
+
+    public function mount(){
+        $this->chartData = CalculeColonne::select('value','old_value','difference')->get()->toArray();
+    }
+    
+    public function render()
+    {  
+        return view('livewire.calcules')
+        ->extends("layouts.principal")
+        ->section("contenu");
+    }
+//deuxieme
+  /*  public $value;
     public $editMode=false;
     public $editId;
 
@@ -52,7 +69,9 @@ class Calcules extends Component
         }
         $this->editMode = false;
         $this->reset(['value', 'editId']);
-    }
+    }*/
+
+//premier
   /*  public $transactions;
     public $value;
 
@@ -121,11 +140,11 @@ class Calcules extends Component
         $this->previousValue = $this->value;
         $this->reset('value');
     }*/
-    public function render()
+ /*   public function render()
     {
         $values = CalculeColonne::all();
         return view('livewire.calcules',['values'=>$values])
         ->extends("layouts.principal")
         ->section("contenu");
-    }
+    }*/
 }

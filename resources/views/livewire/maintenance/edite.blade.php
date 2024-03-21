@@ -17,20 +17,20 @@
           </div>
            <div class="form-group">
             <label for="recipient-name" class="col-form-label">Intervenant</label>
-           <select class="form-control @error("editMaintenance.intervenant") is-invalid @enderror" wire:model="editMaintenance.intervenant">
-                @error("editMaintenance.intervenant")
+           <select class="form-control @error("editMaintenance.intervenant_id") is-invalid @enderror" wire:model="editMaintenance.intervenant_id">
+                @error("editMaintenance.intervenant_id")
                           <span class="text-danger">{{$message}}</span>
                  @enderror 
                     <option value="">---------</option>
                 @foreach ($inters as $inter)
-                    <option value="{{$inter->nom}} {{$inter->prenom}}">{{$inter->nom}} {{$inter->prenom}}</option>
-                @endforeach       
+                    <option value="{{$inter->id}}">{{$inter->nom}} {{$inter->prenom}}</option>
+                @endforeach        
            </select>
           </div>
           <div class="form-group">
             <label for="recipient-name" class="col-form-label">Caracteristique</label>
-            <select class="form-control @error("editMaintenance.caracteristique") is-invalid @enderror" wire:model="editMaintenance.caracteristique">
-                @error("editMaintenance.caracteristique")
+            <select class="form-control @error("editMaintenance.caracteristique_moteurs_id") is-invalid @enderror" wire:model="editMaintenance.caracteristique_moteurs_id">
+                @error("editMaintenance.caracteristique_moteurs_id")
                           <span class="text-danger">{{$message}}</span>
                  @enderror 
                     <option value="">---------</option>

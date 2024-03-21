@@ -71,6 +71,7 @@ Anything you want
 
 <script src="{{mix("js/app.js")}}"></script>
 @livewireScripts
-
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script src="{{asset("js/chart.js")}}"></script>
 
 </body></html>

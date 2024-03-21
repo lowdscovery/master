@@ -129,22 +129,23 @@
                       @if ($input)
                         <tr>
                           <td colspan="3">
-                          <label class="col-form-label">Duree Reél</label>
+                          <label class="col-form-label">Durée Réel</label>
                             <input type="number" wire:model="editMaintenance.DureeReel" class="form-control" required>
                           </td>
                           <td colspan="3">
                           <label class="col-form-label">Rapport de maintenance</label>
                             <input type="file" class="form-control" id="editImage{{$resetValueInput}}" required wire:model="editImage">
                           </td>
-                          <td class="pb-4" colspan="3">
-                          <label class="col-form-label"> </label>
-                            <button class="btn btn-primary" wire:click="updateMaintenance">Enregistrer</button>
+                          <td colspan="3">
+                          <div style="padding-top:36px;">
+                            <button class="btn btn-primary" wire:click="updateInput">Enregistrer</button>
                              <button class="btn btn-danger" wire:click="cacheInput">Annuler</button>
+                          </div>
                           </td>
                         </tr>
                       @endif
 
-                      @forelse ($events as $maintenance) 
+                      @forelse ($maintenances as $maintenance) 
                             @php
                               $isToday = \Carbon\Carbon::parse($maintenance->dateMaintenance)->isToday();
                             @endphp
@@ -175,7 +176,7 @@
                                     <li><button class="btn btn-link" wire:click="confirmDelete({{$maintenance->id}})"> <i class="far fa-trash-alt"></i> Delete</button></li>
                                 </ul>
                                 </div>
-                                <button class="btn btn-warning" wire:click="editMaintenance({{$maintenance->id}})"> Rapport</button>
+                                <button class="btn btn-warning" wire:click="editInput({{$maintenance->id}})"> Rapport</button>
                                 </td>
                               </tr>
                              @else
@@ -198,7 +199,7 @@
                                     <li><button class="btn btn-link" wire:click="confirmDelete({{$maintenance->id}})"> <i class="far fa-trash-alt"></i> Delete</button></li>
                                 </ul>
                                 </div>
-                                <button class="btn btn-warning" wire:click="editMaintenance({{$maintenance->id}})"> Rapport</button>
+                                <button class="btn btn-warning" wire:click="editInput({{$maintenance->id}})"> Rapport</button>
                                 </td>
                               </tr>
                               @endif
@@ -252,10 +253,10 @@
                </tbody>
                 </table>
               </div>
-              <!-- /.card-body -->
+              <!-- /.card-body   -->
               <div class="card-footer">
                 <div class="float-right">
-                  
+                 {{ $maintenances->links() }}
                 </div>
             </div>
 </div>

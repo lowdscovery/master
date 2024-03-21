@@ -62,9 +62,9 @@ public function Ouvrage(){
         "addOuvrage.nombreExhaur" =>"required",  
         "addOuvrage.sondeBas" =>"required",
         "addOuvrage.sondeHaut" =>"required",
-        "image" => "image|max:10240",
-        "fichier" => "required|mimes:pdf|max:10240",
-        "addOuvrage.ressource_id"=>"required|numeric|unique:ouvrages,ressource_id",
+      //  "image" => "image|max:10240",
+      //  "fichier" => "mimes:pdf|max:10240",
+      //  "addOuvrage.ressource_id"=>"required|numeric|unique:ouvrages,ressource_id",
     ]);
     $path="";
     if($this->image){
@@ -125,8 +125,8 @@ public function updateOuvrage(){
       "addOuvrage.nombreExhaur" =>"required",  
       "addOuvrage.sondeBas" =>"required",
       "addOuvrage.sondeHaut" =>"required",
-     /* "image" => "image|max:10240",
-      "fichier" => "required|mimes:pdf|max:10240",*/
+    //  "image" => "image|max:10240",
+    //  "fichier" => "mimes:pdf|max:10240",
       "addOuvrage.ressource_id"=>"required",
     ]);
     $ouvrage = ModelsOuvrage::find($this->addOuvrage["id"]);
@@ -147,9 +147,8 @@ public function updateOuvrage(){
   
     $ouvrage->save();
     $this->resetErrorBag();
-    $this->addOuvrage = [];
     $this->resetValueInput++;
-    $this->addOuvrage["edit"] = false;
+   // $this->addOuvrage["edit"] = false;
     $this->dispatchBrowserEvent("showSuccessMessage", ["message"=> "Forage mis à jour avec succès!"]);
   }
 

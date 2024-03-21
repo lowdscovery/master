@@ -47,9 +47,11 @@ class Maintenance extends Component
     {
        $searchCriteria = "%".$this->search."%";
        $data = [
-        "maintenances" => ModelsMaintenance::where("dateMaintenance","like",$searchCriteria)->latest()->paginate(5),
+        "maintenances" => ModelsMaintenance::where("dateMaintenance","like",$searchCriteria)->latest()->paginate(3),
         "inters" => ModelsIntervenant::get(),
         "caracteristiques" => CaracteristiqueMoteur::get(),
+       // "events" =>  ModelsMaintenance::paginate(3),
+        
        ];
        $this ->mount();
         return view('livewire.maintenance.maintenance', $data)
@@ -64,7 +66,7 @@ class Maintenance extends Component
             'editMaintenance.DureeIntervention'=> 'required',
             'editMaintenance.intervenant_id'=> 'required',
             'editMaintenance.caracteristique_moteurs_id'=> 'required',
-            'editImage'=> "required|mimes:pdf|max:10240",
+          //  'editImage'=> "required|mimes:pdf|max:10240",
         ];
     }
 
@@ -103,10 +105,35 @@ class Maintenance extends Component
         $maintenance->delete();
         $this->dispatchBrowserEvent("showSuccessMessage", ["message"=>"Supprimé avec succès!"]);
       }
+
+    //edit
+    public function editInput(ModelsMaintenance $maintenance){
+        $this->editMaintenance = $maintenance->toArray();
+        $this->showInput();
+       }
+       public function updateInput(){
+        $this->validate([
+            'editImage'=> "required|mimes:pdf|max:10240",
+        ]);
+        $maintenance = ModelsMaintenance::find($this->editMaintenance["id"]);
+        $maintenance->fill($this->editMaintenance);
+
+        if($this->editImage){
+            $path = $this->editImage->store("maintenance", "public");
+            $imagePath = "storage/".$path;
+            Storage::disk("local")->delete(str_replace("storage/", "public/", $maintenance->Rapport));
+            $maintenance->Rapport = $imagePath;
+        }
+        $maintenance->save();
+        $this->dispatchBrowserEvent("showSuccessMessage", ["message"=> "Mis à jour avec succès!"]);
+        $this->resetValueInput++;
+        $this->editMaintenance = [];
+        $this->cacheInput();
+    }
       //edit
     public function editMaintenance(ModelsMaintenance $maintenance){
      $this->editMaintenance = $maintenance->toArray();
-     $this->showInput();
+    // $this->showInput();
     }
     public function updateMaintenance(){
         $this->validate();

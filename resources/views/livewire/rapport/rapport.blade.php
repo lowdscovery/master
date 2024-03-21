@@ -122,10 +122,11 @@
                           <label class="col-form-label">Rapport de mission</label>
                             <input type="file" class="form-control" id="editImage{{$resetValueInput}}" required wire:model="editImage">
                           </td>
-                          <td class="pb-4" colspan="2">
-                          <label class="col-form-label"> </label>
+                          <td colspan="2">
+                             <div style="padding-top:36px;">
                             <button class="btn btn-primary" wire:click="updateInput">Enregistrer</button>
                              <button class="btn btn-danger" wire:click="cacheInput">Annuler</button>
+                             </div>
                           </td>
                         </tr>
                       @endif                             

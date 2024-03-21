@@ -3,6 +3,7 @@
 use App\Http\Controllers\UserController;
 use App\Http\Livewire\Affichage;
 use App\Http\Livewire\Armoire;
+use App\Http\Livewire\Bande;
 use App\Http\Livewire\BisList;
 use App\Http\Livewire\Caracteristique;
 use App\Http\Livewire\Commande;
@@ -68,6 +69,20 @@ Route::group([
     ], function(){
 
         Route::get("/moteurs", Caracteristique::class)->name("caracteristique.caracteristique")->middleware("auth.manager");
+    });
+});
+//
+Route::group([
+    "middleware" => ["auth", "auth.manager"],
+    'as' => 'manager.'
+], function(){
+
+    Route::group([
+        "prefix" => "tableau",
+        'as' => 'tableau.'
+    ], function(){
+
+        Route::get("/bandes", Bande::class)->name("bande.bande")->middleware("auth.manager");
     });
 });
 //

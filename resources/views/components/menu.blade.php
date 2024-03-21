@@ -14,8 +14,8 @@
 
 
 @can("manager")
-<li class="nav-item">
-            <a href="#" class="nav-link">
+<li class="nav-item {{setMenuClass('manager.tableau.', 'menu-open')}}">
+            <a href="#" class="nav-link {{setMenuClass('manager.tableau.', 'active')}}">
               <i class="nav-icon fas fa-tachometer-alt"></i>
               <p>
                 Tableau de bord
@@ -24,15 +24,15 @@
             </a>
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="#" class="nav-link active">
+                <a href="#" class="nav-link">
                   <i class="nav-icon fas fa-chart-line"></i>
                   <p>Vue globale</p>
                 </a>
               </li>
               <li class="nav-item">
-                <a href="#" class="nav-link">
+                <a href="{{route('manager.tableau.bande.bande')}}" class="nav-link {{setMenuActive('manager.tableau.bande.bande')}}">
                   <i class="nav-icon fas fa-swatchbook"></i>
-                  <p>Locations</p>
+                  <p>Bande d'essai</p>
                 </a>
             </li>
      </ul>

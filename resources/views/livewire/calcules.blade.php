@@ -1,57 +1,46 @@
-<div>
-    <form wire:submit.prevent="{{ $editMode ? 'update' : 'calculateAndAdd'}}">
-     <input type="number" wire:model="value" id="value">
-     <button type="submit">{{ $editMode ? 'Mettre à jour' : 'Ajouter'}}</button>
-     </form>
-<div class="pt-4">
-    <div class="col-12">
-        <div class="card">
-            <div class="card-body table-responsive p-0 table-striped">           
-                <div style="height:350px;">
-                    <table class="table table-head-fixed">
-                        <thead>
-                            <tr>
-                                <th class="text-center">ID</th>
-                                <th class="text-center">Valeur</th>
-                                <th class="text-center">Difference</th>
-                                <th class="text-center">Difference cumulative</th>
-                                <th class="text-center">Actions</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                       @forelse ($values as $index => $value)
-                         <tr>         
-                            <td class="text-center">{{$value->id}}</td>
-                            <td class="text-center">{{$value->value}}</td>
-                            <td class="text-center">{{$value->difference}}</td>
-                            <td class="text-center">{{$value->old_value}}</td>
-                            <td class="text-center">
-                            @if ($index == 0 && isset($values[1]))
-                                {{$value->difference + $values[1]->difference}}
-                            @endif
-                            </td>
-                            <td class="text-center">
-                                <button wire:click="edit({{$value->id}})">Edit</button>
-                            </td>
-                        </tr>
-                       @empty
-                         <tr>
-                            <td colspan="9">
-                                <div class="alert alert-info">
+ <h1>Salut bro</h1>
+ <div>
+   <canvas id="myChart"> </canvas>                                             
+ </div>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+  document.addEventListener('livewire:load' , () => {
+    const ctx = document.getElementById('myChart').getContext('2d');
+    const chartData = @json($chartData);
 
-                                    <h5><i class="icon fas fa-ban"></i> Information!</h5>
-                                    Cet article ne dispose pas encore de tarifs.
-                                </div>
-                            </td>
-                        </tr>  
-                       @endforelse    
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-
-        </div>
-        <!-- /.card -->
-    </div>
-</div>
-</div>
+    const data = {
+        labels: chartData.map(item => item.label),
+        datasets: [
+            {
+                label: 'Value 1',
+                data: chartData.map(item => item.value),
+                borderColor: 'rgba(75, 192, 192, 1)',
+                borderWidth: 1
+            },
+             {
+                label: 'Value 2',
+                data: chartData.map(item => item.old_value),
+                borderColor: 'rgba(153, 102, 255, 1)',
+                borderWidth: 1
+            },
+            {
+                label: 'Value 3',
+                data: chartData.map(item => item.difference),
+                borderColor: 'rgba(255, 159, 64, 1)',
+                borderWidth: 1
+            }
+        ]
+    };
+    new Chart(ctx, {
+        type: 'line',
+        data: data,
+        options: {
+            scales:{
+                y: {
+                    beginAtZero:true
+                }
+            }
+        }
+    });
+  });
+</script>
