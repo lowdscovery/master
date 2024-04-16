@@ -3,11 +3,10 @@
 @section('content')
 <div class="container">
     <div class="row justify-content-center">
-        <div class="col-md-8">
-            <div class="card bg-dark" style="transform: translateY(100px);">
-                <div class="card-header" style="text-align:center; font-size:2em">{{ __('Registre') }}</div>
-
+        <div class="col-md-4">
+            <div class="card" style="transform: translateY(100px);">
                 <div class="card-body">
+                <div style="text-align:center; font-size:2em">{{ __('Registre') }}</div>
                     <form method="POST" action="{{ route('register') }}">
                         @csrf
 
@@ -29,7 +28,7 @@
                                 <input id="prenom" type="text" class="form-control @error('prenom') is-invalid @enderror" name="prenom" placeholder="Prenom" value="{{ old('prenom') }}" required autocomplete="prenom" autofocus>
                                 <div class="input-group-append">
                                <div class="input-group-text">
-                             <span class="fas fa-user"></span>
+                             <span class="fa fa-user-circle"></span>
                            </div>
                          </div>   
                                 @error('prenom')
@@ -100,6 +99,10 @@
                                     {{ __('Register') }}
                                 </button>
                             </div>
+                        </div>
+                         <label> </label>
+                        <div>
+                          <p style="text-align:center;"> Avez-vous déjà un compte?<a class="nav-link" href="{{ route('login') }}" style="font-size:1.2em">{{ __('Login') }}</a> </p>
                         </div>
                     </form>
                 </div>

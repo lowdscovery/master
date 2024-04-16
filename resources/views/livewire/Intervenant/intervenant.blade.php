@@ -9,7 +9,7 @@
     <div class="row p-2 pt-3">
     <div class="col-md-5">
        
-        <div class="card card-teal">
+        <div class="card card" style="background-color:#00F2D8;">
             <div class="card-header">
             <h3 class="card-title"><i class="fas fa-user-plus fa-2x"></i> Formulaire d'ajout intervenants</h3>
             </div>
@@ -18,14 +18,14 @@
             <div class="card-body">               
                     <div class="form-group">
                         <label >Nom</label>
-                        <input type="text"  class="form-control @error("addIntervenant.nom") is-invalid @enderror" wire:model="addIntervenant.nom" required="required"> 
+                        <input type="text"  class="form-control @error("addIntervenant.nom") is-invalid @enderror" wire:model="addIntervenant.nom" required="required" placeholder="Nom"> 
                       @error("addIntervenant.nom")
                           <span class="text-danger">{{$message}}</span>
                       @enderror   
                     </div>
                     <div class="form-group">
                         <label >Prenom</label>
-                        <input type="text"  class="form-control @error("addIntervenant.prenom") is-invalid @enderror" wire:model="addIntervenant.prenom" required="required">
+                        <input type="text"  class="form-control @error("addIntervenant.prenom") is-invalid @enderror" wire:model="addIntervenant.prenom" required="required" placeholder="Prenom">
                         @error("addIntervenant.prenom")
                           <span class="text-danger">{{$message}}</span>
                       @enderror    
@@ -34,14 +34,14 @@
                  <div class="d-flex">
                     <div class="form-group flex-grow-1 mr-2">
                         <label >Service</label>
-                        <input type="text"  class="form-control @error("addIntervenant.service") is-invalid @enderror" wire:model="addIntervenant.service" required="required">
+                        <input type="text"  class="form-control @error("addIntervenant.service") is-invalid @enderror" wire:model="addIntervenant.service" required="required" placeholder="Service">
                         @error("addIntervenant.service")
                           <span class="text-danger">{{$message}}</span>
                       @enderror 
                     </div>
                     <div class="form-group flex-grow-1">
                         <label >Matricule</label>
-                        <input type="text"  class="form-control @error("addIntervenant.matricule") is-invalid @enderror" wire:model="addIntervenant.matricule" required="required">
+                        <input type="text"  class="form-control @error("addIntervenant.matricule") is-invalid @enderror" wire:model="addIntervenant.matricule" required="required" placeholder="Matricule">
                         @error("addIntervenant.matricule")
                           <span class="text-danger">{{$message}}</span>
                       @enderror                
@@ -63,7 +63,7 @@
             <div class="d-flex">
                 <div class="form-group flex-grow-1 mr-2">
                         <label >Telephone </label>
-                        <input type="text" class="form-control @error("addIntervenant.telephone") is-invalid @enderror" wire:model="addIntervenant.telephone" required="required">
+                        <input type="text" class="form-control @error("addIntervenant.telephone") is-invalid @enderror" wire:model="addIntervenant.telephone" required="required" placeholder="Telephone">
                         @error("addIntervenant.telephone")
                           <span class="text-danger">{{$message}}</span>
                       @enderror 
@@ -79,14 +79,14 @@
                 </div>
             </div>
             <div class="form-group flex-grow-1">
-               <input type="file" wire:model="image" id="image{{$resetValueInput}}" wire:loading.attr="disabled" required="required">                   
+               <input class="form-control" type="file" wire:model="image" id="image{{$resetValueInput}}" wire:loading.attr="disabled" required="required">                   
             </div>
-             <div style="border: 1px solid #d0d1d3; border-radius: 20px; height: 200px; width:200px; overflow:hidden;">
+         <!-- <div style="border: 1px solid #d0d1d3; border-radius: 20px; height: 200px; width:200px; overflow:hidden;">
             @if ($image)
 
                 <img src="{{ $image->temporaryUrl() }}" style="height:200px; width:200px;">
             @endif
-    </div>
+             </div> -->
              </div>
             <!-- /.card-body -->
 

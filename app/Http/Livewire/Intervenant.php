@@ -163,5 +163,6 @@ public function updateintervenants(){
   }
   $intervenant->save();
   $this->dispatchBrowserEvent("showSuccessMessage", ["message"=> "Intervenant mis à jour avec succès!"]);
+  return redirect('intervenant.information');
 }
 }

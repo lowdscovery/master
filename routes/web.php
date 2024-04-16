@@ -62,10 +62,15 @@ Route::group([
 //
 Route::get("/intervenants", Intervenant::class)->name("Intervenant.intervenant")->middleware("auth.manager");
 Route::get("/incidents", Incident::class)->name("Incident.incident")->middleware("auth.manager");
-//Route::get("/uploads", Uploads::class)->name("uploads")->middleware("auth.manager");
+Route::get("/uploads", Uploads::class)->name("uploads")->middleware("auth.manager");
 Route::get("/maintenances", Maintenance::class)->name("maintenance.maintenance")->middleware("auth.manager");
 Route::get("/commandes", Commande::class)->name("commande.commande")->middleware("auth.manager");
 Route::get("bis", BisList::class)->name("bis.bis")->middleware("auth.manager");
+
+/* voir information de php
+route::get('/teste/page', function(){
+    dd(phpinfo());
+});*/
 
 
 
