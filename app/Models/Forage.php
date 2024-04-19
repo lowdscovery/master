@@ -8,4 +8,9 @@ use Illuminate\Database\Eloquent\Model;
 class Forage extends Model
 {
     use HasFactory;
+    protected $fillable = ['id','nom','ressource_id'];
+    
+    public function caract(){
+        return $this->hasMany(CaracteristiqueMoteur::class);
+    }
 }

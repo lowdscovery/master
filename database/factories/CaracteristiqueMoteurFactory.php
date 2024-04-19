@@ -28,6 +28,10 @@ class CaracteristiqueMoteurFactory extends Factory
             'misesEnServices' => $this->faker->address,
             'observations' => $this->faker->address,
             'moteurs' => $this->faker->firstName,
+            'district_id' => rand(1,4),
+            'site_id' => rand(1,9),
+            'ressource_id' => rand(1,25),
+            'forage_id' => rand(1,25),
             'user_id' => rand(1,10),
         ];
     }

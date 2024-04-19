@@ -10,6 +10,7 @@ use App\Http\Livewire\Intervenant;
 use App\Http\Livewire\Maintenance;
 use App\Http\Livewire\Uploads;
 use App\Http\Livewire\Utilisateurs;
+use App\Models\CaracteristiqueMoteur;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
@@ -70,6 +71,10 @@ Route::get("bis", BisList::class)->name("bis.bis")->middleware("auth.manager");
 /* voir information de php
 route::get('/teste/page', function(){
     dd(phpinfo());
+});*/
+/* teste relation
+Route::get('/teste', function(){
+return CaracteristiqueMoteur::with("districts")->paginate(2);
 });*/
 
 

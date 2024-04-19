@@ -22,10 +22,10 @@ class Caracteristique extends Component
     public $search = "";
     public $selectedMoteur;
     public $editModal = [];
-    public $selectedDistrict;
-    public $selectedSite;
-    public $selectedressource;
-    public $selectedForage;
+    public $selectedDistrict=[];
+    public $selectedSite=[];
+    public $selectedressource=[];
+    public $selectedForage=[];
     public $sites = [];
     public $ressources = [];
     public $forages = [];
@@ -51,7 +51,7 @@ class Caracteristique extends Component
             ];
         }
         return [
-            'newCaract.marque' => 'required',
+            /*'newCaract.marque' => 'required',
             'newCaract.type' => 'required',
             'newCaract.numeroSerie' => 'required',
             'newCaract.numeroFabrication' => 'required',
@@ -64,7 +64,11 @@ class Caracteristique extends Component
             'newCaract.roulement' => 'required',
             'newCaract.misesEnServices' => 'required',
             'newCaract.observations' => 'required',
-            'newCaract.moteurs' => 'required',
+            'newCaract.moteurs' => 'required',*/
+            'selectedDistrict.district_id' => 'required',
+            'selectedSite.site_id' => 'required',
+            'selectedressource.ressource_id' => 'required',
+            'selectedForage.forage_id' => 'required',
         ];
     }
 
@@ -87,8 +91,12 @@ class Caracteristique extends Component
        // "sites" => Site::where('district_id')->get(), 
         "caracteristiques" => CaracteristiqueMoteur::where("marque","like",$searchCriteria)->latest()->paginate(5),
         "pompes" => MoteurPompe::where("caracteristique_moteur_id",optional($this->selectedMoteur)->id)->get(),
-        "electriques" => MoteurElectrique::where("caracteristique_moteur_id",optional($this->selectedMoteur)->id)->get()
+        "electriques" => MoteurElectrique::where("caracteristique_moteur_id",optional($this->selectedMoteur)->id)->get(),
            // "pompes" => MoteurPompe::where("moteur_pompe_id",optional($this->selectedMoteur)->id)->get()
+        
+       /* Table relation
+        "caract"=>District::with('caract')->get(),
+        "district"=>CaracteristiqueMoteur::with('districts')->get(),*/
         ];
         
         return view('livewire.caracteristique.index',$data)
@@ -116,13 +124,30 @@ class Caracteristique extends Component
     public function addCaract(){
         sleep(2);
          // Vérifier que les informations envoyées par le formulaire sont correctes
-         $validationAttributes = $this->validate();
+       //  $validationAttributes = $this->validate();
        //  dump($validationAttributes);
        // Ajouter un nouvel utilisateur
-         CaracteristiqueMoteur::create($validationAttributes["newCaract"]);
+       //  CaracteristiqueMoteur::create($validationAttributes["newCaract"]);
+     //  CaracteristiqueMoteur::create($validationAttributes["selectedDistrict"]["selectedSite"]["selectedressource"]["selectedForage"]);
+     $this->validate([
+        'selectedDistrict.district_id' => 'required',
+        'selectedSite.site_id' => 'required',
+        'selectedressource.ressource_id' => 'required',
+        'selectedForage.forage_id' => 'required',
+    ]);
+    CaracteristiqueMoteur::create([
+        "marque"=> " ",
+        "district_id"=>$this->selectedDistrict["district_id"],
+        "site_id"=>$this->selectedSite["site_id"],
+        "ressource_id"=>$this->selectedressource["ressource_id"],
+        "forage_id"=>$this->selectedForage["forage_id"],
+    ]);
          //reinitialiser le formulaire
          $this->resetErrorBag();
-         $this->newCaract = [];
+         $this->selectedDistrict ="";
+         $this->selectedSite ="";
+         $this->selectedressource ="";
+         $this->selectedForage ="";
          $this->dispatchBrowserEvent("showSuccessMessage", ["message"=>"Création avec succès!"]);
     }
 

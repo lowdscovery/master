@@ -10,7 +10,7 @@
 								<h5 class="card-title"><i class="fas fa-user-plus fa-2x"></i>Formulaire d'ajout un moteur</h5>
 							</div>
 							<div class="card-body">
-                                <form role="form" wire:submit.prevent="addCaract()">
+                                <form role="form" wire:submit.prevent="">
 									<div class="row">
 										<div class="col-lg-6 col-md-6 col-sm-12">
 											<div class="form-group">
@@ -145,34 +145,7 @@
                                                     <span class="text-danger">{{ $message }}</span>
                                                 @enderror
 											</div>
-										</div>
-
-                                         <div class="col-lg-6 col-md-6 col-sm-12">
-											<div class="form-group">
-												<label >District</label>
-                                                <select class="form-control" wire:model="selectedDistrict">
-                                                    <option value="">---------</option>
-                                                    @foreach ($districts as $district)
-                                                     <option value="{{$district->id}}">{{$district->nom}}</option>
-                                                    @endforeach                          
-                                                </select>
-											</div>
-										</div>
-                            
-                                        @if (count($sites) > 0)
-                                        <div class="col-lg-6 col-md-6 col-sm-12">
-											<div class="form-group">
-												<label >Site</label>
-                                                <select class="form-control" wire:model="selectedSite">
-                                                    @foreach ($sites as $site)
-                                                     <option value="{{$site->id}}">{{$site->nom}}</option>
-                                                    @endforeach                          
-                                                </select>
-											</div>
-										</div> 
-                                        @endif
-                                     
-                                        
+										</div>                                     
 										<div class="col-lg-12 col-md-12 col-sm-12">
                                     <div class="card-footer">
                                     <div wire:loading.delay wire:target="addCaract">

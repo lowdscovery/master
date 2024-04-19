@@ -43,9 +43,10 @@
                 <table class="table table-head-fixed">
                   <thead>
                     <tr>
-                      <th style="width:20%;">Marque</th>
-                      <th style="width:20%;">Type</th>
-                      <th style="width:20%;" class="text-center">Numero de serie</th>
+                      <th style="width:15%;">District</th>
+                      <th style="width:15%;">Site</th>
+                      <th style="width:15%;">Marque</th>
+                      <th style="width:15%;">Type</th>
                       <th style="width:20%;" class="text-center">Status</th>
                       <th style="width:20%;" >Actions</th>
                     </tr>
@@ -54,9 +55,18 @@
                              
                    @forelse ($caracteristiques as $caracteristique)    
                     <tr>
-                      <td style="width:20%;">{{ $caracteristique->marque }}</td>
-                      <td style="width:20%;">{{ $caracteristique->type }}</td>
-                      <td style="width:20%;" class="text-center"> {{ $caracteristique->numeroSerie }}</td>
+                      <td style="width:15%;">{{ $caracteristique->districts->nom }}</td>
+                      <td style="width:15%;">{{ $caracteristique->sites->nom }}</td>
+                      @if($caracteristique->marque==" ")
+                      <td style="width:15%;"><span class="badge badge-info">En attente</span></td>
+                      @else
+                      <td style="width:15%;">{{ $caracteristique->marque }}</td>
+                      @endif
+                      @if($caracteristique->type=="")
+                      <td style="width:15%;"><span class="badge badge-info">En attente</span></td>
+                      @else
+                      <td style="width:15%;">{{ $caracteristique->type }}</td>
+                      @endif
                        @if($caracteristique->moteurs=="MOTEUR")
           <td style="width:20%;" class="text-center"><span class="badge badge-warning">MOTEUR</span></td>
                       
@@ -69,7 +79,11 @@
           <td style="width:20%;" class="text-center"><span class="badge badge-danger">ENCOURS</span></td>
                        @endif
                       <td style="width:20%;">
-          <button class="btn btn-link" wire:click="goToEditCaract({{$caracteristique->id}})"> <i class="far fa-edit"></i> </button>   
+           @if($caracteristique->marque==" ")
+          <button class="btn btn-link" wire:click="goToEditCaract({{$caracteristique->id}})"> <i class="far fa-edit" style="color:red;"></i> </button> 
+          @else
+          <button class="btn btn-link" wire:click="goToEditCaract({{$caracteristique->id}})"> <i class="far fa-edit"></i> </button> 
+          @endif
           @if($caracteristique->moteurs=="POMPE")
         <button class="btn btn-link" wire:click="showModal({{$caracteristique->id}})" data-bs-toggle="modal" data-bs-target="#exampleModal"> <i class="nav-icon fas fa-list-ul"></i> </button>     
           @else
@@ -99,7 +113,6 @@
               <div class="card-footer">
                 <div class="float-right">
                  {{ $caracteristiques->links() }}
-
                 </div>
             </div>
 </div>
