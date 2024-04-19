@@ -1,11 +1,15 @@
  <div class="row p-4 pt-5">
           <div class="col-12">
+          
+              <ul class="nav nav-pills mb-3">
+                <li class="nav-item"><a href="" wire:click.prevent="goToGrille()" data-toggle="tab" class="nav-link btn-primary show active">Vue de la grille</a></li>
+              </ul>         
             <div class="card">
               <div class="card-header bg-gradient-cyan d-flex align-items-center">
                 <h3 class="card-title flex-grow-1"><i class="fas fa-users fa-2x"></i> Liste des utilisateurs</h3>
 
                 <div class="card-tools d-flex align-items-center ">
-                <a class="btn btn-link text-white mr-4 d-block" wire:click.prevent="goToAddUser()"><i class="fas fa-user-plus"></i> Nouvel utilisateur</a>
+                <a wire:click.prevent="goToAddUser()" class="btn btn-primary mr-4 d-block" style="background-color:#00F2D8;"><i class="fas fa-user-plus"></i> Nouvel utilisateur</a>
                   <div class="input-group input-group-md" style="width: 250px;">
                     <input type="text" name="table_search" wire:model.debounce.250ms="search" class="form-control float-right" placeholder="Search">
 
@@ -31,18 +35,14 @@
                     @forelse($users as $user)
                     <tr>
                       <td>
-                        @if($user->sexe == "0")
-                            <img src="{{asset('image/woman.png')}}" width="24"/>
-                        @else
-                            <img src="{{asset('image/man.png')}}" width="24"/>
-                        @endif
+                        <img class="rounded-circle" width="40" height="40" src="{{asset($user->photo)}}">
                       </td>
                       <td>{{ $user->nom }} {{ $user->prenom }}</td>
                       <td> {{$user->allRoleNames}}</td>
                       <td class="text-center"><span class="tag tag-success">{{ $user->created_at->diffForHumans() }}</span></td>
                       <td class="">
                         <button class="btn btn-link" wire:click="goToEditUser({{$user->id}})"> <i class="far fa-edit"></i> </button>
-                         @if(count($user->roles) == 0 && count($user->permissions)==0)
+                         @if(count($user->roles) == 0)
                          <button class="btn btn-link" wire:click="confirmDelete('{{ $user->prenom }} {{ $user->nom }}', {{$user->id}})"> <i class="far fa-trash-alt"></i> </button>
                          @endif
                       </td>
@@ -70,7 +70,6 @@
             <!-- /.card -->
           </div>
         </div>
-
 <script>
     window.addEventListener("showConfirmMessage", event=>{
        Swal.fire({

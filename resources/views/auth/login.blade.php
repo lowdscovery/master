@@ -3,11 +3,14 @@
 @section('content')
 <div class="container">
     <div class="row justify-content-center">
-        <div class="col-md-4">
-            <div class="card" style="transform: translateY(100px);">
+        <div class="col-md-4" style="transform: translateY(50px);">
+             <div class="image" style="text-align:center;">
+                   <img src="image/jiro.jpg"  width="90" height="90" style="border-radius: 50%;">
+             </div>
+            <div class="card" style="transform: translateY(10px);">
                 <div class="card-body">
                  <div style="text-align:center; font-size:2em">{{ __('Login') }}</div>
-                 <p style="text-align:center;"> Accéder à notre tableau de bord </p>
+                 <p style="text-align:center;font-family: montserrat;"> Accéder à notre tableau de bord </p>
                     <form method="POST" action="{{ route('login') }}">
                         @csrf
                         <label>Adresse mail</label>

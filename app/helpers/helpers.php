@@ -10,10 +10,11 @@ define("PAGEADDFORM", "add");
 define("PAGELISTFORM", "liste");
 define("INFORMATION", "information");
 define("UPDATEINTERVENANT", "update");
+define("PAGEGRILLE", "grille");
 
 /*Affiche le nom et prenom*/
 function userFullName(){
- return auth()->user()->prenom." ".auth()->user()->nom;
+ return auth()->user()->nom." ".auth()->user()->prenom;
 }
 
 /*fonction gerer l'authentification de l'utilisateur*/

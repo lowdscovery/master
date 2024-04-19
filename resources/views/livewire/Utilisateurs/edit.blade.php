@@ -1,4 +1,4 @@
-<div class="row p-4 pt-5">
+<div class="row p-4 pt-1">
     <div class="col-md-6">
         <!-- general form elements -->
         <div class="card card-cyan">
@@ -33,8 +33,8 @@
                 <label >Sexe</label>
                 <select class="form-control @error('editUser.sexe') is-invalid @enderror" wire:model="editUser.sexe">
                     <option value="">---------</option>
-                    <option value="H">Homme</option>
-                    <option value="F">Femme</option>
+                    <option value="Homme">Homme</option>
+                    <option value="Femme">Femme</option>
                 </select>
                 @error("editUser.sexe")
                             <span class="text-danger">{{ $message }}</span>
@@ -61,7 +61,7 @@
                 <label >Piece d'identité</label>
                 <select class="form-control @error('editUser.pieceIdentite') is-invalid @enderror" wire:model="editUser.pieceIdentite">
                     <option value="">---------</option>
-                    <option value="CNI">CIN</option>
+                    <option value="CIN">CIN</option>
                     <option value="PASSPORT">PASSPORT</option>
                     <option value="PERMIS DE CONDUIRE">PERMIS DE CONDUIRE</option>
                 </select>
@@ -76,9 +76,24 @@
                         @error("editUser.numeroPieceIdentite")
                             <span class="text-danger">{{ $message }}</span>
                         @enderror
-                    </div>
+                </div>
 
-
+                <div class="form-group flex-grow-1">
+                   <input type="file" wire:model="editImage" id="editImage{{$resetValueInput}}" wire:loading.attr="disabled">                   
+                </div>
+                <div style="border: 1px solid #d0d1d3; border-radius: 20px; height: 200px; width:200px; overflow:hidden;">
+                    @if (isset($editImage))
+                        <img src="{{ $editImage->temporaryUrl() }}" style="height:200px; width:200px;">
+                    @else
+                    <img src="{{asset($editUser["photo"])}}" style="height:200px; width:200px;">  
+                    @endif
+               </div>
+                    @isset($editImage)
+               <div>
+                    <button type="button" class="btn btn-success btn-sm mt-2" wire:click="$set('editImage', null)">Réinitialiser</button>    
+                </div> 
+                  @endisset
+             
 
             </div>
             <!-- /.card-body -->
@@ -118,7 +133,7 @@
             <div class="col-md-12 mt-4">
                 <div class="card card-cyan">
                     <div class="card-header d-flex align-items-center">
-                    <h3 class="card-title flex-grow-1"><i class="fas fa-fingerprint fa-2x"></i> Roles & permissions</h3>
+                    <h3 class="card-title flex-grow-1"><i class="fas fa-fingerprint fa-2x"></i> Roles</h3>
                     <button class="btn bg-gradient-success" wire:click="updateRoleAndPermissions"><i class="fas fa-check"></i> Appliquer les modifications</button>
                     </div>
                     <!-- /.card-header -->
@@ -143,33 +158,6 @@
                                     </div>
                                     @endforeach
                             </div>
-                    </div>
-
-                    <div class="p-3">
-                        <table class="table table-bordered">
-                            <thead>
-                                <th>Permissions</th>
-                                <th></th>
-                            </thead>
-                            <tbody>
-                                @foreach($rolePermissions["permissions"] as $permission)
-                                <tr>
-                                    <td>{{ $permission["permission_nom"] }}</td>
-                                    <td>
-                                        <div class="custom-control custom-switch custom-switch-off-danger custom-switch-on-success">
-
-                                                <input type="checkbox" class="custom-control-input"
-                                                    @if($permission["active"]) checked @endif
-                                                    wire:model.lazy="rolePermissions.permissions.{{$loop->index}}.active"
-                                                    id="customSwitchPermission{{$permission['permission_id']}}">
-                                                <label class="custom-control-label" for="customSwitchPermission{{$permission['permission_id']}}"> {{ $permission["active"]? "Activé" : "Desactivé" }}</label>
-                                            </div>
-                                    </td>
-                                </tr>
-                                @endforeach
-                            </tbody>
-
-                        </table>
                     </div>
                 </div>
             </div>

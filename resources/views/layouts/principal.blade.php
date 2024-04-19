@@ -5,6 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Jirama</title>
 
+
  <link rel="stylesheet" href="{{mix("css/app.css")}}" />
  
  @livewireStyles
@@ -25,17 +26,18 @@
 <aside class="main-sidebar sidebar-dark-primary elevation-4">
 
 <a href="#" class="brand-link">
-<span class="brand-text font-weight-bold" style="font-size: 1.3em"><b>JIRAMA</b></span>
+<img src="{{asset("image/jiro.jpg")}}" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: 1;">
+<span class="brand-text font-weight-bold" style="font-size: 1.3em;font-family: montserrat;"><b>JIRAMA</b></span>
 </a>
 
 <div class="sidebar">
 
 <div class="user-panel mt-3 pb-3 mb-3 d-flex">
-<div class="image">
-<img src="{{asset("image/user2-160x160.jpg")}}" class="img-circle elevation-2" alt="User Image">
+<div class="rounded-circle" >
+<img src="{{asset(auth()->user()->photo)}}" class="rounded-circle" width="100" style="height:40px;">
 </div>
 <div class="info">
-<a href="#" class="d-block">{{ userfullName()}}</a>
+<a href="#" class="d-block ellipsis"  style="font-family: montserrat;">{{ userfullName()}}</a>
 </div>
 </div>
 
@@ -71,6 +73,9 @@ Anything you want
 
 <script src="{{mix("js/app.js")}}"></script>
 @livewireScripts
+
+
+
 
 
 </body></html>

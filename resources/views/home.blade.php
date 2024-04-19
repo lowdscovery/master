@@ -3,7 +3,7 @@
 @section("contenu")
   <div class="row">
     <div class="col-12 p-4">
-        <div class="jumbotron ">
+        <div class="jumbotron">
                 <h1 class="display-3">Bienvenu, <strong>{{userFullName()}} </strong></h1>
                 @foreach(auth()->user()->roles as $role)
                 <p>{{$role->nom}}</p>

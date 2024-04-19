@@ -6,7 +6,7 @@
         <div class="col-md-4">
             <div class="card" style="transform: translateY(100px);">
                 <div class="card-body">
-                <div style="text-align:center; font-size:2em">{{ __('Registre') }}</div>
+                <div style="text-align:center; font-size:2em;transform: translateY(-10px);">{{ __('Registre') }}</div>
                     <form method="POST" action="{{ route('register') }}">
                         @csrf
 
@@ -67,8 +67,7 @@
                                 @enderror
                             
                         </div>
-
-                        
+                      
                 <div class="input-group mb-3">
                     <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" placeholder="Password" required autocomplete="new-password">
                       <div class="input-group-append">
@@ -81,9 +80,7 @@
                                         <strong>{{ $message }}</strong>
                                     </span>
                                 @enderror
-                        </div>
-
-                        
+                        </div>  
                             <div class="input-group mb-3">
                                 <input id="password-confirm" type="password" class="form-control" name="password_confirmation" placeholder="Confirm-password" required autocomplete="new-password">
                             <div class="input-group-append">

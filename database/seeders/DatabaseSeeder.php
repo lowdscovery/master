@@ -18,20 +18,19 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-         User::factory(2)->create();
+         User::factory(1)->create();
          CaracteristiqueMoteur::factory(10)->create();
          MoteurPompe::factory(10)->create();
          MoteurElectrique::factory(10)->create();
          Incident::factory(5)->create();
 
-         $this->call(PermissionTableSeeder::class);
          $this->call(RoleTableSeeder::class);
          $this->call(DistrictTableSeeder::class);
          $this->call(SiteTableSeeder::class);
          $this->call(RessourceTableSeeder::class);
-
+         $this->call(ForageTableSeeder::class);
          User::find(1)->roles()->attach(1);
-         User::find(2)->roles()->attach(2);
+    //     User::find(2)->roles()->attach(2);
 
          
     }

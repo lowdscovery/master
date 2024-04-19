@@ -10,5 +10,8 @@
     @if($currentPage == PAGELIST)
         @include("livewire.utilisateurs.liste")
     @endif
+    @if($currentPage == PAGEGRILLE)
+        @include("livewire.utilisateurs.grille")
+    @endif
 
 </div>

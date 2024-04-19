@@ -16,9 +16,7 @@ class CreateRessourcesTable extends Migration
         Schema::create('ressources', function (Blueprint $table) {
             $table->id();
             $table->string('nom');
-            $table->string('type');
             $table->foreignId('site_id');
-            $table->foreignId('caracteristique_moteur_id');
             $table->timestamps();
         });
         Schema::enableForeignKeyConstraints();
@@ -31,9 +29,6 @@ class CreateRessourcesTable extends Migration
      */
     public function down()
     {
-        Schema::table('ressources', function(Blueprint $table){
-            $table->dropForeign(["site_id", "caracteristique_moteur_id"]);
-        });
-        Schema::dropIfExists('ressources');
+      
     }
 }

@@ -11,10 +11,12 @@ use Illuminate\Validation\Rule;
 use Livewire\Component;
 use Livewire\WithPagination;
 use Illuminate\Support\Facades\DB;
+use Livewire\WithFileUploads;
+use Illuminate\Support\Facades\Storage;
 
 class Utilisateurs extends Component
 {
-    use WithPagination;
+    use WithFileUploads,WithPagination;
     protected $paginationTheme = "bootstrap";
     //public $isBtnAddClicked=false;
     public $newUser = [];
@@ -22,6 +24,9 @@ class Utilisateurs extends Component
     public $currentPage = PAGELIST;
     public $rolePermissions = [];
     public $search = "";
+    public $image;
+    public $resetValueInput = 0;
+    public $editImage;
 
     /*protected $rules = [
         'newUser.nom' => 'required',
@@ -55,6 +60,7 @@ class Utilisateurs extends Component
             'newUser.pieceIdentite' => 'required',
             'newUser.sexe' => 'required',
             'newUser.numeroPieceIdentite' => 'required|numeric|unique:users,numeroPieceIdentite',
+            "image" => "image|max:10240"
         ];
     }
 
@@ -73,7 +79,7 @@ class Utilisateurs extends Component
         $searchCriteria = "%".$this->search."%";
         
         $data = [
-            "users" => User::where("nom", "like", $searchCriteria)->latest()->paginate(5),
+            "users" => User::where("nom", "like", $searchCriteria)->latest()->paginate(4),
         ];
         return view('livewire.utilisateurs.index',$data)
         ->extends("layouts.principal")
@@ -87,18 +93,47 @@ class Utilisateurs extends Component
         $this->currentPage = PAGELIST;
         $this->editUser = [];
     }
+    public function goToGrille(){
+        $this->currentPage = PAGEGRILLE;
+    }
 
     //partie ajouter
     public function addUser(){
         // Vérifier que les informations envoyées par le formulaire sont correctes
-       $validationAttributes = $this->validate();
-       $validationAttributes["newUser"]["password"] = "password";
+       $this->validate([
+            'newUser.nom' => 'required',
+            'newUser.prenom' => 'required',
+            'newUser.email' => 'required|email|unique:users,email',
+            'newUser.telephone1' => 'required|numeric|unique:users,telephone1',
+            'newUser.pieceIdentite' => 'required',
+            'newUser.sexe' => 'required',
+            'newUser.numeroPieceIdentite' => 'required|numeric|unique:users,numeroPieceIdentite',
+            "image" => "image|max:10240"
+       ]);
+       $path="";
+       if($this->image){
+        $path=$this->image->store('files', 'public');
+        $imagePath = "storage/".$path;
+      }
+    //   $validationAttributes["newUser"]["password"] = "password";
       // dump($validationAttributes);
      // Ajouter un nouvel utilisateur
-       User::create($validationAttributes["newUser"]);
+       User::create([
+       "nom" => $this->newUser["nom"],
+       "prenom" => $this->newUser["prenom"],
+       "sexe" => $this->newUser["sexe"],
+       "telephone1" => $this->newUser["telephone1"],
+       "pieceIdentite" => $this->newUser["pieceIdentite"],
+       "numeroPieceIdentite" => $this->newUser["numeroPieceIdentite"],
+       "email" => $this->newUser["email"],
+       "password" =>Hash::make($this->newUser["password"]),
+       "photo" => $imagePath
+       ]);
        //reinitialiser le formulaire
        $this->newUser = [];
        $this->dispatchBrowserEvent("showSuccessMessage", ["message"=>"Utilisateur créé avec succès!"]);
+       $this->resetValueInput++;
+      $this->image=null;
     }
 
 //partie de suppression
@@ -117,8 +152,8 @@ public function deleteUser($id){
     $this->dispatchBrowserEvent("showSuccessMessage", ["message"=>"Utilisateur supprimé avec succès!"]);
 }
 //partie de modifier
-public function goToEditUser($id){
-    $this->editUser = User::find($id)->toArray();
+public function goToEditUser(User $user){
+    $this->editUser = $user->toArray();
     $this->currentPage = PAGEEDITFORM;
     
    //applle fonction
@@ -126,22 +161,29 @@ public function goToEditUser($id){
 }
 
 public function updateUser(){
-    // Vérifier que les informations envoyées par le formulaire sont correctes
-    $validationAttributes = $this->validate();
-    User::find($this->editUser["id"])->update($validationAttributes["editUser"]);
+    $this->validate();
+    $user = User::find($this->editUser["id"]);
+    $user->fill($this->editUser);
+  
+    if($this->editImage){
+        $path = $this->editImage->store("upload", "public");
+        $imagePath = "storage/".$path;
+        Storage::disk("local")->delete(str_replace("storage/", "public/", $user->photo));
+        $user->photo = $imagePath;
+    }
+    $user->save();
     $this->dispatchBrowserEvent("showSuccessMessage", ["message"=>"Utilisateur mis à jour avec succès!"]);
+    
 }
 //role et permission
 public function populateRolePermissions(){
     $this->rolePermissions["roles"] = [];
-    $this->rolePermissions["permissions"] = [];
 
     $mapForCB = function($value){
         return $value["id"];
     };
 
     $roleIds = array_map($mapForCB, User::find($this->editUser["id"])->roles->toArray()); // [1, 2, 4]
-    $permissionIds = array_map($mapForCB, User::find($this->editUser["id"])->permissions->toArray()); // [1, 2, 4]
 
     foreach(Role::all() as $role){
         if(in_array($role->id, $roleIds)){
@@ -151,19 +193,11 @@ public function populateRolePermissions(){
         }
     }
 
-    foreach(Permission::all() as $permission){
-        if(in_array($permission->id, $permissionIds)){
-            array_push($this->rolePermissions["permissions"], ["permission_id"=>$permission->id, "permission_nom"=>$permission->nom, "active"=>true]);
-        }else{
-            array_push($this->rolePermissions["permissions"], ["permission_id"=>$permission->id, "permission_nom"=>$permission->nom, "active"=>false]);
-        }
-    }
   // la logique pour charger les roles et les permissions
 }
 
  public function updateRoleAndPermissions(){
         DB::table("user_role")->where("user_id", $this->editUser["id"])->delete();
-        DB::table("user_permission")->where("user_id", $this->editUser["id"])->delete();
 
         foreach($this->rolePermissions["roles"] as $role){
             if($role["active"]){
@@ -171,13 +205,7 @@ public function populateRolePermissions(){
             }
         }
 
-        foreach($this->rolePermissions["permissions"] as $permission){
-            if($permission["active"]){
-                User::find($this->editUser["id"])->permissions()->attach($permission["permission_id"]);
-            }
-        }
-
-        $this->dispatchBrowserEvent("showSuccessMessage", ["message"=>"Roles et permissions mis à jour avec succès!"]);
+        $this->dispatchBrowserEvent("showSuccessMessage", ["message"=>"Roles mis à jour avec succès!"]);
     }
 
 //reinitialisation password

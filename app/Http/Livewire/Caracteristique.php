@@ -3,8 +3,12 @@
 namespace App\Http\Livewire;
 
 use App\Models\CaracteristiqueMoteur;
+use App\Models\District;
+use App\Models\Forage;
 use App\Models\MoteurElectrique;
 use App\Models\MoteurPompe;
+use App\Models\Ressource;
+use App\Models\Site;
 use Livewire\Component;
 use Livewire\WithPagination;
 
@@ -18,6 +22,14 @@ class Caracteristique extends Component
     public $search = "";
     public $selectedMoteur;
     public $editModal = [];
+    public $selectedDistrict;
+    public $selectedSite;
+    public $selectedressource;
+    public $selectedForage;
+    public $sites = [];
+    public $ressources = [];
+    public $forages = [];
+    public $card=false;
 
     public function rules(){
         if($this->currentPage == PAGEEDITFORM){
@@ -58,8 +70,21 @@ class Caracteristique extends Component
 
     public function render()
     {
+        //selecte district
+        if(!empty($this->selectedDistrict)){
+        $this->sites = Site::where('district_id', $this->selectedDistrict)->get();
+        }
+        if(!empty($this->selectedSite)){
+            $this->ressources = Ressource::where('site_id', $this->selectedSite)->get();
+            }
+        if(!empty($this->selectedressource)){
+            $this->forages = Forage::where('ressource_id', $this->selectedressource)->get();
+            }
+
         $searchCriteria = "%".$this->search."%";
         $data = [
+        "districts" =>District::all(),
+       // "sites" => Site::where('district_id')->get(), 
         "caracteristiques" => CaracteristiqueMoteur::where("marque","like",$searchCriteria)->latest()->paginate(5),
         "pompes" => MoteurPompe::where("caracteristique_moteur_id",optional($this->selectedMoteur)->id)->get(),
         "electriques" => MoteurElectrique::where("caracteristique_moteur_id",optional($this->selectedMoteur)->id)->get()
@@ -69,6 +94,11 @@ class Caracteristique extends Component
         return view('livewire.caracteristique.index',$data)
         ->extends("layouts.principal")
         ->section("contenu");
+    }
+
+    //show card
+    public function card(){
+        $this->card = true;
     }
     public function goToaddCaracteristique(){
         sleep(2);
@@ -81,6 +111,8 @@ class Caracteristique extends Component
         $this->resetErrorBag();
        // $this->editCaract=[];
     }
+
+    
     public function addCaract(){
         sleep(2);
          // Vérifier que les informations envoyées par le formulaire sont correctes
@@ -90,7 +122,7 @@ class Caracteristique extends Component
          CaracteristiqueMoteur::create($validationAttributes["newCaract"]);
          //reinitialiser le formulaire
          $this->resetErrorBag();
-         //$this->newCaract = [];
+         $this->newCaract = [];
          $this->dispatchBrowserEvent("showSuccessMessage", ["message"=>"Création avec succès!"]);
     }
 

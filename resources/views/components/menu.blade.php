@@ -1,5 +1,5 @@
 <nav class="mt-2">
-<ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+<ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false" style="font-family: montserrat;">
 
 <!-- Le can est relié avec le  Gate-->
 

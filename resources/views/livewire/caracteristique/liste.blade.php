@@ -1,4 +1,4 @@
-
+@include("livewire.caracteristique.card")
 <div>
 <div class="modal fade" id="editModal" style="z-index: 1900;" tabindex="-1" role="dialog" aria-hidden="true" wire:ignore.self>
 @include("livewire.pompe.edit")
@@ -17,10 +17,6 @@
 @endforeach
     
 
-
-                          
-        
-
 <div class="row p-4" >
  <div class="col-12">
      <div class="card">
@@ -29,7 +25,7 @@
           <h3 class="card-title flex-grow-1"><i class="nav-icon fas fa-cogs"></i> Caracteristiques des moteurs</h3>
 
             <div class="card-tools d-flex align-items-center ">
-            <a class="btn btn-link text-white mr-4 d-block" wire:loading.attr="disabled" wire:click.prevent="goToaddCaracteristique()"><i class="nav-icon fas fa-cog"></i> Nouvel moteur</a>
+            <a  class="btn btn-primary mr-4 d-block" wire:loading.attr="disabled" wire:click.prevent="goToaddCaracteristique()" style="background-color:#00F2D8;"><i class="nav-icon fas fa-cog"></i> Nouvel moteur</a>
             <div wire:loading.delay="" wire:target="goToaddCaracteristique">
                <span class="text-warning">Veuillez patienter...</span>
             </div>
@@ -50,8 +46,8 @@
                       <th style="width:20%;">Marque</th>
                       <th style="width:20%;">Type</th>
                       <th style="width:20%;" class="text-center">Numero de serie</th>
-                      <th style="width:20%;" class="text-center">Moteur</th>
-                      <th style="width:20%;" >Action</th>
+                      <th style="width:20%;" class="text-center">Status</th>
+                      <th style="width:20%;" >Actions</th>
                     </tr>
                   </thead>
                   <tbody>
@@ -61,12 +57,17 @@
                       <td style="width:20%;">{{ $caracteristique->marque }}</td>
                       <td style="width:20%;">{{ $caracteristique->type }}</td>
                       <td style="width:20%;" class="text-center"> {{ $caracteristique->numeroSerie }}</td>
-                       @if($caracteristique->moteurs=="POMPE")
-          <td style="width:20%;" class="text-center"><span class="badge badge-warning">POMPE</span></td>
-                        @else
-          <td style="width:20%;" class="text-center"><span class="badge badge-success">ELECTRIQUE</span></td>
-                        @endif
+                       @if($caracteristique->moteurs=="MOTEUR")
+          <td style="width:20%;" class="text-center"><span class="badge badge-warning">MOTEUR</span></td>
                       
+                       @elseif($caracteristique->moteurs=="POMPE") 
+          <td style="width:20%;" class="text-center"><span class="badge badge-success">POMPE</span></td>
+                        
+                        @elseif($caracteristique->moteurs=="POMPE DOSEUSE") 
+          <td style="width:20%;" class="text-center"><span class="badge badge-info">POMPE DOSEUSE</span></td>
+                        @else
+          <td style="width:20%;" class="text-center"><span class="badge badge-danger">ENCOURS</span></td>
+                       @endif
                       <td style="width:20%;">
           <button class="btn btn-link" wire:click="goToEditCaract({{$caracteristique->id}})"> <i class="far fa-edit"></i> </button>   
           @if($caracteristique->moteurs=="POMPE")
