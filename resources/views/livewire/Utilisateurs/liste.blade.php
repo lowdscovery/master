@@ -1,6 +1,6 @@
  <div class="row p-4 pt-5">
           <div class="col-12">
-          
+                
               <ul class="nav nav-pills mb-3">
                 <li class="nav-item"><a href="" wire:click.prevent="goToGrille()" data-toggle="tab" class="nav-link btn-primary show active">Vue de la grille</a></li>
               </ul>         
@@ -35,7 +35,11 @@
                     @forelse($users as $user)
                     <tr>
                       <td>
+                      @if ($user->photo !="" || $user->photo !=null)
                         <img class="rounded-circle" width="40" height="40" src="{{asset($user->photo)}}">
+                      @else
+                        <img class="rounded-circle" width="40" height="40" src="{{asset('image/user.png')}}">
+                      @endif
                       </td>
                       <td>{{ $user->nom }} {{ $user->prenom }}</td>
                       <td> {{$user->allRoleNames}}</td>

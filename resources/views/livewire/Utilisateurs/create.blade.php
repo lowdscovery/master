@@ -68,7 +68,7 @@
 												<label class="form-label">Piece d'identité</label>
 												<select class="form-control @error('newUser.pieceIdentite') is-invalid @enderror" wire:model="newUser.pieceIdentite" required="required">
                                                     <option value="">---------</option>
-                                                    <option value="CNI">CIN</option>
+                                                    <option value="CIN">CIN</option>
                                                     <option value="PASSPORT">PASSPORT</option>
                                                     <option value="PERMIS DE CONDUIRE">PERMIS DE CONDUIRE</option>
                                                 </select>

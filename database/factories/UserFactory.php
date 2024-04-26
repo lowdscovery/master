@@ -24,7 +24,7 @@ class UserFactory extends Factory
             'numeroPieceIdentite' =>"411011014779",
             'email' =>"stephangeorges980@gmail.com",
             'password' =>Hash::make("st0897++"),
-            'photo' =>"storage/upload/Lrck5q2ZHOfx4mBrrQoQlK6dEWE2M8eWMhv...",         
+            'photo' =>"",         
             
         ];
     }

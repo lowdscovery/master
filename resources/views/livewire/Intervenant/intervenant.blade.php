@@ -9,7 +9,7 @@
     <div class="row p-2 pt-3">
     <div class="col-md-5">
        
-        <div class="card card" style="background-color:#00F2D8;">
+        <div class="card card-info">
             <div class="card-header">
             <h3 class="card-title"><i class="fas fa-user-plus fa-2x"></i> Formulaire d'ajout intervenants</h3>
             </div>
@@ -145,7 +145,8 @@
                             @empty
                          <tr>
                             <td colspan="3">
-                                <span class="text-info">Cette personne n'existe pas sur la liste</span>
+                                <span class="text-info">Aucune donnée trouvée par rapport aux éléments</span>
+                                
                             </td>
                          </tr>
                              @endforelse
@@ -211,3 +212,4 @@
     })
 
 </script>
+

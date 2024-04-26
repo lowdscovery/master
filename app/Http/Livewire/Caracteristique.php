@@ -149,6 +149,7 @@ class Caracteristique extends Component
          $this->selectedressource ="";
          $this->selectedForage ="";
          $this->dispatchBrowserEvent("showSuccessMessage", ["message"=>"Création avec succès!"]);
+       //  $this->card = false;
     }
 
     //partie de modifier

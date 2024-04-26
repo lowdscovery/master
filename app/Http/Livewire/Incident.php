@@ -98,7 +98,8 @@ class Incident extends Component
         ]);
     $this->resetErrorBag();
     $this->addIncident = [];
-    $this->dispatchBrowserEvent("showSuccessMessage", ["message"=>"Incident ajoutée avec succès!"]);
+    session()->flash('message', 'Incident ajoutée avec succès!');
+  //  $this->dispatchBrowserEvent("showSuccessMessage", ["message"=>"Incident ajoutée avec succès!"]);
     }
 
 

@@ -5,9 +5,16 @@
 <h5 class="modal-title">Ajout d'incident</h5>
 </div>
 <div class="modal-body">
- <div class="container-fluid">                                
+
+ <div class="container-fluid">   
+ <div style="text-align:center;">
+  @if (session()->has('message'))
+      <div class="alert alert-success"> 
+        {{session('message')}}
+      </div>
+  @endif
+ </div>                             
    <div class="row p-2 pt-3">
- 
      <div class="col-md-6">
         <div class="card card-teal">
             <div class="card-body">
@@ -65,10 +72,8 @@
     </div>
   <!-- separation -->     
         <div class="col-md-6">
-          <div class="row ">       
-            <div class="col-md-12">
-             <div class="card card-info" style=".card:blue;">
-               <div class="p-3 table-striped">
+          <div class="card card-teal">       
+            <div class="card-body">  
                     <div class="form-group">
                         <label >Cause</label>
                         <input type="text"  class="form-control @error("addIncident.cause") is-invalid 
@@ -106,14 +111,14 @@
                         @endforeach
                         </select>
                     </div>
-                    <button type="submit" class="btn btn-primary">Enregistrer</button>
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Fermer</button>
-                </div>
-              </div>
             </div>         
-          </div>
+          </div>        
         </div>
-    </form>
+        <div class="col-md-6">
+      <button type="submit" class="btn btn-primary" style="margin-right: 10px;">Enregistrer</button>
+      <button type="button" class="btn btn-secondary" data-dismiss="modal">Fermer</button>
+      </div>
+      </form>
     </div>  
     </div>
     </div>

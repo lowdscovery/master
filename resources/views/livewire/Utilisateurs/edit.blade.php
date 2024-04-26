@@ -84,8 +84,10 @@
                 <div style="border: 1px solid #d0d1d3; border-radius: 20px; height: 200px; width:200px; overflow:hidden;">
                     @if (isset($editImage))
                         <img src="{{ $editImage->temporaryUrl() }}" style="height:200px; width:200px;">
+                    @elseif ($editUser["photo"] !="" || $editUser["photo"] !=null)
+                    <img src="{{asset($editUser["photo"])}}" style="height:200px; width:200px;">
                     @else
-                    <img src="{{asset($editUser["photo"])}}" style="height:200px; width:200px;">  
+                    <img src="{{asset('image/imageplaceholder.png')}}"  style="height:200px; width:200px;">
                     @endif
                </div>
                     @isset($editImage)
