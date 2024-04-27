@@ -22,6 +22,8 @@ class Caracteristique extends Component
     public $search = "";
     public $selectedMoteur;
     public $editModal = [];
+    public $addModal = [];
+    public $addMoteur = [];
     public $selectedDistrict=[];
     public $selectedSite=[];
     public $selectedressource=[];
@@ -51,7 +53,7 @@ class Caracteristique extends Component
             ];
         }
         return [
-            /*'newCaract.marque' => 'required',
+            'newCaract.marque' => 'required',
             'newCaract.type' => 'required',
             'newCaract.numeroSerie' => 'required',
             'newCaract.numeroFabrication' => 'required',
@@ -64,7 +66,9 @@ class Caracteristique extends Component
             'newCaract.roulement' => 'required',
             'newCaract.misesEnServices' => 'required',
             'newCaract.observations' => 'required',
-            'newCaract.moteurs' => 'required',*/
+            'newCaract.moteurs' => 'required',
+
+
             'selectedDistrict.district_id' => 'required',
             'selectedSite.site_id' => 'required',
             'selectedressource.ressource_id' => 'required',
@@ -87,8 +91,7 @@ class Caracteristique extends Component
 
         $searchCriteria = "%".$this->search."%";
         $data = [
-        "districts" =>District::all(),
-       // "sites" => Site::where('district_id')->get(), 
+        "districts" =>District::all(), 
         "caracteristiques" => CaracteristiqueMoteur::where("marque","like",$searchCriteria)->latest()->paginate(5),
         "pompes" => MoteurPompe::where("caracteristique_moteur_id",optional($this->selectedMoteur)->id)->get(),
         "electriques" => MoteurElectrique::where("caracteristique_moteur_id",optional($this->selectedMoteur)->id)->get(),
@@ -123,12 +126,7 @@ class Caracteristique extends Component
     
     public function addCaract(){
         sleep(2);
-         // Vérifier que les informations envoyées par le formulaire sont correctes
-       //  $validationAttributes = $this->validate();
-       //  dump($validationAttributes);
-       // Ajouter un nouvel utilisateur
-       //  CaracteristiqueMoteur::create($validationAttributes["newCaract"]);
-     //  CaracteristiqueMoteur::create($validationAttributes["selectedDistrict"]["selectedSite"]["selectedressource"]["selectedForage"]);
+        
      $this->validate([
         'selectedDistrict.district_id' => 'required',
         'selectedSite.site_id' => 'required',
@@ -184,26 +182,80 @@ public function deleteCaract($id){
 //afficher modal
 public function showModal(CaracteristiqueMoteur $caracteristique){
     $this->selectedMoteur = $caracteristique;
-    $this->editModal = [];
-    $this->resetErrorBag();
+    $this->cancel();
 }
+//pompes
+public function editModal(MoteurPompe $pompe){
+    $this->addModal = $pompe->toArray();
+    $this->addModal["edit"] = true;
+}
+
 public function editModalPompe(){
+
     $validated = $this->validate([
-        "editModal.debitNominal" =>"required",
-        "editModal.hauteurManometrique" =>"required",
-        "editModal.corpsDePompe" =>"required",
-        "editModal.chemiseArbre" =>"required"
+        "addModal.debitNominal" =>"required",
+        "addModal.hauteurManometrique" =>"required",
+        "addModal.corpsDePompe" =>"required",
+        "addModal.chemiseArbre" =>"required"
     ]);
-    MoteurPompe::create([
-        "debitNominal" => $this->editModal["debitNominal"],
-        "hauteurManometrique" => $this->editModal["hauteurManometrique"],
-        "corpsDePompe" => $this->editModal["corpsDePompe"],
-        "chemiseArbre" => $this->editModal["chemiseArbre"],
+    MoteurPompe::updateOrCreate(
+        [
         "caracteristique_moteur_id"=> $this->selectedMoteur->id,
-    ]);
+        ],
+        [
+            "debitNominal" => $this->addModal["debitNominal"],
+            "hauteurManometrique" => $this->addModal["hauteurManometrique"],
+            "corpsDePompe" => $this->addModal["corpsDePompe"],
+            "chemiseArbre" => $this->addModal["chemiseArbre"],
+            "caracteristique_moteur_id"=> $this->selectedMoteur->id,
+        ]
+     );
 
     $this->resetErrorBag();
-    $this->dispatchBrowserEvent("showSuccessMessage", ["message"=>"Moteur pompe ajoutée avec succès!"]);
+     $this->addModal = [];
+     $this->addModal["edit"] = false;
+    $this->dispatchBrowserEvent("showSuccessMessage", ["message"=>"Votre demande reussi avec succès!"]);
+}
+
+//moteur
+public function editMoteur(MoteurElectrique $moteur){
+    $this->addMoteur = $moteur->toArray();
+    $this->addMoteur["edit"] = true;
+}
+
+public function editModalMoteur(){
+
+    $validated = $this->validate([
+        "addMoteur.puissance" =>"required",
+        "addMoteur.tension" =>"required",
+        "addMoteur.cosphi" =>"required",
+        "addMoteur.intensite" =>"required",
+        "addMoteur.sectionCable" =>"required",
+        "addMoteur.indiceDeProtection" =>"required",
+        "addMoteur.classeIsolant" =>"required",
+        "addMoteur.typeDeDemarrage" =>"required"
+    ]);
+    MoteurElectrique::updateOrCreate(
+        [
+        "caracteristique_moteur_id"=> $this->selectedMoteur->id,
+        ],
+        [
+            "puissance" => $this->addMoteur["puissance"],
+            "tension" => $this->addMoteur["tension"],
+            "cosphi" => $this->addMoteur["cosphi"],
+            "intensite" => $this->addMoteur["intensite"],
+            "sectionCable" => $this->addMoteur["sectionCable"],
+            "indiceDeProtection" => $this->addMoteur["indiceDeProtection"],
+            "classeIsolant" => $this->addMoteur["classeIsolant"],
+            "typeDeDemarrage" => $this->addMoteur["typeDeDemarrage"],
+            "caracteristique_moteur_id"=> $this->selectedMoteur->id,
+        ]
+     );
+
+    $this->resetErrorBag();
+     $this->addMoteur = [];
+     $this->addMoteur["edit"] = false;
+    $this->dispatchBrowserEvent("showSuccessMessage", ["message"=>"Votre demande reussi avec succès!"]);
 }
 
 //delete modal pompe
@@ -217,36 +269,33 @@ public function confirmDeleteModal($id){
         ]
     ]]);
 }
-public function deleteModalPompe(MoteurPompe $pompe){
+public function deleteModalMoteur(MoteurPompe $pompe){
     $pompe->delete();
     $this->dispatchBrowserEvent("showSuccessMessage", ["message"=>"Suppression avec succès!"]);
 }
-//edit modal
-public function EditModal(MoteurPompe $pompe){
-    $this->editModal["debitNominal"] = $pompe->debitNominal ;
-    $this->editModal["hauteurManometrique"] = $pompe->hauteurManometrique ;
-    $this->editModal["corpsDePompe"] = $pompe->corpsDePompe;
-    $this->editModal["chemiseArbre"] = $pompe->chemiseArbre ;
-    $this->editModal["id"] = $pompe->id;
-}
-public function updateModal(){
-    $this->validate([
-        "editModal.debitNominal" => "required",
-        "editModal.hauteurManometrique" => "required",
-        "editModal.corpsDePompe" => "required",
-        "editModal.chemiseArbre" => "required"
-    ]);
-    MoteurPompe::find($this->editModal["id"])->update([
-        "debitNominal" => $this->editModal["debitNominal"],
-        "hauteurManometrique" => $this->editModal["hauteurManometrique"],
-        "corpsDePompe" => $this->editModal["corpsDePompe"],
-        "chemiseArbre" => $this->editModal["chemiseArbre"]
-    ]);
 
-    $this->dispatchBrowserEvent("showSuccessMessage", ["message"=>"Mise à jour avec succès!"]);
+//delete modal moteur
+public function confirmDeleteMoteur($id){
+    $this->dispatchBrowserEvent("showConfirmMessage", ["message"=> [
+        "text" => "Vous êtes sur le point de supprimer. Voulez-vous continuer?",
+        "title" => "Êtes-vous sûr de continuer?",
+        "type" => "warning",
+        "data" => [
+            "moteur_electrique_id" => $id
+        ]
+    ]]);
+}
+public function deleteModalPompe(MoteurElectrique $moteur){
+    $moteur->delete();
+    $this->dispatchBrowserEvent("showSuccessMessage", ["message"=>"Suppression avec succès!"]);
 }
 
-public function closeModal(){
-    $this->dispatchBrowserEvent("closeModal", []);
+public function cancel(){
+    $this->resetErrorBag();
+    $this->addModal = [];
+    $this->addModal["edit"] = false;
+    $this->addMoteur = [];
+    $this->addMoteur["edit"] = false;
 }
+
 }

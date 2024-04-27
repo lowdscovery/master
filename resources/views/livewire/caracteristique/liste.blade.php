@@ -1,20 +1,45 @@
 @include("livewire.caracteristique.card")
 <div>
-<div class="modal fade" id="editModal" style="z-index: 1900;" tabindex="-1" role="dialog" aria-hidden="true" wire:ignore.self>
-@include("livewire.pompe.edit")
-</div> 
+ 
 @foreach ($caracteristiques as $caracteristique) 
   
 @if($caracteristique->moteurs=="POMPE")
- <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-hidden="true" wire:ignore.self>
-@include("livewire.pompe.add")
+
+ <div class="modal fade" id="exampleModa" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" wire:ignore.self>
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-body">
+        @include("livewire.pompe.add")
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal" wire.click="cancel()">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+ @elseif ($caracteristique->moteurs=="MOTEUR")
+
+<div class="modal fade" id="electrique" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" wire:ignore.self>
+  <div class="modal-dialog modal-xl" role="document">
+    <div class="modal-content">
+      <div class="modal-body">
+        @include("livewire.electrique.add")
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal" wire.click="cancel()">Close</button>
+      </div>
+    </div>
+  </div>
 </div>  
 @else
-<div class="modal fade" id="electriqueModal" tabindex="-1" role="dialog" aria-hidden="true" wire:ignore.self>
-@include("livewire.electrique.add")
-</div>           
+
 @endif
 @endforeach
+
+
+
+
+
     
 
 <div class="row p-4" >
@@ -85,9 +110,11 @@
           <button class="btn btn-link" wire:click="goToEditCaract({{$caracteristique->id}})"> <i class="far fa-edit"></i> </button> 
           @endif
           @if($caracteristique->moteurs=="POMPE")
-        <button class="btn btn-link" wire:click="showModal({{$caracteristique->id}})" data-bs-toggle="modal" data-bs-target="#exampleModal"> <i class="nav-icon fas fa-list-ul"></i> </button>     
-          @else
-        <button class="btn btn-link" wire:click="showModal({{$caracteristique->id}})" data-bs-toggle="modal" data-bs-target="#electriqueModal"> <i class="nav-icon fas fa-list-ul"></i> </button>      
+        <button class="btn btn-link" wire:click="showModal({{$caracteristique->id}})" data-toggle="modal" data-target="#exampleModa"> <i class="nav-icon fas fa-list-ul"></i> </button>     
+          @elseif ($caracteristique->moteurs=="MOTEUR")
+        <button class="btn btn-link" wire:click="showModal({{$caracteristique->id}})" data-toggle="modal" data-target="#electrique"> <i class="nav-icon fas fa-list-ul"></i> </button>
+          @elseif ($caracteristique->moteurs=="POMPE DOSEUSE")
+        <button class="btn btn-link" wire:click="showModal({{$caracteristique->id}})" data-toggle="modal" data-target="#exampleModa"> <i class="nav-icon fas fa-list-ul"></i> </button>      
           @endif    
           
           @if(count($caracteristique->pompes) == 0)         
@@ -160,6 +187,9 @@
             }
             if(event.detail.message.data.moteur_pompe_id){
                 @this.deleteModalPompe(event.detail.message.data.moteur_pompe_id)
+            }
+             if(event.detail.message.data.moteur_electrique_id){
+                @this.confirmDeleteMoteur(event.detail.message.data.moteur_electrique_id)
             }
         }
         })

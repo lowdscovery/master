@@ -89,7 +89,7 @@
 										<div class="col-lg-6 col-md-6 col-sm-12">
 											<div class="form-group">
 												<label class="form-label">Mot de passe</label>
-												<input type="text" class="form-control @error('newUser.password') is-invalid @enderror" wire:model="newUser.password" placeholder="password" required="required">
+												<input type="password" class="form-control @error('newUser.password') is-invalid @enderror" wire:model="newUser.password" placeholder="password" required="required">
                                                 @error("newUser.password")
                                                     <span class="text-danger">{{ $message }}</span>
                                                 @enderror

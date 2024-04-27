@@ -23,7 +23,8 @@
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
 </head>
-<body class="bg" style="background-color: #49B5D8;">
+<body class="bg" style="margin:0;padding:0;background-image : url('image/sar.jpg');
+background-size:cover;background-repeat:no-repeat;height:100vh;">
     <div id="app">
 
         <main class="py-4">
