@@ -73,6 +73,15 @@
                     </a>
                 </li>     
             </ul>
+             <ul class="nav nav-treeview">
+                <li class="nav-item">
+                    <a href="{{route('manager.caracteristiques.ouvrage.ouvrage')}}"
+                        class="nav-link {{setMenuActive('manager.caracteristiques.ouvrage.ouvrage')}}">
+                    <i class="nav-icon far fa-circle"></i>
+                    <p>Forages</p>
+                    </a>
+                </li>     
+            </ul>
         </li>
 
          <li class="nav-header">LOCATION</li>

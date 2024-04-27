@@ -8,6 +8,7 @@ use App\Http\Livewire\Incident;
 use App\Http\Livewire\Information;
 use App\Http\Livewire\Intervenant;
 use App\Http\Livewire\Maintenance;
+use App\Http\Livewire\Ouvrage;
 use App\Http\Livewire\Uploads;
 use App\Http\Livewire\Utilisateurs;
 use App\Models\CaracteristiqueMoteur;
@@ -66,7 +67,26 @@ Route::get("/incidents", Incident::class)->name("Incident.incident")->middleware
 Route::get("/uploads", Uploads::class)->name("uploads")->middleware("auth.manager");
 Route::get("/maintenances", Maintenance::class)->name("maintenance.maintenance")->middleware("auth.manager");
 Route::get("/commandes", Commande::class)->name("commande.commande")->middleware("auth.manager");
-Route::get("bis", BisList::class)->name("bis.bis")->middleware("auth.manager");
+Route::get("/bis", BisList::class)->name("bis.bis")->middleware("auth.manager");
+
+Route::group([
+    "middleware" => ["auth", "auth.manager"],
+    'as' => 'manager.'
+], function(){
+
+    Route::group([
+        "prefix" => "caracteristiques",
+        'as' => 'caracteristiques.'
+    ], function(){
+
+        Route::get("/forages", Ouvrage::class)->name("ouvrage.ouvrage")->middleware("auth.manager");
+    });
+});
+
+
+//Route::get("/notify",[App\Http\Controllers\HomeController::class, 'notify']);
+Route::get("/markasred/{id}",[App\Http\Controllers\HomeController::class, 'markasred'])->name('markasred');
+//Route::get("/markasred",Utilisateurs::class)->name('markasred')->middleware("auth.manager");
 
 /* voir information de php
 route::get('/teste/page', function(){

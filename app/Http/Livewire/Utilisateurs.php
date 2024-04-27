@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire;
 
+use App\Models\Notification;
 use App\Models\Permission;
 use App\Models\Role;
 use App\Models\User;
@@ -13,6 +14,7 @@ use Livewire\WithPagination;
 use Illuminate\Support\Facades\DB;
 use Livewire\WithFileUploads;
 use Illuminate\Support\Facades\Storage;
+use App\Notifications\UserFollowNotification;
 
 class Utilisateurs extends Component
 {
@@ -130,6 +132,7 @@ class Utilisateurs extends Component
        "photo" => $imagePath
        ]);
        //reinitialiser le formulaire
+       $this->notify();
        $this->newUser = [];
        $this->dispatchBrowserEvent("showSuccessMessage", ["message"=>"Utilisateur créé avec succès!"]);
        $this->resetValueInput++;
@@ -222,4 +225,17 @@ public function resetPassword(){
     User::find($this->editUser["id"])->update(["password" => Hash::make(DEFAULTPASSOWRD)]);
     $this->dispatchBrowserEvent("showSuccessMessage", ["message"=>"Mot de passe utilisateur réinitialisé avec succès!"]);
 }
+
+//
+public function notify()
+{
+    if(auth()->user()){
+        $user = User::whereId("")->first();
+        /*$searchCriteria = "%".$this->search."%";
+        $user = User::where("id", "like", $searchCriteria)->latest();*/
+        auth()->user()->notify(new UserFollowNotification($user));
+    }
+    dd("done");
+}
+
 }

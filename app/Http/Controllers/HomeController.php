@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
+use App\Notifications\UserFollowNotification;
 use Illuminate\Http\Request;
 
 class HomeController extends Controller
@@ -24,5 +26,21 @@ class HomeController extends Controller
     public function index()
     {
         return view('home');
+    }
+
+   /* public function notify()
+    {
+        if(auth()->user()){
+           $user = User::whereId("id")->first();
+            auth()->user()->notify(new UserFollowNotification($user));
+        }
+        dd('done');
+    }*/
+
+    public function markasred($id){
+        if($id){
+            auth()->user()->unreadNotifications->where('id',$id)->markAsRead();
+        }
+        return back();
     }
 }

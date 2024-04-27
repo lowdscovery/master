@@ -1,0 +1,16 @@
+<?php
+
+namespace App\Models;
+
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
+
+class Ouvrage extends Model
+{
+    use HasFactory;
+
+    protected $fillable = [
+        'annee','debitExploite','profondeur','type','photo','ressource_id',
+        'etatActuel','observation',
+    ];
+}
