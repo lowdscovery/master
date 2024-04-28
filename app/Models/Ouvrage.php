@@ -13,4 +13,8 @@ class Ouvrage extends Model
         'annee','debitExploite','profondeur','type','photo','ressource_id',
         'etatActuel','observation',
     ];
+
+    public function ressource(){
+        return $this->belongsTo(Ressource::class, 'ressource_id','id');
+    }
 }

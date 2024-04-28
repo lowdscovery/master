@@ -12,6 +12,7 @@ use App\Http\Livewire\Ouvrage;
 use App\Http\Livewire\Uploads;
 use App\Http\Livewire\Utilisateurs;
 use App\Models\CaracteristiqueMoteur;
+use App\Models\Ouvrage as ModelsOuvrage;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
@@ -97,5 +98,7 @@ Route::get('/teste', function(){
 return CaracteristiqueMoteur::with("districts")->paginate(2);
 });*/
 
-
+/*Route::get('/teste',function(){
+    return ModelsOuvrage::with("ressource")->paginate(2);
+});*/
 

@@ -2,14 +2,14 @@
     <div class="col-12">
         <div class="card">
             <div class="card-header bg-gradient-primary d-flex align-items-center">
-                <h3 class="card-title flex-grow-1"><i class="fa fa-list fa-2x"></i> Forage -</h3>
+                <h3 class="card-title flex-grow-1"><i class="fa fa-list fa-2x"></i> Forage </h3>
 
                 <div class="card-tools d-flex align-items-center ">
                     <a href="" class="btn btn-link text-white mr-4 d-block"><i class="fas fa-long-arrow-alt-left"></i> Retourner
                         vers la liste</a>
 
                     <a class="btn btn-link btn-db text-white mr-4 d-block" wire:click="selected"><i
-                            class="fas fa-user-plus"></i> Nouveau forage</a>
+                            class="fas fa-user-plus"></i> Nouveau Forage</a>
 
                 </div>
             </div>
@@ -61,6 +61,17 @@
                         <div class="col pt-3">
       <input class="form-control " type="file" wire:model="image" required="required"> 
                         </div>
+                      <div class="col pt-3">
+                    <select class="form-control @error("addOuvrage.ressource_id") is-invalid @enderror" wire:model="addOuvrage.ressource_id" required="required">
+                        @error("addOuvrage.ressource_id")
+                                <span class="text-danger">{{$message}}</span>
+                        @enderror 
+                            <option value="">---------</option>
+                            @foreach ($ressources as $ressource)
+                             <option value="{{$ressource->id}}">{{$ressource->nom}}</option>
+                            @endforeach
+                        </select>
+                    </div>
                      </div>
                     </div>
                     <div>
@@ -79,7 +90,7 @@
                         <thead>
                             <tr>
                                 <th></th>
-                                <th>Annee</th>
+                                <th class="text-center">Annee</th>
                                 <th class="text-center">Debit Exploiter</th>
                                 <th class="text-center">Profondeur</th>
                                 <th class="text-center">Type</th>
@@ -93,13 +104,13 @@
                        @forelse ($ouvrages as $ouvrage)
                          <tr>
                             <td><img src="{{asset($ouvrage->photo)}}" style="width:60px; height:60px;"></td>
-                            <td>{{$ouvrage->annee}}</td>
-                            <td>{{$ouvrage->debitExploite}}</td>
-                            <td>{{$ouvrage->profondeur}}</td>
-                            <td>{{$ouvrage->type}}</td>
-                            <td>{{$ouvrage->etatActuel}}</td>
-                            <td>{{$ouvrage->observation}}</td>
-                            <td class="text-center">Forage</td>
+                            <td class="text-center">{{$ouvrage->annee}}</td>
+                            <td class="text-center">{{$ouvrage->debitExploite}}</td>
+                            <td class="text-center">{{$ouvrage->profondeur}}</td>
+                            <td class="text-center">{{$ouvrage->type}}</td>
+                            <td class="text-center">{{$ouvrage->etatActuel}}</td>
+                            <td class="text-center">{{$ouvrage->observation}}</td>
+                            <td class="text-center">{{$ouvrage->ressource->nom}}</td>
                             <td class="text-center">
                                 <button wire:click="editOuvrage({{$ouvrage->id}})" class="btn btn-link"> <i class="far fa-edit"></i> </button>
                                 <button class="btn btn-link" wire:click="confirmDelete({{$ouvrage->id}})"> <i class="far fa-trash-alt"></i> </button>

@@ -3,6 +3,18 @@
  
 @foreach ($caracteristiques as $caracteristique) 
   
+  <div class="modal fade" id="electrique" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" wire:ignore.self>
+  <div class="modal-dialog modal-xl" role="document">
+    <div class="modal-content">
+      <div class="modal-body">
+        @include("livewire.electrique.add")
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal" wire.click="cancel()">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
 @if($caracteristique->moteurs=="POMPE")
 
  <div class="modal fade" id="exampleModa" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" wire:ignore.self>
@@ -17,16 +29,17 @@
     </div>
   </div>
 </div>
- @elseif ($caracteristique->moteurs=="MOTEUR")
+  
+@elseif ($caracteristique->moteurs=="POMPE DOSEUSE")
 
-<div class="modal fade" id="electrique" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" wire:ignore.self>
+<div class="modal fade" id="doseuse" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" wire:ignore.self>
   <div class="modal-dialog modal-xl" role="document">
     <div class="modal-content">
       <div class="modal-body">
-        @include("livewire.electrique.add")
+        @include("livewire.doseuse.add")
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal" wire.click="cancel()">Close</button>
+        <button type="button" class="btn btn-secondary" data-dismiss="modal" wire.click="">Close</button>
       </div>
     </div>
   </div>
@@ -91,11 +104,8 @@
                       <td style="width:15%;"><span class="badge badge-info">En attente</span></td>
                       @else
                       <td style="width:15%;">{{ $caracteristique->type }}</td>
-                      @endif
-                       @if($caracteristique->moteurs=="MOTEUR")
-          <td style="width:20%;" class="text-center"><span class="badge badge-warning">MOTEUR</span></td>
-                      
-                       @elseif($caracteristique->moteurs=="POMPE") 
+                      @endif           
+                      @if($caracteristique->moteurs=="POMPE") 
           <td style="width:20%;" class="text-center"><span class="badge badge-success">POMPE</span></td>
                         
                         @elseif($caracteristique->moteurs=="POMPE DOSEUSE") 
@@ -110,13 +120,27 @@
           <button class="btn btn-link" wire:click="goToEditCaract({{$caracteristique->id}})"> <i class="far fa-edit"></i> </button> 
           @endif
           @if($caracteristique->moteurs=="POMPE")
-        <button class="btn btn-link" wire:click="showModal({{$caracteristique->id}})" data-toggle="modal" data-target="#exampleModa"> <i class="nav-icon fas fa-list-ul"></i> </button>     
-          @elseif ($caracteristique->moteurs=="MOTEUR")
-        <button class="btn btn-link" wire:click="showModal({{$caracteristique->id}})" data-toggle="modal" data-target="#electrique"> <i class="nav-icon fas fa-list-ul"></i> </button>
-          @elseif ($caracteristique->moteurs=="POMPE DOSEUSE")
-        <button class="btn btn-link" wire:click="showModal({{$caracteristique->id}})" data-toggle="modal" data-target="#exampleModa"> <i class="nav-icon fas fa-list-ul"></i> </button>      
+        <div class="btn-group open">
+          <a class="btn btn-info dropdown-toggle" data-toggle="dropdown">
+              <span class="fa fa-caret-down" title="Toggle dropdown menu"></span>
+          </a>
+          <ul class="dropdown-menu" style="padding:10px; z-index: 10;" >
+              <li><button class="btn btn-link" wire:click="showModal({{$caracteristique->id}})"  data-toggle="modal" data-target="#electrique"> <i class="far fa-edit"></i>Moteur</button></li>
+              <li><button class="btn btn-link" wire:click="showModal({{$caracteristique->id}})" data-toggle="modal" data-target="#exampleModa"> <i class="fa fa-plus-circle"></i>Pompe</button></li>
+          </ul>
+        </div>  
+          @elseif ($caracteristique->moteurs=="POMPE DOSEUSE") 
+         <div class="btn-group open">
+          <a class="btn btn-info dropdown-toggle" data-toggle="dropdown">
+              <span class="fa fa-caret-down" title="Toggle dropdown menu"></span>
+          </a>
+          <ul class="dropdown-menu" style="padding:10px; z-index: 10;" >
+              <li><button class="btn btn-link" wire:click="showModal({{$caracteristique->id}})"  data-toggle="modal" data-target="#electrique"> <i class="far fa-edit"></i>Moteur</button></li>
+              <li><button class="btn btn-link" wire:click="showModal({{$caracteristique->id}})" data-toggle="modal" data-target="#doseuse"> <i class="fa fa-plus-circle"></i>Pompe</button></li>
+          </ul>
+        </div>     
           @endif    
-          
+        
           @if(count($caracteristique->pompes) == 0)         
           <button class="btn btn-link" wire:click="confirmDelete('{{$caracteristique->marque}}',{{$caracteristique->id}})"> <i class="far fa-trash-alt"></i> </button> 
           @endif              
@@ -190,6 +214,9 @@
             }
              if(event.detail.message.data.moteur_electrique_id){
                 @this.confirmDeleteMoteur(event.detail.message.data.moteur_electrique_id)
+            }
+            if(event.detail.message.data.doseuse_id){
+                @this.deleteModalDoseuse(event.detail.message.data.doseuse_id)
             }
         }
         })

@@ -4,6 +4,7 @@ namespace App\Http\Livewire;
 
 use App\Models\CaracteristiqueMoteur;
 use App\Models\District;
+use App\Models\Doseuse;
 use App\Models\Forage;
 use App\Models\MoteurElectrique;
 use App\Models\MoteurPompe;
@@ -24,6 +25,7 @@ class Caracteristique extends Component
     public $editModal = [];
     public $addModal = [];
     public $addMoteur = [];
+    public $addDoseuse = [];
     public $selectedDistrict=[];
     public $selectedSite=[];
     public $selectedressource=[];
@@ -95,6 +97,7 @@ class Caracteristique extends Component
         "caracteristiques" => CaracteristiqueMoteur::where("marque","like",$searchCriteria)->latest()->paginate(5),
         "pompes" => MoteurPompe::where("caracteristique_moteur_id",optional($this->selectedMoteur)->id)->get(),
         "electriques" => MoteurElectrique::where("caracteristique_moteur_id",optional($this->selectedMoteur)->id)->get(),
+        "doseuses" => Doseuse::where("caracteristique_moteur_id",optional($this->selectedMoteur)->id)->get(),
            // "pompes" => MoteurPompe::where("moteur_pompe_id",optional($this->selectedMoteur)->id)->get()
         
        /* Table relation
@@ -258,6 +261,62 @@ public function editModalMoteur(){
     $this->dispatchBrowserEvent("showSuccessMessage", ["message"=>"Votre demande reussi avec succès!"]);
 }
 
+//Doseuse
+public function editDoseuse(Doseuse $doseuse){
+    $this->addDoseuse = $doseuse->toArray();
+    $this->addDoseuse["edit"] = true;
+}
+
+public function addDoseuses(){
+
+    $validated = $this->validate([
+        "addDoseuse.pressionMaxAspiration" =>"required",
+        "addDoseuse.pressionMaxRefoulement" =>"required",
+        "addDoseuse.hauteurAspirationMax" =>"required",
+        "addDoseuse.cadence" =>"required",
+        "addDoseuse.rapportReduction" =>"required",
+        "addDoseuse.course" =>"required",
+        "addDoseuse.ballonAmortisseur" =>"required",
+        "addDoseuse.ballonAmortisseurRefoulement" =>"required",
+        "addDoseuse.corpsDoseur" =>"required",
+        "addDoseuse.membrane" =>"required",
+        "addDoseuse.arbre" =>"required",
+        "addDoseuse.calpetAspiration" =>"required",
+        "addDoseuse.calpetRefoulement" =>"required",
+        "addDoseuse.tarage" =>"required",
+        "addDoseuse.debitMax" =>"required",
+        
+    ]);
+    Doseuse::updateOrCreate(
+        [
+        "caracteristique_moteur_id"=> $this->selectedMoteur->id,
+        ],
+        [
+            "pressionMaxAspiration" => $this->addDoseuse["pressionMaxAspiration"],
+            "pressionMaxRefoulement" => $this->addDoseuse["pressionMaxRefoulement"],
+            "hauteurAspirationMax" => $this->addDoseuse["hauteurAspirationMax"],
+            "cadence" => $this->addDoseuse["cadence"],
+            "rapportReduction" => $this->addDoseuse["rapportReduction"],
+            "course" => $this->addDoseuse["course"],
+            "ballonAmortisseur" => $this->addDoseuse["ballonAmortisseur"],
+            "ballonAmortisseurRefoulement" => $this->addDoseuse["ballonAmortisseurRefoulement"],
+            "corpsDoseur" => $this->addDoseuse["corpsDoseur"],
+            "membrane" => $this->addDoseuse["membrane"],
+            "arbre" => $this->addDoseuse["arbre"],
+            "calpetAspiration" => $this->addDoseuse["calpetAspiration"],
+            "calpetRefoulement" => $this->addDoseuse["calpetRefoulement"],
+            "tarage" => $this->addDoseuse["tarage"],
+            "debitMax" => $this->addDoseuse["debitMax"],       
+            "caracteristique_moteur_id"=> $this->selectedMoteur->id,
+        ]
+     );
+
+    $this->resetErrorBag();
+     $this->addDoseuse = [];
+   //  $this->addDoseuse["edit"] = false;
+    $this->dispatchBrowserEvent("showSuccessMessage", ["message"=>"Votre demande reussi avec succès!"]);
+}
+
 //delete modal pompe
 public function confirmDeleteModal($id){
     $this->dispatchBrowserEvent("showConfirmMessage", ["message"=> [
@@ -297,5 +356,29 @@ public function cancel(){
     $this->addMoteur = [];
     $this->addMoteur["edit"] = false;
 }
+
+//delete modal doseuse
+public function confirmDeleteDoseuese($id){
+    $this->dispatchBrowserEvent("showConfirmMessage", ["message"=> [
+        "text" => "Vous êtes sur le point de supprimer. Voulez-vous continuer?",
+        "title" => "Êtes-vous sûr de continuer?",
+        "type" => "warning",
+        "data" => [
+            "doseuse_id" => $id
+        ]
+    ]]);
+}
+public function deleteModalDoseuse(Doseuse $doseuse){
+    $doseuse->delete();
+    $this->dispatchBrowserEvent("showSuccessMessage", ["message"=>"Suppression avec succès!"]);
+}
+
+/*public function cancel(){
+    $this->resetErrorBag();
+    $this->addModal = [];
+    $this->addModal["edit"] = false;
+    $this->addMoteur = [];
+    $this->addMoteur["edit"] = false;
+}*/
 
 }

@@ -3,6 +3,7 @@
 namespace App\Http\Livewire;
 
 use App\Models\Ouvrage as ModelsOuvrage;
+use App\Models\Ressource;
 use Livewire\Component;
 use Livewire\WithFileUploads;
 use Livewire\WithPagination;
@@ -22,6 +23,7 @@ class Ouvrage extends Component
     {
         $data = [
             "ouvrages" => ModelsOuvrage::latest()->paginate(3),
+            "ressources" => Ressource::all(),
           ];
         return view('livewire.ouvrage.ouvrage',$data)
         ->extends("layouts.principal")
@@ -51,6 +53,7 @@ public function Ouvrage(){
         "addOuvrage.type" =>"required",
         "addOuvrage.etatActuel" =>"required",
         "addOuvrage.observation" =>"required",
+        "addOuvrage.ressource_id"=>"required|numeric|unique:ouvrages,ressource_id",
         "image" => "image|max:10240"
     ]);
     $path="";
@@ -66,6 +69,7 @@ public function Ouvrage(){
             "type" => $this->addOuvrage["type"],
             "etatActuel" => $this->addOuvrage["etatActuel"],
             "observation" => $this->addOuvrage["observation"],
+            "ressource_id"=> $this->addOuvrage["ressource_id"],
             "photo" => $imagePath,            
         ]
      );
@@ -91,6 +95,7 @@ public function updateOuvrage(){
         "addOuvrage.type" =>"required",
         "addOuvrage.etatActuel" =>"required",
         "addOuvrage.observation" =>"required",
+        "addOuvrage.ressource_id"=>"required",
     ]);
     $ouvrage = ModelsOuvrage::find($this->addOuvrage["id"]);
     $ouvrage->fill($this->addOuvrage);

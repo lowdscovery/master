@@ -71,94 +71,13 @@
 
 
 
-
-
-
-    <div class="col-7">
-        <div class="card">
-            <div class="card-header bg-gradient-primary d-flex align-items-center">
-                <h3 class="card-title flex-grow-1"><i class="fa fa-list fa-2x"></i> Tarification -</h3>
-
-                <div class="card-tools d-flex align-items-center ">
-                    <a href="" class="btn btn-link text-white mr-4 d-block"><i class="fas fa-long-arrow-alt-left"></i> Retourner
-                        vers la liste des articles</a>
-
-                    <a class="btn btn-link btn-db text-white mr-4 d-block" wire:click="nouveauTarif"><i
-                            class="fas fa-user-plus"></i> Nouveau tarif</a>
-
-                </div>
-            </div>
-            <!-- /.card-header -->
-            <div class="card-body table-responsive p-0 table-striped">
-             
-                <div class="p-4">
-                    <div>
-                        <div class="form-group">
-                            <select wire:model="newTarif.duree_location_id"
-                                class="form-control @error('newTarif.duree_location_id')is-invalid @enderror">
-                                <option value="" selected>Choisissez une durée de location</option>
-                               
-                                    <option value=""> </option>
-                               
-                            </select>
-                            @error('newTarif.duree_location_id')
-                                <span class="text-danger">{{ $message }}</span>
-                            @enderror
-                        </div>
-                        <div class="form-group">
-                            <input type="number" class="form-control @error('newTarif.prix') is-invalid @enderror"
-                               >
-                            @error('newTarif.prix')
-                                <span class="text-danger">{{ $message }}</span>
-                            @enderror
-                        </div>
-                    </div>
-                    <div>
-                        <button class="btn btn-link" wire:click="saveTarif"> <i class="fa fa-check"></i>
-                            Valider</button>
-                        <button class="btn btn-link" wire:click="cancel"> <i
-                                class="far fa-trash-alt"></i> Annuler</button>
-                    </div>
-                </div>
-              
-                <div style="height:350px;">
-                    <table class="table table-head-fixed">
-                        <thead>
-                            <tr>
-                                <th></th>
-                                <th>Durée location</th>
-                                <th class="text-center">Prix</th>
-                                <th class="text-center">Action</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                       
-                                <tr>
-                                    <td></td>
-                                    <td></td>
-                                    <td class="text-center"></td>
-                                    <td class="text-center">
-                                        <button wire:click="" class="btn btn-link"> <i class="far fa-edit"></i> </button>
-                                    </td>
-                                </tr>
-                           
-
-                                <tr>
-                                    <td colspan="4">
-                                        <div class="alert alert-info">
-
-                                            <h5><i class="icon fas fa-ban"></i> Information!</h5>
-                                            Cet article ne dispose pas encore de tarifs.
-                                        </div>
-                                    </td>
-                                </tr>
-                           
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-
-        </div>
-        <!-- /.card -->
-    </div>
-
+<div class="btn-group open">
+  <a class="btn btn-info dropdown-toggle" data-toggle="dropdown">
+      <span class="fa fa-caret-down" title="Toggle dropdown menu"></span>
+  </a>
+  <ul class="dropdown-menu" style="padding:10px; z-index: 10;" >
+      <li><button class="btn btn-link" data-toggle="modal" data-target="#addModal"> <i class="fa fa-plus-circle"></i>Moteur</button></li>
+      <li><button class="btn btn-link"  data-toggle="modal" data-target="#editModal"> <i class="far fa-edit"></i> Pompe</button></li>
+      <li><button class="btn btn-link" > <i class="far fa-trash-alt"></i>Pompe Doseuse</button></li>
+  </ul>
+</div>

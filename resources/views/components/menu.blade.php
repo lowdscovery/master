@@ -69,7 +69,7 @@
                     <a href="{{route('manager.caracteristiques.caracteristique.caracteristique')}}"
                         class="nav-link {{setMenuActive('manager.caracteristiques.caracteristique.caracteristique')}}">
                     <i class="nav-icon far fa-circle"></i>
-                    <p>Moteurs</p>
+                    <p>Materiels</p>
                     </a>
                 </li>     
             </ul>

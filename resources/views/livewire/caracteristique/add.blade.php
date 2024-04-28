@@ -110,7 +110,6 @@
 												<label >Moteur</label>
                                                 <select class="form-control @error('newCaract.moteurs') is-invalid @enderror" wire:model="newCaract.moteurs">
                                                     <option value="">---------</option>
-                                                    <option value="MOTEUR">MOTEUR</option>
                                                     <option value="POMPE">POMPE</option>
                                                     <option value="POMPE DOSEUSE">POMPE DOSEUSE</option>
                                                 </select>

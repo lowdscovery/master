@@ -15,4 +15,8 @@ class Ressource extends Model
     public function caract(){
         return $this->hasMany(CaracteristiqueMoteur::class);
     }
+
+    public function ouvrage(){
+        $this->hasMany(Ouvrage::class);
+    }
 }

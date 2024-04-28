@@ -11,7 +11,7 @@ class Uploads extends Component
     use WithFileUploads;
     public $title;
     public $filename;
-
+    
    
 
     public function fileUpload(){
