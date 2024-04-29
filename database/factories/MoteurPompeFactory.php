@@ -14,11 +14,11 @@ class MoteurPompeFactory extends Factory
     public function definition()
     {
         return [
-            'debitNominal' => $this->faker->swiftBicNumber,
+          /*  'debitNominal' => $this->faker->swiftBicNumber,
             'hauteurManometrique' => $this->faker->buildingNumber,
             'corpsDePompe' => $this->faker->swiftBicNumber,
             'chemiseArbre' => $this->faker->macAddress,
-            'caracteristique_moteur_id' => rand(1,10),
+            'caracteristique_moteur_id' => rand(1,10),*/
         ];
     }
 }

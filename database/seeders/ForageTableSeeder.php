@@ -41,7 +41,7 @@ class ForageTableSeeder extends Seeder
             ["nom"=>"Puits","ressource_id"=>"24"],
             ["nom"=>"Puits","ressource_id"=>"25"],
             ["nom"=>"Forage","ressource_id"=>"26"],
-            ["nom"=>"GEPI","ressource_id"=>"27"],
+            ["nom"=>"Forage","ressource_id"=>"27"],
         ]);
     }
 }

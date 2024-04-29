@@ -15,7 +15,7 @@ class CreateCaracteristiqueMoteursTable extends Migration
     {
         Schema::create('caracteristique_moteurs', function (Blueprint $table) {
             $table->id();
-            $table->string('marque')->nullable();
+           /* $table->string('marque')->nullable();
             $table->string('type')->nullable();
             $table->string('numeroSerie')->nullable();
             $table->string('numeroFabrication')->nullable();
@@ -28,7 +28,7 @@ class CreateCaracteristiqueMoteursTable extends Migration
             $table->string('roulement')->nullable();
             $table->string('misesEnServices')->nullable();
             $table->string('observations')->nullable();
-            $table->string('moteurs')->nullable();
+            $table->string('moteurs')->nullable();*/
             $table->foreignId('user_id')->nullable();
             $table->string("district_id")->nullable();
             $table->string("site_id")->nullable();

@@ -67,8 +67,8 @@
                                 <span class="text-danger">{{$message}}</span>
                         @enderror 
                             <option value="">---------</option>
-                            @foreach ($ressources as $ressource)
-                             <option value="{{$ressource->id}}">{{$ressource->nom}}</option>
+                            @foreach ($ressources as $ressource)                          
+                            <option value="{{$ressource->id}}">{{$ressource->nom}}</option>
                             @endforeach
                         </select>
                     </div>

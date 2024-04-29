@@ -10,6 +10,9 @@ class MoteurPompe extends Model
     use HasFactory;
 
     protected $fillable = [
+        'marque','type','numeroSerie','numeroFabrication','vitesse','encombrement',
+        'anneeFabrication','fournisseur','dateAcquisition','dateMiseEnService',
+        'roulement','misesEnServices','observations',
         'debitNominal','hauteurManometrique',
         'corpsDePompe','chemiseArbre','caracteristique_moteur_id',
     ];

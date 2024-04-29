@@ -13,4 +13,8 @@ class Forage extends Model
     public function caract(){
         return $this->hasMany(CaracteristiqueMoteur::class);
     }
+
+    public function ressources(){
+        return $this->belongsTo(Ressource::class, "ressource_id","id");
+    }
 }

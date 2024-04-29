@@ -19,10 +19,10 @@ class DatabaseSeeder extends Seeder
     public function run()
     {
          User::factory(1)->create();
-         CaracteristiqueMoteur::factory(10)->create();
+      /*   CaracteristiqueMoteur::factory(10)->create();
          MoteurPompe::factory(10)->create();
          MoteurElectrique::factory(10)->create();
-         Incident::factory(5)->create();
+         Incident::factory(5)->create();*/
 
          $this->call(RoleTableSeeder::class);
          $this->call(DistrictTableSeeder::class);

@@ -1,25 +1,119 @@
 <!-- xl ou lg modal-->
 
         <div class="modal-header">
-            <h5 class="modal-title">Gestion des caracteristique "{{optional($selectedMoteur)->moteurs}}" </h5>
+            <h5 class="modal-title">Gestion des caracteristique "POMPE" {{optional($selectedMoteur)->moteurs}} </h5>
       </div>
       <div class="modal-body">
+      @if ($showInputPompe)
           <div class="d-flex my-4 bg-gray-light p-2">
               <div class="d-flex flex-grow-1 mr-2">
                   <div class="flex-grow-1 mr-2">
-                      <input type="number" placeholder="Debit Nominal"  wire:model="addModal.debitNominal" class="form-control @error("addModal.debitNominal") is-invalid @enderror">
+                      <input type="text" placeholder="Marque"  wire:model="addModal.marque" class="form-control @error("addModal.marque") is-invalid @enderror">
+                      @error("addModal.marque")
+                          <span class="text-danger">{{$message}}</span>
+                      @enderror
+                  </div>
+                  <div class="flex-grow-1 mr-2">
+                      <input type="text" placeholder="Type"  wire:model="addModal.type" class="form-control @error("addModal.type") is-invalid @enderror">
+                      @error("addModal.type")
+                          <span class="text-danger">{{$message}}</span>
+                      @enderror
+                  </div>
+                  <div class="flex-grow-1 mr-2">
+                      <input type="text" placeholder="Numero serie"  wire:model="addModal.numeroSerie" class="form-control @error("addModal.numeroSerie") is-invalid @enderror">
+                      @error("addModal.numeroSerie")
+                          <span class="text-danger">{{$message}}</span>
+                      @enderror
+                  </div>
+                  <div class="flex-grow-1 mr-2">
+                      <input type="text" placeholder="Numero Fabrication"  wire:model="addModal.numeroFabrication" class="form-control @error("addModal.numeroFabrication") is-invalid @enderror">
+                      @error("addModal.numeroFabrication")
+                          <span class="text-danger">{{$message}}</span>
+                      @enderror
+                  </div>
+                  <div class="flex-grow-1 mr-2">
+                      <input type="text" placeholder="Vitesse"  wire:model="addModal.vitesse" class="form-control @error("addModal.vitesse") is-invalid @enderror">
+                      @error("addModal.vitesse")
+                          <span class="text-danger">{{$message}}</span>
+                      @enderror
+                  </div>
+              </div>
+              </div>
+
+      <div class="d-flex my-4 bg-gray-light p-2">
+              <div class="d-flex flex-grow-1 mr-2">
+                  <div class="flex-grow-1 mr-2">
+                      <input type="text" placeholder="Encombrement"  wire:model="addModal.encombrement" class="form-control @error("addModal.encombrement") is-invalid @enderror">
+                      @error("addModal.encombrement")
+                          <span class="text-danger">{{$message}}</span>
+                      @enderror
+                  </div>
+                  <div class="flex-grow-1 mr-2">
+                      <input type="date" placeholder="Annee Fabrication"  wire:model="addModal.anneeFabrication" class="form-control @error("addModal.anneeFabrication") is-invalid @enderror">
+                      @error("addModal.anneeFabrication")
+                          <span class="text-danger">{{$message}}</span>
+                      @enderror
+                  </div>
+                  <div class="flex-grow-1 mr-2">
+                      <input type="text" placeholder="Fournisseur"  wire:model="addModal.fournisseur" class="form-control @error("addModal.fournisseur") is-invalid @enderror">
+                      @error("addModal.fournisseur")
+                          <span class="text-danger">{{$message}}</span>
+                      @enderror
+                  </div>
+                  <div class="flex-grow-1 mr-2">
+                      <input type="date" placeholder="Date Acquisition"  wire:model="addModal.dateAcquisition" class="form-control @error("addModal.dateAcquisition") is-invalid @enderror">
+                      @error("addModal.dateAcquisition")
+                          <span class="text-danger">{{$message}}</span>
+                      @enderror
+                  </div>
+                  <div class="flex-grow-1 mr-2">
+                      <input type="date" placeholder="Date Mise En Service"  wire:model="addModal.dateMiseEnService" class="form-control @error("addModal.dateMiseEnService") is-invalid @enderror">
+                      @error("addModal.dateMiseEnService")
+                          <span class="text-danger">{{$message}}</span>
+                      @enderror
+                  </div>
+              </div>
+              </div>
+          
+          <div class="d-flex my-4 bg-gray-light p-2">
+              <div class="d-flex flex-grow-1 mr-2">
+                  <div class="flex-grow-1 mr-2">
+                      <input type="text" placeholder="Roulement"  wire:model="addModal.roulement" class="form-control @error("addModal.roulement") is-invalid @enderror">
+                      @error("addModal.roulement")
+                          <span class="text-danger">{{$message}}</span>
+                      @enderror
+                  </div>
+                  <div class="flex-grow-1 mr-2">
+                      <input type="text" placeholder="Mise en service"  wire:model="addModal.misesEnServices" class="form-control @error("addModal.misesEnServices") is-invalid @enderror">
+                      @error("addModal.misesEnServices")
+                          <span class="text-danger">{{$message}}</span>
+                      @enderror
+                  </div>
+                  <div class="flex-grow-1 mr-2">
+                      <input type="text" placeholder="Observation"  wire:model="addModal.observations" class="form-control @error("addModal.observations") is-invalid @enderror">
+                      @error("addModal.observations")
+                          <span class="text-danger">{{$message}}</span>
+                      @enderror
+                  </div>
+                  <div class="flex-grow-1 mr-2">
+                      <input type="text" placeholder="Debit Nominal"  wire:model="addModal.debitNominal" class="form-control @error("addModal.debitNominal") is-invalid @enderror">
                       @error("addModal.debitNominal")
                           <span class="text-danger">{{$message}}</span>
                       @enderror
                   </div>
                   <div class="flex-grow-1 mr-2">
-                      <input type="text" placeholder="Hateur Manometrique"  wire:model="addModal.hauteurManometrique" class="form-control @error("addModal.hauteurManometrique") is-invalid @enderror">
+                      <input type="text" placeholder="Hauteur Manometrique"  wire:model="addModal.hauteurManometrique" class="form-control @error("addModal.hauteurManometrique") is-invalid @enderror">
                       @error("addModal.hauteurManometrique")
                           <span class="text-danger">{{$message}}</span>
                       @enderror
                   </div>
+              </div>
+              </div>
+
+          <div class="d-flex my-4 bg-gray-light p-2">
+              <div class="d-flex flex-grow-1 mr-2">
                   <div class="flex-grow-1 mr-2">
-                      <input type="text" placeholder="Corps de Pompe"  wire:model="addModal.corpsDePompe" class="form-control @error("addModal.corpsDePompe") is-invalid @enderror">
+                      <input type="text" placeholder="Corps de pompe"  wire:model="addModal.corpsDePompe" class="form-control @error("addModal.corpsDePompe") is-invalid @enderror">
                       @error("addModal.corpsDePompe")
                           <span class="text-danger">{{$message}}</span>
                       @enderror
@@ -30,17 +124,22 @@
                           <span class="text-danger">{{$message}}</span>
                       @enderror
                   </div>
-              </div>
-              <div>
               <button class="btn btn-success" wire:click="editModalPompe()">Ajouter</button>
               </div>
               </div>
+      @else
+      <button class="btn btn-success" wire:click="showInput()">Ajout</button> 
+      @endif
+
              <table class="table table-head-fixed">
                     <thead style="color: orange;">
                     <tr>
-                    <th class="text-center" style="width:15%;">Debit</th>
-                    <th class="text-center" style="width:25%;">Hauteur</th>
-                    <th class="text-center" style="width:25%;">Corps</th>
+                    <th class="text-center" style="width:12%;">Marque</th>
+                    <th class="text-center" style="width:12%;">Type</th>
+                    <th class="text-center" style="width:17%;">Numero de Serie</th>
+                    <th class="text-center" style="width:7%;">Debit</th>
+                    <th class="text-center" style="width:7%;">Hauteur</th>
+                    <th class="text-center" style="width:10%;">Corps</th>
                     <th class="text-center" style="width:15%;">Chemise</th>
                     <th class="text-center" style="width:20%;">Action</th>
                     </tr>
@@ -48,9 +147,12 @@
              <tbody>
         @forelse($pompes as $pompe) 
                 <tr>
-                    <td class="text-center" style="width:15%;">{{$pompe->debitNominal}}</td>
-                    <td class="text-center" style="width:25%;">{{$pompe->hauteurManometrique}}</td>
-                    <td class="text-center" style="width:25%;">{{$pompe->corpsDePompe}}</td>
+                    <td class="text-center" style="width:12%;">{{$pompe->marque}}</td>
+                    <td class="text-center" style="width:12%;">{{$pompe->type}}</td>
+                    <td class="text-center" style="width:17%;">{{$pompe->numeroSerie}}</td>
+                    <td class="text-center" style="width:7%;">{{$pompe->debitNominal}}</td>
+                    <td class="text-center" style="width:7%;">{{$pompe->hauteurManometrique}}</td>
+                    <td class="text-center" style="width:10%;">{{$pompe->corpsDePompe}}</td>
                     <td class="text-center" style="width:15%;">{{$pompe->chemiseArbre}}</td>
                     <td class="text-center" style="width:20%;">
                         <button class="btn btn-link" wire:click="editModal({{$pompe->id}})" data-toggle="modal" data-target="#addModal"> <i class="far fa-edit"></i> </button>  
@@ -59,7 +161,7 @@
                 </tr>
                 @empty
                     <tr>
-                        <td colspan="5">
+                        <td colspan="8">
                         <div class="alert alert-info">                  
                         <h5><i class="icon fas fa-ban"></i> Information!</h5>
                         Vous n'avez pas encore des données définies.

@@ -14,7 +14,7 @@ class IncidentFactory extends Factory
     public function definition()
     {
         return [
-                'dateIncident' => $this->faker->date,
+               /* 'dateIncident' => $this->faker->date,
                 'indexCH' => $this->faker->phoneNumber,
                 'heure' => $this->faker->phoneNumber,
                 'natureIncident' => $this->faker->lastName(),
@@ -22,7 +22,7 @@ class IncidentFactory extends Factory
                 'action' => $this->faker->lastName(),
                 'resultat' => $this->faker->lastName(),
                 'intervenant' => $this->faker->lastName,
-                'marque|numero' => $this->faker->lastName,
+                'marque|numero' => $this->faker->lastName,*/
         ];
     }
 }

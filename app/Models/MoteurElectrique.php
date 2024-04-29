@@ -10,6 +10,9 @@ class MoteurElectrique extends Model
     use HasFactory;
 
     protected $fillable = [
+        'marque','type','numeroSerie','numeroFabrication','vitesse','encombrement',
+        'anneeFabrication','fournisseur','dateAcquisition','dateMiseEnService',
+        'roulement','misesEnServices','observations',
        'puissance','tension','cosphi','intensite',
        'sectionCable','indiceDeProtection','classeIsolant','typeDeDemarrage','caracteristique_moteur_id',
     ];

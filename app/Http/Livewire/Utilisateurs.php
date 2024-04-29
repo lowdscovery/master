@@ -235,7 +235,7 @@ public function notify()
         $user = User::where("id", "like", $searchCriteria)->latest();*/
         auth()->user()->notify(new UserFollowNotification($user));
     }
-    dd("done");
+   // dd("done");
 }
 
 }

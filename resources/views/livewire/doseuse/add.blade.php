@@ -2,7 +2,7 @@
   <!-- xl ou lg modal-->
 
         <div class="modal-header">
-            <h5 class="modal-title">Gestion des caracteristique "{{optional($selectedMoteur)->moteurs}}" </h5>
+            <h5 class="modal-title">Gestion des caracteristique "POMPE DOSEUSE"{{optional($selectedMoteur)->moteurs}} </h5>
       </div>
       <div class="modal-body">
           <div class="d-flex my-4 bg-gray-light p-2">

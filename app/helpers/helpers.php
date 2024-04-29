@@ -11,6 +11,7 @@ define("PAGELISTFORM", "liste");
 define("INFORMATION", "information");
 define("UPDATEINTERVENANT", "update");
 define("PAGEGRILLE", "grille");
+define("AFFICHAGE", "affichage");
 
 /*Affiche le nom et prenom*/
 function userFullName(){

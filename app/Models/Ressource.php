@@ -17,6 +17,10 @@ class Ressource extends Model
     }
 
     public function ouvrage(){
-        $this->hasMany(Ouvrage::class);
+        return $this->hasMany(Ouvrage::class);
+    }
+
+    public function forage(){
+        return $this->hasMany(Forage::class);
     }
 }

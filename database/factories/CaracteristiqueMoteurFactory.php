@@ -14,7 +14,7 @@ class CaracteristiqueMoteurFactory extends Factory
     public function definition()
     {
         return [
-            'marque' => $this->faker->macAddress,
+            /*'marque' => $this->faker->macAddress,
             'type' => $this->faker->firstName,
             'numeroSerie' => $this->faker->unique()->numerify,
             'numeroFabrication' => $this->faker->unique()->buildingNumber,
@@ -32,7 +32,7 @@ class CaracteristiqueMoteurFactory extends Factory
             'site_id' => rand(1,9),
             'ressource_id' => rand(1,25),
             'forage_id' => rand(1,25),
-            'user_id' => rand(1,10),
+            'user_id' => rand(1,10),*/
         ];
     }
 }

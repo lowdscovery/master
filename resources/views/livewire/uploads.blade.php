@@ -70,14 +70,3 @@
 
 
 
-
-<div class="btn-group open">
-  <a class="btn btn-info dropdown-toggle" data-toggle="dropdown">
-      <span class="fa fa-caret-down" title="Toggle dropdown menu"></span>
-  </a>
-  <ul class="dropdown-menu" style="padding:10px; z-index: 10;" >
-      <li><button class="btn btn-link" data-toggle="modal" data-target="#addModal"> <i class="fa fa-plus-circle"></i>Moteur</button></li>
-      <li><button class="btn btn-link"  data-toggle="modal" data-target="#editModal"> <i class="far fa-edit"></i> Pompe</button></li>
-      <li><button class="btn btn-link" > <i class="far fa-trash-alt"></i>Pompe Doseuse</button></li>
-  </ul>
-</div>

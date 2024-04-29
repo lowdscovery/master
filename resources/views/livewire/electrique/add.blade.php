@@ -2,13 +2,107 @@
   <!-- xl ou lg modal-->
 
         <div class="modal-header">
-            <h5 class="modal-title">Gestion des caracteristique "MOTEUR" </h5>
+            <h5 class="modal-title">Gestion des caracteristique "MOTEUR" {{optional($selectedMoteur)->moteurs}} </h5>
       </div>
       <div class="modal-body">
+      @if ($showInputPompe)
           <div class="d-flex my-4 bg-gray-light p-2">
               <div class="d-flex flex-grow-1 mr-2">
                   <div class="flex-grow-1 mr-2">
-                      <input type="text" placeholder="Puissance"  wire:model="addMoteur.puissance" class="form-control @error("addMoteur.puissance") is-invalid @enderror">
+                      <input type="text" placeholder="Marque"  wire:model="addMoteur.marque" class="form-control @error("addMoteur.marque") is-invalid @enderror">
+                      @error("addMoteur.marque")
+                          <span class="text-danger">{{$message}}</span>
+                      @enderror
+                  </div>
+                  <div class="flex-grow-1 mr-2">
+                      <input type="text" placeholder="Type"  wire:model="addMoteur.type" class="form-control @error("addMoteur.type") is-invalid @enderror">
+                      @error("addMoteur.type")
+                          <span class="text-danger">{{$message}}</span>
+                      @enderror
+                  </div>
+                  <div class="flex-grow-1 mr-2">
+                      <input type="text" placeholder="Numero Serie"  wire:model="addMoteur.numeroSerie" class="form-control @error("addMoteur.numeroSerie") is-invalid @enderror">
+                      @error("addMoteur.numeroSerie")
+                          <span class="text-danger">{{$message}}</span>
+                      @enderror
+                  </div>
+                  <div class="flex-grow-1 mr-2">
+                       <input type="text" placeholder="Numero Fabrication"  wire:model="addMoteur.numeroFabrication" class="form-control @error("addMoteur.numeroFabrication") is-invalid @enderror">
+                      @error("addMoteur.numeroFabrication")
+                          <span class="text-danger">{{$message}}</span>
+                      @enderror
+                  </div>
+                  <div class="flex-grow-1 mr-2">
+                      <input type="text" placeholder="Vitesse"  wire:model="addMoteur.vitesse" class="form-control @error("addMoteur.vitesse") is-invalid @enderror">
+                      @error("addMoteur.vitesse")
+                          <span class="text-danger">{{$message}}</span>
+                      @enderror
+                  </div>
+              </div>
+              </div>
+
+
+              <div class="d-flex my-4 bg-gray-light p-2">
+              <div class="d-flex flex-grow-1 mr-2">
+                
+                 <div class="flex-grow-1 mr-2">
+                      <input type="text" placeholder="Intensite"  wire:model="addMoteur.intensite" class="form-control @error("addMoteur.intensite") is-invalid @enderror">
+                      @error("addMoteur.intensite")
+                          <span class="text-danger">{{$message}}</span>
+                      @enderror
+                  </div>
+                  <div class="flex-grow-1 mr-2">
+                       <input type="text" placeholder="Section Cablage"  wire:model="addMoteur.sectionCable" class="form-control @error("addMoteur.sectionCable") is-invalid @enderror">
+                      @error("addMoteur.sectionCable")
+                          <span class="text-danger">{{$message}}</span>
+                      @enderror
+                  </div>
+
+                  <div class="flex-grow-1 mr-2">
+                       <input type="text" placeholder="Cosphi"  wire:model="addMoteur.cosphi" class="form-control @error("addMoteur.cosphi") is-invalid @enderror">
+                      @error("addMoteur.cosphi")
+                          <span class="text-danger">{{$message}}</span>
+                      @enderror
+                  </div>
+
+                  <div class="flex-grow-1 mr-2">
+                      <input type="text" placeholder="Encombrement"  wire:model="addMoteur.encombrement" class="form-control @error("addMoteur.encombrement") is-invalid @enderror">
+                      @error("addMoteur.encombrement")
+                          <span class="text-danger">{{$message}}</span>
+                      @enderror
+                  </div>
+                  <div class="flex-grow-1 mr-2">
+                      <input type="text" placeholder="Indice de protection"  wire:model="addMoteur.indiceDeProtection" class="form-control @error("addMoteur.indiceDeProtection") is-invalid @enderror">
+                      @error("addMoteur.indiceDeProtection")
+                          <span class="text-danger">{{$message}}</span>
+                      @enderror
+                  </div>
+              </div>
+              </div>
+
+              
+          <div class="d-flex my-4 bg-gray-light p-2">
+              <div class="d-flex flex-grow-1 mr-2">
+                  <div class="flex-grow-1 mr-2">
+                      <input type="text" placeholder="Roulement"  wire:model="addMoteur.roulement" class="form-control @error("addMoteur.roulement") is-invalid @enderror">
+                      @error("addMoteur.roulement")
+                          <span class="text-danger">{{$message}}</span>
+                      @enderror
+                  </div>
+                  <div class="flex-grow-1 mr-2">
+                      <input type="text" placeholder="Mise en service"  wire:model="addMoteur.misesEnServices" class="form-control @error("addMoteur.misesEnServices") is-invalid @enderror">
+                      @error("addMoteur.misesEnServices")
+                          <span class="text-danger">{{$message}}</span>
+                      @enderror
+                  </div>
+                  <div class="flex-grow-1 mr-2">
+                      <input type="text" placeholder="Observations"  wire:model="addMoteur.observations" class="form-control @error("addMoteur.observations") is-invalid @enderror">
+                      @error("addMoteur.observations")
+                          <span class="text-danger">{{$message}}</span>
+                      @enderror
+                  </div>
+                  <div class="flex-grow-1 mr-2">
+                       <input type="text" placeholder="Puissance"  wire:model="addMoteur.puissance" class="form-control @error("addMoteur.puissance") is-invalid @enderror">
                       @error("addMoteur.puissance")
                           <span class="text-danger">{{$message}}</span>
                       @enderror
@@ -19,44 +113,45 @@
                           <span class="text-danger">{{$message}}</span>
                       @enderror
                   </div>
-                  <div class="flex-grow-1 mr-2">
-                       <input type="text" placeholder="Cosphi"  wire:model="addMoteur.cosphi" class="form-control @error("addMoteur.cosphi") is-invalid @enderror">
-                      @error("addMoteur.cosphi")
-                          <span class="text-danger">{{$message}}</span>
-                      @enderror
-                  </div>
-                  <div class="flex-grow-1 mr-2">
-                      <input type="text" placeholder="Intensite"  wire:model="addMoteur.intensite" class="form-control @error("addMoteur.intensite") is-invalid @enderror">
-                      @error("addMoteur.intensite")
-                          <span class="text-danger">{{$message}}</span>
-                      @enderror
-                  </div>
               </div>
               </div>
          
 
               <div class="d-flex my-4 bg-gray-light p-2">
               <div class="d-flex flex-grow-1 mr-2">
-                  <div class="flex-grow-1 mr-2">
-                       <input type="text" placeholder="Section Cablage"  wire:model="addMoteur.sectionCable" class="form-control @error("addMoteur.sectionCable") is-invalid @enderror">
-                      @error("addMoteur.sectionCable")
+
+              <div class="flex-grow-1 mr-2">
+                      <input type="date" placeholder="Annee Fabrication"  wire:model="addMoteur.anneeFabrication" class="form-control @error("addMoteur.anneeFabrication") is-invalid @enderror">
+                      @error("addMoteur.anneeFabrication")
+                          <span class="text-danger">{{$message}}</span>
+                      @enderror
+             </div>
+               <div class="flex-grow-1 mr-2">
+                      <input type="text" placeholder="Fournisseur"  wire:model="addMoteur.fournisseur" class="form-control @error("addMoteur.fournisseur") is-invalid @enderror">
+                      @error("addMoteur.fournisseur")
+                          <span class="text-danger">{{$message}}</span>
+                      @enderror
+                  </div>
+              <div class="flex-grow-1 mr-2">
+                       <input type="Date" placeholder="Date Acquisition"  wire:model="addMoteur.dateAcquisition" class="form-control @error("addMoteur.dateAcquisition") is-invalid @enderror">
+                      @error("addMoteur.dateAcquisition")
                           <span class="text-danger">{{$message}}</span>
                       @enderror
                   </div>
                   <div class="flex-grow-1 mr-2">
-                      <input type="text" placeholder="Indice de protection"  wire:model="addMoteur.indiceDeProtection" class="form-control @error("addMoteur.indiceDeProtection") is-invalid @enderror">
-                      @error("addMoteur.indiceDeProtection")
+                      <input type="date" placeholder="Date Mise en service"  wire:model="addMoteur.dateMiseEnService" class="form-control @error("addMoteur.dateMiseEnService") is-invalid @enderror">
+                      @error("addMoteur.dateMiseEnService")
                           <span class="text-danger">{{$message}}</span>
                       @enderror
                   </div>
-                  <div class="flex-grow-1 mr-2">
-                       <input type="text" placeholder="Classe Isolant"  wire:model="addMoteur.classeIsolant" class="form-control @error("addMoteur.classeIsolant") is-invalid @enderror">
+                   <div class="flex-grow-1 mr-2">
+                      <input type="text" placeholder="Classe isolant"  wire:model="addMoteur.classeIsolant" class="form-control @error("addMoteur.classeIsolant") is-invalid @enderror">
                       @error("addMoteur.classeIsolant")
                           <span class="text-danger">{{$message}}</span>
                       @enderror
                   </div>
-                  <div class="flex-grow-1 mr-2">
-                      <input type="text" placeholder="Type de Demarrage"  wire:model="addMoteur.typeDeDemarrage" class="form-control @error("addMoteur.typeDeDemarrage") is-invalid @enderror">
+                   <div class="flex-grow-1 mr-2">
+                      <input type="text" placeholder="Type de marrage"  wire:model="addMoteur.typeDeDemarrage" class="form-control @error("addMoteur.typeDeDemarrage") is-invalid @enderror">
                       @error("addMoteur.typeDeDemarrage")
                           <span class="text-danger">{{$message}}</span>
                       @enderror
@@ -66,6 +161,9 @@
               <button class="btn btn-success" wire:click="editModalMoteur()">Ajouter</button>
               </div>
               </div>
+      @else
+      <button class="btn btn-success" wire:click="showInput()">Ajout</button> 
+      @endif
 
              <table class="table table-head-fixed">
                     <thead style="color: orange;">
@@ -94,7 +192,7 @@
                 <td style="width:15%;">{{$electrique->typeDeDemarrage}}</td>
                 <td class="text-center" style="width:20%;">
                     <button class="btn btn-link" wire:click="editMoteur({{$electrique->id}})"> <i class="far fa-edit"></i> </button>  
-                    <button class="btn btn-link" wire:click="confirmDeleteModal({{$electrique->id}})"> <i class="far fa-trash-alt"></i> </button>     
+                    <button class="btn btn-link" wire:click="confirmDeleteMoteur({{$electrique->id}})"> <i class="far fa-trash-alt"></i> </button>     
                 </td>
                 </tr>
                 @empty

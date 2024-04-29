@@ -14,7 +14,7 @@ class MoteurElectriqueFactory extends Factory
     public function definition()
     {
         return [
-            'puissance' => $this->faker->swiftBicNumber,
+            /*'puissance' => $this->faker->swiftBicNumber,
             'tension' => $this->faker->buildingNumber,
             'cosphi' => $this->faker->address,
             'intensite' => $this->faker->macAddress,
@@ -22,7 +22,7 @@ class MoteurElectriqueFactory extends Factory
             'indiceDeProtection' => $this->faker->buildingNumber,
             'classeIsolant' => $this->faker->address,
             'typeDeDemarrage' => $this->faker->macAddress,
-            'caracteristique_moteur_id' => rand(1,10),
+            'caracteristique_moteur_id' => rand(1,10),*/
         ];
     }
 }

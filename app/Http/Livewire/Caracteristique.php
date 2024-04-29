@@ -8,6 +8,7 @@ use App\Models\Doseuse;
 use App\Models\Forage;
 use App\Models\MoteurElectrique;
 use App\Models\MoteurPompe;
+use App\Models\Ouvrage;
 use App\Models\Ressource;
 use App\Models\Site;
 use Livewire\Component;
@@ -34,6 +35,9 @@ class Caracteristique extends Component
     public $ressources = [];
     public $forages = [];
     public $card=false;
+    public $showInputPompe = false;
+    public $affiche = false;
+    public $selectedId;
 
     public function rules(){
         if($this->currentPage == PAGEEDITFORM){
@@ -94,11 +98,14 @@ class Caracteristique extends Component
         $searchCriteria = "%".$this->search."%";
         $data = [
         "districts" =>District::all(), 
-        "caracteristiques" => CaracteristiqueMoteur::where("marque","like",$searchCriteria)->latest()->paginate(5),
-        "pompes" => MoteurPompe::where("caracteristique_moteur_id",optional($this->selectedMoteur)->id)->get(),
+        "caracteristiques" => CaracteristiqueMoteur::where("ressource_id","like",$searchCriteria)->latest()->paginate(5),
+        "caracteristiq" => CaracteristiqueMoteur::where("id",optional($this->selectedId)->id)->get(),
         "electriques" => MoteurElectrique::where("caracteristique_moteur_id",optional($this->selectedMoteur)->id)->get(),
+        "pompes" => MoteurPompe::where("caracteristique_moteur_id",optional($this->selectedMoteur)->id)->get(),
         "doseuses" => Doseuse::where("caracteristique_moteur_id",optional($this->selectedMoteur)->id)->get(),
-           // "pompes" => MoteurPompe::where("moteur_pompe_id",optional($this->selectedMoteur)->id)->get()
+        "pomp" => MoteurPompe::all(),
+        "electriq" => MoteurElectrique::all(),
+        "ouvrages" => Ouvrage::all(),
         
        /* Table relation
         "caract"=>District::with('caract')->get(),
@@ -108,6 +115,15 @@ class Caracteristique extends Component
         return view('livewire.caracteristique.index',$data)
         ->extends("layouts.principal")
         ->section("contenu");
+    }
+
+    public function affichage(CaracteristiqueMoteur $affichage){
+        $this->affiche=AFFICHAGE;
+        $this->selectedId = $affichage;
+    }
+
+    public function showInput(){
+        $this->showInputPompe=true;
     }
 
     //show card
@@ -137,7 +153,7 @@ class Caracteristique extends Component
         'selectedForage.forage_id' => 'required',
     ]);
     CaracteristiqueMoteur::create([
-        "marque"=> " ",
+      //  "marque"=> " ",
         "district_id"=>$this->selectedDistrict["district_id"],
         "site_id"=>$this->selectedSite["site_id"],
         "ressource_id"=>$this->selectedressource["ressource_id"],
@@ -186,26 +202,55 @@ public function deleteCaract($id){
 public function showModal(CaracteristiqueMoteur $caracteristique){
     $this->selectedMoteur = $caracteristique;
     $this->cancel();
+    $this->showInputPompe=false;
 }
 //pompes
 public function editModal(MoteurPompe $pompe){
     $this->addModal = $pompe->toArray();
     $this->addModal["edit"] = true;
+    $this->showInput();
 }
 
 public function editModalPompe(){
 
     $validated = $this->validate([
+        "addModal.marque" =>"required",
+        "addModal.type" =>"required",
+        "addModal.numeroSerie" =>"required",
+        "addModal.numeroFabrication" =>"required",
+        "addModal.vitesse" =>"required",
+        "addModal.encombrement" =>"required",
+        "addModal.anneeFabrication" =>"required",
+        "addModal.fournisseur" =>"required",
+        "addModal.dateAcquisition" =>"required",
+        "addModal.dateMiseEnService" =>"required",
+        "addModal.roulement" =>"required",
+        "addModal.misesEnServices" =>"required",
+        "addModal.observations" =>"required",
         "addModal.debitNominal" =>"required",
         "addModal.hauteurManometrique" =>"required",
         "addModal.corpsDePompe" =>"required",
         "addModal.chemiseArbre" =>"required"
+
     ]);
     MoteurPompe::updateOrCreate(
         [
         "caracteristique_moteur_id"=> $this->selectedMoteur->id,
         ],
         [
+            "marque" => $this->addModal["marque"],
+            "type" => $this->addModal["type"],
+            "numeroSerie" => $this->addModal["numeroSerie"],
+            "numeroFabrication" => $this->addModal["numeroFabrication"],
+            "vitesse" => $this->addModal["vitesse"],
+            "encombrement" => $this->addModal["encombrement"],
+            "anneeFabrication" => $this->addModal["anneeFabrication"],
+            "fournisseur" => $this->addModal["fournisseur"],
+            "dateAcquisition" => $this->addModal["dateAcquisition"],
+            "dateMiseEnService" => $this->addModal["dateMiseEnService"],
+            "roulement" => $this->addModal["roulement"],
+            "misesEnServices" => $this->addModal["misesEnServices"],
+            "observations" => $this->addModal["observations"],
             "debitNominal" => $this->addModal["debitNominal"],
             "hauteurManometrique" => $this->addModal["hauteurManometrique"],
             "corpsDePompe" => $this->addModal["corpsDePompe"],
@@ -224,11 +269,26 @@ public function editModalPompe(){
 public function editMoteur(MoteurElectrique $moteur){
     $this->addMoteur = $moteur->toArray();
     $this->addMoteur["edit"] = true;
+    $this->showInput();
 }
 
 public function editModalMoteur(){
 
     $validated = $this->validate([
+        "addMoteur.marque" =>"required",
+        "addMoteur.type" =>"required",
+        "addMoteur.numeroSerie" =>"required",
+        "addMoteur.numeroFabrication" =>"required",
+        "addMoteur.vitesse" =>"required",
+        "addMoteur.encombrement" =>"required",
+        "addMoteur.anneeFabrication" =>"required",
+        "addMoteur.fournisseur" =>"required",
+        "addMoteur.dateAcquisition" =>"required",
+        "addMoteur.dateMiseEnService" =>"required",
+        "addMoteur.roulement" =>"required",
+        "addMoteur.misesEnServices" =>"required",
+        "addMoteur.observations" =>"required",
+
         "addMoteur.puissance" =>"required",
         "addMoteur.tension" =>"required",
         "addMoteur.cosphi" =>"required",
@@ -243,6 +303,20 @@ public function editModalMoteur(){
         "caracteristique_moteur_id"=> $this->selectedMoteur->id,
         ],
         [
+            "marque" => $this->addMoteur["marque"],
+            "type" => $this->addMoteur["type"],
+            "numeroSerie" => $this->addMoteur["numeroSerie"],
+            "numeroFabrication" => $this->addMoteur["numeroFabrication"],
+            "vitesse" => $this->addMoteur["vitesse"],
+            "encombrement" => $this->addMoteur["encombrement"],
+            "anneeFabrication" => $this->addMoteur["anneeFabrication"],
+            "fournisseur" => $this->addMoteur["fournisseur"],
+            "dateAcquisition" => $this->addMoteur["dateAcquisition"],
+            "dateMiseEnService" => $this->addMoteur["dateMiseEnService"],
+            "roulement" => $this->addMoteur["roulement"],
+            "misesEnServices" => $this->addMoteur["misesEnServices"],
+            "observations" => $this->addMoteur["observations"],
+
             "puissance" => $this->addMoteur["puissance"],
             "tension" => $this->addMoteur["tension"],
             "cosphi" => $this->addMoteur["cosphi"],
@@ -327,6 +401,7 @@ public function confirmDeleteModal($id){
             "moteur_pompe_id" => $id
         ]
     ]]);
+    $this->cancel();
 }
 public function deleteModalMoteur(MoteurPompe $pompe){
     $pompe->delete();
@@ -355,6 +430,7 @@ public function cancel(){
     $this->addModal["edit"] = false;
     $this->addMoteur = [];
     $this->addMoteur["edit"] = false;
+    $this->showInputPompe;
 }
 
 //delete modal doseuse

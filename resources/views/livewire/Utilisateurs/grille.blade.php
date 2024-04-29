@@ -7,9 +7,16 @@
                     <div class="card card-profile"> 
                         <div class="card-body pt-2">
                             <div class="text-center">
-                                <div class="profile-photo pt-4">
+                            @if ($user->photo !="" || $user->photo !=null)
+                            <div class="profile-photo pt-4">
                         <img src="{{asset($user->photo)}}" width="100" class="img-fluid rounded-circle" alt="" style="height:100px;">
-                                </div>
+                            </div>
+                            @else
+                           <div class="profile-photo pt-4">
+                        <img src="{{asset('image/user.png')}}" width="100" class="img-fluid rounded-circle" alt="" style="height:100px;">
+                            </div>
+                            @endif
+                                
                                 <h3 class="mt-4 mb-1" style="font-family: montserrat;">{{ $user->nom }}</h3>
                                 <p class="text-muted">{{ $user->prenom }}</p>
                                 <ul class="list-group mb-3 list-group-flush">

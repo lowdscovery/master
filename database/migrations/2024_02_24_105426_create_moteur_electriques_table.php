@@ -15,6 +15,20 @@ class CreateMoteurElectriquesTable extends Migration
     {
         Schema::create('moteur_electriques', function (Blueprint $table) {
             $table->id();
+            $table->string('marque')->nullable();
+            $table->string('type')->nullable();
+            $table->string('numeroSerie')->nullable();
+            $table->string('numeroFabrication')->nullable();
+            $table->string('vitesse')->nullable();
+            $table->string('encombrement')->nullable();
+            $table->date('anneeFabrication')->nullable();
+            $table->string('fournisseur')->nullable();
+            $table->date('dateAcquisition')->nullable();
+            $table->date('dateMiseEnService')->nullable();
+            $table->string('roulement')->nullable();
+            $table->string('misesEnServices')->nullable();
+            $table->string('observations')->nullable();
+            
             $table->string('puissance');
             $table->string('tension');
             $table->string('cosphi');
