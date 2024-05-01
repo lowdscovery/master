@@ -12,9 +12,12 @@
       <div class="modal-body">
         @include("livewire.electrique.add")
       </div>
+      @if ($showInputPompe)
+      @else
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal" wire.click="cancel()">Close</button>
       </div>
+       @endif
     </div>
   </div>
 </div>
@@ -26,9 +29,12 @@
       <div class="modal-body">
         @include("livewire.pompe.add")
       </div>
+      @if ($showInputPompe)
+      @else
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal" wire.click="cancel()">Close</button>
       </div>
+      @endif
     </div>
   </div>
 </div>
@@ -41,9 +47,12 @@
       <div class="modal-body">
         @include("livewire.doseuse.add")
       </div>
-      <div class="modal-footer">
+      @if ($inputDoseuse)
+      @else
+        <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal" wire.click="">Close</button>
       </div>
+      @endif
     </div>
   </div>
 </div>  
@@ -114,9 +123,8 @@
           @endif
           </ul>
         </div>  
-   
-          @if(count($caracteristique->pompes)== 0)         
-          <button class="btn btn-link" wire:click="confirmDelete('{{$caracteristique->marque}}',{{$caracteristique->id}})"> <i class="far fa-trash-alt"></i> </button> 
+          @if(count($caracteristique->pompes)== 0 AND count($caracteristique->moteurs)== 0 AND count($caracteristique->doseuses)== 0)          
+          <button class="btn btn-link" wire:click="confirmDelete('{{$caracteristique->marque}}',{{$caracteristique->id}})"> <i class="far fa-trash-alt"></i> </button>  
           @else
            <button class="btn btn-link" wire:click="affichage({{$caracteristique->id}})"> <i class="fa fa-eye"></i> </button>
           @endif              

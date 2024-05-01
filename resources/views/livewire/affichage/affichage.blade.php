@@ -1,265 +1,417 @@
-<div class="content-body pt-2" style="min-height: 836px;">
-            <div class="container-fluid">
-
+<div class="content-body" style="min-height: 836px;">
+            <div class="container-fluid">             
+                <h1 class="" style="font-family: montserrat; color:#A69DE2;">Gestion de la production eau de la jirama</h1>
+				<ol class="breadcrumb">
+				<li class="breadcrumb-item active">Caracteristique / Materiels</li> 
+				</ol>
                 <div class="row">
+				<a href="" class="btn btn-link text-blue" wire:click="goToList()" ><i class="fas fa-long-arrow-alt-left"></i> 
+				Retourner vers la liste</a>
                     <div class="col-lg-12">
                         <div class="card">
+                            <div class="card-header" style="background-color:#FF8700;font-size: 1.3em;font-family: montserrat;"> <strong> District : </strong>  {{optional($selectedId)->districts->nom}} 
+							 <span class="float-right">
+                                    <strong>Site :</strong> {{optional($selectedId)->sites->nom}}</span> </div>
                             <div class="card-body">
-                                <div class="row">
-                                    <div class="col-xl-3">
-                                        <!-- Tab panes -->
-                                        <div class="tab-content" style="height: 35vh;">
-                                            <div role="tabpanel" class="tab-pane fade show active" id="first" style="height: 35vh;">
-                                            @foreach ($ouvrages as $ouvrage)
-                                             @if (optional($selectedId)->ressource_id == $ouvrage->ressource_id)
-                                                <img class="img-fluid" style="height: 35vh;" src="{{asset($ouvrage->photo)}}" alt="">
-                                            @endif
-                                            @endforeach                              
-                                            </div>
+                                <div class="row mb-5">
+                                    <div class="mt-4 col-xl-6 col-lg-6 col-md-6 col-sm-12">
+                                    @foreach ($ouvrages as $ouvrage)
+                                        @if (optional($selectedId)->ressource_id == $ouvrage->ressource_id)
+                                        <div>
+                                            <img class="img-fluid" style="height: 52vh;border-radius:10%;" src="{{asset($ouvrage->photo)}}" alt="">
                                         </div>
+                                        @endif
+                                    @endforeach
                                     </div>
-                                    <!--Tab slider End-->
-                                    <div class="col-xl-9 col-sm-12">
-                                        <div class="product-detail-content">
-                                            <!--Product details-->
-                                            <div class="new-arrival-content pr">
-                                                <h4 style="font-size:20px;font-weight:bold;">{{optional($selectedId)->forages->nom}} : {{optional($selectedId)->ressources->nom}} </h4>
-                                             
-                                            @foreach ($ouvrages as $ouvrage)
-                                             @if (optional($selectedId)->ressource_id == $ouvrage->ressource_id)
-                                                 <p style="font-weight:bold;"><span style="color:#683AE8;font-size:16px;">Année</span> : {{$ouvrage->annee}} </p>
-                                                 <p style="font-weight:bold;"><span style="color:#683AE8;font-size:16px;">Debit d'exploitation</span> : {{$ouvrage->debitExploite}} </p>
-                                                 <p style="font-weight:bold;"><span style="color:#683AE8;font-size:16px;">Profondeur</span> : {{$ouvrage->profondeur}} </p>
-                                                 <p style="font-weight:bold;"><span style="color:#683AE8;font-size:16px;">Type</span> : {{$ouvrage->type}} </p>
-                                                 <p style="font-weight:bold;"><span style="color:#683AE8;font-size:16px;">Etat Actuel</span> : {{$ouvrage->etatActuel}} </p>
-                                                 <p style="font-weight:bold;"><span style="color:#683AE8;font-size:16px;">Observation</span> : {{$ouvrage->observation}} </p>
-                                            @endif
-                                            @endforeach                           
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="container-fluid">
-			
-                <div class="row page-titles mx-0">
-                    <div class="col-sm-6 p-md-0">
-                        <div class="welcome-text">
-                            <h4>Professor Profile</h4>
-                        </div>
-                    </div>
-                </div>
-				
-				<div class="row">
-					<div class="col-xl-3 col-xxl-4 col-lg-4">
-						<div class="row">
-							<div class="col-lg-12">
+                                <div class="mt-4 col-xl-6 col-lg-6 col-md-6 col-sm-12">   
 								<div class="card">
-									<div class="text-center p-3 overlay-box" style="background-image: url(images/big/img1.jpg);">
-										<div class="profile-photo">
-											<img src="images/profile/profile.png" width="100" class="img-fluid rounded-circle" alt="">
-										</div>
-										<h3 class="mt-3 mb-1 text-white">Deangelo Sena</h3>
-										<p class="text-white mb-0">Senior Manager</p>
-                                         @foreach ($pomp as $caracteristique)
-                                            @if (optional($selectedId)->id == $caracteristique->caracteristique_moteur_id)
-                                                 <p class="price">{{$caracteristique->marque}} </p>
-                                            @endif
-                                               
-                                            @endforeach 
-
-                                            @foreach ($electriq as $caracteristique)
-                                            @if (optional($selectedId)->id == $caracteristique->caracteristique_moteur_id)
-                                                 <p class="price">{{$caracteristique->marque}} </p>
-                                            @endif
-                                               
-                                            @endforeach 
-									</div>
-									<ul class="list-group list-group-flush">
-										<li class="list-group-item d-flex justify-content-between"><span class="mb-0">Followers</span> <strong class="text-muted">1204	</strong></li>
-										<li class="list-group-item d-flex justify-content-between"><span class="mb-0">Following</span> <strong class="text-muted">2540	</strong></li>
-										<li class="list-group-item d-flex justify-content-between"><span class="mb-0">Friends</span> <strong class="text-muted">2540</strong></li>
-									</ul>
-									<div class="card-footer text-center border-0 mt-0">								
-										<a href="javascript:void(0);" class="btn btn-primary btn-rounded px-4">Follow</a>
-										<a href="javascript:void(0);" class="btn btn-warning btn-rounded px-4">Message</a>
-									</div>
-								</div>
-							</div>
-							<div class="col-lg-12">
-								<div class="card">
-									<div class="card-header">
-										<h2 class="card-title">about me</h2>
+									<div class="card-header" style="background-color:#FFAD00;font-size: 1.3em;font-family: montserrat;">
+										<h2 class="card-title">{{optional($selectedId)->forages->nom}} : {{optional($selectedId)->ressources->nom}}</h2>
 									</div>
 									<div class="card-body pb-0">
-										<p>Lorem Ipsum is simply dummy text of the printing and typesetting industry.</p>
+										<p>Lorem Ipsum is simply dummy text of the printing and typesetting.</p>
 										<ul class="list-group list-group-flush">
 											<li class="list-group-item d-flex px-0 justify-content-between">
-												<strong>Gender</strong>
-												<span class="mb-0">Male</span>
+												<strong>Debit d'exploitation</strong>
+												<span class="mb-0">{{$ouvrage->debitExploite}}</span>
 											</li>
 											<li class="list-group-item d-flex px-0 justify-content-between">
-												<strong>Education</strong>
-												<span class="mb-0">PHD</span>
+												<strong>Type</strong>
+												<span class="mb-0">{{$ouvrage->type}}</span>
 											</li>
 											<li class="list-group-item d-flex px-0 justify-content-between">
-												<strong>Designation</strong>
-												<span class="mb-0">Se. Professor</span>
+												<strong>Etat Actuel</strong>
+												<span class="mb-0">{{$ouvrage->etatActuel}}</span>
 											</li>
 											<li class="list-group-item d-flex px-0 justify-content-between">
-												<strong>Operation Done</strong>
-												<span class="mb-0">120</span>
+												<strong>Observation</strong>
+												<span class="mb-0">{{$ouvrage->observation}}</span>
 											</li>
 										</ul>
 									</div>
 									<div class="card-footer pt-0 pb-0 text-center">
 										<div class="row">
-											<div class="col-4 pt-3 pb-3 border-right">
-												<h3 class="mb-1 text-primary">150</h3>
-												<span>Projects</span>
+											<div class="col-6 pt-3 pb-3 border-right">
+												<h3 class="mb-1 text-primary">{{$ouvrage->annee}}</h3>
+												<span>Année</span>
 											</div>
-											<div class="col-4 pt-3 pb-3 border-right">
-												<h3 class="mb-1 text-primary">140</h3>
-												<span>Uploads</span>
-											</div>
-											<div class="col-4 pt-3 pb-3">
-												<h3 class="mb-1 text-primary">45</h3>
-												<span>Tasks</span>
+											<div class="col-6 pt-3 pb-3">
+												<h3 class="mb-1 text-primary">{{$ouvrage->profondeur}}</h3>
+												<span>Profondeur</span>
 											</div>
 										</div>
 									</div>
 								</div>
-							</div>
-						</div>
-					</div>
-					<div class="col-xl-9 col-xxl-8 col-lg-8">
-						<div class="card">
-                            <div class="card-body">
-                                <div class="profile-tab">
-                                    <div class="custom-tab-1">
-                                        <ul class="nav nav-tabs">
-                                            <li class="nav-item"><a href="#about-me" data-toggle="tab" class="nav-link active show">About Me</a></li>
-                                            <li class="nav-item"><a href="#my-posts" data-toggle="tab" class="nav-link">Posts</a></li>
-                                        </ul>
-                                        <div class="tab-content">
-                                            <div id="about-me" class="tab-pane fade active show">
-                                                <div class="profile-about-me">
-                                                    <div class="pt-4 border-bottom-1 pb-4">
-                                                        <p>A wonderful serenity has taken possession of my entire soul, like these sweet mornings of spring which I enjoy with my whole heart. I am alone, and feel the charm of existence was created for the bliss of souls like mine.I am so happy, my dear friend, so absorbed in the exquisite sense of mere tranquil existence, that I neglect my talents.</p>
-                                                        <p>A collection of textile samples lay spread out on the table - Samsa was a travelling salesman - and above it there hung a picture that he had recently cut out of an illustrated magazine and housed in a nice, gilded frame.</p>
-                                                    </div>
-                                                </div>
-                                                <div class="profile-skills pt-2 border-bottom-1 pb-2">
-                                                    <h4 class="text-primary mb-4">Skills</h4>
-                                                    <a href="javascript:void()" class="btn btn-outline-dark btn-rounded px-4 my-3 my-sm-0 mr-3 m-b-10">Admin</a>
-                                                    <a href="javascript:void()" class="btn btn-outline-dark btn-rounded px-4 my-3 my-sm-0 mr-3 m-b-10">Dashboard</a>
-                                                    <a href="javascript:void()" class="btn btn-outline-dark btn-rounded px-4 my-3 my-sm-0 mr-3 m-b-10">Photoshop</a>
-                                                    <a href="javascript:void()" class="btn btn-outline-dark btn-rounded px-4 my-3 my-sm-0 mr-3 m-b-10">Bootstrap</a>
-                                                    <a href="javascript:void()" class="btn btn-outline-dark btn-rounded px-4 my-3 my-sm-0 mr-3 m-b-10">Responsive</a>
-                                                </div>
-                                                <div class="profile-lang pt-5 border-bottom-1 pb-5">
-                                                    <h4 class="text-primary mb-4">Language</h4><a href="javascript:void()" class="text-muted pr-3 f-s-16"><i class="flag-icon flag-icon-us"></i> English</a> <a href="javascript:void()" class="text-muted pr-3 f-s-16"><i class="flag-icon flag-icon-fr"></i> French</a>
-                                                    <a href="javascript:void()" class="text-muted pr-3 f-s-16"><i class="flag-icon flag-icon-bd"></i> Bangla</a>
-                                                </div>
-                                                <div class="profile-personal-info">
-                                                    <h4 class="text-primary mb-4">Personal Information</h4>
-                                                    <div class="row mb-4">
-                                                        <div class="col-lg-3 col-md-4 col-sm-6 col-6">
-                                                            <h5 class="f-w-500">Name <span class="pull-right">:</span>
-                                                            </h5>
-                                                        </div>
-                                                        <div class="col-lg-9 col-md-8 col-sm-6 col-6"><span>Mitchell C.Shay</span>
-                                                        </div>
-                                                    </div>
-                                                    <div class="row mb-4">
-                                                        <div class="col-lg-3 col-md-4 col-sm-6 col-6">
-                                                            <h5 class="f-w-500">Email <span class="pull-right">:</span>
-                                                            </h5>
-                                                        </div>
-                                                        <div class="col-lg-9 col-md-8 col-sm-6 col-6"><span>info@example.com</span>
-                                                        </div>
-                                                    </div>
-                                                    <div class="row mb-4">
-                                                        <div class="col-lg-3 col-md-4 col-sm-6 col-6">
-                                                            <h5 class="f-w-500">Availability <span class="pull-right">:</span></h5>
-                                                        </div>
-                                                        <div class="col-lg-9 col-md-8 col-sm-6 col-6"><span>Full Time (Free Lancer)</span>
-                                                        </div>
-                                                    </div>
-                                                    <div class="row mb-4">
-                                                        <div class="col-lg-3 col-md-4 col-sm-6 col-6">
-                                                            <h5 class="f-w-500">Age <span class="pull-right">:</span>
-                                                            </h5>
-                                                        </div>
-                                                        <div class="col-lg-9 col-md-8 col-sm-6 col-6"><span>27</span>
-                                                        </div>
-                                                    </div>
-                                                    <div class="row mb-4">
-                                                        <div class="col-lg-3 col-md-4 col-sm-6 col-6">
-                                                            <h5 class="f-w-500">Location <span class="pull-right">:</span></h5>
-                                                        </div>
-                                                        <div class="col-lg-9 col-md-8 col-sm-6 col-6"><span>Rosemont Avenue Melbourne,
-                                                                Florida</span>
-                                                        </div>
-                                                    </div>
-                                                    <div class="row mb-4">
-                                                        <div class="col-lg-3 col-md-4 col-sm-6 col-6">
-                                                            <h5 class="f-w-500">Year Experience <span class="pull-right">:</span></h5>
-                                                        </div>
-                                                        <div class="col-lg-9 col-md-8 col-sm-6 col-6"><span>07 Year Experiences</span>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-											<div id="my-posts" class="tab-pane fade">
-                                                <div class="my-post-content pt-3">
-                                                    <div class="profile-uoloaded-post border-bottom-1 pb-5">
-                                                        <img src="images/profile/8.jpg" alt="" class="img-fluid">
-                                                        <a class="post-title" href="javascript:void()">
-                                                            <h4>Collection of textile samples lay spread</h4>
-                                                        </a>
-                                                        <p>A wonderful serenity has take possession of my entire soul like these sweet morning of spare which enjoy whole heart.A wonderful serenity has take possession of my entire soul like these sweet morning
-                                                            of spare which enjoy whole heart.</p>
-                                                        <button class="btn btn-primary mr-3"><span class="mr-3"><i class="fa fa-heart"></i></span>Like</button>
-                                                        <button class="btn btn-secondary"><span class="mr-3"><i class="fa fa-reply"></i></span>Reply</button>
-                                                    </div>
-                                                    <div class="profile-uoloaded-post border-bottom-1 pb-5">
-                                                        <img src="images/profile/9.jpg" alt="" class="img-fluid">
-                                                        <a class="post-title" href="javascript:void()">
-                                                            <h4>Collection of textile samples lay spread</h4>
-                                                        </a>
-                                                        <p>A wonderful serenity has take possession of my entire soul like these sweet morning of spare which enjoy whole heart.A wonderful serenity has take possession of my entire soul like these sweet morning
-                                                            of spare which enjoy whole heart.</p>
-                                                        <button class="btn btn-primary mr-3"><span class="mr-3"><i class="fa fa-heart"></i></span>Like</button>
-                                                        <button class="btn btn-secondary"><span class="mr-3"><i class="fa fa-reply"></i></span>Reply</button>
-                                                    </div>
-                                                    <div class="profile-uoloaded-post pb-5">
-                                                        <img src="images/profile/8.jpg" alt="" class="img-fluid">
-                                                        <a class="post-title" href="javascript:void()">
-                                                            <h4>Collection of textile samples lay spread</h4>
-                                                        </a>
-                                                        <p>A wonderful serenity has take possession of my entire soul like these sweet morning of spare which enjoy whole heart.A wonderful serenity has take possession of my entire soul like these sweet morning
-                                                            of spare which enjoy whole heart.</p>
-                                                        <button class="btn btn-primary mr-3"><span class="mr-3"><i class="fa fa-heart"></i></span>Like</button>
-                                                        <button class="btn btn-secondary"><span class="mr-3"><i class="fa fa-reply"></i></span>Reply</button>
-                                                    </div>
-                                                    <div class="text-center mb-2"><a href="javascript:void()" class="btn btn-primary">Load More</a>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-						</div>
-					</div>
-				</div>
+                               </div>
+ <div class="mt-4 col-xl-6 col-lg-6 col-md-6 col-sm-12">
+        @foreach ($caracteristiques as $caracteristique)
+			@if(($caracteristique->ressources->nom)=="GEPD DN 400")	
 				
+                                  @foreach ($doseus as $dose)
+                                        @if (optional($selectedId)->id == $dose->caracteristique_moteur_id)
+                                        <div class="card">
+									<div class="card-header" style="background-color:#FFAD00;font-size: 1.3em;font-family: montserrat;">
+										<h2 class="card-title">POMPE DOSEUSE</h2>
+									</div>
+									<div class="card-body pb-0">
+										<p>Lorem Ipsum is simply dummy text of the printing and typesetting.</p>
+										<ul class="list-group list-group-flush">
+											<li class="list-group-item d-flex px-0 justify-content-between">
+												<strong>Marque</strong>
+												<span class="mb-0">{{$dose->marque}}</span>
+											</li>
+											<li class="list-group-item d-flex px-0 justify-content-between">
+												<strong>Type</strong>
+												<span class="mb-0">{{$dose->type}}</span>
+											</li>
+											<li class="list-group-item d-flex px-0 justify-content-between">
+												<strong>Numero de serie</strong>
+												<span class="mb-0">{{$dose->numeroSerie}}</span>
+											</li>
+                                            <li class="list-group-item d-flex px-0 justify-content-between">
+												<strong>Numero de fabrication</strong>
+												<span class="mb-0">{{$dose->numeroFabrication}}</span>
+											</li>
+											<li class="list-group-item d-flex px-0 justify-content-between">
+												<strong>Vitesse</strong>
+                                                 @if ($cardselect)
+                                                @else
+                                                   <button type="button" wire:click="cardtrue()" class="btn btn-success">Voir plus</button> 
+                                                @endif
+												<span class="mb-0">{{$dose->vitesse}}</span>
+											</li>
+                                            @if  ($cardselect)
+                                            <li class="list-group-item d-flex px-0 justify-content-between">
+												<strong>Encombrement</strong>
+												<span class="mb-0">{{$dose->encombrement}}</span>
+											</li>
+                                            <li class="list-group-item d-flex px-0 justify-content-between">
+												<strong>Année de fabrication</strong>
+												<span class="mb-0">{{$dose->anneeFabrication}}</span>
+											</li>
+                                            <li class="list-group-item d-flex px-0 justify-content-between">
+												<strong>Fournisseur</strong>
+												<span class="mb-0">{{$dose->fournisseur}}</span>
+											</li>
+                                            <li class="list-group-item d-flex px-0 justify-content-between">
+												<strong>Date d'acquisition</strong>
+												<span class="mb-0">{{$dose->dateAcquisition}}</span>
+											</li>
+                                            <li class="list-group-item d-flex px-0 justify-content-between">
+												<strong>Date mise en service</strong>
+												<span class="mb-0">{{$dose->dateMiseEnService}}</span>
+											</li>
+                                            <li class="list-group-item d-flex px-0 justify-content-between">
+												<strong>Roulement</strong>
+												<span class="mb-0">{{$dose->roulement}}</span>
+											</li>
+                                            <li class="list-group-item d-flex px-0 justify-content-between">
+												<strong>Mise en service</strong>
+												<span class="mb-0">{{$dose->misesEnServices}}</span>
+											</li>
+                                            <li class="list-group-item d-flex px-0 justify-content-between">
+												<strong>Observation</strong>
+												<span class="mb-0">{{$dose->observations}}</span>
+											</li>
+                                            <li class="list-group-item d-flex px-0 justify-content-between">
+												<strong>Pression Max Aspiration</strong>
+												<span class="mb-0">{{$dose->pressionMaxAspiration}} <strong>bars</strong></span>
+											</li>
+                                            <li class="list-group-item d-flex px-0 justify-content-between">
+												<strong>Pression Max Refoulement </strong>
+												<span class="mb-0">{{$dose->pressionMaxRefoulement}} <strong>bars</strong></span>
+											</li>
+                                            <li class="list-group-item d-flex px-0 justify-content-between">
+												<strong>Hauteur Aspiration Max</strong>
+												<span class="mb-0">{{$dose->hauteurAspirationMax}} <strong>mCE</strong></span>
+											</li>
+                                            <li class="list-group-item d-flex px-0 justify-content-between">
+												<strong>Cadence</strong>
+												<span class="mb-0">{{$dose->cadence}} <strong>coups/mn</strong></span>
+											</li>
+											<li class="list-group-item d-flex px-0 justify-content-between">
+												<strong>Rapport Reduction</strong>
+												<span class="mb-0">{{$dose->rapportReduction}}</span>
+											</li>
+											<li class="list-group-item d-flex px-0 justify-content-between">
+												<strong>Course</strong>
+												<span class="mb-0">{{$dose->course}} <strong>mm</strong></span>
+											</li>
+											<li class="list-group-item d-flex px-0 justify-content-between">
+												<strong>Ballon Amortisseur</strong>
+												<span class="mb-0">{{$dose->ballonAmortisseur}}</span>
+											</li>
+											<li class="list-group-item d-flex px-0 justify-content-between">
+												<strong>Ballon Amortisseur Refoulement</strong>
+												<span class="mb-0">{{$dose->ballonAmortisseurRefoulement}}</span>
+											</li>
+											<li class="list-group-item d-flex px-0 justify-content-between">
+												<strong>Corps Doseur</strong>
+												<span class="mb-0">{{$dose->corpsDoseur}}</span>
+											</li>
+											<li class="list-group-item d-flex px-0 justify-content-between">
+												<strong>Membrane</strong>
+												<span class="mb-0">{{$dose->membrane}}</span>
+											</li>
+											<li class="list-group-item d-flex px-0 justify-content-between">
+												<strong>Arbre</strong>
+												<span class="mb-0">{{$dose->arbre}}</span>
+											</li>
+											<li class="list-group-item d-flex px-0 justify-content-between">
+												<strong>Calpet Aspiration</strong>
+												<span class="mb-0">{{$dose->calpetAspiration}}</span>
+											</li>
+											<li class="list-group-item d-flex px-0 justify-content-between">
+												<strong>Calpet Refoulement</strong>
+												<span class="mb-0">{{$dose->calpetRefoulement}}</span>
+											</li>
+											<li class="list-group-item d-flex px-0 justify-content-between">
+												<strong>Tarage</strong>
+												<span class="mb-0">{{$dose->tarage}}</span>
+											</li>
+											<li class="list-group-item d-flex px-0 justify-content-between">
+												<strong>Debit Max</strong>
+												<button type="button" wire:click="cardfalsee()" class="btn btn-info">Voir plus</button>
+												<span class="mb-0">{{$dose->debitMax}} <strong>l/h</strong></span>
+											</li>
+                                         @endif  
+										</ul>
+									</div>
+								</div>                                     
+								  @endif     
+								@endforeach 
+                            
+		    @else
+          
+                                    @foreach ($pomp as $caracteristique)
+                                        @if (optional($selectedId)->id == $caracteristique->caracteristique_moteur_id)
+                                        <div class="card">
+									<div class="card-header" style="background-color:#FFAD00;font-size: 1.3em;font-family: montserrat;">
+										<h2 class="card-title">POMPE</h2>
+									</div>
+									<div class="card-body pb-0">
+										<p>Lorem Ipsum is simply dummy text of the printing and typesetting.</p>
+										<ul class="list-group list-group-flush">
+											<li class="list-group-item d-flex px-0 justify-content-between">
+												<strong>Marque</strong>
+												<span class="mb-0">{{$caracteristique->marque}}</span>
+											</li>
+											<li class="list-group-item d-flex px-0 justify-content-between">
+												<strong>Type</strong>
+												<span class="mb-0">{{$caracteristique->type}}</span>
+											</li>
+											<li class="list-group-item d-flex px-0 justify-content-between">
+												<strong>Numero de serie</strong>
+												<span class="mb-0">{{$caracteristique->numeroSerie}}</span>
+											</li>
+                                            <li class="list-group-item d-flex px-0 justify-content-between">
+												<strong>Numero de fabrication</strong>
+												<span class="mb-0">{{$caracteristique->numeroFabrication}}</span>
+											</li>
+											<li class="list-group-item d-flex px-0 justify-content-between">
+												<strong>Vitesse</strong>
+                                                 @if ($cardselect)
+                                                @else
+                                                   <button type="button" wire:click="cardtrue()" class="btn btn-success">Voir plus</button> 
+                                                @endif
+												<span class="mb-0">{{$caracteristique->vitesse}} <strong>tr/mn</strong></span>
+											</li>
+                                            @if  ($cardselect)
+                                            <li class="list-group-item d-flex px-0 justify-content-between">
+												<strong>Encombrement</strong>
+												<span class="mb-0">{{$caracteristique->encombrement}}</span>
+											</li>
+                                            <li class="list-group-item d-flex px-0 justify-content-between">
+												<strong>Année de fabrication</strong>
+												<span class="mb-0">{{$caracteristique->anneeFabrication}}</span>
+											</li>
+                                            <li class="list-group-item d-flex px-0 justify-content-between">
+												<strong>Fournisseur</strong>
+												<span class="mb-0">{{$caracteristique->fournisseur}}</span>
+											</li>
+                                            <li class="list-group-item d-flex px-0 justify-content-between">
+												<strong>Date d'acquisition</strong>
+												<span class="mb-0">{{$caracteristique->dateAcquisition}}</span>
+											</li>
+                                            <li class="list-group-item d-flex px-0 justify-content-between">
+												<strong>Date mise en service</strong>
+												<span class="mb-0">{{$caracteristique->dateMiseEnService}}</span>
+											</li>
+                                            <li class="list-group-item d-flex px-0 justify-content-between">
+												<strong>Roulement</strong>
+												<span class="mb-0">{{$caracteristique->roulement}}</span>
+											</li>
+                                            <li class="list-group-item d-flex px-0 justify-content-between">
+												<strong>Mise en service</strong>
+												<span class="mb-0">{{$caracteristique->misesEnServices}}</span>
+											</li>
+                                            <li class="list-group-item d-flex px-0 justify-content-between">
+												<strong>Observation</strong>
+												<span class="mb-0">{{$caracteristique->observations}}</span>
+											</li>
+                                            <li class="list-group-item d-flex px-0 justify-content-between">
+												<strong>Debit Nominal</strong>
+												<span class="mb-0">{{$caracteristique->debitNominal}} <strong>m3/h</strong></span>
+											</li>
+                                            <li class="list-group-item d-flex px-0 justify-content-between">
+												<strong>Hauteur manometrique</strong>
+												<span class="mb-0">{{$caracteristique->hauteurManometrique}} <strong>m</strong></span>
+											</li>
+                                            <li class="list-group-item d-flex px-0 justify-content-between">
+												<strong>Corps de pompe</strong>
+												<span class="mb-0">{{$caracteristique->corpsDePompe}}</span>
+											</li>
+                                            <li class="list-group-item d-flex px-0 justify-content-between">
+												<strong>Chemise d'arbre</strong>
+                                                <button type="button" wire:click="cardfalsee()" class="btn btn-info">Voir plus</button>
+												<span class="mb-0">{{$caracteristique->chemiseArbre}}</span>
+											</li>
+                                         @endif  
+										</ul>
+									</div>
+								</div>                                     
+                                        @endif     
+                                     @endforeach 
+                                  
+			@endif
+		  @endforeach
+		    </div>           
+                            
+                            <div class="mt-4 col-xl-6 col-lg-6 col-md-6 col-sm-12">
+                                    @foreach ($electriq as $caracteristique)
+                                        @if (optional($selectedId)->id == $caracteristique->caracteristique_moteur_id)
+                                        <div class="card">
+									<div class="card-header" style="background-color:#FFAD00;font-size: 1.3em;font-family: montserrat;">
+										<h2 class="card-title">MOTEUR</h2>
+									</div>
+									<div class="card-body pb-0">
+										<p>Moteur Ipsum is simply dummy text of the printing and typesetting.</p>
+										<ul class="list-group list-group-flush">
+											<li class="list-group-item d-flex px-0 justify-content-between">
+												<strong>Marque</strong>
+												<span class="mb-0">{{$caracteristique->marque}}</span>
+											</li>
+											<li class="list-group-item d-flex px-0 justify-content-between">
+												<strong>Type</strong>
+												<span class="mb-0">{{$caracteristique->type}}</span>
+											</li>
+											<li class="list-group-item d-flex px-0 justify-content-between">
+												<strong>Numero de serie</strong>
+												<span class="mb-0">{{$caracteristique->numeroSerie}}</span>
+											</li>
+                                            <li class="list-group-item d-flex px-0 justify-content-between">
+												<strong>Numero de fabrication</strong>
+												<span class="mb-0">{{$caracteristique->numeroFabrication}}</span>
+											</li>
+											<li class="list-group-item d-flex px-0 justify-content-between">
+												<strong>Vitesse</strong>
+                                                 @if ($card)
+                                                @else
+                                                   <button type="button" wire:click="card()" class="btn btn-success">Voir plus</button> 
+                                                @endif
+												<span class="mb-0">{{$caracteristique->vitesse}} <strong>tr/mn</strong></span>
+											</li>
+                                             @if ($card)
+                                            <li class="list-group-item d-flex px-0 justify-content-between">
+												<strong>Encombrement</strong>
+												<span class="mb-0">{{$caracteristique->encombrement}}</span>
+											</li>
+                                            <li class="list-group-item d-flex px-0 justify-content-between">
+												<strong>Année de fabrication</strong>
+												<span class="mb-0">{{$caracteristique->anneeFabrication}}</span>
+											</li>
+                                            <li class="list-group-item d-flex px-0 justify-content-between">
+												<strong>Fournisseur</strong>
+												<span class="mb-0">{{$caracteristique->fournisseur}}</span>
+											</li>
+                                            <li class="list-group-item d-flex px-0 justify-content-between">
+												<strong>Date d'acquisition</strong>
+												<span class="mb-0">{{$caracteristique->dateAcquisition}}</span>
+											</li>
+                                            <li class="list-group-item d-flex px-0 justify-content-between">
+												<strong>Date mise en service</strong>
+												<span class="mb-0">{{$caracteristique->dateMiseEnService}}</span>
+											</li>
+                                            <li class="list-group-item d-flex px-0 justify-content-between">
+												<strong>Roulement</strong>
+												<span class="mb-0">{{$caracteristique->roulement}}</span>
+											</li>
+                                            <li class="list-group-item d-flex px-0 justify-content-between">
+												<strong>Mise en service</strong>
+												<span class="mb-0">{{$caracteristique->misesEnServices}}</span>
+											</li>
+                                            <li class="list-group-item d-flex px-0 justify-content-between">
+												<strong>Observation</strong>
+												<span class="mb-0">{{$caracteristique->observations}}</span>
+											</li>
+                                            <li class="list-group-item d-flex px-0 justify-content-between">
+												<strong>Puissance</strong>
+												<span class="mb-0">{{$caracteristique->puissance}} <strong>kw</strong></span>
+											</li>
+                                            <li class="list-group-item d-flex px-0 justify-content-between">
+												<strong>Tension</strong>
+												<span class="mb-0">{{$caracteristique->tension}} <strong>V</strong></span>
+											</li>
+                                            <li class="list-group-item d-flex px-0 justify-content-between">
+												<strong>Cosphi</strong>
+												<span class="mb-0">{{$caracteristique->cosphi}}</span>
+											</li>
+                                            <li class="list-group-item d-flex px-0 justify-content-between">
+												<strong>Intensite</strong>                          
+												<span class="mb-0">{{$caracteristique->intensite}} <strong>A</strong></span>
+											</li>
+                                                <li class="list-group-item d-flex px-0 justify-content-between">
+												<strong>Section Cablage</strong>
+												<span class="mb-0">{{$caracteristique->sectionCable}}</span>
+											</li>
+                                            <li class="list-group-item d-flex px-0 justify-content-between">
+												<strong>Indice de protection</strong>
+												<span class="mb-0">{{$caracteristique->indiceDeProtection}}</span>
+											</li>
+                                            <li class="list-group-item d-flex px-0 justify-content-between">
+												<strong>Classe isolant</strong>
+												<span class="mb-0">{{$caracteristique->classeIsolant}}</span>
+											</li>
+                                            <li class="list-group-item d-flex px-0 justify-content-between">
+												<strong>Type de demarrage</strong>
+                                                <button type="button" wire:click="cardfalse()" class="btn btn-info">Voir plus</button>
+												<span class="mb-0">{{$caracteristique->typeDeDemarrage}}</span>
+											</li>
+                                            @endif   
+										</ul>
+									</div>
+								</div>                                     
+                                        @endif     
+                                     @endforeach 
+                                    </div>
+                                </div>                 
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
+
+					
+				
 
 

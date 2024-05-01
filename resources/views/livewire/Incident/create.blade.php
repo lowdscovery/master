@@ -5,15 +5,7 @@
 <h5 class="modal-title">Ajout d'incident</h5>
 </div>
 <div class="modal-body">
-
- <div class="container-fluid">   
- <div style="text-align:center;">
-  @if (session()->has('message'))
-      <div class="alert alert-success"> 
-        {{session('message')}}
-      </div>
-  @endif
- </div>                             
+ <div class="container-fluid">                                
    <div class="row p-2 pt-3">
      <div class="col-md-6">
         <div class="card card-teal">
@@ -56,14 +48,14 @@
 
                    <div class="form-group">
                     <label >Caracteristique</label>
-                    <select class="form-control @error("addIncident.marque|numero") is-invalid 
-                            @enderror" wire:model="addIncident.marque|numero">
-                            @error("addIncident.marque|numero")
+                    <select class="form-control @error("addIncident.caracteristique_moteur_id") is-invalid 
+                            @enderror" wire:model="addIncident.caracteristique_moteur_id">
+                            @error("addIncident.caracteristique_moteur_id")
                                     <span class="text-danger">{{$message}}</span>
                             @enderror               
                      <option value="">---------</option>
                      @foreach ($caracteristiques as $caracteristique)
-                     <option value="{{$caracteristique->marque}}   |   {{$caracteristique->numeroSerie}}">{{$caracteristique->marque}}   |   {{$caracteristique->numeroSerie}}</option>
+                     <option value="{{$caracteristique->id}}">{{$caracteristique->ressources->nom}}</option>
                      @endforeach
                     </select>
                    </div>
@@ -100,14 +92,14 @@
                     </div>
                     <div class="form-group">
                         <label >Intervenant</label>
-                        <select class="form-control @error("addIncident.intervenant") is-invalid 
-                        @enderror" wire:model="addIncident.intervenant">
-                        @error("addIncident.intervenant")
+                        <select class="form-control @error("addIncident.intervenant_id") is-invalid 
+                        @enderror" wire:model="addIncident.intervenant_id">
+                        @error("addIncident.intervenant_id")
                         <span class="text-danger">{{$message}}</span>
                         @enderror              
                         <option value="">---------</option>
                         @foreach ($inters as $inter)
-                        <option value="{{$inter->nom}} {{$inter->prenom}}">{{$inter->nom}} {{$inter->prenom}}</option>
+                        <option value="{{$inter->id}}">{{$inter->nom}} {{$inter->prenom}}</option>
                         @endforeach
                         </select>
                     </div>
@@ -118,7 +110,7 @@
       <button type="submit" class="btn btn-primary" style="margin-right: 10px;">Enregistrer</button>
       <button type="button" class="btn btn-secondary" data-dismiss="modal">Fermer</button>
       </div>
-      </form>
+    </form>
     </div>  
     </div>
     </div>

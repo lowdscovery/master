@@ -125,6 +125,14 @@
                 </p>
             </a>
         </li>
+        <li class="nav-item">
+            <a href="{{route('mesure.mesure')}}" class="nav-link {{setMenuActive('mesure.mesure')}}">
+                <i class="fa fa-cog fa-fw"></i>
+                <p>
+                Mesure
+                </p>
+            </a>
+        </li>
         
   @endcan
 </ul>

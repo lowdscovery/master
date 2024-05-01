@@ -1,8 +1,8 @@
 
   <!-- xl ou lg modal-->
 
-        <div class="modal-header">
-            <h5 class="modal-title">Gestion des caracteristique "MOTEUR" {{optional($selectedMoteur)->moteurs}} </h5>
+        <div class="modal-header" style="background-color:#D307FA;">
+            <h4 class="modal-title" style="color:white;">Caracteristique des <strong>MOTEURS</strong> </h4>
       </div>
       <div class="modal-body">
       @if ($showInputPompe)
@@ -33,7 +33,7 @@
                       @enderror
                   </div>
                   <div class="flex-grow-1 mr-2">
-                      <input type="text" placeholder="Vitesse"  wire:model="addMoteur.vitesse" class="form-control @error("addMoteur.vitesse") is-invalid @enderror">
+                      <input type="number" placeholder="Vitesse"  wire:model="addMoteur.vitesse" class="form-control @error("addMoteur.vitesse") is-invalid @enderror">
                       @error("addMoteur.vitesse")
                           <span class="text-danger">{{$message}}</span>
                       @enderror
@@ -46,7 +46,7 @@
               <div class="d-flex flex-grow-1 mr-2">
                 
                  <div class="flex-grow-1 mr-2">
-                      <input type="text" placeholder="Intensite"  wire:model="addMoteur.intensite" class="form-control @error("addMoteur.intensite") is-invalid @enderror">
+                      <input type="number" placeholder="Intensite"  wire:model="addMoteur.intensite" class="form-control @error("addMoteur.intensite") is-invalid @enderror">
                       @error("addMoteur.intensite")
                           <span class="text-danger">{{$message}}</span>
                       @enderror
@@ -84,10 +84,14 @@
           <div class="d-flex my-4 bg-gray-light p-2">
               <div class="d-flex flex-grow-1 mr-2">
                   <div class="flex-grow-1 mr-2">
-                      <input type="text" placeholder="Roulement"  wire:model="addMoteur.roulement" class="form-control @error("addMoteur.roulement") is-invalid @enderror">
-                      @error("addMoteur.roulement")
+                <select class="form-control @error("addMoteur.roulement") is-invalid @enderror" wire:model="addMoteur.roulement" required="required">
+                @error("addMoteur.roulement")
                           <span class="text-danger">{{$message}}</span>
-                      @enderror
+                 @enderror 
+                    <option value="">--------------------------</option>
+                    <option value="CA">CA</option>
+                    <option value="COA">COA</option>
+                </select>
                   </div>
                   <div class="flex-grow-1 mr-2">
                       <input type="text" placeholder="Mise en service"  wire:model="addMoteur.misesEnServices" class="form-control @error("addMoteur.misesEnServices") is-invalid @enderror">
@@ -102,13 +106,13 @@
                       @enderror
                   </div>
                   <div class="flex-grow-1 mr-2">
-                       <input type="text" placeholder="Puissance"  wire:model="addMoteur.puissance" class="form-control @error("addMoteur.puissance") is-invalid @enderror">
+                       <input type="number" placeholder="Puissance"  wire:model="addMoteur.puissance" class="form-control @error("addMoteur.puissance") is-invalid @enderror">
                       @error("addMoteur.puissance")
                           <span class="text-danger">{{$message}}</span>
                       @enderror
                   </div>
                   <div class="flex-grow-1 mr-2">
-                      <input type="text" placeholder="Tension"  wire:model="addMoteur.tension" class="form-control @error("addMoteur.tension") is-invalid @enderror">
+                      <input type="number" placeholder="Tension"  wire:model="addMoteur.tension" class="form-control @error("addMoteur.tension") is-invalid @enderror">
                       @error("addMoteur.tension")
                           <span class="text-danger">{{$message}}</span>
                       @enderror
@@ -158,12 +162,15 @@
                   </div>
               </div>
               <div>
+              </div>
+              </div>
+              <div class="p-2">
               <button class="btn btn-success" wire:click="editModalMoteur()">Ajouter</button>
-              </div>
-              </div>
+              <button type="button" class="btn btn-secondary" data-dismiss="modal" wire.click="">Close</button>
+               </div> 
       @else
       <button class="btn btn-success" wire:click="showInput()">Ajout</button> 
-      @endif
+      
 
              <table class="table table-head-fixed">
                     <thead style="color: orange;">
@@ -207,7 +214,9 @@
             @endforelse
           </tbody>
         </table>
+        @endif
       </div>
+
 
   
 

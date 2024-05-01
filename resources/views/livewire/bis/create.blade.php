@@ -37,9 +37,8 @@
                           <span class="text-danger">{{$message}}</span>
                        @enderror             
                      </div>
-                    </div>
-                    <div class="d-flex">
-                     <div class="form-group flex-grow-1 mr-2">
+                    </div>       
+                     <div class="form-group">
                         <label >Type</label>
                         <input type="text"  class="form-control @error("addBis.type") is-invalid 
                         @enderror" wire:model="addBis.type" placeholder="Type">
@@ -47,21 +46,11 @@
                           <span class="text-danger">{{$message}}</span>
                        @enderror
                      </div>
-                     <div class="form-group flex-grow-1">
+                     <div class="form-group">
                         <label >Dn</label>
                         <input type="text"  class="form-control @error("addBis.Dn") is-invalid 
                         @enderror" wire:model="addBis.Dn" placeholder="Nature"> 
                         @error("addBis.Dn")
-                          <span class="text-danger">{{$message}}</span>
-                       @enderror             
-                     </div>
-                    </div>
-
-                   <div class="form-group flex-grow-1">
-                        <label >Pn</label>
-                        <input type="text"  class="form-control @error("addBis.Pn") is-invalid 
-                        @enderror" wire:model="addBis.Pn" placeholder="Nature"> 
-                        @error("addBis.Pn")
                           <span class="text-danger">{{$message}}</span>
                        @enderror             
                      </div>
@@ -74,6 +63,15 @@
             <div class="col-md-12">
              <div class="card card-info" style=".card:blue;">
                <div class="p-3 table-striped">
+                    
+                     <div class="form-group flex-grow-1">
+                        <label >Pn</label>
+                        <input type="text"  class="form-control @error("addBis.Pn") is-invalid 
+                        @enderror" wire:model="addBis.Pn" placeholder="Nature"> 
+                        @error("addBis.Pn")
+                          <span class="text-danger">{{$message}}</span>
+                       @enderror             
+                     </div>
 
                      <div class="form-group">
                         <label >Date de Pose</label>
@@ -101,17 +99,19 @@
                         @enderror              
                         <option value="">---------</option>
                         @foreach ($caracteristiques as $caracteristique)
-                          <option value="{{$caracteristique->marque}}   |   {{$caracteristique->numeroSerie}}">{{$caracteristique->marque}}   |   {{$caracteristique->numeroSerie}}</option>
+                          <option value="{{$caracteristique->id}}">{{$caracteristique->ressources->nom}}</option>
                         @endforeach             
                         </select>
                     </div>
-                    <button type="submit" class="btn btn-primary">Enregistrer</button>
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Fermer</button>
                 </div>
               </div>
             </div>         
           </div>
         </div>
+      <div class="col-md-6">
+        <button type="submit" class="btn btn-primary">Enregistrer</button>
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Fermer</button>
+      </div>
     </form>
     </div>  
     </div>

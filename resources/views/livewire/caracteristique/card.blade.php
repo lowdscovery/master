@@ -1,6 +1,6 @@
  
 <div class="container-fluid px-4">
-<h1 class="mt-4" style="font-family: montserrat; color:#A69DE2;">Gestion de la production eau de la jirama</h1>
+<h1 class="" style="font-family: montserrat; color:#A69DE2;">Gestion de la production eau de la jirama</h1>
 <form role="form" wire:submit.prevent="addCaract()">
 <ol class="breadcrumb mb-4">
 <li class="breadcrumb-item active">Home</li>

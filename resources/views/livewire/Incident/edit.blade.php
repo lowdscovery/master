@@ -49,14 +49,14 @@
 
                    <div class="form-group">
                     <label >Caracteristique</label>
-                    <select class="form-control @error("editIncident.marque|numero") is-invalid 
-                            @enderror" wire:model="editIncident.marque|numero">
-                            @error("editIncident.marque|numero")
+                    <select class="form-control @error("editIncident.caracteristique_moteur_id") is-invalid 
+                            @enderror" wire:model="editIncident.caracteristique_moteur_id">
+                            @error("editIncident.caracteristique_moteur_id")
                                     <span class="text-danger">{{$message}}</span>
                             @enderror               
                      <option value="">---------</option>
                      @foreach ($caracteristiques as $caracteristique)
-                     <option value="{{$caracteristique->marque}}   |   {{$caracteristique->numeroSerie}}">{{$caracteristique->marque}}   |   {{$caracteristique->numeroSerie}}</option>
+                     <option value="{{$caracteristique->id}}">{{$caracteristique->ressources->nom}}</option>
                      @endforeach
                     </select>
                    </div>
@@ -95,24 +95,26 @@
                     </div>
                     <div class="form-group">
                         <label >Intervenant</label>
-                        <select class="form-control @error("editIncident.intervenant") is-invalid 
-                        @enderror" wire:model="editIncident.intervenant">
-                        @error("editIncident.intervenant")
+                        <select class="form-control @error("editIncident.intervenant_id") is-invalid 
+                        @enderror" wire:model="editIncident.intervenant_id">
+                        @error("editIncident.intervenant_id")
                         <span class="text-danger">{{$message}}</span>
                         @enderror              
                         <option value="">---------</option>
                         @foreach ($inters as $inter)
-                        <option value="{{$inter->nom}} {{$inter->prenom}}">{{$inter->nom}} {{$inter->prenom}}</option>
+                        <option value="{{$inter->id}}">{{$inter->nom}} {{$inter->prenom}}</option>
                         @endforeach
                         </select>
-                    </div>
-                    <button type="submit" class="btn btn-primary">Enregistrer</button>                  
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Fermer</button>
+                    </div>                 
                 </div>
               </div>
             </div>         
           </div>
         </div>
+        <div class="col-md-6">
+            <button type="submit" class="btn btn-primary">Modifier</button>                  
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Fermer</button>
+         </div>
     </form>
     </div>  
     </div>

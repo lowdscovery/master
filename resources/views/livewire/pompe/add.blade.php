@@ -1,7 +1,7 @@
 <!-- xl ou lg modal-->
 
-        <div class="modal-header">
-            <h5 class="modal-title">Gestion des caracteristique "POMPE" {{optional($selectedMoteur)->moteurs}} </h5>
+        <div class="modal-header" style="background-color:#FFA500;">
+            <h5 class="modal-title">Caracteristique des <strong>POMPE</strong> </h5>
       </div>
       <div class="modal-body">
       @if ($showInputPompe)
@@ -32,7 +32,7 @@
                       @enderror
                   </div>
                   <div class="flex-grow-1 mr-2">
-                      <input type="text" placeholder="Vitesse"  wire:model="addModal.vitesse" class="form-control @error("addModal.vitesse") is-invalid @enderror">
+                      <input type="number" placeholder="Vitesse"  wire:model="addModal.vitesse" class="form-control @error("addModal.vitesse") is-invalid @enderror">
                       @error("addModal.vitesse")
                           <span class="text-danger">{{$message}}</span>
                       @enderror
@@ -77,11 +77,15 @@
           
           <div class="d-flex my-4 bg-gray-light p-2">
               <div class="d-flex flex-grow-1 mr-2">
-                  <div class="flex-grow-1 mr-2">
-                      <input type="text" placeholder="Roulement"  wire:model="addModal.roulement" class="form-control @error("addModal.roulement") is-invalid @enderror">
-                      @error("addModal.roulement")
+                  <div class="flex-grow-1 mr-2">          
+                <select class="form-control @error("addModal.roulement") is-invalid @enderror" wire:model="addModal.roulement" required="required">
+                @error("addModal.roulement")
                           <span class="text-danger">{{$message}}</span>
-                      @enderror
+                 @enderror 
+                    <option value="">--------------------------</option>
+                    <option value="CA">CA</option>
+                    <option value="COA">COA</option>
+                </select>
                   </div>
                   <div class="flex-grow-1 mr-2">
                       <input type="text" placeholder="Mise en service"  wire:model="addModal.misesEnServices" class="form-control @error("addModal.misesEnServices") is-invalid @enderror">
@@ -96,13 +100,13 @@
                       @enderror
                   </div>
                   <div class="flex-grow-1 mr-2">
-                      <input type="text" placeholder="Debit Nominal"  wire:model="addModal.debitNominal" class="form-control @error("addModal.debitNominal") is-invalid @enderror">
+                      <input type="number" placeholder="Debit Nominal"  wire:model="addModal.debitNominal" class="form-control @error("addModal.debitNominal") is-invalid @enderror">
                       @error("addModal.debitNominal")
                           <span class="text-danger">{{$message}}</span>
                       @enderror
                   </div>
                   <div class="flex-grow-1 mr-2">
-                      <input type="text" placeholder="Hauteur Manometrique"  wire:model="addModal.hauteurManometrique" class="form-control @error("addModal.hauteurManometrique") is-invalid @enderror">
+                      <input type="number" placeholder="Hauteur Manometrique"  wire:model="addModal.hauteurManometrique" class="form-control @error("addModal.hauteurManometrique") is-invalid @enderror">
                       @error("addModal.hauteurManometrique")
                           <span class="text-danger">{{$message}}</span>
                       @enderror
@@ -123,14 +127,15 @@
                       @error("addModal.chemiseArbre")
                           <span class="text-danger">{{$message}}</span>
                       @enderror
-                  </div>
+                  </div>            
+               </div>
+              </div>
+               <div class="p-2">
               <button class="btn btn-success" wire:click="editModalPompe()">Ajouter</button>
-              </div>
-              </div>
+              <button type="button" class="btn btn-secondary" data-dismiss="modal" wire.click="">Close</button>
+               </div>
       @else
       <button class="btn btn-success" wire:click="showInput()">Ajout</button> 
-      @endif
-
              <table class="table table-head-fixed">
                     <thead style="color: orange;">
                     <tr>
@@ -171,6 +176,7 @@
             @endforelse
           </tbody>
         </table>
+      @endif
       </div>
 
   

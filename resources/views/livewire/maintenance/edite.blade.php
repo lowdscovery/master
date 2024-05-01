@@ -35,7 +35,7 @@
                  @enderror 
                     <option value="">---------</option>
                     @foreach ($caracteristiques as $caracteristique)
-                          <option value="{{$caracteristique->marque}}   |   {{$caracteristique->numeroSerie}}">{{$caracteristique->marque}}   |   {{$caracteristique->numeroSerie}}</option>
+                          <option value="{{$caracteristique->id}}">{{$caracteristique->ressources->nom}}</option>
                     @endforeach      
            </select>
           </div>

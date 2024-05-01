@@ -16,4 +16,7 @@ class MoteurElectrique extends Model
        'puissance','tension','cosphi','intensite',
        'sectionCable','indiceDeProtection','classeIsolant','typeDeDemarrage','caracteristique_moteur_id',
     ];
+    public function caracteristiques(){
+        return $this->belongsTo(CaracteristiqueMoteur::class, "caracteristique_moteur_id","id");
+    }
 }

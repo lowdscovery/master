@@ -50,8 +50,8 @@ class Incident extends Component
           $this->editIncident["cause"] != $this->oldValue["cause"] ||
           $this->editIncident["action"] != $this->oldValue["action"] ||
           $this->editIncident["resultat"] != $this->oldValue["resultat"] ||
-          $this->editIncident["intervenant"] != $this->oldValue["intervenant"] ||
-          $this->editIncident["marque|numero"] != $this->oldValue["marque|numero"]
+          $this->editIncident["intervenant_id"] != $this->oldValue["intervenant_id"] ||
+          $this->editIncident["caracteristique_moteur_id"] != $this->oldValue["caracteristique_moteur_id"]
           ){
           $this->changed = true;
          }
@@ -67,8 +67,8 @@ class Incident extends Component
             'editIncident.cause'=> 'required',
             'editIncident.action'=> 'required',
             'editIncident.resultat'=> 'required',
-            'editIncident.intervenant'=> 'required',
-            'editIncident.marque|numero'=> 'required',
+            'editIncident.intervenant_id'=> 'required',
+            'editIncident.caracteristique_moteur_id'=> 'required',
         ];
       }
 
@@ -81,8 +81,8 @@ class Incident extends Component
             "addIncident.cause"=> "string|required",
             "addIncident.action"=> "string|required",
             "addIncident.resultat"=> "string|required",
-            "addIncident.intervenant"=> "string",
-            "addIncident.marque|numero"=> "string",
+            "addIncident.intervenant_id"=> "string",
+            "addIncident.caracteristique_moteur_id"=> "string",
         ]);
 
         ModelsIncident::create([
@@ -93,13 +93,13 @@ class Incident extends Component
             "cause" => $this->addIncident["cause"],
             "action" => $this->addIncident["action"],
             "resultat" => $this->addIncident["resultat"],
-            "intervenant" => $this->addIncident["intervenant"],
-            "marque|numero" => $this->addIncident["marque|numero"],
+            "intervenant_id" => $this->addIncident["intervenant_id"],
+            "caracteristique_moteur_id" => $this->addIncident["caracteristique_moteur_id"],
         ]);
     $this->resetErrorBag();
     $this->addIncident = [];
-    session()->flash('message', 'Incident ajoutée avec succès!');
-  //  $this->dispatchBrowserEvent("showSuccessMessage", ["message"=>"Incident ajoutée avec succès!"]);
+  //  session()->flash('message', 'Incident ajoutée avec succès!');
+    $this->dispatchBrowserEvent("showSuccessMessage", ["message"=>"Incident ajoutée avec succès!"]);
     }
 
 

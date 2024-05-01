@@ -24,7 +24,7 @@
                      <div class="form-group flex-grow-1 mr-2">
                         <label >Motif</label>
                         <input type="text"  class="form-control @error("addCommande.motif") is-invalid 
-                        @enderror" wire:model="addCommande.motif" placeholder="Heure">
+                        @enderror" wire:model="addCommande.motif" placeholder="Motif">
                          @error("addCommande.motif")
                           <span class="text-danger">{{$message}}</span>
                        @enderror
@@ -32,7 +32,7 @@
                      <div class="form-group flex-grow-1">
                         <label >Article</label>
                         <input type="text"  class="form-control @error("addCommande.article") is-invalid 
-                        @enderror" wire:model="addCommande.article" placeholder="Nature"> 
+                        @enderror" wire:model="addCommande.article" placeholder="Article"> 
                         @error("addCommande.article")
                           <span class="text-danger">{{$message}}</span>
                        @enderror             
@@ -42,7 +42,7 @@
                      <div class="form-group flex-grow-1 mr-2">
                         <label >Reference</label>
                         <input type="text"  class="form-control @error("addCommande.reference") is-invalid 
-                        @enderror" wire:model="addCommande.reference" placeholder="Heure">
+                        @enderror" wire:model="addCommande.reference" placeholder="Reference">
                          @error("addCommande.reference")
                           <span class="text-danger">{{$message}}</span>
                        @enderror
@@ -50,7 +50,7 @@
                      <div class="form-group flex-grow-1">
                         <label >Quantité de commande</label>
                         <input type="text"  class="form-control @error("addCommande.quantiteCommande") is-invalid 
-                        @enderror" wire:model="addCommande.quantiteCommande" placeholder="Nature"> 
+                        @enderror" wire:model="addCommande.quantiteCommande" placeholder="Quantité de commande"> 
                         @error("addCommande.quantiteCommande")
                           <span class="text-danger">{{$message}}</span>
                        @enderror             
@@ -60,7 +60,7 @@
                    <div class="form-group flex-grow-1">
                         <label >Numero DA</label>
                         <input type="text"  class="form-control @error("addCommande.numeroDA") is-invalid 
-                        @enderror" wire:model="addCommande.numeroDA" placeholder="Nature"> 
+                        @enderror" wire:model="addCommande.numeroDA" placeholder="Numero DA"> 
                         @error("addCommande.numeroDA")
                           <span class="text-danger">{{$message}}</span>
                        @enderror             
@@ -78,16 +78,21 @@
                     <div class="d-flex">
                      <div class="form-group flex-grow-1 mr-2">
                         <label >Situation</label>
-                        <input type="text"  class="form-control @error("addCommande.Situation") is-invalid 
-                        @enderror" wire:model="addCommande.Situation" placeholder="Heure">
-                         @error("addCommande.Situation")
+               <select class="form-control @error("addCommande.Situation") is-invalid @enderror" wire:model="addCommande.Situation" required="required">
+                @error("addCommande.Situation")
                           <span class="text-danger">{{$message}}</span>
-                       @enderror
+                 @enderror 
+                    <option value="">---------</option>
+                    <option value="LOCAL">LOCAL</option>
+                    <option value="DIR">DIR</option>
+                    <option value="TANA">TANA</option>
+                    <option value="IMPORT">IMPORT</option>
+                </select>
                      </div>
                      <div class="form-group flex-grow-1">
                         <label >Quantité de reception</label>
                         <input type="text"  class="form-control @error("addCommande.quantiteReception") is-invalid 
-                        @enderror" wire:model="addCommande.quantiteReception" placeholder="Nature"> 
+                        @enderror" wire:model="addCommande.quantiteReception" placeholder="Quantité reception"> 
                         @error("addCommande.quantiteReception")
                           <span class="text-danger">{{$message}}</span>
                        @enderror             
@@ -103,32 +108,34 @@
                     </div>
                     <div class="form-group">
                         <label >Caracteristique</label>
-                        <select class="form-control @error("addCommande.observation") is-invalid 
-                        @enderror" wire:model="addCommande.observation">
-                        @error("addCommande.observation")
+                        <select class="form-control @error("addCommande.caracteristique") is-invalid 
+                        @enderror" wire:model="addCommande.caracteristique">
+                        @error("addCommande.caracteristique")
                         <span class="text-danger">{{$message}}</span>
                         @enderror              
                         <option value="">---------</option>
                         @foreach ($caracteristiques as $caracteristique)
-                          <option value="{{$caracteristique->marque}}   |   {{$caracteristique->numeroSerie}}">{{$caracteristique->marque}}   |   {{$caracteristique->numeroSerie}}</option>
+                          <option value="{{$caracteristique->id}}">{{$caracteristique->ressources->nom}}</option>
                         @endforeach             
                         </select>
                     </div>
                     <div class="form-group">
                         <label >Observation</label>
-                        <input type="text"  class="form-control  @error("addCommande.caracteristique") is-invalid 
-                        @enderror" wire:model="addCommande.caracteristique" placeholder="Resultat">
-                        @error("addCommande.caracteristique")
+                        <input type="text"  class="form-control  @error("addCommande.observation") is-invalid 
+                        @enderror" wire:model="addCommande.observation" placeholder="Observation">
+                        @error("addCommande.observation")
                         <span class="text-danger">{{$message}}</span>
                         @enderror
                     </div>
-                    <button type="submit" class="btn btn-primary">Enregistrer</button>
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Fermer</button>
                 </div>
               </div>
             </div>         
           </div>
         </div>
+      <div class="col-md-6">
+      <button type="submit" class="btn btn-primary">Enregistrer</button>
+      <button type="button" class="btn btn-secondary" data-dismiss="modal">Fermer</button>
+      </div>
     </form>
     </div>  
     </div>

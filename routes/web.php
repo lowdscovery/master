@@ -9,6 +9,7 @@ use App\Http\Livewire\Incident;
 use App\Http\Livewire\Information;
 use App\Http\Livewire\Intervenant;
 use App\Http\Livewire\Maintenance;
+use App\Http\Livewire\Mesure;
 use App\Http\Livewire\Ouvrage;
 use App\Http\Livewire\Uploads;
 use App\Http\Livewire\Utilisateurs;
@@ -18,6 +19,7 @@ use App\Models\Ouvrage as ModelsOuvrage;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
+use Carbon\Carbon;
 
 /*
 |--------------------------------------------------------------------------
@@ -71,6 +73,7 @@ Route::get("/uploads", Uploads::class)->name("uploads")->middleware("auth.manage
 Route::get("/maintenances", Maintenance::class)->name("maintenance.maintenance")->middleware("auth.manager");
 Route::get("/commandes", Commande::class)->name("commande.commande")->middleware("auth.manager");
 Route::get("/bis", BisList::class)->name("bis.bis")->middleware("auth.manager");
+Route::get("/mesures", Mesure::class)->name("mesure.mesure")->middleware("auth.manager");
 //Route::get("/Affichage", Affichage::class)->name("affichage.affichage")->middleware("auth.manager");
 
 Route::group([
@@ -97,9 +100,11 @@ route::get('/teste/page', function(){
     dd(phpinfo());
 });*/
 // teste relation
-/*Route::get('/teste', function(){
-return Forage::with("ressources")->paginate(1);
-});*/
+Route::get('/teste', function(){
+//return Forage::with("ressources")->paginate(1);
+      $date = Carbon::parse('2024-06-30');
+      return today()->diffInDays($date);
+});
 
 /*Route::get('/teste',function(){
     return ModelsOuvrage::with("ressource")->paginate(2);

@@ -20,6 +20,12 @@ class CaracteristiqueMoteur extends Model
     public function pompes(){
         return $this->hasMany(MoteurPompe::class);
     }
+    public function moteurs(){
+        return $this->hasMany(MoteurElectrique::class);
+    }
+    public function doseuses(){
+        return $this->hasMany(Doseuse::class);
+    }
     public function districts(){
         return $this->belongsTo(District::class, 'district_id','id');
     }

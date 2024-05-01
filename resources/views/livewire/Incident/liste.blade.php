@@ -1,9 +1,9 @@
 
 <div>
-<div class="modal fade" id="addModal" style="z-index: 1900;" tabindex="-1" role="dialog" aria-hidden="true" wire:ignore.self>
+<div class="modal fade" id="addModal" tabindex="-1" role="dialog" aria-hidden="true" wire:ignore.self>
 @include("livewire.Incident.create")
 </div> 
-<div class="modal fade" id="editModal" style="z-index: 1900;" tabindex="-1" role="dialog" aria-hidden="true" wire:ignore.self>
+<div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-hidden="true" wire:ignore.self>
 @include("livewire.Incident.edit")
 </div>
 
@@ -68,12 +68,23 @@
                     </tr>
                     @empty
                           <tr>
-                              <td colspan="6">
+                              <td colspan="7">
                                   <div class="alert alert-danger">
                                       <h5><i class="icon fas fa-ban"></i> Information!</h5>
                                       Aucune donnée trouvée par rapport aux éléments de recherche entrés.
                                     </div>
                               </td>
+                            <td class="text-center">
+                                
+                              <div class="btn-group open">
+                              <a class="btn btn-info dropdown-toggle" data-toggle="dropdown">
+                                  <span class="fa fa-caret-down" title="Toggle dropdown menu"></span>
+                              </a>
+                              <ul class="dropdown-menu" style="padding:10px; z-index: 10;" >
+                                  <li><button class="btn btn-link" data-toggle="modal" data-target="#addModal"> <i class="fa fa-plus-circle"></i> Ajouter</button></li>
+                              </ul>
+                              </div>
+                            </td>
                           </tr>
                     @endforelse
                </tbody>

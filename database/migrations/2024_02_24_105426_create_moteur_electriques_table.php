@@ -15,19 +15,19 @@ class CreateMoteurElectriquesTable extends Migration
     {
         Schema::create('moteur_electriques', function (Blueprint $table) {
             $table->id();
-            $table->string('marque')->nullable();
-            $table->string('type')->nullable();
-            $table->string('numeroSerie')->nullable();
-            $table->string('numeroFabrication')->nullable();
-            $table->string('vitesse')->nullable();
-            $table->string('encombrement')->nullable();
-            $table->date('anneeFabrication')->nullable();
-            $table->string('fournisseur')->nullable();
-            $table->date('dateAcquisition')->nullable();
-            $table->date('dateMiseEnService')->nullable();
-            $table->string('roulement')->nullable();
-            $table->string('misesEnServices')->nullable();
-            $table->string('observations')->nullable();
+            $table->string('marque');
+            $table->string('type');
+            $table->string('numeroSerie');
+            $table->string('numeroFabrication');
+            $table->string('vitesse');
+            $table->string('encombrement');
+            $table->date('anneeFabrication');
+            $table->string('fournisseur');
+            $table->date('dateAcquisition');
+            $table->date('dateMiseEnService');
+            $table->string('roulement');
+            $table->string('misesEnServices');
+            $table->string('observations');
             
             $table->string('puissance');
             $table->string('tension');
@@ -37,7 +37,7 @@ class CreateMoteurElectriquesTable extends Migration
             $table->string('indiceDeProtection');
             $table->string('classeIsolant');
             $table->string('typeDeDemarrage');
-            $table->foreignId('caracteristique_moteur_id')->nullable();
+            $table->foreignId('caracteristique_moteur_id');
             $table->timestamps();
         });
     }

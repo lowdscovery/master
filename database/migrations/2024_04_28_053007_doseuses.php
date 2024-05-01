@@ -15,6 +15,20 @@ class Doseuses extends Migration
     {
         Schema::create('doseuses', function(Blueprint $table){
             $table->id();
+            $table->string('marque');
+            $table->string('type');
+            $table->string('numeroSerie');
+            $table->string('numeroFabrication');
+            $table->string('vitesse');
+            $table->string('encombrement');
+            $table->date('anneeFabrication');
+            $table->string('fournisseur');
+            $table->date('dateAcquisition');
+            $table->date('dateMiseEnService');
+            $table->string('roulement');
+            $table->string('misesEnServices');
+            $table->string('observations');
+
             $table->string('pressionMaxAspiration');
             $table->string('pressionMaxRefoulement');
             $table->string('hauteurAspirationMax');
@@ -30,7 +44,7 @@ class Doseuses extends Migration
             $table->string('calpetRefoulement');
             $table->string('tarage');
             $table->string('debitMax');
-            $table->foreignId('caracteristique_moteur_id')->nullable();
+            $table->foreignId('caracteristique_moteur_id');
             $table->timestamps();
 
         });

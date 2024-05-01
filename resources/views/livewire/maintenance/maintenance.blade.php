@@ -1,7 +1,7 @@
 <div>
   
 <div>
-<div class="modal fade" id="addModal" style="z-index: 1900;" tabindex="-1" role="dialog" aria-hidden="true" wire:ignore.self>
+<div class="modal fade" id="addModal"tabindex="-1" role="dialog" aria-hidden="true" wire:ignore.self>
 <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
@@ -39,7 +39,7 @@
                  @enderror 
                     <option value="">---------</option>
                     @foreach ($caracteristiques as $caracteristique)
-                          <option value="{{$caracteristique->marque}}   |   {{$caracteristique->numeroSerie}}">{{$caracteristique->marque}}   |   {{$caracteristique->numeroSerie}}</option>
+                          <option value="{{$caracteristique->id}}">{{$caracteristique->ressources->nom}}</option>
                     @endforeach      
            </select>
           </div>
@@ -93,17 +93,17 @@
                       <th class="text-center"> Date </th>
                       <th class="text-center"> Action entreprise </th>
                       <th class="text-center"> Intervenant </th>
-                      <th class="text-center"> Caracteristique</th>
+                      <th class="text-center"> Forage</th>
                       <th class="text-center"> Action</th>
                     </tr>
                   </thead>
                   <tbody>                             
                 @forelse ($maintenances as $maintenance)          
                     <tr>
-                      <td class="text-center">{{ $maintenance->dateMaintenance}}</td>
+                      <td class="text-center">{{ date('d/m/Y',strtotime($maintenance->dateMaintenance))}}</td>
                       <td class="text-center">{{ $maintenance->actionEntreprise}}</td>
                       <td class="text-center">{{ $maintenance->intervenant}}</td>
-                      <td class="text-center">{{ $maintenance->caracteristique}}</td>
+                      <td class="text-center">{{ $caracteristique->ressources->nom}}</td>
                       <td class="text-center">       
                     <div class="btn-group open">
                     <a class="btn btn-info dropdown-toggle" data-toggle="dropdown">
@@ -119,12 +119,22 @@
                     </tr>
                     @empty
                           <tr>
-                              <td colspan="5">
+                              <td colspan="4">
                                   <div class="alert alert-danger">
                                       <h5><i class="icon fas fa-ban"></i> Information!</h5>
                                       Aucune donnée trouvée par rapport aux éléments de recherche entrés.
                                     </div>
                               </td>
+                      <td>
+                        <div class="btn-group open">
+                        <a class="btn btn-info dropdown-toggle" data-toggle="dropdown">
+                            <span class="fa fa-caret-down" title="Toggle dropdown menu"></span>
+                        </a>
+                        <ul class="dropdown-menu" style="padding:10px; z-index: 10;" >
+                            <li><button class="btn btn-link" data-toggle="modal" data-target="#addModal"> <i class="fa fa-plus-circle"></i> Ajouter</button></li>
+                        </ul>
+                        </div>
+                    </td>
                           </tr>
                   @endforelse
                </tbody>

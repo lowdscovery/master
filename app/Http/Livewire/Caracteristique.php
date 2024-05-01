@@ -38,6 +38,8 @@ class Caracteristique extends Component
     public $showInputPompe = false;
     public $affiche = false;
     public $selectedId;
+    public $cardselect;
+    public $inputDoseuse=false;
 
     public function rules(){
         if($this->currentPage == PAGEEDITFORM){
@@ -106,6 +108,7 @@ class Caracteristique extends Component
         "pomp" => MoteurPompe::all(),
         "electriq" => MoteurElectrique::all(),
         "ouvrages" => Ouvrage::all(),
+        "doseus" => Doseuse::all(),
         
        /* Table relation
         "caract"=>District::with('caract')->get(),
@@ -122,13 +125,29 @@ class Caracteristique extends Component
         $this->selectedId = $affichage;
     }
 
+    public function afficheInputDoseuse(){
+        $this->inputDoseuse = true;
+    }
+
     public function showInput(){
         $this->showInputPompe=true;
+    }
+    public function shoInputDoseuse(){
+        $this->inputDoseuse=true;
     }
 
     //show card
     public function card(){
         $this->card = true;
+    }
+    public function cardfalse(){
+        $this->card = false;
+    }
+    public function cardtrue(){
+        $this->cardselect = true;
+    }
+    public function cardfalsee(){
+        $this->cardselect = false;
     }
     public function goToaddCaracteristique(){
         sleep(2);
@@ -339,11 +358,26 @@ public function editModalMoteur(){
 public function editDoseuse(Doseuse $doseuse){
     $this->addDoseuse = $doseuse->toArray();
     $this->addDoseuse["edit"] = true;
+    $this->afficheInputDoseuse();
 }
 
 public function addDoseuses(){
 
     $validated = $this->validate([
+        "addDoseuse.marque" =>"required",
+        "addDoseuse.type" =>"required",
+        "addDoseuse.numeroSerie" =>"required",
+        "addDoseuse.numeroFabrication" =>"required",
+        "addDoseuse.vitesse" =>"required",
+        "addDoseuse.encombrement" =>"required",
+        "addDoseuse.anneeFabrication" =>"required",
+        "addDoseuse.fournisseur" =>"required",
+        "addDoseuse.dateAcquisition" =>"required",
+        "addDoseuse.dateMiseEnService" =>"required",
+        "addDoseuse.roulement" =>"required",
+        "addDoseuse.misesEnServices" =>"required",
+        "addDoseuse.observations" =>"required",
+
         "addDoseuse.pressionMaxAspiration" =>"required",
         "addDoseuse.pressionMaxRefoulement" =>"required",
         "addDoseuse.hauteurAspirationMax" =>"required",
@@ -366,6 +400,20 @@ public function addDoseuses(){
         "caracteristique_moteur_id"=> $this->selectedMoteur->id,
         ],
         [
+            "marque" => $this->addDoseuse["marque"],
+            "type" => $this->addDoseuse["type"],
+            "numeroSerie" => $this->addDoseuse["numeroSerie"],
+            "numeroFabrication" => $this->addDoseuse["numeroFabrication"],
+            "vitesse" => $this->addDoseuse["vitesse"],
+            "encombrement" => $this->addDoseuse["encombrement"],
+            "anneeFabrication" => $this->addDoseuse["anneeFabrication"],
+            "fournisseur" => $this->addDoseuse["fournisseur"],
+            "dateAcquisition" => $this->addDoseuse["dateAcquisition"],
+            "dateMiseEnService" => $this->addDoseuse["dateMiseEnService"],
+            "roulement" => $this->addDoseuse["roulement"],
+            "misesEnServices" => $this->addDoseuse["misesEnServices"],
+            "observations" => $this->addDoseuse["observations"],
+
             "pressionMaxAspiration" => $this->addDoseuse["pressionMaxAspiration"],
             "pressionMaxRefoulement" => $this->addDoseuse["pressionMaxRefoulement"],
             "hauteurAspirationMax" => $this->addDoseuse["hauteurAspirationMax"],
@@ -430,7 +478,10 @@ public function cancel(){
     $this->addModal["edit"] = false;
     $this->addMoteur = [];
     $this->addMoteur["edit"] = false;
+    $this->addDoseuse = [];
+    $this->addDoseuse["edit"] = false;
     $this->showInputPompe;
+    $this->inputDoseuse=false;
 }
 
 //delete modal doseuse

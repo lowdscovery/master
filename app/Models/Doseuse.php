@@ -10,9 +10,15 @@ class Doseuse extends Model
     use HasFactory;
 
     protected $fillable = [
+        'marque','type','numeroSerie','numeroFabrication','vitesse','encombrement',
+        'anneeFabrication','fournisseur','dateAcquisition','dateMiseEnService',
+        'roulement','misesEnServices','observations',
         'pressionMaxAspiration','pressionMaxRefoulement','hauteurAspirationMax','cadence',
         'rapportReduction','course','ballonAmortisseur','ballonAmortisseurRefoulement',
         'corpsDoseur','membrane','arbre','calpetAspiration','calpetRefoulement',
         'tarage','debitMax','caracteristique_moteur_id',
     ];
+    public function caracteristiques(){
+        return $this->belongsTo(CaracteristiqueMoteur::class, "caracteristique_moteur_id","id");
+    }
 }

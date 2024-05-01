@@ -63,7 +63,7 @@
             <div class="d-flex">
                 <div class="form-group flex-grow-1 mr-2">
                         <label >Telephone </label>
-                        <input type="text" class="form-control @error("addIntervenant.telephone") is-invalid @enderror" wire:model="addIntervenant.telephone" required="required" placeholder="Telephone">
+                        <input type="text" class="form-control @error("addIntervenant.telephone") is-invalid @enderror" wire:model="addIntervenant.telephone" required="required" placeholder="Telephone" pattern="\d{10}" title="Le numero de telepehone doit être 10 chiffre">
                         @error("addIntervenant.telephone")
                           <span class="text-danger">{{$message}}</span>
                       @enderror 

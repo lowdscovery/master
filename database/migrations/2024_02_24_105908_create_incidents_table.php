@@ -22,8 +22,8 @@ class CreateIncidentsTable extends Migration
             $table->string('cause');
             $table->string('action');
             $table->string('resultat');       
-            $table->string('intervenant');
-            $table->string('marque|numero');
+            $table->foreignId('intervenant_id');
+            $table->foreignId('caracteristique_moteur_id');
             $table->timestamps();
         });
 

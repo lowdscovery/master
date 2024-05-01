@@ -1,3 +1,9 @@
+<h1>{{$somme}}</h1>
+<h1>stephan</h1>
+<h1>{{$da}}</h1>
+<button type="button" wire:click="dat()" class="btn btn-primary">teste</button>
+
+
 <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
   Launch demo modal
 </button>

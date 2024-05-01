@@ -24,7 +24,7 @@
                      <div class="form-group flex-grow-1 mr-2">
                         <label >Motif</label>
                         <input type="text"  class="form-control @error("editCommande.motif") is-invalid 
-                        @enderror" wire:model="editCommande.motif" placeholder="Heure">
+                        @enderror" wire:model="editCommande.motif" placeholder="Motif">
                          @error("editCommande.motif")
                           <span class="text-danger">{{$message}}</span>
                        @enderror
@@ -32,7 +32,7 @@
                      <div class="form-group flex-grow-1">
                         <label >Article</label>
                         <input type="text"  class="form-control @error("editCommande.article") is-invalid 
-                        @enderror" wire:model="editCommande.article" placeholder="Nature"> 
+                        @enderror" wire:model="editCommande.article" placeholder="Article"> 
                         @error("editCommande.article")
                           <span class="text-danger">{{$message}}</span>
                        @enderror             
@@ -42,7 +42,7 @@
                      <div class="form-group flex-grow-1 mr-2">
                         <label >Reference</label>
                         <input type="text"  class="form-control @error("editCommande.reference") is-invalid 
-                        @enderror" wire:model="editCommande.reference" placeholder="Heure">
+                        @enderror" wire:model="editCommande.reference" placeholder="Reference">
                          @error("editCommande.reference")
                           <span class="text-danger">{{$message}}</span>
                        @enderror
@@ -50,7 +50,7 @@
                      <div class="form-group flex-grow-1">
                         <label >Quantité de commande</label>
                         <input type="text"  class="form-control @error("editCommande.quantiteCommande") is-invalid 
-                        @enderror" wire:model="editCommande.quantiteCommande" placeholder="Nature"> 
+                        @enderror" wire:model="editCommande.quantiteCommande" placeholder="Quantité de commande"> 
                         @error("editCommande.quantiteCommande")
                           <span class="text-danger">{{$message}}</span>
                        @enderror             
@@ -60,7 +60,7 @@
                    <div class="form-group flex-grow-1">
                         <label >Numero DA</label>
                         <input type="text"  class="form-control @error("editCommande.numeroDA") is-invalid 
-                        @enderror" wire:model="editCommande.numeroDA" placeholder="Nature"> 
+                        @enderror" wire:model="editCommande.numeroDA" placeholder="Numero DA"> 
                         @error("editCommande.numeroDA")
                           <span class="text-danger">{{$message}}</span>
                        @enderror             
@@ -78,11 +78,16 @@
                     <div class="d-flex">
                      <div class="form-group flex-grow-1 mr-2">
                         <label >Situation</label>
-                        <input type="text"  class="form-control @error("editCommande.Situation") is-invalid 
-                        @enderror" wire:model="editCommande.Situation" placeholder="Heure">
-                         @error("editCommande.Situation")
+                <select class="form-control @error("editCommande.Situation") is-invalid @enderror" wire:model="editCommande.Situation" required="required">
+                @error("editCommande.Situation")
                           <span class="text-danger">{{$message}}</span>
-                       @enderror
+                 @enderror 
+                    <option value="">---------</option>
+                    <option value="LOCAL">LOCAL</option>
+                    <option value="DIR">DIR</option>
+                    <option value="TANA">TANA</option>
+                    <option value="IMPORT">IMPORT</option>
+                </select>
                      </div>
                      <div class="form-group flex-grow-1">
                         <label >Quantité de reception</label>
@@ -103,32 +108,34 @@
                     </div>
                     <div class="form-group">
                         <label >Caracteristique</label>
-                        <select class="form-control @error("editCommande.observation") is-invalid 
-                        @enderror" wire:model="editCommande.observation">
-                        @error("editCommande.observation")
+                        <select class="form-control @error("editCommande.caracteristique") is-invalid 
+                        @enderror" wire:model="editCommande.caracteristique">
+                        @error("editCommande.caracteristique")
                         <span class="text-danger">{{$message}}</span>
                         @enderror              
                         <option value="">---------</option>
                         @foreach ($caracteristiques as $caracteristique)
-                          <option value="{{$caracteristique->marque}}   |   {{$caracteristique->numeroSerie}}">{{$caracteristique->marque}}   |   {{$caracteristique->numeroSerie}}</option>
+                          <option value="{{$caracteristique->id}}">{{$caracteristique->ressources->nom}}</option>
                         @endforeach             
                         </select>
                     </div>
                     <div class="form-group">
                         <label >Observation</label>
-                        <input type="text"  class="form-control  @error("editCommande.caracteristique") is-invalid 
-                        @enderror" wire:model="editCommande.caracteristique" placeholder="Resultat">
-                        @error("editCommande.caracteristique")
+                        <input type="text"  class="form-control  @error("editCommande.observation") is-invalid 
+                        @enderror" wire:model="editCommande.observation" placeholder="Observation">
+                        @error("editCommande.observation")
                         <span class="text-danger">{{$message}}</span>
                         @enderror
                     </div>
-                    <button type="submit" class="btn btn-primary">Enregistrer</button>
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Fermer</button>
                 </div>
               </div>
             </div>         
           </div>
         </div>
+      <div class="col-md-6">
+      <button type="submit" class="btn btn-primary">Enregistrer</button>
+      <button type="button" class="btn btn-secondary" data-dismiss="modal">Fermer</button>
+      </div>
     </form>
     </div>  
     </div>
