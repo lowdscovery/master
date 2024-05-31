@@ -1,46 +1,61 @@
- <h1>Salut bro</h1>
- <div>
-   <canvas id="myChart"> </canvas>                                             
+<div>
+   <canvas id="myChart"> </canvas>                                         
  </div>
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-<script>
-  document.addEventListener('livewire:load' , () => {
-    const ctx = document.getElementById('myChart').getContext('2d');
-    const chartData = @json($chartData);
 
-    const data = {
-        labels: chartData.map(item => item.label),
-        datasets: [
-            {
-                label: 'Value 1',
-                data: chartData.map(item => item.value),
-                borderColor: 'rgba(75, 192, 192, 1)',
-                borderWidth: 1
+<div>
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>value 1</th>
+                <th>old 2</th>
+                <th>difference 3</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach($data as $row)
+                <tr>
+                    <td>{{ $row->id }}</td>
+                    <td>{{ $row->value }}</td>
+                    <td>{{ $row->old_value }}</td>
+                    <td>{{ $row->difference }}</td>
+                </tr>
+            @endforeach
+        </tbody>
+    </table>
+
+    <canvas id="myChart"></canvas>
+</div>
+
+<script>
+    document.addEventListener('livewire:load', function () {
+        var ctx = document.getElementById('myChart').getContext('2d');
+        var chart = new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: @json($data->pluck('value')),
+                datasets: [{
+                    label: 'Intensité',
+                    backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                    borderColor: 'rgba(75, 192, 192, 1)',
+                    data: @json($data->pluck('old_value'))
+                },
+                {
+                    label: 'Puissance',
+                    backgroundColor: 'rgba(75, 12, 20, 0.2)',
+                    borderColor: 'rgba(75, 12, 20, 1)',
+                    data: @json($data->pluck('difference'))
+                },
+                 {
+                    label: 'Debit',
+                    backgroundColor: 'rgba(226, 7, 134, 0.2)',
+                    borderColor: 'rgba(226, 7, 134, 1)',
+                    data: @json($data->pluck('id'))
+            }]
+                
             },
-             {
-                label: 'Value 2',
-                data: chartData.map(item => item.old_value),
-                borderColor: 'rgba(153, 102, 255, 1)',
-                borderWidth: 1
-            },
-            {
-                label: 'Value 3',
-                data: chartData.map(item => item.difference),
-                borderColor: 'rgba(255, 159, 64, 1)',
-                borderWidth: 1
-            }
-        ]
-    };
-    new Chart(ctx, {
-        type: 'line',
-        data: data,
-        options: {
-            scales:{
-                y: {
-                    beginAtZero:true
-                }
-            }
-        }
+            
+            options: {}
+        });
     });
-  });
 </script>

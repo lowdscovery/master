@@ -1,5 +1,7 @@
 
 <div class="row tab-content pt-3">
+  {{ $users->links() }}
+  
         <div id="grid-view" class="tab-pane fade col-lg-12 active show">
             <div class="row">
               @foreach ($users as $user)

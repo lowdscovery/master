@@ -15,6 +15,7 @@ use Illuminate\Support\Facades\DB;
 use Livewire\WithFileUploads;
 use Illuminate\Support\Facades\Storage;
 use App\Notifications\UserFollowNotification;
+use Illuminate\Support\Facades\Auth;
 
 class Utilisateurs extends Component
 {
@@ -29,6 +30,27 @@ class Utilisateurs extends Component
     public $image;
     public $resetValueInput = 0;
     public $editImage;
+    public $password;
+
+    public $perPage = 2;
+    public $sortDirection = 'ASC';
+    public $sortColumn = 'Nom';
+
+    public function doSort($column){
+     if($this->sortColumn === $column){
+        $this->sortDirection = ($this->sortDirection == 'ASC')? 'DESC':'ASC';
+        return;
+     }
+     $this->sortColumn = $column;
+     $this->sortDirection = 'ASC';
+    }
+    //reset recherche
+    public function updatedPerPage(){
+        $this->resetPage();
+    }
+    public function updatedSearch(){
+        $this->resetPage();
+    }
 
     /*protected $rules = [
         'newUser.nom' => 'required',
@@ -84,7 +106,13 @@ class Utilisateurs extends Component
         $searchCriteria = "%".$this->search."%";
         
         $data = [
-            "users" => User::where("nom", "like", $searchCriteria)->latest()->paginate(5),
+            "users" => User::where("nom", "like", $searchCriteria)
+            ->OrWhere("prenom", "like", $searchCriteria)
+            ->orderBy($this->sortColumn, $this->sortDirection)
+            ->latest()->paginate($this->perPage),
+                  /*    ->OrWhere("prenom", "like", $searchCriteria)->latest()
+                      ->orderBy($this->sortColumn, $this->sortDirection)
+                      ->paginate($this->perPage),*/
         ];
         return view('livewire.utilisateurs.index',$data)
         ->extends("layouts.principal")
@@ -173,10 +201,8 @@ public function updateUser(){
     sleep(2);
     $this->validate();
     $user = User::find($this->editUser["id"]);
-  //  $user = User::find(Hash::make($this->editUser["password"]));
     $user->fill($this->editUser);
- //   $user->fill($user1);
-  
+ //   $user->fill($this->editUser[Hash::make($this->editUser["password"])]);
     if($this->editImage){
         $path = $this->editImage->store("upload", "public");
         $imagePath = "storage/".$path;
@@ -184,6 +210,10 @@ public function updateUser(){
         $user->photo = $imagePath;
     }
     $user->save();
+   /* Auth::user()->update([
+        'password' => Hash::make($this->password),
+    ]);*/
+
     $this->dispatchBrowserEvent("showSuccessMessage", ["message"=>"Utilisateur mis à jour avec succès!"]);
     
 }

@@ -10,6 +10,15 @@
 								<h5 class="card-title"><i class="fas fa-user-plus fa-2x"></i> Formulaire de création d'un nouvel utilisateur</h5>
 							</div>
 							<div class="card-body">
+							@if ($errors->any())
+							  <div class="alert alert-danger">
+								<ul>
+								  @foreach ($errors->all() as $error)
+									<li>{{$error}}</li>
+								  @endforeach
+								</ul>
+							</div>
+							@endif
                                 <form role="form" wire:submit.prevent="addUser()">
 									<div class="row">
 										<div class="col-lg-6 col-md-6 col-sm-12">

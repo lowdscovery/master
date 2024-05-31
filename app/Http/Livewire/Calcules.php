@@ -4,6 +4,7 @@ namespace App\Http\Livewire;
 
 use Livewire\Component;
 use App\Models\CalculeColonne;
+use Illuminate\Support\Facades\DB;
 
 class Calcules extends Component
 {
@@ -12,10 +13,10 @@ class Calcules extends Component
     public function mount(){
         $this->values = CalculeColonne::all();
     }*/
-    public $chartData;
+    public $data;
 
     public function mount(){
-        $this->chartData = CalculeColonne::select('value','old_value','difference')->get()->toArray();
+        $this->data = CalculeColonne::all();
     }
     
     public function render()

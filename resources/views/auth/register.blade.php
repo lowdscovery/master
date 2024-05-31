@@ -4,7 +4,7 @@
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-4">
-            <div class="card" style="transform: translateY(100px);">
+            <div class="card" style="transform: translateY(40px);">
                 <div class="card-body">
                 <div style="text-align:center; font-size:2em;transform: translateY(-10px);">{{ __('Registre') }}</div>
                     <form method="POST" action="{{ route('register') }}">
@@ -95,6 +95,25 @@
                             </div>
                            </div>
                         </div>
+
+                         <div class="pb-3"> 
+                              <input type="checkbox" id="togglePassword"> <label> Afficher le mot de passe </label>
+                                <script>
+                                    const passwordInput = document.getElementById('password');
+                                    const passwordInput1 = document.getElementById('password-confirm');
+                                    const togglePassword = document.getElementById('togglePassword');
+
+                                    togglePassword.addEventListener('change', function () {
+                                        if (this.checked) {
+                                            passwordInput.type = 'text';
+                                            passwordInput1.type = 'text';
+                                        } else {
+                                            passwordInput.type = 'password';
+                                            passwordInput1.type = 'password';
+                                        }
+                                    });
+                                </script>
+                             </div>
 
                         <div class="row ">
                             <div class="col">

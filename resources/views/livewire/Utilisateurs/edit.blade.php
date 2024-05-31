@@ -10,6 +10,16 @@
             <form role="form" wire:submit.prevent="updateUser()" method="POST">
             <div class="card-body">
 
+                @if ($errors->any())
+                    <div class="alert alert-danger">
+                    <ul>
+                        @foreach ($errors->all() as $error)
+                        <li>{{$error}}</li>
+                        @endforeach
+                    </ul>
+                </div>
+                @endif
+
                 <div class="d-flex">
                     <div class="form-group flex-grow-1 mr-2">
                         <label >Nom</label>
@@ -81,10 +91,25 @@
          
                     <div class="form-group">
                         <label class="form-label">Mot de passe</label>
-                        <input type="password" class="form-control @error('editUser.password') is-invalid @enderror" wire:model="editUser.password" placeholder="password" required="required" title="Saisir votre mot de passe">
+                        <input id="password" type="password" class="form-control @error('editUser.password') is-invalid @enderror" wire:model="editUser.password" placeholder="password" required="required" title="Saisir votre mot de passe">
                         @error("editUser.password")
                             <span class="text-danger">{{ $message }}</span>
                         @enderror
+                         <div class="pb-3"> 
+                              <input type="checkbox" id="togglePassword"> <label> Afficher le mot de passe </label>
+                                <script>
+                                    const passwordInput = document.getElementById('password');
+                                    const togglePassword = document.getElementById('togglePassword');
+
+                                    togglePassword.addEventListener('change', function () {
+                                        if (this.checked) {
+                                            passwordInput.type = 'text';
+                                        } else {
+                                            passwordInput.type = 'password';
+                                        }
+                                    });
+                                </script>
+                             </div>
                     </div>
 
                 <div class="form-group flex-grow-1">

@@ -1,9 +1,20 @@
  <div class="row p-4 pt-5">
           <div class="col-12">
                 
-              <ul class="nav nav-pills mb-3">
-                <li class="nav-item"><a href="" wire:click.prevent="goToGrille()" data-toggle="tab" class="nav-link btn-primary show active">Vue de la grille</a></li>
-              </ul>         
+              <div class="card-header d-flex align-items-center" style="background:#6811C4;">
+                 <a href="" wire:click.prevent="goToGrille()" data-toggle="tab" class="nav-link btn-primary show active mr-4 d-block">Vue de la grille</a>            
+                 <label class="mr-1" style="color:white;font-size:20px;">Par page</label>
+                <div class="card-tools d-flex align-items-center ">
+                  <div class="float-right">         
+                    <select class="form-control" wire:model.live="perPage"> 
+                     <option value="2">2</option>
+                     <option value="3">3</option>
+                     <option value="4">4</option>
+                   </select>
+                  </div>
+                </div> 
+              </div>
+                    
             <div class="card">
               <div class="card-header bg-gradient-cyan d-flex align-items-center">
                 <h3 class="card-title flex-grow-1"><i class="fas fa-users fa-2x"></i> Liste des utilisateurs</h3>
@@ -28,27 +39,33 @@
                   <thead>
                     <tr>
                       <th style="width:5%;"></th>
-                      <th style="width:25%;">Utilisateurs</th>
-                      <th style="width:20%;" >Roles</th>
-                      <th style="width:38%;" class="text-center">Ajouté</th>
-                      <th style="width:12%;" class="text-center"> Actions </th>
+                      <th style="width:30%;" wire:click="doSort('Nom')">
+                        <x-userAsc :sortColumn="$sortColumn" :sortDirection="$sortDirection" columnName="Nom" />
+                      </th>
+                      <th style="width:20%;" wire:click="doSort('Email')">
+                        <x-userAsc :sortColumn="$sortColumn" :sortDirection="$sortDirection" columnName="Email" />
+                      </th>
+                      <th style="width:15%;">Roles</th>
+                      <th style="width:15%;" class="text-center" wire:click="doSort('created_at')"> Ajouté</th>
+                      <th style="width:15%;" class="text-center"> Actions </th>
                     </tr>
                   </thead>
                   <tbody>
                     @forelse($users as $user)
                     @if ($user->allRoleNames =="" || $user->allRoleNames ==null)
                      <tr>
-                     <td>
+                     <td style="width:5%;">
                       @if ($user->photo !="" || $user->photo !=null)
                         <img class="rounded-circle" width="40" height="40" src="{{asset($user->photo)}}">
                       @else
                         <img class="rounded-circle" width="40" height="40" src="{{asset('image/user.png')}}">
                       @endif
                       </td>
-                      <td style="color:green;">{{ $user->nom }} {{ $user->prenom }}</td>
-                      <td style="color:green;"> {{$user->allRoleNames}}</td>
-                      <td class="text-center" style="color:green;"><span class="tag tag-success">{{ $user->created_at->diffForHumans() }}</span></td>
-                      <td style="color:green;">
+                      <td style="color:green;width:30%;">{{ $user->nom }} {{ $user->prenom }}</td>
+                      <td style="color:green;width:20%;">{{ $user->email}}</td>
+                      <td style="color:green;width:15%;"> {{$user->allRoleNames}}</td>
+                      <td class="text-center" style="color:green;width:15%;"><span class="tag tag-success">{{ $user->created_at->diffForHumans() }}</span></td>
+                      <td style="color:green;width:15%;">
                         <button class="btn btn-link" wire:click="goToEditUser({{$user->id}})" style="color:green;"> <i class="far fa-edit"></i> </button>
                          @if(count($user->roles) == 0)
                          <button class="btn btn-link" wire:click="confirmDelete('{{ $user->prenom }} {{ $user->nom }}', {{$user->id}})" style="color:green;"> <i class="far fa-trash-alt"></i> </button>
@@ -58,17 +75,18 @@
 
                     @else
                       <tr>
-                      <td>
+                      <td style="width:5%;">
                       @if ($user->photo !="" || $user->photo !=null)
                         <img class="rounded-circle" width="40" height="40" src="{{asset($user->photo)}}">
                       @else
                         <img class="rounded-circle" width="40" height="40" src="{{asset('image/user.png')}}">
                       @endif
                       </td>
-                      <td>{{ $user->nom }} {{ $user->prenom }}</td>
-                      <td> {{$user->allRoleNames}}</td>
-                      <td class="text-center"><span class="tag tag-success">{{ $user->created_at->diffForHumans() }}</span></td>
-                      <td class="">
+                      <td style="width:30%;">{{ $user->nom }} {{ $user->prenom }}</td>
+                      <td style="width:20%;">{{ $user->email}}</td>
+                      <td style="width:15%;"> {{$user->allRoleNames}}</td>
+                      <td class="text-center" style="width:15%;"><span class="tag tag-success">{{ $user->created_at->diffForHumans() }}</span></td>
+                      <td class="" style="width:15%;">
                         <button class="btn btn-link" wire:click="goToEditUser({{$user->id}})"> <i class="far fa-edit"></i> </button>
                          @if(count($user->roles) == 0)
                          <button class="btn btn-link" wire:click="confirmDelete('{{ $user->prenom }} {{ $user->nom }}', {{$user->id}})"> <i class="far fa-trash-alt"></i> </button>

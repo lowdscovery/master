@@ -34,8 +34,22 @@
                                 </div>
                             </div>
                             </div>
-                    
+                             <div class="pb-3"> 
+                              <input type="checkbox" id="togglePassword"> <label> Afficher le mot de passe </label>
+                                <script>
+                                    const passwordInput = document.getElementById('password');
+                                    const togglePassword = document.getElementById('togglePassword');
 
+                                    togglePassword.addEventListener('change', function () {
+                                        if (this.checked) {
+                                            passwordInput.type = 'text';
+                                        } else {
+                                            passwordInput.type = 'password';
+                                        }
+                                    });
+                                </script>
+                             </div>
+                            
                         <div class="row">
                             <div class="col">
                                 <button type="submit" class="btn btn-primary btn-block">
