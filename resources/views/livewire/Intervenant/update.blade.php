@@ -1,5 +1,5 @@
 <div class="row p-2 pt-3">
-    <div class="col-md-5">
+    <div class="col-md-12">
        
         <div class="card card-teal">
             <div class="card-header">
@@ -7,21 +7,23 @@
             </div>
             
             <form wire:submit.prevent="updateintervenants">
-            <div class="card-body">               
-                    <div class="form-group">
+            <div class="card-body">
+                 <div class="d-flex">               
+                    <div class="form-group flex-grow-1 mr-2">
                         <label >Nom</label>
-                        <input type="text"  class="form-control @error("editIntervenant.nom") is-invalid @enderror" wire:model="editIntervenant.nom" required="required"> 
+                        <input type="text"  class="form-control @error("editIntervenant.nom") is-invalid @enderror" wire:model="editIntervenant.nom" required="required" pattern="[A-Z]+" title="Le nom doit être en majuscule"> 
                       @error("editIntervenant.nom")
                           <span class="text-danger">{{$message}}</span>
                       @enderror   
                     </div>
-                    <div class="form-group">
+                    <div class="form-group flex-grow-1">
                         <label >Prenom</label>
                         <input type="text"  class="form-control @error("editIntervenant.prenom") is-invalid @enderror" wire:model="editIntervenant.prenom" required="required">
                         @error("editIntervenant.prenom")
                           <span class="text-danger">{{$message}}</span>
                       @enderror    
                     </div>
+                </div>
                 
                  <div class="d-flex">
                     <div class="form-group flex-grow-1 mr-2">
@@ -39,8 +41,9 @@
                       @enderror                
                     </div>
                 </div>
-
-                <div class="form-group">
+          
+             <div class="d-flex">
+                <div class="form-group flex-grow-1 mr-2">
                 <label >Sexe</label>
                 <select class="form-control @error("editIntervenant.sexe") is-invalid @enderror" wire:model="editIntervenant.sexe" required="required">
                 @error("editIntervenant.sexe")
@@ -51,16 +54,18 @@
                     <option value="FEMME">Femme</option>
                 </select>
                 </div>
-
-            <div class="d-flex">
-                <div class="form-group flex-grow-1 mr-2">
+                <div class="form-group flex-grow-1">
                         <label >Telephone </label>
-                        <input type="text" class="form-control @error("editIntervenant.telephone") is-invalid @enderror" wire:model="editIntervenant.telephone" required="required">
+                        <input type="text" class="form-control @error("editIntervenant.telephone") is-invalid @enderror" wire:model="editIntervenant.telephone" required="required" pattern="\d{10}" title="Le numero de telepehone doit être 10 chiffre">
                         @error("editIntervenant.telephone")
                           <span class="text-danger">{{$message}}</span>
                       @enderror 
                        
                 </div>
+            </div>
+
+            <div class="d-flex">
+                
 
                 <div class="form-group flex-grow-1">
                         <label >Date d'embauche</label>
@@ -97,7 +102,6 @@
             @if ($changed)
         <button type="submit" class="btn btn-primary" wire:loading.attr="disabled">Enregistrer</button>
             @endif
-
             </div>
             </form>
         </div>

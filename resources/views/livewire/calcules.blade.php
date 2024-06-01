@@ -1,61 +1,70 @@
 <div>
-   <canvas id="myChart"> </canvas>                                         
- </div>
-<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <form wire:submit.prevent="create">
+        <div class="form-group">
+            <label for="col1">Column 1</label>
+            <input type="text" id="col1" wire:model="col1" class="form-control">
+            @error('col1') <span class="text-danger">{{ $message }}</span> @enderror
+        </div>
+        <div class="form-group">
+            <label for="col2">Column 2</label>
+            <input type="text" id="col2" wire:model="col2" class="form-control">
+            @error('col2') <span class="text-danger">{{ $message }}</span> @enderror
+        </div>
+        <div class="form-group">
+            <label for="col3">Column 3</label>
+            <input type="text" id="col3" wire:model="col3" class="form-control">
+            @error('col3') <span class="text-danger">{{ $message }}</span> @enderror
+        </div>
+        <button type="submit" class="btn btn-primary">Create</button>
+    </form>
 
-<div>
-    <table class="table table-striped">
+    <table class="table mt-4">
         <thead>
             <tr>
-                <th>value 1</th>
-                <th>old 2</th>
-                <th>difference 3</th>
+                <th>ID</th>
+                <th>Column 1</th>
+                <th>Column 2</th>
+                <th>Column 3</th>
+                <th>Average</th>
+                <th>Result</th>
+                <th>Actions</th>
             </tr>
         </thead>
         <tbody>
-            @foreach($data as $row)
-                <tr>
-                    <td>{{ $row->id }}</td>
-                    <td>{{ $row->value }}</td>
-                    <td>{{ $row->old_value }}</td>
-                    <td>{{ $row->difference }}</td>
-                </tr>
+            @foreach($data as $item)
+            <tr>
+                <td>{{ $item->id }}</td>
+                <td>{{ $item->col1 }}</td>
+                <td>{{ $item->col2 }}</td>
+                <td>{{ $item->col3 }}</td>
+                <td>{{ $item->avg_col }}</td>
+                <td>{{ $item->result_col }}</td>
+                <td>
+                    <button wire:click="edit({{ $item->id }})" class="btn btn-warning">Edit</button>
+                </td>
+            </tr>
             @endforeach
         </tbody>
     </table>
 
-    <canvas id="myChart"></canvas>
+    @if($dataId)
+    <form wire:submit.prevent="update">
+        <div class="form-group">
+            <label for="col1">Column 1</label>
+            <input type="text" id="col1" wire:model="col1" class="form-control">
+            @error('col1') <span class="text-danger">{{ $message }}</span> @enderror
+        </div>
+        <div class="form-group">
+            <label for="col2">Column 2</label>
+            <input type="text" id="col2" wire:model="col2" class="form-control">
+            @error('col2') <span class="text-danger">{{ $message }}</span> @enderror
+        </div>
+        <div class="form-group">
+            <label for="col3">Column 3</label>
+            <input type="text" id="col3" wire:model="col3" class="form-control">
+            @error('col3') <span class="text-danger">{{ $message }}</span> @enderror
+        </div>
+        <button type="submit" class="btn btn-primary">Update</button>
+    </form>
+    @endif
 </div>
-
-<script>
-    document.addEventListener('livewire:load', function () {
-        var ctx = document.getElementById('myChart').getContext('2d');
-        var chart = new Chart(ctx, {
-            type: 'line',
-            data: {
-                labels: @json($data->pluck('value')),
-                datasets: [{
-                    label: 'Intensité',
-                    backgroundColor: 'rgba(75, 192, 192, 0.2)',
-                    borderColor: 'rgba(75, 192, 192, 1)',
-                    data: @json($data->pluck('old_value'))
-                },
-                {
-                    label: 'Puissance',
-                    backgroundColor: 'rgba(75, 12, 20, 0.2)',
-                    borderColor: 'rgba(75, 12, 20, 1)',
-                    data: @json($data->pluck('difference'))
-                },
-                 {
-                    label: 'Debit',
-                    backgroundColor: 'rgba(226, 7, 134, 0.2)',
-                    borderColor: 'rgba(226, 7, 134, 1)',
-                    data: @json($data->pluck('id'))
-            }]
-                
-            },
-            
-            options: {}
-        });
-    });
-</script>

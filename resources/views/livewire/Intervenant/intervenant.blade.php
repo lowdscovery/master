@@ -1,24 +1,30 @@
    
     <div wire:ignore.self>
 
-    @if ($info == INFORMATION)
-     @include("livewire.Intervenant.information")
-    @elseif ($info == UPDATEINTERVENANT)
+   
+
+     
+    @if ($info == UPDATEINTERVENANT)
     @include("livewire.Intervenant.update")
     @else
+
+    <div class="modal fade" id="addModal"tabindex="-1" role="dialog" aria-hidden="true" wire:ignore.self>
+        @include("livewire.Intervenant.information")
+    </div>
+    </div>
     <div class="row p-2 pt-3">
     <div class="col-md-5">
        
-        <div class="card card-info">
-            <div class="card-header">
-            <h3 class="card-title"><i class="fas fa-user-plus fa-2x"></i> Formulaire d'ajout intervenants</h3>
+        <div class="card">
+            <div class="card-header" style="background-color:#05B2FF;">
+            <h1 class="card-title" style="color:white;"><i class="fas fa-user-plus fa-2x"></i> Formulaire d'ajout intervenants</h1>
             </div>
             
             <form wire:submit.prevent="AjoutIntervenant">
             <div class="card-body">               
                     <div class="form-group">
                         <label >Nom</label>
-                        <input type="text"  class="form-control @error("addIntervenant.nom") is-invalid @enderror" wire:model="addIntervenant.nom" required="required" placeholder="Nom"> 
+                        <input type="text"  class="form-control @error("addIntervenant.nom") is-invalid @enderror" wire:model="addIntervenant.nom" required="required" placeholder="Nom" pattern="[A-Z]+" title="Le nom doit être en majuscule"> 
                       @error("addIntervenant.nom")
                           <span class="text-danger">{{$message}}</span>
                       @enderror   
@@ -107,9 +113,9 @@
        <div class="col-md-7">
         <div class="row ">       
             <div class="col-md-12">
-                <div class="card card-info" style=".card:blue;">
-                    <div class="card-header d-flex align-items-center">
-                    <h3 class="card-title flex-grow-1"><i class="fa fa-user-circle fa-2x"></i> Liste d'intervenant</h3>
+                <div class="card">
+                    <div class="card-header d-flex align-items-center" style="background-color:#A52DFF;">
+                    <h1 class="card-title flex-grow-1" style="color:white;"><i class="fa fa-user-circle fa-2x"></i> Liste d'intervenant</h1>
                     <div class="input-group input-group-md" style="width: 250px;">
                     <input type="text" name="table_search" wire:model.debounce.250ms="search" class="form-control float-right" placeholder="Search">
 
@@ -136,9 +142,9 @@
                              <td class="text-center" style="width:60%;">{{$intervenant->nom}} {{$intervenant->prenom}}</td>
                             <td class="text-center" style="width:30%;">
                                <button class="btn btn-link" wire:click="editIntervenant({{$intervenant->id}})"> <i class="far fa-edit"></i> </button>
-                            <button class="btn btn-link" wire:click="confirmDelete({{$intervenant->id}})"> <i class="far fa-trash-alt"></i> </button>
+                            <button class="btn btn-link" wire:click="confirmDelete({{$intervenant->id}})" style="color:red;"> <i class="far fa-trash-alt"></i> </button>
                             
-                            <button class="btn btn-link" wire:click="showInformation({{$intervenant->id}})"> <i class="fa fa-eye"></i> </button>
+                            <button class="btn btn-link" wire:click="showInformation({{$intervenant->id}})" data-toggle="modal" data-target="#addModal"> <i class="fa fa-eye"></i> </button>
                             
                             </td>
                             </tr>

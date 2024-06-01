@@ -1,5 +1,5 @@
 
-<div class="pt-4">
+<div class="pt-2">
     <div class="col-12">
 
 
@@ -152,7 +152,7 @@
                 
         @endif  
         </form>       
-                <div style="height:350px;">
+                <div style="height:470px;">
                     <table class="table table-head-fixed">
                         <thead>
                             <tr>
@@ -177,7 +177,7 @@
                             <td class="text-center">
                                 <button wire:click="editOuvrage({{$ouvrage->id}})" class="btn btn-link"> <i class="far fa-edit"></i> </button>
                                 <button class="btn btn-link" wire:click="confirmDelete({{$ouvrage->id}})"> <i class="far fa-trash-alt"></i> </button>
-                                <button class="btn btn-link" wire:click="selectDocument({{$ouvrage->id}})" data-toggle="modal" data-target="#addModal"> <i class="fa fa-file-pdf"  style="coloor:white;"></i></button>
+                                <button class="btn btn-link" wire:click="selectDocument({{$ouvrage->id}})" data-toggle="modal" data-target="#addModal"> <i class="fa fa-file-pdf" style="color:#96BC00;font-size:18px;"></i></button>
                             </td>
                         </tr>
                        @empty

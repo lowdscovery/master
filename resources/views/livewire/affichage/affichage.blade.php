@@ -1,9 +1,5 @@
 <div class="content-body" style="min-height: 836px;">
             <div class="container-fluid">             
-                <h1 class="" style="font-family: montserrat; color:#A69DE2;">Gestion de la production eau de la jirama</h1>
-				<ol class="breadcrumb">
-				<li class="breadcrumb-item active">Caracteristique / Materiels</li> 
-				</ol>
                 <div class="row">
 				<a href="" class="btn btn-link text-blue" wire:click="goToList()" ><i class="fas fa-long-arrow-alt-left"></i> 
 				Retourner vers la liste</a>

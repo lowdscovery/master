@@ -5,23 +5,23 @@
         <div id="grid-view" class="tab-pane fade col-lg-12 active show">
             <div class="row">
               @foreach ($users as $user)
-                <div class="col-lg-4 col-md-6 col-sm-6 col-12">
-                    <div class="card card-profile"> 
+                <div class="col-lg-4 col-md-6 col-sm-6 col-12" >
+                    <div class="card card-profile" > 
                         <div class="card-body pt-2">
                             <div class="text-center">
                             @if ($user->photo !="" || $user->photo !=null)
-                            <div class="profile-photo pt-4">
-                        <img src="{{asset($user->photo)}}" width="100" class="img-fluid rounded-circle" alt="" style="height:100px;">
+                            <div class="profile-photo pt-3">
+                        <img src="{{asset($user->photo)}}" width="120" class="img-fluid rounded-circle" alt="" style="height:120px;border: 9px groove #38E884;">
                             </div>
                             @else
-                           <div class="profile-photo pt-4">
-                        <img src="{{asset('image/user.png')}}" width="100" class="img-fluid rounded-circle" alt="" style="height:100px;">
+                           <div class="profile-photo pt-3">
+                        <img src="{{asset('image/user.png')}}" width="120" class="img-fluid rounded-circle" alt="" style="height:120px;border: 9px groove #38E884;">
                             </div>
                             @endif
                                 
-                                <h3 class="mt-4 mb-1" style="font-family: montserrat;">{{ $user->nom }}</h3>
+                                <h3 class="mt-1 mb-1" style="font-family: montserrat;">{{ $user->nom }}</h3>
                                 <p class="text-muted">{{ $user->prenom }}</p>
-                                <ul class="list-group mb-3 list-group-flush">
+                                <ul class="list-group mb-2 list-group-flush">
                                     <li class="list-group-item px-0 d-flex justify-content-between" style="font-family: montserrat;">
                                     <span>Utilisateur N°</span><strong>0{{ $user->id }}</strong></li>
                                     <li class="list-group-item px-0 d-flex justify-content-between" style="font-family: montserrat;">

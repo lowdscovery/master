@@ -12,26 +12,54 @@ class Bande extends Component
     protected $paginationTheme = "bootstrap";
     public $isSelectededit = false;
     public $isSelected = false;
-    public $addBande = [];
+    public $Nombre;
+    public $U1;
+    public $U2;
+    public $U3;
+    public $averageResult;
+    public $I1;
+    public $I2;
+    public $I3;
+    public $finalResult;
+    public $Debit;
+    public $Pression;
+    public $data;
+    public $dataId;
+    public $graph= false;
 
+    public function shwoGraph(){
+        $this->graph=true;
+    }
+    public function cacheGraph(){
+        $this->graph=false;
+    }
+   
     public function selected(){
         $this->isSelected = true;
-        $this->isSelectededit =false;
+        $this->isSelectededit = false;
         $this->resetErrorBag();
+        $this->resetInputs();
+        
     }
     public function cancel(){
         $this->isSelected = false;
+        $this->isSelectededit = false;
         $this->resetErrorBag();
+        $this->resetInputs();
+        
     }
     public function editselect(){
         $this->isSelectededit = true;
+        $this->isSelected = false;
         $this->resetErrorBag();
     }
 
+
     public function render()
     {
+        $this->data = ModelsBande::all();
         $data = [
-            "bandes" => ModelsBande::latest()->paginate(4),
+            "bandes" => ModelsBande::latest()->paginate(5),
           ];
         return view('livewire.bande.bande', $data)
         ->extends("layouts.principal")
@@ -39,63 +67,96 @@ class Bande extends Component
     }
 
     public function Bande(){
+        $average = ($this->U1 + $this->U2 + $this->U3) / 3;
+        $average1 = ($this->I1 + $this->I2 + $this->I3) / 3;
+        $this->averageResult = $average * $average1 * 0.8 * 1.732;
+        $this->finalResult = $this->averageResult;
          $this->validate([
-             "addBande.U1" =>"required",
-             "addBande.U2" =>"required",
-             "addBande.U3" =>"required",
-             "addBande.I1" =>"required",
-             "addBande.I2" =>"required",
-             "addBande.I3" =>"required",
-             "addBande.Puissance" =>"required",
-             "addBande.Debit" =>"required",  
-             "addBande.Pression" =>"required",
+             "Nombre" =>"required",
+             "U1" =>"required",
+             "U2" =>"required",
+             "U3" =>"required",
+             "I1" =>"required",
+             "I2" =>"required",
+             "I3" =>"required", 
+             "Debit" =>"required",  
+             "Pression" =>"required",
          ]);
         
          ModelsBande::create(
              [
-                 "U1" => $this->addBande["U1"],
-                 "U2" => $this->addBande["U2"],
-                 "U3" => $this->addBande["U3"],
-                 "I1" => $this->addBande["I1"],
-                 "I2" => $this->addBande["I2"],
-                 "I3" => $this->addBande["I3"],      
-                 "Puissance" => $this->addBande["Puissance"],
-                 "Debit" => $this->addBande["Debit"],
-                 "Pression" => $this->addBande["Pression"],          
+                 "Nombre"=> $this->Nombre,
+                 "U1" => $this->U1,
+                 "U2" => $this->U2,
+                 "U3" => $this->U3,
+                 "MoyenU" => $average,
+                 "I1" => $this->I1,
+                 "I2" => $this->I2,
+                 "I3" => $this->I3,
+                 "MoyenI" => $average1,     
+                 "Puissance" => $this->finalResult,
+                 "Debit" => $this->Debit,
+                 "Pression" => $this->Pression,          
              ]
           );
          $this->resetErrorBag();
-         $this->addBande = [];
+         $this->resetInputs();
          $this->dispatchBrowserEvent("showSuccessMessage", ["message"=>"Votre demande reussi avec succès!"]);
      }
 
      //
-     public function editBande(ModelsBande $bande){
-        $this->addBande = $bande->toArray();
-        $this->addBande["edit"] = true;
-        $this->isSelected = true;
+     public function editBande($id){
+        $data = ModelsBande::findOrFail($id);
+        $this->dataId = $id;
+        $this->Nombre = $data->Nombre;
+        $this->U1 = $data->U1;
+        $this->U2 = $data->U2;
+        $this->U3 = $data->U3;
+        $this->I1 = $data->I1;
+        $this->I2 = $data->I2;
+        $this->I3 = $data->I3;
+        $this->Debit = $data->Debit;
+        $this->Pression = $data->Pression;
         $this->editselect();
     }
     
     public function updateBande(){
         $this->validate([
-          "addBande.U1" =>"required",
-          "addBande.U2" =>"required",
-          "addBande.U3" =>"required",
-          "addBande.I1" =>"required",
-          "addBande.I2" =>"required",
-          "addBande.I3" =>"required",
-          "addBande.Puissance" =>"required",
-          "addBande.Debit" =>"required",  
-          "addBande.Pression" =>"required",
+          "Nombre" =>"required",
+          "U1" =>"required",
+          "U2" =>"required",
+          "U3" =>"required",
+          "I1" =>"required",
+          "I2" =>"required",
+          "I3" =>"required",
+          "Debit" =>"required",  
+          "Pression" =>"required",
         ]);
-        $bande = ModelsBande::find($this->addBande["id"]);
-        $bande->fill($this->addBande);
-      
-        $bande->save();
-        $this->resetErrorBag();
-      //  $this->addBande = [];
-      //  $this->addBande["edit"] = false;
+        if ($this->dataId) {
+            $data = ModelsBande::find($this->dataId);
+
+            $average = ($this->U1 + $this->U2 + $this->U3) / 3;
+            $average1 = ($this->I1 + $this->I2 + $this->I3) / 3;
+            $this->averageResult = $average * $average1 * 0.8 * 1.732;
+            $this->finalResult = $this->averageResult;
+
+            $data->update([
+                'Nombre' => $this->Nombre,
+                'U1' => $this->U1,
+                'U2' => $this->U2,
+                'U3' => $this->U3,
+                "MoyenU" => $average,
+                "I1" => $this->I1,
+                "I2" => $this->I2,
+                "I3" => $this->I3,
+                "MoyenI" => $average1,     
+                "Puissance" => $this->finalResult,
+                "Debit" => $this->Debit,
+                "Pression" => $this->Pression, 
+               
+            ]);
+            $this->resetInputs();
+        }
         $this->dispatchBrowserEvent("showSuccessMessage", ["message"=> "Bande d'essai mis à jour avec succès!"]);
       }
       //
@@ -112,4 +173,10 @@ class Bande extends Component
         $bande->delete();
         $this->dispatchBrowserEvent("showSuccessMessage", ["message"=>"Bande d'essai supprimé avec succès!"]);
       }
+    
+      private function resetInputs()
+    {
+        $this->U1="";$this->U2="";$this->U3="";$this->I1="";$this->I2="";$this->I3="";$this->Debit="";
+        $this->Pression="";$this->Nombre="";
+    }
 }

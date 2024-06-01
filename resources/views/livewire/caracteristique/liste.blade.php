@@ -65,18 +65,17 @@
 
     
 
-<div class="row p-4" >
+<div class="row p-4 pt-2">
  <div class="col-12">
      <div class="card">
   
-         <div class="card-header bg-gradient-gray d-flex align-items-center">
-          <h3 class="card-title flex-grow-1"><i class="nav-icon fas fa-cogs"></i> Caracteristiques des materiels</h3>
+         <div class="card-header d-flex align-items-center" style="background-color:#05B2FF;">
+          <h3 class="card-title flex-grow-1" style="color:white;"><i class="nav-icon fas fa-cogs"></i> Caracteristiques des materiels</h3>
 
             <div class="card-tools d-flex align-items-center ">
-            <a  class="btn btn-primary mr-4 d-block" wire:loading.attr="disabled" wire:click.prevent="goToaddCaracteristique()" style="background-color:#00F2D8;"><i class="nav-icon fas fa-cog"></i> Nouvel moteur</a>
-            <div wire:loading.delay="" wire:target="goToaddCaracteristique">
-               <span class="text-warning">Veuillez patienter...</span>
-            </div>
+              @if (count($forages) > 0) 
+                <li class="breadcrumb-item active"> <button type="button" wire:click="addCaract" class="btn btn-primary mr-4 d-block" >Enregistrer</button></li>
+              @endif
                 <div class="input-group input-group-md" style="width: 250px;">
             <input type="text" name="table_search" wire:model.debounce.250ms="search" class="form-control float-right" placeholder="Search">
 

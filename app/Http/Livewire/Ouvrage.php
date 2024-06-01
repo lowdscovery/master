@@ -24,7 +24,7 @@ class Ouvrage extends Component
     public function render()
     {
         $data = [
-            "ouvrages" => ModelsOuvrage::latest()->paginate(3),
+            "ouvrages" => ModelsOuvrage::latest()->paginate(5),
             "ressources" => Ressource::all(),
           ];
         return view('livewire.ouvrage.ouvrage',$data)

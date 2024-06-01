@@ -32,7 +32,7 @@ class Utilisateurs extends Component
     public $editImage;
     public $password;
 
-    public $perPage = 2;
+    public $perPage = 5;
     public $sortDirection = 'ASC';
     public $sortColumn = 'Nom';
 

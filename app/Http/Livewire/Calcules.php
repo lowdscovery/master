@@ -8,144 +8,84 @@ use Illuminate\Support\Facades\DB;
 
 class Calcules extends Component
 {
-    /*public $values;
-
-    public function mount(){
-        $this->values = CalculeColonne::all();
-    }*/
     public $data;
+    public $col1;
+    public $col2;
+    public $col3;
+    public $avg_col;
+    public $result_col;
+    public $dataId;
 
-    public function mount(){
-        $this->data = CalculeColonne::all();
-    }
-    
     public function render()
-    {  
+    {
+        $this->data = CalculeColonne::all();
         return view('livewire.calcules')
         ->extends("layouts.principal")
         ->section("contenu");
     }
-//deuxieme
-  /*  public $value;
-    public $editMode=false;
-    public $editId;
 
-    public function calculateAndAdd(){
-        $previousValue= CalculeColonne::latest()->first();
-        $previousValue = $previousValue ? $previousValue->value : 0;
-        $difference = $previousValue - $this->value;
-
-        $differenceSum = CalculeColonne::sum('difference') + $difference;
-        CalculeColonne::create([
-            'value' => $this->value,
-            'difference' => $difference,
-            'old_value' => $differenceSum,
-        ]);
-        $this->reset('value');
-    }
-
-    public function edit($id){
-        $value = CalculeColonne::find($id);
-        $this->value = $value->value;
-        $this->editMode = true;
-        $this->editId = $id;
-    }
-
-    public function update(){
-        $value = CalculeColonne::find($this->editId);
-        $previousValue = CalculeColonne::where('id','<', $this->editId)->orderBy('id','desc')->first();
-        $previousValue = $previousValue ? $previousValue->value : 0;
-        $difference = $previousValue - $this->value;
-        
-        $value->update([
-            'value' => $this->value,
-            'difference'=> $difference,
-        ]);
-
-        $values = CalculeColonne::all();
-        $cumulativeSum = 0;
-        foreach($values as $val){
-            $cumulativeSum += $val->difference;
-            $val->update(['old_value' => $cumulativeSum]);
-        }
-        $this->editMode = false;
-        $this->reset(['value', 'editId']);
-    }*/
-
-//premier
-  /*  public $transactions;
-    public $value;
-
-    //edit
-    public $editId;
-
-    public function mount(){
-        $this->transactions = CalculeColonne::all();
-    }
-    public function addTransaction(){
-        $lastTransaction = CalculeColonne::latest()->first();
-        $oldValue = $lastTransaction ? $lastTransaction->value : 0;
-        $difference = $this->value - $oldValue;
-        CalculeColonne::create([
-            'value' => $this->value,
-            'old_value' => $oldValue,
-            'difference' => $difference,
-        ]);
-        $this->transactions = CalculeColonne::all();
-        $this->value = '';
-    }
-
-    public function editTransaction($id){
-        $transaction = CalculeColonne::find($id);
-        $this->editId = $id;
-        $this->value = $transaction->value;
-    }
-    public function updateTransaction(){
-        $transaction = CalculeColonne::find($this->editId);
-        $oldValue = $transaction->old_value;
-        $difference = $this->value - $oldValue;
-        $transaction->update([
-            'value' => $this->value,
-            'difference' => $difference,
-        ]);
-        $this->transactions = CalculeColonne::all();
-        $this->value = '';
-        $this->editId = null;
-    }*/
-
-
-
-
-
-
-
-    /*public $previousValue;
-    public $value;
-    public $difference;
-
-    public function mount(){
-        $lastTransaction = CalculeColonne::latest()->first();
-        $this->previousValue = $lastTransaction ? $lastTransaction->value : 1;
-        }
-    public function submit()
+    public function create()
     {
         $this->validate([
-            'value'=>'numeric|required',
+            'col1' => 'required|numeric',
+            'col2' => 'required|numeric',
+            'col3' => 'required|numeric',
         ]);
 
-        $this->difference = $this->value - $this->previousValue;
+        $avg_col = ($this->col1 + $this->col2 + $this->col3) / 3;
+        $result_col = $avg_col * 0.8 * 1.732;
+
         CalculeColonne::create([
-         'value'=>$this->value,
-         'difference'=>$this->difference,
+            'col1' => $this->col1,
+            'col2' => $this->col2,
+            'col3' => $this->col3,
+            'avg_col' => $avg_col,
+            'result_col' => $result_col,
         ]);
-        $this->previousValue = $this->value;
-        $this->reset('value');
-    }*/
- /*   public function render()
+
+        $this->resetInputs();
+    }
+
+    public function edit($id)
     {
-        $values = CalculeColonne::all();
-        return view('livewire.calcules',['values'=>$values])
-        ->extends("layouts.principal")
-        ->section("contenu");
-    }*/
+        $data = CalculeColonne::findOrFail($id);
+        $this->dataId = $id;
+        $this->col1 = $data->col1;
+        $this->col2 = $data->col2;
+        $this->col3 = $data->col3;
+    }
+
+    public function update()
+    {
+        $this->validate([
+            'col1' => 'required|numeric',
+            'col2' => 'required|numeric',
+            'col3' => 'required|numeric',
+        ]);
+
+        if ($this->dataId) {
+            $data = CalculeColonne::find($this->dataId);
+            $avg_col = ($this->col1 + $this->col2 + $this->col3) / 3;
+            $result_col = $avg_col * 0.8 * 1.732;
+
+            $data->update([
+                'col1' => $this->col1,
+                'col2' => $this->col2,
+                'col3' => $this->col3,
+                'avg_col' => $avg_col,
+                'result_col' => $result_col,
+            ]);
+
+            $this->resetInputs();
+        }
+    }
+
+    private function resetInputs()
+    {
+        $this->col1 = '';
+        $this->col2 = '';
+        $this->col3 = '';
+    }
+
+   
 }

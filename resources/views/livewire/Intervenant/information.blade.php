@@ -1,14 +1,19 @@
-<div>
-
-<!DOCTYPE html>
+<div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        
+		<!DOCTYPE html>
 <html lang="en">
 <head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Comptable" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale1.0">
-	<title>Inforamtion</title>
 	<link rel="stylesheet" href="{{asset('css/information.css')}}">
-    <link rel="stylesheet" type="text/css" href="{{asset('css/print.css')}}">
 </head>
 <body>
 	<div class="container">
@@ -19,7 +24,7 @@
 		<h1>{{optional($selectedId)->nom}} {{optional($selectedId)->prenom}}</h1>
 		<h3>{{optional($selectedId)->service}}</h3>
 		</div>
-		<h2>Information Personnel</h2>
+		<h4>Information Personnel</h4>
 		<div class="main">
 		<div class="left">
         <p><strong>Nom :</strong> {{optional($selectedId)->nom}}</p>
@@ -27,17 +32,23 @@
         <p><strong>Service :</strong> {{optional($selectedId)->service}}</p>
         <p><strong>Matricule :</strong> {{optional($selectedId)->matricule}}</p>
     
-        
-        <button onclick="window.print();" class="enregistrer" >Imprimer</button>
 		</div>
-		<div class="right">		
+		<div class="right1">		
         	<p><strong>Sexe :</strong> {{optional($selectedId)->sexe}}</p>
         	<p><strong>Telephone :</strong> {{optional($selectedId)->telephone}}</p>
-            <p><strong>Date d'embauche :</strong> {{date('d/m/y',strtotime(optional($selectedId)->dateEmbauche))}}</p>
+            <p><strong>Embauché :</strong> {{date('d/m/y',strtotime(optional($selectedId)->dateEmbauche))}}</p>
 		</div>
 		</div>
 	</div>
 </body>
 </html>
 
-</div>
+    </div>
+  </div>
+
+
+
+
+
+
+

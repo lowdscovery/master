@@ -14,6 +14,7 @@ use App\Http\Livewire\Maintenance;
 use App\Http\Livewire\Mesure;
 use App\Http\Livewire\Ouvrage;
 use App\Http\Livewire\Calcules;
+use App\Http\Livewire\Depense;
 use App\Http\Livewire\Rapport;
 use App\Http\Livewire\Teste;
 use App\Http\Livewire\Uploads;
@@ -83,6 +84,20 @@ Route::group([
     ], function(){
 
         Route::get("/bandes", Bande::class)->name("bande.bande")->middleware("auth.manager");
+    });
+});
+//
+Route::group([
+    "middleware" => ["auth", "auth.manager"],
+    'as' => 'manager.'
+], function(){
+
+    Route::group([
+        "prefix" => "tableau",
+        'as' => 'tableau.'
+    ], function(){
+
+        Route::get("/depenses", Depense::class)->name("depense.depense")->middleware("auth.manager");
     });
 });
 //

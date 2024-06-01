@@ -10,6 +10,7 @@ define("PAGEADDFORM", "add");
 define("PAGELISTFORM", "liste");
 define("INFORMATION", "information");
 define("UPDATEINTERVENANT", "update");
+define("LISTINTERVENANT", "intervenant");
 define("PAGEGRILLE", "grille");
 define("AFFICHAGE", "affichage");
 

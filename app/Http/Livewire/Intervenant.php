@@ -41,7 +41,9 @@ class Intervenant extends Component
       $searchCriteria = "%".$this->search."%";
 
       $data = [
-        "intervenants" => ModelsIntervenant::where("nom", "like", $searchCriteria)->latest()->paginate(5),
+        "intervenants" => ModelsIntervenant::where("nom", "like", $searchCriteria)
+                                            ->Orwhere("prenom", "like", $searchCriteria)
+                                            ->latest()->paginate(5),
         "selectIds" => ModelsIntervenant::where("id",optional($this->selectedId)->id)->get(),
       ];
 
@@ -53,9 +55,14 @@ class Intervenant extends Component
         ->extends("layouts.principal")
         ->section("contenu");
     }
+    public function updatedSearch(){
+      $this->resetPage();
+  }
+  
+
     //showinfo
     public function showInformation(ModelsIntervenant $intervenant){
-      $this->info=INFORMATION;
+   //   $this->info=INFORMATION;
       $this->selectedId = $intervenant;
   }
   //showButton

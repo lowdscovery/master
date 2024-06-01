@@ -1,4 +1,4 @@
- <div class="row p-4 pt-5">
+ <div class="row p-3 pt-2">
           <div class="col-12">
                 
               <div class="card-header d-flex align-items-center" style="background:#6811C4;">
@@ -7,9 +7,9 @@
                 <div class="card-tools d-flex align-items-center ">
                   <div class="float-right">         
                     <select class="form-control" wire:model.live="perPage"> 
-                     <option value="2">2</option>
-                     <option value="3">3</option>
-                     <option value="4">4</option>
+                     <option value="5">5</option>
+                     <option value="10">10</option>
+                     <option value="50">50</option>
                    </select>
                   </div>
                 </div> 

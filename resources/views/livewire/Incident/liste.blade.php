@@ -10,12 +10,12 @@
                           
         
 
-<div class="row p-4" >
+<div class="row p-3 pt-2" >
  <div class="col-12">
      <div class="card">
   
-         <div class="card-header bg-gradient-cyan d-flex align-items-center">
-          <h3 class="card-title flex-grow-1"><i class="nav-icon fas fa-cogs"></i>Liste d'incident</h3>
+         <div class="card-header d-flex align-items-center" style="background-color:#009BFF;">
+          <h3 class="card-title flex-grow-1" style="color:white;"><i class="nav-icon fas fa-cogs"></i>Liste d'incident</h3>
 
             <div class="card-tools d-flex align-items-center ">
                 <div class="input-group input-group-md" style="width: 250px;">

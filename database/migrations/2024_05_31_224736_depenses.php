@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CalculeColonnes extends Migration
+class Depenses extends Migration
 {
     /**
      * Run the migrations.
@@ -13,16 +13,16 @@ class CalculeColonnes extends Migration
      */
     public function up()
     {
-        Schema::create('calcule_colonnes', function (Blueprint $table) {
+        Schema::create('depenses', function(Blueprint $table){
             $table->id();
-            $table->float('col1');
-            $table->float('col2');
-            $table->float('col3');
-            $table->float('avg_col')->nullable();
-            $table->float('result_col')->nullable();
+            $table->date('Date');
+            $table->string('Motif');
+            $table->string('Designation');
+            $table->string('Unite');
+            $table->string('PrixUnitaire');
+            $table->string('Quantite');
+            $table->string('Total')->nullable();
             $table->timestamps();
-
-    
         });
     }
 

@@ -30,6 +30,12 @@
                 </a>
               </li>
               <li class="nav-item">
+                <a href="{{route('manager.tableau.depense.depense')}}" class="nav-link {{setMenuActive('manager.tableau.depense.depense')}}">
+                  <i class="nav-icon fas fa-chart-line"></i>
+                  <p>Depense</p>
+                </a>
+              </li>
+              <li class="nav-item">
                 <a href="{{route('manager.tableau.bande.bande')}}" class="nav-link {{setMenuActive('manager.tableau.bande.bande')}}">
                   <i class="nav-icon fas fa-swatchbook"></i>
                   <p>Bande d'essai</p>

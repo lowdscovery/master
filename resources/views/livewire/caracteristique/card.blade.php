@@ -1,17 +1,10 @@
  
-<div class="container-fluid px-4">
-<h1 class="" style="font-family: montserrat; color:#A69DE2;">Gestion de la production eau de la jirama</h1>
+<div class="container-fluid px-4 pt-3">
 <form role="form" wire:submit.prevent="addCaract()">
-<ol class="breadcrumb mb-4">
-<li class="breadcrumb-item active">Home</li>
- @if (count($forages) > 0) 
-<li class="breadcrumb-item active"> <button type="submit" class="btn btn-primary" >Enregistrer</button></li>
- @endif
- </ol>
   <div class="row">
 
     <div class="col-xl-3 col-md-6">
-      <div class="card bg-primary text-white mb-4">
+      <div class="card bg-primary text-white mb-2">
         <div class="card-body">Districts</div>
           <div class="card-footer d-flex align-items-center justify-content-between">
           @if ($card)
@@ -22,7 +15,7 @@
             @endforeach                          
             </select>
           @else
-          <a class="small text-white stretched-link" href="" wire:click.prevent="card()">Stephan</a>
+          <a class="small text-white stretched-link" href="" wire:click.prevent="card()">Selectionner la liste  de district</a>
           <div class="small text-white"> <i class="fas fa-angle-right"> </i> </div>
         @endif
 		  
@@ -31,7 +24,7 @@
     </div>
 
 	<div class="col-xl-3 col-md-6">
-      <div class="card bg-info text-white mb-4">
+      <div class="card bg-info text-white mb-2">
         <div class="card-body">Sites</div>
           <div class="card-footer d-flex align-items-center justify-content-between">
 
@@ -43,7 +36,7 @@
                     @endforeach                          
                 </select>
             @else
-            <a class="small text-white stretched-link" href="" wire:click.prevent="card()">Stephan</a>
+            <a class="small text-white stretched-link" href="" wire:click.prevent="card()">Selectionner la liste  de site</a>
             <div class="small text-white"> <i class="fas fa-angle-right"> </i> </div>
         @endif
 		  
@@ -52,7 +45,7 @@
     </div>
 
     <div class="col-xl-3 col-md-6">
-      <div class="card bg-success text-white mb-4">
+      <div class="card bg-success text-white mb-2">
         <div class="card-body">Forage</div>
           <div class="card-footer d-flex align-items-center justify-content-between">
 		 
@@ -64,7 +57,7 @@
                     @endforeach                          
                 </select>
             @else
-            <a class="small text-white stretched-link" href="" wire:click.prevent="card()">Stephan</a>
+            <a class="small text-white stretched-link" href="" wire:click.prevent="card()">Selectionner la liste  de forage</a>
             <div class="small text-white"> <i class="fas fa-angle-right"> </i> </div>
         @endif
 
@@ -73,7 +66,7 @@
     </div>
 
     <div class="col-xl-3 col-md-6">
-      <div class="card bg-warning text-white mb-4">
+      <div class="card bg-warning text-white mb-2">
         <div class="card-body">Type</div>
           <div class="card-footer d-flex align-items-center justify-content-between">
 		  
@@ -85,7 +78,7 @@
                     @endforeach                          
                 </select>
             @else
-            <a class="small text-white stretched-link" href="" wire:click.prevent="card()">Stephan</a>
+            <a class="small text-white stretched-link" href="" wire:click.prevent="card()">Selectionner le type</a>
             <div class="small text-white"> <i class="fas fa-angle-right"> </i> </div>
         @endif
 
