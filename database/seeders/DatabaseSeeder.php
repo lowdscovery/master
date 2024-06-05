@@ -18,7 +18,7 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-         User::factory(1)->create();
+         User::factory(3)->create();
       /*   CaracteristiqueMoteur::factory(10)->create();
          MoteurPompe::factory(10)->create();
          MoteurElectrique::factory(10)->create();
@@ -29,8 +29,10 @@ class DatabaseSeeder extends Seeder
          $this->call(SiteTableSeeder::class);
          $this->call(RessourceTableSeeder::class);
          $this->call(ForageTableSeeder::class);
+
          User::find(1)->roles()->attach(1);
-    //     User::find(2)->roles()->attach(2);
+         User::find(2)->roles()->attach(2);
+         User::find(3)->roles()->attach(3);
 
          
     }

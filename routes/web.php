@@ -45,8 +45,8 @@ Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('ho
 
 
 Route::group([
-    "middleware" => ["auth", "auth.manager"],
-    'as' => 'manager.'
+    "middleware" => ["auth", "auth.admin"],
+    'as' => 'admin.'
 ], function(){
 
     Route::group([
@@ -54,14 +54,14 @@ Route::group([
         'as' => 'habilitations.'
     ], function(){
 
-        Route::get("/utilisateurs", Utilisateurs::class)->name("users.index")->middleware("auth.manager");
+        Route::get("/utilisateurs", Utilisateurs::class)->name("users.index")->middleware("auth.admin");
     });
 });
 
 //
 Route::group([
-    "middleware" => ["auth", "auth.manager"],
-    'as' => 'manager.'
+    "middleware" => ["auth", "auth.admin"],
+    'as' => 'admin.'
 ], function(){
 
     Route::group([
@@ -69,13 +69,13 @@ Route::group([
         'as' => 'caracteristiques.'
     ], function(){
 
-        Route::get("/moteurs", Caracteristique::class)->name("caracteristique.caracteristique")->middleware("auth.manager");
+        Route::get("/moteurs", Caracteristique::class)->name("caracteristique.caracteristique")->middleware("auth.admin");
     });
 });
 //
 Route::group([
-    "middleware" => ["auth", "auth.manager"],
-    'as' => 'manager.'
+    "middleware" => ["auth", "auth.admin"],
+    'as' => 'admin.'
 ], function(){
 
     Route::group([
@@ -83,13 +83,13 @@ Route::group([
         'as' => 'tableau.'
     ], function(){
 
-        Route::get("/bandes", Bande::class)->name("bande.bande")->middleware("auth.manager");
+        Route::get("/bandes", Bande::class)->name("bande.bande")->middleware("auth.admin");
     });
 });
 //
 Route::group([
-    "middleware" => ["auth", "auth.manager"],
-    'as' => 'manager.'
+    "middleware" => ["auth", "auth.admin"],
+    'as' => 'admin.'
 ], function(){
 
     Route::group([
@@ -97,26 +97,26 @@ Route::group([
         'as' => 'tableau.'
     ], function(){
 
-        Route::get("/depenses", Depense::class)->name("depense.depense")->middleware("auth.manager");
+        Route::get("/depenses", Depense::class)->name("depense.depense")->middleware("auth.admin");
     });
 });
 //
-Route::get("/intervenants", Intervenant::class)->name("Intervenant.intervenant")->middleware("auth.manager");
-Route::get("/incidents", Incident::class)->name("Incident.incident")->middleware("auth.manager");
-Route::get("/uploads", Uploads::class)->name("uploads")->middleware("auth.manager");
-Route::get("/tes", Teste::class)->name("teste")->middleware("auth.manager");
-Route::get("/maintenances", Maintenance::class)->name("maintenance.maintenance")->middleware("auth.manager");
-Route::get("/commandes", Commande::class)->name("commande.commande")->middleware("auth.manager");
-Route::get("/bis", BisList::class)->name("bis.bis")->middleware("auth.manager");
-Route::get("/mesures", Mesure::class)->name("mesure.mesure")->middleware("auth.manager");
-Route::get("/rapports", Rapport::class)->name("rapport.rapport")->middleware("auth.manager");
-Route::get("/armoires", Armoire::class)->name("armoire.armoire")->middleware("auth.manager");
-Route::get("/calcule", Calcules::class)->name("calcules")->middleware("auth.manager");
-//Route::get("/Affichage", Affichage::class)->name("affichage.affichage")->middleware("auth.manager");
+Route::get("/intervenants", Intervenant::class)->name("Intervenant.intervenant")->middleware("auth.admin");
+Route::get("/incidents", Incident::class)->name("Incident.incident")->middleware("auth.admin");
+Route::get("/uploads", Uploads::class)->name("uploads")->middleware("auth.admin");
+Route::get("/tes", Teste::class)->name("teste")->middleware("auth.admin");
+Route::get("/maintenances", Maintenance::class)->name("maintenance.maintenance")->middleware("auth.admin");
+Route::get("/commandes", Commande::class)->name("commande.commande")->middleware("auth.admin");
+Route::get("/bis", BisList::class)->name("bis.bis")->middleware("auth.admin");
+Route::get("/mesures", Mesure::class)->name("mesure.mesure")->middleware("auth.admin");
+Route::get("/rapports", Rapport::class)->name("rapport.rapport")->middleware("auth.admin");
+Route::get("/armoires", Armoire::class)->name("armoire.armoire")->middleware("auth.admin");
+Route::get("/calcule", Calcules::class)->name("calcules")->middleware("auth.admin");
+//Route::get("/Affichage", Affichage::class)->name("affichage.affichage")->middleware("auth.admin");
 
 Route::group([
-    "middleware" => ["auth", "auth.manager"],
-    'as' => 'manager.'
+    "middleware" => ["auth", "auth.admin"],
+    'as' => 'admin.'
 ], function(){
 
     Route::group([
@@ -124,14 +124,14 @@ Route::group([
         'as' => 'caracteristiques.'
     ], function(){
 
-        Route::get("/forages", Ouvrage::class)->name("ouvrage.ouvrage")->middleware("auth.manager");
+        Route::get("/forages", Ouvrage::class)->name("ouvrage.ouvrage")->middleware("auth.admin");
     });
 });
 
 
 //Route::get("/notify",[App\Http\Controllers\HomeController::class, 'notify']);
 Route::get("/markasred/{id}",[App\Http\Controllers\HomeController::class, 'markasred'])->name('markasred');
-//Route::get("/markasred",Utilisateurs::class)->name('markasred')->middleware("auth.manager");
+//Route::get("/markasred",Utilisateurs::class)->name('markasred')->middleware("auth.admin");
 
 /* voir information de php
 route::get('/teste/page', function(){

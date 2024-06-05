@@ -99,6 +99,7 @@ class Bande extends Component
                  "Pression" => $this->Pression,          
              ]
           );
+        $this->emit('record');
          $this->resetErrorBag();
          $this->resetInputs();
          $this->dispatchBrowserEvent("showSuccessMessage", ["message"=>"Votre demande reussi avec succès!"]);

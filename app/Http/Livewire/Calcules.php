@@ -8,83 +8,37 @@ use Illuminate\Support\Facades\DB;
 
 class Calcules extends Component
 {
-    public $data;
-    public $col1;
-    public $col2;
-    public $col3;
-    public $avg_col;
-    public $result_col;
-    public $dataId;
+    public $newItem;
+
+    public function addItemToSecondRow()
+    {
+        $this->validate([
+            'newItem' => 'required|string|max:255',
+        ]);
+
+        $items = CalculeColonne::all();
+
+        if ($items->count() < 2) {
+            // Si moins de 2 éléments, ajouter à la fin
+            CalculeColonne::create(['name' => $this->newItem]);
+        } else {
+            // Insérer en deuxième position
+            $secondItem = $items[1];
+            $secondItem->update(['name' => $this->newItem]);
+        }
+
+        $this->newItem = '';
+    }
 
     public function render()
     {
-        $this->data = CalculeColonne::all();
-        return view('livewire.calcules')
+        return view('livewire.calcules', [
+            'items' => CalculeColonne::all(),
+        ])
         ->extends("layouts.principal")
         ->section("contenu");
-    }
-
-    public function create()
-    {
-        $this->validate([
-            'col1' => 'required|numeric',
-            'col2' => 'required|numeric',
-            'col3' => 'required|numeric',
-        ]);
-
-        $avg_col = ($this->col1 + $this->col2 + $this->col3) / 3;
-        $result_col = $avg_col * 0.8 * 1.732;
-
-        CalculeColonne::create([
-            'col1' => $this->col1,
-            'col2' => $this->col2,
-            'col3' => $this->col3,
-            'avg_col' => $avg_col,
-            'result_col' => $result_col,
-        ]);
-
-        $this->resetInputs();
-    }
-
-    public function edit($id)
-    {
-        $data = CalculeColonne::findOrFail($id);
-        $this->dataId = $id;
-        $this->col1 = $data->col1;
-        $this->col2 = $data->col2;
-        $this->col3 = $data->col3;
-    }
-
-    public function update()
-    {
-        $this->validate([
-            'col1' => 'required|numeric',
-            'col2' => 'required|numeric',
-            'col3' => 'required|numeric',
-        ]);
-
-        if ($this->dataId) {
-            $data = CalculeColonne::find($this->dataId);
-            $avg_col = ($this->col1 + $this->col2 + $this->col3) / 3;
-            $result_col = $avg_col * 0.8 * 1.732;
-
-            $data->update([
-                'col1' => $this->col1,
-                'col2' => $this->col2,
-                'col3' => $this->col3,
-                'avg_col' => $avg_col,
-                'result_col' => $result_col,
-            ]);
-
-            $this->resetInputs();
-        }
-    }
-
-    private function resetInputs()
-    {
-        $this->col1 = '';
-        $this->col2 = '';
-        $this->col3 = '';
+       // ->extends("layouts.invoice")
+       // ->section("contenu");
     }
 
    

@@ -16,15 +16,16 @@ class UserFactory extends Factory
     public function definition()
     {
         return [
-            'nom' =>"RAHERINIAINA",
-            'prenom' =>"Georges Aimé Stephan",
-            'sexe' =>"Homme",
-            'telephone1' =>"0326912132",
-            'pieceIdentite' =>"CIN",
-            'numeroPieceIdentite' =>"411011014779",
-            'email' =>"stephangeorges980@gmail.com",
-            'password' =>Hash::make("st0897++"),
-            'photo' =>"",         
+            'nom' => $this->faker->lastName,
+            'prenom' => $this->faker->firstName,
+            'sexe' => array_rand(["H", "F"], 1),
+            'telephone1' => $this->faker->unique()->phoneNumber,
+            'pieceIdentite' => array_rand(["CNI", "PASSPORT", "PERMIS DE CONDUIRE"], 1),
+            'numeroPieceIdentite' => $this->faker->unique()->bankAccountNumber,
+            'email' => $this->faker->unique()->safeEmail(),
+            'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi',
+            'photo' => "",
+            
             
         ];
     }

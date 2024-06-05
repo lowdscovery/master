@@ -13,9 +13,9 @@
 </li>
 
 
-@can("manager")
-<li class="nav-item {{setMenuClass('manager.tableau.', 'menu-open')}}">
-            <a href="#" class="nav-link {{setMenuClass('manager.tableau.', 'active')}}">
+
+<li class="nav-item {{setMenuClass('admin.tableau.', 'menu-open')}}">
+            <a href="#" class="nav-link {{setMenuClass('admin.tableau.', 'active')}}">
               <i class="nav-icon fas fa-tachometer-alt"></i>
               <p>
                 Tableau de bord
@@ -24,28 +24,22 @@
             </a>
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="#" class="nav-link">
-                  <i class="nav-icon fas fa-chart-line"></i>
-                  <p>Vue globale</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="{{route('manager.tableau.depense.depense')}}" class="nav-link {{setMenuActive('manager.tableau.depense.depense')}}">
+                <a href="{{route('admin.tableau.depense.depense')}}" class="nav-link {{setMenuActive('admin.tableau.depense.depense')}}">
                   <i class="nav-icon fas fa-chart-line"></i>
                   <p>Depense</p>
                 </a>
               </li>
               <li class="nav-item">
-                <a href="{{route('manager.tableau.bande.bande')}}" class="nav-link {{setMenuActive('manager.tableau.bande.bande')}}">
+                <a href="{{route('admin.tableau.bande.bande')}}" class="nav-link {{setMenuActive('admin.tableau.bande.bande')}}">
                   <i class="nav-icon fas fa-swatchbook"></i>
                   <p>Bande d'essai</p>
                 </a>
             </li>
      </ul>
 </li>
-
-<li class="nav-item {{setMenuClass('manager.habilitations.', 'menu-open')}}">
-            <a href="#" class="nav-link {{setMenuClass('manager.habilitations.', 'active')}}">
+@can("admin")
+<li class="nav-item {{setMenuClass('admin.habilitations.', 'menu-open')}}">
+            <a href="#" class="nav-link {{setMenuClass('admin.habilitations.', 'active')}}">
               <i class=" nav-icon fas fa-user-shield"></i>
               <p>
                 Habilitations
@@ -54,16 +48,16 @@
             </a>
             <ul class="nav nav-treeview">
               <li class="nav-item ">
-                <a href="{{route('manager.habilitations.users.index')}}" class="nav-link {{setMenuActive('manager.habilitations.users.index')}}">
+                <a href="{{route('admin.habilitations.users.index')}}" class="nav-link {{setMenuActive('admin.habilitations.users.index')}}">
                   <i class=" nav-icon fas fa-users-cog"></i>
                   <p>Utilisateurs</p>
                 </a>
               </li>
             </ul>
         </li>
-
-        <li class="nav-item {{setMenuClass('manager.caracteristiques.', 'menu-open')}}">
-            <a href="#" class="nav-link {{setMenuClass('manager.caracteristiques.', 'active')}}">
+ @endcan
+        <li class="nav-item {{setMenuClass('admin.caracteristiques.', 'menu-open')}}">
+            <a href="#" class="nav-link {{setMenuClass('admin.caracteristiques.', 'active')}}">
                 <i class="nav-icon fas fa-cogs"></i>
                 <p>
                 Caracteristiques
@@ -72,8 +66,8 @@
             </a>
             <ul class="nav nav-treeview">
                 <li class="nav-item">
-                    <a href="{{route('manager.caracteristiques.caracteristique.caracteristique')}}"
-                        class="nav-link {{setMenuActive('manager.caracteristiques.caracteristique.caracteristique')}}">
+                    <a href="{{route('admin.caracteristiques.caracteristique.caracteristique')}}"
+                        class="nav-link {{setMenuActive('admin.caracteristiques.caracteristique.caracteristique')}}">
                     <i class="nav-icon far fa-circle"></i>
                     <p>Materiels</p>
                     </a>
@@ -81,8 +75,8 @@
             </ul>
              <ul class="nav nav-treeview">
                 <li class="nav-item">
-                    <a href="{{route('manager.caracteristiques.ouvrage.ouvrage')}}"
-                        class="nav-link {{setMenuActive('manager.caracteristiques.ouvrage.ouvrage')}}">
+                    <a href="{{route('admin.caracteristiques.ouvrage.ouvrage')}}"
+                        class="nav-link {{setMenuActive('admin.caracteristiques.ouvrage.ouvrage')}}">
                     <i class="nav-icon far fa-circle"></i>
                     <p>Forages</p>
                     </a>
@@ -155,7 +149,6 @@
                 </p>
             </a>
         </li>
-        
-  @endcan
+    
 </ul>
 </nav>

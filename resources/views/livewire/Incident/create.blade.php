@@ -7,9 +7,7 @@
 <div class="modal-body">
  <div class="container-fluid">                                
    <div class="row p-2 pt-3">
-     <div class="col-md-6">
-        <div class="card card-teal">
-            <div class="card-body">
+     <div class="col-md-6">   
            <form wire:submit.prevent="{{ $editId ? 'updateTransaction' : 'addTransaction'}}">
                     <div class="form-group">
                         <label >Date</label>
@@ -50,14 +48,10 @@
                      <option value="{{$caracteristique->id}}">{{$caracteristique->ressources->nom}}</option>
                      @endforeach
                     </select>
-                   </div>
-             </div>    
+                   </div>  
         </div>  
-    </div>
   <!-- separation -->     
-        <div class="col-md-6">
-          <div class="card card-teal">       
-            <div class="card-body">  
+        <div class="col-md-6">            
                     <div class="form-group">
                         <label >Cause</label>
                         <input type="text"  class="form-control @error("cause") is-invalid 
@@ -94,9 +88,7 @@
                         <option value="{{$inter->id}}">{{$inter->nom}} {{$inter->prenom}}</option>
                         @endforeach
                         </select>
-                    </div>
-            </div>         
-          </div>        
+                    </div>         
         </div>
         <div class="col-md-6">
       <button type="submit" class="btn btn-primary" style="margin-right: 10px;">{{ $editId ? 'modifier Incident' : 'Ajout Incident'}}</button>
