@@ -73,7 +73,7 @@ class Utilisateurs extends Component
                 'editUser.pieceIdentite' => ['required'],
                 'editUser.sexe' => 'required',
                 'editUser.numeroPieceIdentite' => ['required','numeric', Rule::unique("users", "pieceIdentite")->ignore($this->editUser['id']) ],
-                'editUser.password' => 'required|string|min:8',
+             //   'editUser.password' => 'required|string|min:8',
             ];
         }
 
@@ -204,7 +204,7 @@ public function updateUser(){
     $user->fill($this->editUser);
  //   $user->fill($this->editUser[Hash::make($this->editUser["password"])]);
     if($this->editImage){
-        $path = $this->editImage->store("upload", "public");
+        $path = $this->editImage->store("files", "public");
         $imagePath = "storage/".$path;
         Storage::disk("local")->delete(str_replace("storage/", "public/", $user->photo));
         $user->photo = $imagePath;

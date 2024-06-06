@@ -1,9 +1,11 @@
 <?php
 
+use App\Http\Controllers\AdminController;
 use App\Http\Controllers\UserController;
 use App\Http\Livewire\Affichage;
 use App\Http\Livewire\Armoire;
 use App\Http\Livewire\Bande;
+use App\Http\Livewire\Bassin;
 use App\Http\Livewire\BisList;
 use App\Http\Livewire\Caracteristique;
 use App\Http\Livewire\Commande;
@@ -15,6 +17,8 @@ use App\Http\Livewire\Mesure;
 use App\Http\Livewire\Ouvrage;
 use App\Http\Livewire\Calcules;
 use App\Http\Livewire\Depense;
+use App\Http\Livewire\Password;
+use App\Http\Livewire\Profile;
 use App\Http\Livewire\Rapport;
 use App\Http\Livewire\Teste;
 use App\Http\Livewire\Uploads;
@@ -102,7 +106,7 @@ Route::group([
 });
 //
 Route::get("/intervenants", Intervenant::class)->name("Intervenant.intervenant")->middleware("auth.admin");
-Route::get("/incidents", Incident::class)->name("Incident.incident")->middleware("auth.admin");
+Route::get("/incidents", Incident::class)->name("Incident.incident")->middleware("auth.admin"); 
 Route::get("/uploads", Uploads::class)->name("uploads")->middleware("auth.admin");
 Route::get("/tes", Teste::class)->name("teste")->middleware("auth.admin");
 Route::get("/maintenances", Maintenance::class)->name("maintenance.maintenance")->middleware("auth.admin");
@@ -113,6 +117,8 @@ Route::get("/rapports", Rapport::class)->name("rapport.rapport")->middleware("au
 Route::get("/armoires", Armoire::class)->name("armoire.armoire")->middleware("auth.admin");
 Route::get("/calcule", Calcules::class)->name("calcules")->middleware("auth.admin");
 //Route::get("/Affichage", Affichage::class)->name("affichage.affichage")->middleware("auth.admin");
+Route::get("/profile", Profile::class)->name("profile")->middleware("auth.admin");
+Route::get("/password", Password::class)->name("password")->middleware("auth.admin");
 
 Route::group([
     "middleware" => ["auth", "auth.admin"],
@@ -125,6 +131,20 @@ Route::group([
     ], function(){
 
         Route::get("/forages", Ouvrage::class)->name("ouvrage.ouvrage")->middleware("auth.admin");
+    });
+});
+//bassin
+Route::group([
+    "middleware" => ["auth", "auth.admin"],
+    'as' => 'admin.'
+], function(){
+
+    Route::group([
+        "prefix" => "caracteristiques",
+        'as' => 'caracteristiques.'
+    ], function(){
+
+        Route::get("/bassins", Bassin::class)->name("bassin.bassin")->middleware("auth.admin");
     });
 });
 

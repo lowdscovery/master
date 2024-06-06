@@ -28,7 +28,7 @@ class Bande extends Component
     public $graph= false;
 
     public function shwoGraph(){
-        $this->graph=true;
+        //$this->graph=true;
     }
     public function cacheGraph(){
         $this->graph=false;
@@ -99,6 +99,7 @@ class Bande extends Component
                  "Pression" => $this->Pression,          
              ]
           );
+          $this->emit('userProfileUpdated');
         $this->emit('record');
          $this->resetErrorBag();
          $this->resetInputs();
@@ -156,6 +157,7 @@ class Bande extends Component
                 "Pression" => $this->Pression, 
                
             ]);
+            $this->emit('userProfileUpdated');
             $this->resetInputs();
         }
         $this->dispatchBrowserEvent("showSuccessMessage", ["message"=> "Bande d'essai mis à jour avec succès!"]);

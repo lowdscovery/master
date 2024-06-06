@@ -12,10 +12,7 @@
         <div class="card">
             <div class="card-header bg-gradient-primary d-flex align-items-center">
                 <h3 class="card-title flex-grow-1"><i class="fa fa-list fa-2x"></i> Mesure </h3>
-
                 <div class="card-tools d-flex align-items-center ">
-                    <a href="" class="btn btn-link text-white mr-4 d-block"><i class="fas fa-long-arrow-alt-left"></i> Retourner
-                        vers la liste</a>
 
                     <a class="btn btn-link btn-db text-white mr-4 d-block" wire:click="showInput()"><i
                             class="fas fa-user-plus"></i> Nouveau Mesure</a>

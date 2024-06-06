@@ -68,6 +68,10 @@
 @include("livewire.depense.edit")
 </div>        
 
+@if ($impression)
+ @include("livewire.depense.imprimer") 
+@else
+  
 <div class="row p-4" >
  <div class="col-12">
      <div class="card">
@@ -75,7 +79,7 @@
          <div class="card-header bg-gradient-cyan d-flex align-items-center">
           <h3 class="card-title flex-grow-1"><i class="nav-icon fas fa-cogs"></i>Depense</h3>
             <div class="card-tools d-flex align-items-center ">
-                      
+      <a wire:loading.attr="disabled" wire:click.prevent="showImpression()" class="btn btn-primary mr-4 d-block" style="background-color:#00F2D8;"><i class="fas fa-user-plus"></i> Imprimer</a>
                 <div class="input-group input-group-md" style="width: 250px;">
             <input type="text" name="table_search" wire:model.debounce.250ms="search" class="form-control float-right" placeholder="Search">
 
@@ -165,7 +169,7 @@
 </div>
 </div>
 </div>
-
+@endif
 
 <script>
     window.addEventListener("showSuccessMessage", event=>{

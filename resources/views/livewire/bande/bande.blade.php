@@ -299,6 +299,14 @@
 </div>
 
 <script>
+    document.addEventListener('livewire:load', function () {
+        Livewire.on('userProfileUpdated', function () {
+            location.reload();
+        });
+    });
+</script>
+
+<script>
     window.addEventListener("showSuccessMessage", event=>{
         Swal.fire({
                 position: 'top-end',
