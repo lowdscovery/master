@@ -17,7 +17,7 @@
 
 <div class="lockscreen-wrapper">
 
-<div class="lockscreen-name">{{$user->nom}} {{$user->prenom}}</div>
+<div class="lockscreen-name" style="padding-left:100px;">{{$user->nom}} {{$user->prenom}}</div>
 
 <div class="lockscreen-item">
 

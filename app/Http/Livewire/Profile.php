@@ -79,8 +79,8 @@ class Profile extends Component
 
         // Rafraîchit les données utilisateur après la mise à jour
         $this->emit('userProfileUpdated');
-
-        session()->flash('message', 'Profil mis à jour avec succès.');
+        $this->dispatchBrowserEvent("showSuccessMessage", ["message"=> "Profile à jour avec succès!"]);
+       // session()->flash('message', 'Profil mis à jour avec succès.');
     }
 
     public function render()

@@ -1,10 +1,6 @@
 
 <div style="min-height: 1604.8px;">
-    @if (session()->has('message'))
-        <div style="color: green;">
-            {{ session('message') }}
-        </div>
-    @endif
+
 <section class="content pt-3">
 <div class="container-fluid">
 <div class="row">
@@ -14,21 +10,27 @@
 <div class="card-body box-profile">
 <div class="text-center">
  @if ($photo)
-    <img src="{{ $photo->temporaryUrl() }}" alt="Image de profil" class="profile-user-img img-fluid img-circle">
+    <img src="{{ $photo->temporaryUrl() }}" width="120" class="img-fluid rounded-circle" style="height:120px;border: 6px groove #38E884;">
 @else
-<img class="profile-user-img img-fluid img-circle" src="{{Auth::user()->photo}}" alt="Image de profil">
+@if (Auth::user()->photo !=null)
+    <img class="img-fluid rounded-circle" style="height:120px;border: 6px groove #38E884;" width="120" src="{{Auth::user()->photo}}">
+@else
+   <img src="{{asset("image/user.png")}}" class="img-fluid rounded-circle" style="height:120px;border: 6px groove #38E884;" width="120">
 @endif
+@endif
+
 </div>
-<h3 class="profile-username text-center ellipsis">{{Auth::user()->nom}} {{Auth::user()->prenom}}</h3>
+<p class="text-center pt-2 ellipsis" style="font-size:18px;">{{Auth::user()->nom}} {{Auth::user()->prenom}}</p>
 <p class="text-muted text-center">{{getRolesName()}}</p>
-<input type="file" id="photo" wire:model="photo">
-<a href="#" class="btn btn-primary btn-block" wire:click="updateProfile()"><b>Change picture</b></a>
+<input type="file" class="form-control" id="photo" wire:model="photo" title="Selectionner le profile">
+<div class="pt-2">
+<button type="submit" class="btn btn-primary btn-block" wire:click="updateProfile()"><b>Change picture</b></button>
+</div>
 </div>
 </div>
 
 
 <div class="card card-primary">
-
 
 </div>
 
@@ -51,42 +53,51 @@
         <div class="form-group row">
         <label for="nom" class="col-sm-2 col-form-label">Nom</label>
         <div class="col-sm-10">
-        <input type="text" class="form-control" id="nom" placeholder="Nom" wire:model.lazy="nom">
+        <input type="text" class="form-control" id="nom" placeholder="Nom" wire:model.lazy="nom" required="required" title="Le nom doit être en majuscule" pattern="[A-Z]+">
         @error('nom') <span style="color: red;">{{ $message }}</span> @enderror
         </div>
         </div>
         <div class="form-group row">
         <label for="prenom" class="col-sm-2 col-form-label">Prenom</label>
         <div class="col-sm-10">
-        <input type="text" class="form-control" id="prenom" placeholder="Prenom" wire:model.lazy="prenom">
+        <input type="text" class="form-control" id="prenom" placeholder="Prenom" wire:model.lazy="prenom" required="required">
         @error('prenom') <span style="color: red;">{{ $message }}</span> @enderror
         </div>
         </div>
         <div class="form-group row">
         <label for="sexe" class="col-sm-2 col-form-label">Sexe</label>
         <div class="col-sm-10">
-        <input type="text" class="form-control" id="sexe" placeholder="sexe" wire:model.lazy="sexe">
+        <select class="form-control" wire:model.lazy="sexe" required="required">
+            <option value=""> </option>
+            <option value="Homme">Homme</option>
+            <option value="Femme">Femme</option>
+        </select>
         @error('sex') <span style="color: red;">{{ $message }}</span> @enderror
         </div>
         </div>
         <div class="form-group row">
         <label for="piece" class="col-sm-2 col-form-label">Piece d'identité</label>
         <div class="col-sm-10">
-        <input type="text" class="form-control" id="piece" placeholder="Piece d'identite" wire:model.lazy="pieceIdentite">
+        <select class="form-control" wire:model.lazy="pieceIdentite" required="required">
+            <option value=""> </option>
+            <option value="CIN">CIN</option>
+            <option value="PASSPORT">PASSPORT</option>
+            <option value="PERMIS DE CONDUIRE">PERMIS DE CONDUIRE</option>
+        </select>
         @error('pieceIdentite') <span style="color: red;">{{ $message }}</span> @enderror
         </div>
         </div>
         <div class="form-group row">
         <label for="numero" class="col-sm-2 col-form-label">Numero Identite</label>
         <div class="col-sm-10">
-        <input type="text" class="form-control" id="numero" placeholder="Numero piece d'identite" wire:model.lazy="numeroPieceIdentite">
+        <input type="text" class="form-control" id="numero" placeholder="Numero piece d'identite" wire:model.lazy="numeroPieceIdentite" required="required" title="Le numero de piece d'identité doit être 12 chiffre" pattern="\d{12}">
         @error('numeroPieceIdentite') <span style="color: red;">{{ $message }}</span> @enderror
         </div>
         </div>
         <div class="form-group row">
         <label for="inputEmail" class="col-sm-2 col-form-label">Email</label>
         <div class="col-sm-10">
-        <input type="text" class="form-control" id="inputEmail" placeholder="Email" wire:model.lazy="email">
+        <input type="text" class="form-control" id="inputEmail" placeholder="Email" wire:model.lazy="email" required="required">
         @error('email') <span style="color: red;">{{ $message }}</span> @enderror
         </div>
         </div>
@@ -94,7 +105,7 @@
         <div class="form-group row">
         <label for="telephone" class="col-sm-2 col-form-label">Telephone</label>
         <div class="col-sm-10">
-        <input type="text" class="form-control" id="telephone" placeholder="Telephone" wire:model.lazy="telephone1">
+        <input type="text" class="form-control" id="telephone" placeholder="Telephone" wire:model.lazy="telephone1" required="required" title="Le numero de telephone doit être 10 chiffre" pattern="\d{10}">
         @error('telephone1') <span style="color: red;">{{ $message }}</span> @enderror
         </div>
         </div>
@@ -121,3 +132,17 @@
 </section>
 
 </div>
+
+<script>
+    window.addEventListener("showSuccessMessage", event=>{
+        Swal.fire({
+                position: 'top-end',
+                icon: 'success',
+                toast:true,
+                title: event.detail.message || "Profile mis à jour avec succès!",
+                showConfirmButton: false,
+                timer: 3000
+                }
+            )
+    })
+</script>

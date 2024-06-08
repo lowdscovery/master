@@ -11,13 +11,6 @@ use Livewire\WithFileUploads;
 class Password extends Component
 {
     use WithFileUploads;
-    public $nom;
-    public $prenom;
-    public $sexe;
-    public $telephone1;
-    public $pieceIdentite;
-    public $numeroPieceIdentite;
-    public $email;
     public $password;
     public $password_confirmation;
     public $photo;
@@ -25,13 +18,6 @@ class Password extends Component
     public function mount()
     {
         $user = Auth::user();
-        $this->nom = $user->nom;
-        $this->prenom = $user->prenom;
-        $this->sexe = $user->sexe;
-        $this->telephone1 = $user->telephone1;
-        $this->pieceIdentite = $user->pieceIdentite;
-        $this->numeroPieceIdentite = $user->numeroPieceIdentite;
-        $this->email = $user->email;
     }
 
     public function updatedProfileImage()
@@ -44,25 +30,11 @@ class Password extends Component
     public function updateProfile()
     {
         $this->validate([
-            'nom' => 'required|string|max:255',
-            'prenom' => 'required|string|max:255',
-            'sexe' => 'required|string|max:255',
-            'telephone1' => 'required|numeric',
-            'pieceIdentite' => 'required|string|max:255',
-            'numeroPieceIdentite' => 'required|string|max:255',
-            'email' => 'required|email',
             'password' => 'nullable|string|min:8|confirmed',
             'photo' => 'nullable|image|max:10240', // 1MB Max
         ]);
 
         $user = Auth::user();
-        $user->nom = $this->nom;
-        $user->prenom = $this->prenom;
-        $user->sexe = $this->sexe;
-        $user->telephone1 = $this->telephone1;
-        $user->pieceIdentite = $this->pieceIdentite;
-        $user->numeroPieceIdentite = $this->numeroPieceIdentite;
-        $user->email = $this->email;
 
         if ($this->password) {
             $user->password = Hash::make($this->password);
@@ -77,10 +49,13 @@ class Password extends Component
 
         $user->save();
 
+        $this->password_confirmation="";
+        $this->password="";
+
         // Rafraîchit les données utilisateur après la mise à jour
         $this->emit('userProfileUpdated');
 
-        session()->flash('message', 'Profil mis à jour avec succès.');
+        $this->dispatchBrowserEvent("showSuccessMessage", ["message"=> "Mot de passe à jour avec succès!"]);
     }
 
     public function render()

@@ -69,7 +69,7 @@ Route::group([
 
 //
 Route::group([
-    "middleware" => ["auth", "auth.admin"],
+    "middleware" => ["auth", "auth.manager"],
     'as' => 'admin.'
 ], function(){
 
@@ -78,12 +78,12 @@ Route::group([
         'as' => 'caracteristiques.'
     ], function(){
 
-        Route::get("/moteurs", Caracteristique::class)->name("caracteristique.caracteristique")->middleware("auth.admin");
+        Route::get("/moteurs", Caracteristique::class)->name("caracteristique.caracteristique")->middleware("auth.manager");
     });
 });
 //
 Route::group([
-    "middleware" => ["auth", "auth.admin"],
+    "middleware" => ["auth", "auth.manager"],
     'as' => 'admin.'
 ], function(){
 
@@ -92,12 +92,12 @@ Route::group([
         'as' => 'tableau.'
     ], function(){
 
-        Route::get("/bandes", Bande::class)->name("bande.bande")->middleware("auth.admin");
+        Route::get("/bandes", Bande::class)->name("bande.bande")->middleware("auth.manager");
     });
 });
 //
 Route::group([
-    "middleware" => ["auth", "auth.admin"],
+    "middleware" => ["auth", "auth.manager"],
     'as' => 'admin.'
 ], function(){
 
@@ -106,27 +106,27 @@ Route::group([
         'as' => 'tableau.'
     ], function(){
 
-        Route::get("/depenses", Depense::class)->name("depense.depense")->middleware("auth.admin");
+        Route::get("/depenses", Depense::class)->name("depense.depense")->middleware("auth.manager");
     });
 });
 //
 Route::get("/intervenants", Intervenant::class)->name("Intervenant.intervenant")->middleware("auth.admin");
-Route::get("/incidents", Incident::class)->name("Incident.incident")->middleware("auth.admin"); 
+Route::get("/incidents", Incident::class)->name("Incident.incident")->middleware("auth.employe"); 
 Route::get("/uploads", Uploads::class)->name("uploads")->middleware("auth.admin");
 Route::get("/tes", Teste::class)->name("teste")->middleware("auth.admin");
 Route::get("/maintenances", Maintenance::class)->name("maintenance.maintenance")->middleware("auth.admin");
-Route::get("/commandes", Commande::class)->name("commande.commande")->middleware("auth.admin");
-Route::get("/bis", BisList::class)->name("bis.bis")->middleware("auth.admin");
-Route::get("/mesures", Mesure::class)->name("mesure.mesure")->middleware("auth.admin");
-Route::get("/rapports", Rapport::class)->name("rapport.rapport")->middleware("auth.admin");
-Route::get("/armoires", Armoire::class)->name("armoire.armoire")->middleware("auth.admin");
+Route::get("/commandes", Commande::class)->name("commande.commande")->middleware("auth.manager");
+Route::get("/bis", BisList::class)->name("bis.bis")->middleware("auth.employe");
+Route::get("/mesures", Mesure::class)->name("mesure.mesure")->middleware("auth.manager");
+Route::get("/rapports", Rapport::class)->name("rapport.rapport")->middleware("auth.employe");
+Route::get("/armoires", Armoire::class)->name("armoire.armoire")->middleware("auth.employe");
 Route::get("/calcule", Calcules::class)->name("calcules")->middleware("auth.admin");
 //Route::get("/Affichage", Affichage::class)->name("affichage.affichage")->middleware("auth.admin");
-Route::get("/profile", Profile::class)->name("profile")->middleware("auth.admin");
-Route::get("/password", Password::class)->name("password")->middleware("auth.admin");
+Route::get("/profile", Profile::class)->name("profile");
+Route::get("/password", Password::class)->name("password");
 
 Route::group([
-    "middleware" => ["auth", "auth.admin"],
+    "middleware" => ["auth", "auth.manager"],
     'as' => 'admin.'
 ], function(){
 
@@ -135,12 +135,12 @@ Route::group([
         'as' => 'caracteristiques.'
     ], function(){
 
-        Route::get("/forages", Ouvrage::class)->name("ouvrage.ouvrage")->middleware("auth.admin");
+        Route::get("/forages", Ouvrage::class)->name("ouvrage.ouvrage")->middleware("auth.manager");
     });
 });
 //bassin
 Route::group([
-    "middleware" => ["auth", "auth.admin"],
+    "middleware" => ["auth", "auth.manager"],
     'as' => 'admin.'
 ], function(){
 
@@ -149,7 +149,7 @@ Route::group([
         'as' => 'caracteristiques.'
     ], function(){
 
-        Route::get("/bassins", Bassin::class)->name("bassin.bassin")->middleware("auth.admin");
+        Route::get("/bassins", Bassin::class)->name("bassin.bassin")->middleware("auth.manager");
     });
 });
 
@@ -157,8 +157,10 @@ Route::group([
 //permissions
 Route::get('/manage-products', ManagerProducts::class)->middleware("auth.admin"); //('can:delete, product');//middleware('can:update,App\Models\Product');
 //lockscreen
-Route::get('lockscreen', [ProfileController::class, 'lockscreen'])->name("lockscreen")->middleware("auth.admin");
-Route::post('/lockscreen', [ProfileController::class, 'lockScreenUpdate'])->name("lockscreen")->middleware("auth.admin");
+Route::get('lockscreen', [ProfileController::class, 'lockscreen'])->name("lockscreen");
+Route::post('/lockscreen', [ProfileController::class, 'lockScreenUpdate'])->name("lockscreen");
+
+
 
 
 

@@ -14,17 +14,23 @@
 <div class="card-body box-profile">
 <div class="text-center">
  @if ($photo)
-    <img src="{{ $photo->temporaryUrl() }}" alt="Image de profil" class="profile-user-img img-fluid img-circle">
+    <img src="{{ $photo->temporaryUrl() }}" width="120"  class="img-fluid rounded-circle" style="height:120px;border: 6px groove #38E884;">
 @else
-<img class="profile-user-img img-fluid img-circle" src="{{Auth::user()->photo}}" alt="Image de profil">
+@if (Auth::user()->photo !=null)
+    <img class="img-fluid rounded-circle" style="height:120px;border: 6px groove #38E884;" width="120" src="{{Auth::user()->photo}}">
+@else
+   <img src="{{asset("image/user.png")}}" class="img-fluid rounded-circle" style="height:120px;border: 6px groove #38E884;" width="120">
+@endif
 @endif
 </div>
-<h3 class="profile-username text-center ellipsis">{{Auth::user()->nom}} {{Auth::user()->prenom}}</h3>
+<p class="text-center pt-2 ellipsis" style="font-size:18px;">{{Auth::user()->nom}} {{Auth::user()->prenom}}</p>
 <p class="text-muted text-center">{{getRolesName()}}</p>
 <ul class="list-group list-group-unbordered mb-3">
 </ul>
-<input type="file" id="photo" wire:model="photo">
-<a href="#" class="btn btn-primary btn-block"><b>Change picture</b></a>
+<input type="file" class="form-control" id="photo" wire:model="photo" title="Selectionner le profile">
+<div class="pt-2">
+<button type="submit" class="btn btn-primary btn-block" wire:click="updateProfile()"><b>Change picture</b></button>
+</div>
 </div>
 </div>
 
@@ -83,3 +89,17 @@
 </section>
 
 </div>
+
+<script>
+    window.addEventListener("showSuccessMessage", event=>{
+        Swal.fire({
+                position: 'top-end',
+                icon: 'success',
+                toast:true,
+                title: event.detail.message || "Mot de passe mis à jour avec succès!",
+                showConfirmButton: false,
+                timer: 3000
+                }
+            )
+    })
+</script>

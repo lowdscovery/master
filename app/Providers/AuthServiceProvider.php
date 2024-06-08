@@ -43,8 +43,8 @@ class AuthServiceProvider extends ServiceProvider
         });
 
 
-       /* Gate::after(function (User $user) {
-           return $user->hasRole("manager");
-        });*/
+        Gate::before(function (User $user) {
+           return $user->hasRole("superadmin") ? true : null;
+        });
     }
 }
