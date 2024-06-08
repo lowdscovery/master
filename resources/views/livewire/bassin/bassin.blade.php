@@ -1,10 +1,10 @@
 <div class="pt-2">
     <div class="col-12">
         <div class="card">
-            <div class="card-header bg-gradient-primary d-flex align-items-center">
-                <h3 class="card-title flex-grow-1"><i class="fa fa-list fa-2x"></i> Bassin </h3>
+            <div class="card-header d-flex align-items-center" style="background-color:#004A8F;">
+                <h3 class="card-title flex-grow-1" style="color:white;"><i class="fa fa-list fa-2x"></i> Bassin </h3>
         
-<a class="btn btn-link btn-db text-white mr-4 d-block" wire:click="selected"><i class="fas fa-user-plus"></i> Ajouter Nouveau</a>
+<a class="btn btn-link btn-db text-white mr-4 d-block" wire:click="selected"><i class="fa fa-plus-circle"></i> Ajouter Nouveau</a>
                 </div>
             </div>
 
@@ -130,7 +130,7 @@
                                 <th class="text-center">Longueur</th>
                                 <th class="text-center">Largeur</th>
                                 <th class="text-center">Hauteur</th>
-                                <th class="text-center">Volme</th>
+                                <th class="text-center">Volume</th>
                                 <th class="text-center">Hauteur Aspiration</th>
                                 <th class="text-center">Volume Aspiration</th>
                                 <th class="text-center">Volume Total</th>
@@ -148,7 +148,7 @@
                             <td class="text-center">{{$bassin->HauteurAspiration}}</td>
                             <td class="text-center">{{$bassin->VolumeAspiration}}</td>
                             <td class="text-center">{{$bassin->Total}}</td>
-                            <td class="text-center">{{$bassin->ressource_id}}</td>
+                            <td class="text-center">{{$bassin->ressource->nom}}</td>
                             <td class="text-center">
                                 <button wire:click="editBassin({{$bassin->id}})" class="btn btn-link"> <i class="far fa-edit"></i> </button>
                                 <button class="btn btn-link" wire:click="confirmDelete({{$bassin->id}})"> <i class="far fa-trash-alt"></i> </button>

@@ -33,14 +33,123 @@
 
 
                     <a class="btn btn-link btn-db text-white mr-4 d-block" wire:click="selected"><i
-                            class="fas fa-user-plus"></i> Ajouter Nouveau</a>
+                            class="fas fa-plus"></i> Ajouter Nouveau</a>
 
                 </div>
             </div>
             <!-- /.card-header -->
             <div class="card-body table-responsive p-0 table-striped">
+         @if ($isSelected)
             <form wire:submit.prevent="Ouvrage">
-        @if ($isSelected)
+            <div class="p-4">
+                    <div>
+                    <div class="form-row">
+                    <div class="col">
+     <input type="text" class="form-control @error('addOuvrage.annee') is-invalid @enderror" wire:model="addOuvrage.annee" placeholder="Annee" required="required" title="L'année doit être en 4 chiffre" pattern="\d{4}">
+                    @error("addOuvrage.annee")
+                    <span class="text-danger">{{$message}}</span>
+                    @enderror
+                     </div>
+
+                    <div class="col">
+     <input type="text" class="form-control @error('addOuvrage.type') is-invalid @enderror" wire:model="addOuvrage.type" placeholder="Type" required="required" title="Saisissez le type">
+                   @error("addOuvrage.type")
+                    <span class="text-danger">{{$message}}</span>
+                    @enderror
+                    </div>
+
+                    <div class="col">
+     <input type="text" class="form-control @error('addOuvrage.debitNominale') is-invalid @enderror" wire:model="addOuvrage.debitNominale" placeholder="Debit Nominale" required="required" title="Saisissez le debit nominal">
+                   @error("addOuvrage.debitNominale")
+                    <span class="text-danger">{{$message}}</span>
+                    @enderror
+                    </div>
+
+                    <div class="col">
+     <input type="text" class="form-control @error('addOuvrage.profondeur') is-invalid @enderror" wire:model="addOuvrage.profondeur" placeholder="Profondeur" required="required" title="Saisissez le profondeur">
+                   @error("addOuvrage.profondeur")
+                    <span class="text-danger">{{$message}}</span>
+                    @enderror
+                  </div>
+                </div>
+
+                <div class="form-row pt-3">
+                    <div class="col">
+     <input type="text" class="form-control @error('addOuvrage.debitConseiller') is-invalid @enderror" wire:model="addOuvrage.debitConseiller" placeholder="Debit Conseiller" required="required" title="Saisissez le debit conseiller">
+                    @error("addOuvrage.debitConseiller")
+                   <span class="text-danger">{{$message}}</span>
+                    @enderror
+                    </div>
+
+                    <div class="col">
+     <input type="text" class="form-control @error('addOuvrage.debitExploite') is-invalid @enderror" wire:model="addOuvrage.debitExploite" placeholder="Debit exploiter" required="required" title="Saisissez le debit exploiter">
+                    @error("addOuvrage.debitExploite")
+                   <span class="text-danger">{{$message}}</span>
+                    @enderror
+                    </div>
+
+                    <div class="col">
+     <input type="text" class="form-control @error('addOuvrage.diametre') is-invalid @enderror" wire:model="addOuvrage.diametre" placeholder="Diametre" required="required" title="Saisissez le diamètre">
+                   @error("addOuvrage.diametre")
+                    <span class="text-danger">{{$message}}</span>
+                    @enderror
+                    </div>
+
+                    <div class="col">
+     <input type="text" class="form-control @error('addOuvrage.nombreExhaur') is-invalid @enderror" wire:model="addOuvrage.nombreExhaur" placeholder="Nombre Exhaure" required="required" title="Saisissez le nombre exhaure">
+                   @error("addOuvrage.nombreExhaur")
+                    <span class="text-danger">{{$message}}</span>
+                    @enderror
+                    </div>                   
+                </div>
+
+                <div class="form-row">
+                  <div class="col pt-3">
+      <input type="text" class="form-control @error('addOuvrage.sondeBas') is-invalid @enderror" wire:model="addOuvrage.sondeBas" placeholder="Sonde Bas" required="required" title="Saisissez le sonde bas">
+                    @error("addOuvrage.sondeBas")
+                    <span class="text-danger">{{$message}}</span>
+                    @enderror
+                    </div>
+
+                    <div class="col pt-3">
+     <input type="text" class="form-control @error('addOuvrage.sondeHaut') is-invalid @enderror" wire:model="addOuvrage.sondeHaut" placeholder="Sond Haut" required="required" title="Saisissez le sond haut">
+                    @error("addOuvrage.sondeHaut")
+                    <span class="text-danger">{{$message}}</span>
+                    @enderror
+                    </div>
+
+                    <div class="col pt-3">
+      <input class="form-control " type="file" wire:model="image" wire:loading.attr="disabled" id="image{{$resetValueInput}}" title="Selectionner l'image"> 
+                        </div>
+                        <div class="col pt-3">
+      <input class="form-control " type="file" wire:model="fichier" wire:loading.attr="disabled" id="fichier{{$resetValueInput}}" title="Selectionner le pdf"> 
+                        </div>
+
+                      <div class="col pt-3">
+                    <select class="form-control @error("addOuvrage.ressource_id") is-invalid @enderror" wire:model="addOuvrage.ressource_id" required="required" title="Choisissez le type de forage ou puits">
+                        @error("addOuvrage.ressource_id")
+                                <span class="text-danger">{{$message}}</span>
+                        @enderror 
+                            <option value="">---------</option>
+                            @foreach ($ressources as $ressource)                          
+                            <option value="{{$ressource->id}}">{{$ressource->nom}}</option>
+                            @endforeach
+                        </select>
+                    </div>                  
+                  </div>      
+                    </div>
+                    
+                    <div class="pt-3">                    
+   <button type="submit" class="btn btn-primary" > <i class="fa fa-check"></i> Valider</button>
+   <button type="button" wire:click="cancel" class="btn btn-warning"> <i class="fa fa-times"></i> Annuler</button>
+                    </div>
+                    
+                </div>
+        </form>   
+         @endif 
+
+         @if ($isSelectededit)
+            <form wire:submit.prevent="updateOuvrage">
             <div class="p-4">
                     <div>
                     <div class="form-row">
@@ -140,18 +249,14 @@
                     </div>
                     
                     <div class="pt-3">  
-                   @if ($isSelectededit == true)      
-    <button type="button" wire:click="updateOuvrage()" class="btn btn-success" > <i class="fa fa-check"></i> Edit</button>
-                   @else               
-    <button type="submit" class="btn btn-primary" > <i class="fa fa-check"></i> Valider</button>
-                    @endif
+   <button type="submit" class="btn btn-success" > <i class="fa fa-check"></i> Edit</button>
    <button type="button" wire:click="cancel" class="btn btn-warning"> <i class="fa fa-times"></i> Annuler</button>
                     </div>
                     
                 </div>
-                
+        </form>   
         @endif  
-        </form>       
+        
                 <div style="height:470px;">
                     <table class="table table-head-fixed">
                         <thead>

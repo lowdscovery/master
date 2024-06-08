@@ -12,4 +12,7 @@ class Bassin extends Model
     protected $fillable = [
         "Longueur","Largeur","Hauteur","Volume","HauteurAspiration","VolumeAspiration","Total","ressource_id"
     ];
+    public function ressource(){
+        return $this->belongsTo(Ressource::class, 'ressource_id','id');
+    }
 }

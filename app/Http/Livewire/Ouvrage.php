@@ -15,6 +15,7 @@ class Ouvrage extends Component
     protected $paginationTheme = "bootstrap";
     public $isSelected = false;
     public $isSelectededit = false;
+    public $dataId;
     public $addOuvrage = [];
     public $editOuvrage = [];
     public $resetValueInput = 0;
@@ -46,6 +47,7 @@ class Ouvrage extends Component
     }
     public function editselect(){
         $this->isSelectededit = true;
+        $this->isSelected = false;
     }
 
 
@@ -108,7 +110,7 @@ public function editOuvrage(ModelsOuvrage $ouvrage){
     $this->addOuvrage = $ouvrage->toArray();
   // $this->editOuvrage = $ouvrage->toArray();
     $this->addOuvrage["edit"] = true;
-    $this->isSelected = true;
+   // $this->isSelected = true;
     $this->editselect();
 }
 

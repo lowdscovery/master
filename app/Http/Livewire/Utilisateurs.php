@@ -108,6 +108,7 @@ class Utilisateurs extends Component
         $data = [
             "users" => User::where("nom", "like", $searchCriteria)
             ->OrWhere("prenom", "like", $searchCriteria)
+            ->OrWhere("email", "like", $searchCriteria)
             ->orderBy($this->sortColumn, $this->sortDirection)
             ->latest()->paginate($this->perPage),
                   /*    ->OrWhere("prenom", "like", $searchCriteria)->latest()

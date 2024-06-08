@@ -20,6 +20,10 @@ class Ressource extends Model
         return $this->hasMany(Ouvrage::class);
     }
 
+    public function bassin(){
+        return $this->hasMany(Bassin::class);
+    }
+
     public function forage(){
         return $this->hasMany(Forage::class);
     }

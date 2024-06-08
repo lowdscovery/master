@@ -1,5 +1,9 @@
-<div class="content pt-2">
-
+@if ($imprimer)
+ @include("livewire.depense.imprimer") 
+@else
+  
+<div class="content pt-2" style="min-height: 1604.8px;">
+<section class="content">
 <div class="container-fluid">
 <div class="row">
 <div class="col-12">
@@ -90,7 +94,7 @@ Email: jirama@gmail.com
 </div>
 
 <div class="col-6">
-<p class="lead"> </p>
+<p class="lead"></p>
 <div class="table-responsive">
 <table class="table">
 <tbody>
@@ -111,7 +115,7 @@ Email: jirama@gmail.com
 
 <div class="row no-print">
 <div class="col-12">
-<a href="" rel="noopener" target="_blank" class="btn btn-default" wire:click.prevent="cacheImpression()"><i class="fas fa-print"></i> Retour vers la liste</a>
+<a href="" rel="noopener" target="_blank" class="btn btn-default" wire:click.prevent="showImprimer()"><i class="fas fa-print"></i> Imprimer</a>
 </div>
 </div>
 </div>
@@ -119,8 +123,6 @@ Email: jirama@gmail.com
 </div>
 </div>
 </div>
-
+</section>
 </div>
-<script>
-  window.addEventListener("load", window.print());
-</script>
+@endif

@@ -36,7 +36,7 @@
 		<div class="right1">		
         	<p><strong>Sexe :</strong> {{optional($selectedId)->sexe}}</p>
         	<p><strong>Telephone :</strong> {{optional($selectedId)->telephone}}</p>
-            <p><strong>Embauché :</strong> {{date('d/m/y',strtotime(optional($selectedId)->dateEmbauche))}}</p>
+            <p><strong>Embauché :</strong> {{date('d-m-y',strtotime(optional($selectedId)->dateEmbauche))}}</p>
 		</div>
 		</div>
 	</div>

@@ -99,7 +99,7 @@ class Bande extends Component
                  "Pression" => $this->Pression,          
              ]
           );
-          $this->emit('userProfileUpdated');
+   //       $this->emit('userProfileUpdated');
         $this->emit('record');
          $this->resetErrorBag();
          $this->resetInputs();
@@ -157,7 +157,7 @@ class Bande extends Component
                 "Pression" => $this->Pression, 
                
             ]);
-            $this->emit('userProfileUpdated');
+   //         $this->emit('userProfileUpdated');
             $this->resetInputs();
         }
         $this->dispatchBrowserEvent("showSuccessMessage", ["message"=> "Bande d'essai mis à jour avec succès!"]);

@@ -13,28 +13,28 @@
         <form wire:submit.prevent="addDepense">
           <div class="form-group">
             <label for="recipient-name" class="col-form-label">Date</label>
-            <input type="Date" class="form-control  @error("addDepense.Date") is-invalid @enderror" wire:model="addDepense.Date">
+            <input type="Date" class="form-control  @error("addDepense.Date") is-invalid @enderror" wire:model="addDepense.Date" required="required">
             @error("addDepense.Date")
                           <span class="text-danger">{{$message}}</span>
             @enderror
           </div>
           <div class="form-group">
             <label for="recipient-name" class="col-form-label">Motif</label>
-          <input type="text" class="form-control  @error("addDepense.Motif") is-invalid @enderror" wire:model="addDepense.Motif" placeholder="Motif">
+          <input type="text" class="form-control  @error("addDepense.Motif") is-invalid @enderror" wire:model="addDepense.Motif" placeholder="Motif" required="required">
             @error("addDepense.Motif")
                           <span class="text-danger">{{$message}}</span>
             @enderror
           </div>
           <div class="form-group">
             <label for="recipient-name" class="col-form-label">Designation</label>
-            <input type="text" class="form-control  @error("addDepense.Designation") is-invalid @enderror" wire:model="addDepense.Designation" placeholder="Designation">
+            <input type="text" class="form-control  @error("addDepense.Designation") is-invalid @enderror" wire:model="addDepense.Designation" placeholder="Designation" required="required">
             @error("addDepense.Designation")
                           <span class="text-danger">{{$message}}</span>
             @enderror
           </div>
           <div class="form-group">
             <label for="message-text" class="col-form-label">Unité</label>
-            <input type="text" class="form-control  @error("addDepense.Unite") is-invalid @enderror" wire:model="addDepense.Unite" placeholder="Unité">
+            <input type="text" class="form-control  @error("addDepense.Unite") is-invalid @enderror" wire:model="addDepense.Unite" placeholder="Unité" required="required">
             @error("addDepense.Unite")
                           <span class="text-danger">{{$message}}</span>
             @enderror
@@ -42,14 +42,14 @@
           <div class="d-flex">
           <div class="form-group flex-grow-1 mr-2">
             <label for="message-text" class="col-form-label">Prix Unitaire</label>
-            <input type="text" class="form-control  @error("addDepense.PrixUnitaire") is-invalid @enderror" wire:model="addDepense.PrixUnitaire" placeholder="Prix Unitaire">
+            <input type="number" class="form-control  @error("addDepense.PrixUnitaire") is-invalid @enderror" wire:model="addDepense.PrixUnitaire" placeholder="Prix Unitaire" required="required">
             @error("addDepense.PrixUnitaire")
                           <span class="text-danger">{{$message}}</span>
             @enderror
           </div>
           <div class="form-group flex-grow-1">
             <label for="message-text" class="col-form-label">Quantite</label>
-            <input type="text" class="form-control  @error("addDepense.Quantite") is-invalid @enderror" wire:model="addDepense.Quantite" placeholder="Quantité">
+            <input type="number" class="form-control  @error("addDepense.Quantite") is-invalid @enderror" wire:model="addDepense.Quantite" placeholder="Quantité" required="required">
             @error("addDepense.Quantite")
                           <span class="text-danger">{{$message}}</span>
             @enderror
@@ -69,17 +69,17 @@
 </div>        
 
 @if ($impression)
- @include("livewire.depense.imprimer") 
+ @include("livewire.depense.impression") 
 @else
   
-<div class="row p-4" >
+<div class="row p-2" >
  <div class="col-12">
      <div class="card">
         
-         <div class="card-header bg-gradient-cyan d-flex align-items-center">
-          <h3 class="card-title flex-grow-1"><i class="nav-icon fas fa-cogs"></i>Depense</h3>
+         <div class="card-header d-flex align-items-center" style="background-color:#785DF0;">
+          <h3 class="card-title flex-grow-1" style="color:white;"><i class="nav-icon fas fa-cogs"></i>Depense</h3>
             <div class="card-tools d-flex align-items-center ">
-      <a wire:loading.attr="disabled" wire:click.prevent="showImpression()" class="btn btn-primary mr-4 d-block" style="background-color:#00F2D8;"><i class="fas fa-user-plus"></i> Imprimer</a>
+      <a wire:click.prevent="showImpression()" class="btn btn-default mr-4 d-block" rel="noopener" target="_blank"><i class="fas fa-print"></i> Imprimer</a>
                 <div class="input-group input-group-md" style="width: 250px;">
             <input type="text" name="table_search" wire:model.debounce.250ms="search" class="form-control float-right" placeholder="Search">
 
@@ -107,7 +107,7 @@
                   <tbody>               
                 @forelse ($depenses as $depense)      
                     <tr>
-                        <td class="text-center">{{ $depense->Date}}</td>
+                        <td class="text-center">{{date('d-m-Y',strtotime($depense->Date))}}</td>
                         <td class="text-center">{{ $depense->Motif}}</td>
                         <td class="text-center">{{ $depense->Designation}}</td>
                         <td class="text-center">{{ $depense->Unite}}</td>

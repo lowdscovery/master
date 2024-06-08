@@ -4,7 +4,7 @@ namespace App\Http\Livewire;
 
 use App\Models\Depense as ModelsDepense;
 use App\Models\Intervenant as ModelsIntervenant;
-
+use Carbon\Carbon;
 use Livewire\Component;
 use Livewire\WithPagination;
 
@@ -17,22 +17,39 @@ class Depense extends Component
     public $editDepense = [];
     public $Date,$Motif,$Designation,$Unite,$PrixUnitaire,$Quantite;
     public $dataId;
+    public $totalSum;
+    public $today;
 
     public $impression = false;
+    public $imprimer = false;
     public function showImpression(){
         $this->impression = true;
+        $this->imprimer = false;
     }
     public function cacheImpression(){
         $this->impression = false;
     }
+    //
+    public function showImprimer(){
+        $this->imprimer = true;
+    }
+    public function cacheImprimer(){
+        $this->imprimer = false;
+    }
+
+    public function mount(){
+        $this->today = Carbon::now()->toDateString();
+    }
     public function render()
     {
         $searchCriteria = "%".$this->search."%";
-        $data = [
-         "depenses" => ModelsDepense::where("date","like",$searchCriteria)->latest()->paginate(2),
-         "inters" => ModelsIntervenant::get(),
-        ];
-        return view('livewire.depense.depense',$data)
+        $depenses = ModelsDepense::where("date","like",$searchCriteria)->latest()->paginate(5);
+        $this->totalSum = $depenses->sum('Total');
+        
+        return view('livewire.depense.depense',[
+            'depenses' => $depenses,
+            'totalSum' =>  $this->totalSum,
+        ])
         ->extends("layouts.principal")
         ->section("contenu");
     }
@@ -81,7 +98,7 @@ class Depense extends Component
         $this->dispatchBrowserEvent("showConfirmMessage",[
             "message"=>
             [
-                "text" => "Vous êtes sur le point de supprimer ". $depense->Date ." sur la liste des depenses. Voulez-vous continuer?",
+                "text" => "Vous êtes sur le point de supprimer ". $depense->Motif ." sur la liste des depenses. Voulez-vous continuer?",
                 "title" => "Êtes-vous sûr de continuer?",
                 "type" => "warning",
                 "data" => ["models_depense_id" => $depense->id]

@@ -164,6 +164,10 @@ Route::post('/lockscreen', [ProfileController::class, 'lockScreenUpdate'])->name
 
 
 
+
+
+
+
 //Route::get("/notify",[App\Http\Controllers\HomeController::class, 'notify']);
 Route::get("/markasred/{id}",[App\Http\Controllers\HomeController::class, 'markasred'])->name('markasred');
 //Route::get("/markasred",Utilisateurs::class)->name('markasred')->middleware("auth.admin");

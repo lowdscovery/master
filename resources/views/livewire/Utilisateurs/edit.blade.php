@@ -23,7 +23,7 @@
                 <div class="d-flex">
                     <div class="form-group flex-grow-1 mr-2">
                         <label >Nom</label>
-                        <input type="text" wire:model="editUser.nom" class="form-control @error('editUser.nom') is-invalid @enderror" title="Le nom doit être en majuscule" pattern="[A-Z]+">
+                        <input type="text" wire:model="editUser.nom" class="form-control @error('editUser.nom') is-invalid @enderror" required="required" title="Le nom doit être en majuscule" pattern="[A-Z]+">
 
                         @error("editUser.nom")
                             <span class="text-danger">{{ $message }}</span>
@@ -31,7 +31,7 @@
                     </div>
                     <div class="form-group flex-grow-1">
                         <label >Prenom</label>
-                        <input type="text" wire:model="editUser.prenom" class="form-control @error('editUser.prenom') is-invalid @enderror" title="Saisir votre prenom">
+                        <input type="text" wire:model="editUser.prenom" class="form-control @error('editUser.prenom') is-invalid @enderror" required="required" title="Saisir votre prenom">
 
                         @error("editUser.prenom")
                             <span class="text-danger">{{ $message }}</span>
@@ -42,7 +42,7 @@
                 <div class="form-group">
                 <label >Sexe</label>
                 <select class="form-control @error('editUser.sexe') is-invalid @enderror" wire:model="editUser.sexe"
-                 title="Choisir votre sexe">
+                 title="Choisir votre sexe" required="required">
                     <option value="">---------</option>
                     <option value="Homme">Homme</option>
                     <option value="Femme">Femme</option>
@@ -54,7 +54,7 @@
 
                 <div class="form-group">
                 <label >Adresse e-mail</label>
-                <input type="text" class="form-control @error('editUser.email') is-invalid @enderror" wire:model="editUser.email" title="Saisir votre addresse email">
+                <input type="text" class="form-control @error('editUser.email') is-invalid @enderror" wire:model="editUser.email" required="required" title="Saisir votre addresse email">
                 @error("editUser.email")
                             <span class="text-danger">{{ $message }}</span>
                         @enderror
@@ -62,7 +62,7 @@
 
                 <div class="form-group">
                         <label >Telephone </label>
-                        <input type="text" class="form-control @error('editUser.telephone1') is-invalid @enderror" wire:model="editUser.telephone1" title="Le numero de telephone doit être 10 chiffre" pattern="\d{10}">
+                        <input type="text" class="form-control @error('editUser.telephone1') is-invalid @enderror" wire:model="editUser.telephone1" required="required" title="Le numero de telephone doit être 10 chiffre" pattern="\d{10}">
                         @error("editUser.telephone1")
                             <span class="text-danger">{{ $message }}</span>
                         @enderror
@@ -70,7 +70,7 @@
 
             <div class="form-group">
                 <label >Piece d'identité</label>
-                <select class="form-control @error('editUser.pieceIdentite') is-invalid @enderror" wire:model="editUser.pieceIdentite" title="Choisir votre piece d'identité">
+                <select class="form-control @error('editUser.pieceIdentite') is-invalid @enderror" wire:model="editUser.pieceIdentite" required="required" title="Choisir votre piece d'identité">
                     <option value="">---------</option>
                     <option value="CIN">CIN</option>
                     <option value="PASSPORT">PASSPORT</option>
@@ -83,7 +83,7 @@
 
                 <div class="form-group">
                         <label >Numero de piece d'identité</label>
-                        <input type="text" class="form-control @error('editUser.numeroPieceIdentite') is-invalid @enderror" wire:model="editUser.numeroPieceIdentite" title="Le numero de piece d'identité doit être 12 chiffre" pattern="\d{12}">
+                        <input type="text" class="form-control @error('editUser.numeroPieceIdentite') is-invalid @enderror" wire:model="editUser.numeroPieceIdentite" required="required" title="Le numero de piece d'identité doit être 12 chiffre" pattern="\d{12}">
                         @error("editUser.numeroPieceIdentite")
                             <span class="text-danger">{{ $message }}</span>
                         @enderror

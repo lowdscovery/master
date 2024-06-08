@@ -15,7 +15,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="csrf-token" content="{{ csrf_token()}}">
-<title>Jirama</title>
+<title >Jirama</title>
 
 
  <link rel="stylesheet" href="{{mix("css/app.css")}}" />
@@ -70,14 +70,6 @@
 <!-- Les sidebar sont dans le dossier components -->
 <x-sidebar/>
 
-<footer class="main-footer">
-
-<div class="float-right d-none d-sm-inline">
-Anything you want
-</div>
-
-<strong>Copyright © 2024 <a href="https://Jirama">Jirama</a>.</strong> All rights reserved.
-</footer>
 <div id="sidebar-overlay"></div></div>
 
 <script src="plugins/jquery/jquery.min.js"></script>
