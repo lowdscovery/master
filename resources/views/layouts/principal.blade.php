@@ -1,3 +1,14 @@
+
+<?php
+  if(Auth::check())
+  {
+    if(Auth::user()->screen_lock == 1)
+    {
+         echo '<script>window.location="'.url('/lockscreen').'";</script>';
+    }
+  }
+?>
+
 <!DOCTYPE html>
 
 <html lang="en" style="height: auto;"><head>

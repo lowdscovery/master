@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\UserController;
 use App\Http\Livewire\Affichage;
 use App\Http\Livewire\Armoire;
@@ -30,6 +31,10 @@ use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use Carbon\Carbon;
+
+//permission
+use App\Http\Livewire\ManagerArticles;
+use App\Http\Livewire\ManagerProducts;
 
 /*
 |--------------------------------------------------------------------------
@@ -147,6 +152,14 @@ Route::group([
         Route::get("/bassins", Bassin::class)->name("bassin.bassin")->middleware("auth.admin");
     });
 });
+
+
+//permissions
+Route::get('/manage-products', ManagerProducts::class)->middleware("auth.admin"); //('can:delete, product');//middleware('can:update,App\Models\Product');
+//lockscreen
+Route::get('lockscreen', [ProfileController::class, 'lockscreen'])->name("lockscreen")->middleware("auth.admin");
+Route::post('/lockscreen', [ProfileController::class, 'lockScreenUpdate'])->name("lockscreen")->middleware("auth.admin");
+
 
 
 //Route::get("/notify",[App\Http\Controllers\HomeController::class, 'notify']);

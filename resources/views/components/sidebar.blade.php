@@ -10,6 +10,9 @@
     <p class="text-muted text-center">{{getRolesName()}}</p>
 
     <ul class="list-group bg-dark mb-3">
+       <li class="list-group-item">
+        <a href="{{route('lockscreen')}}" class="d-flex align-items-center "><i class="fa fa-lock pr-2"></i><b >Lock profile</b> </a>
+        </li>
         <li class="list-group-item">
         <a href="{{route('password')}}" class="d-flex align-items-center "><i class="fa fa-lock pr-2"></i><b >Mot de passe</b> </a>
         </li>
