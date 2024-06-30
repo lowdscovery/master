@@ -43,9 +43,9 @@
                     </tr>
                   </thead>
                   <tbody>                             
-                 @forelse ($this->transactions as $incident)
+                 @forelse ($transactions as $incident)
                     <tr>
-                      <td class="text-center">{{$incident->dateIncident}}</td>
+                      <td class="text-center">{{date('d-m-Y',strtotime($incident->dateIncident))}}</td>
                       <td class="text-center">{{$incident->indexCH}}</td>
                       <td class="text-center">{{$incident->heure}} </td>
                       <td class="text-center">{{$incident->natureIncident}} </td>
@@ -93,7 +93,7 @@
               <!-- /.card-body -->
               <div class="card-footer">
                 <div class="float-right">
-                
+                 {{ $transactions->links() }}
                 </div>
             </div>
 </div>

@@ -9,6 +9,6 @@ class CalculeColonne extends Model
 {
     use HasFactory;
     protected $fillable = [
-        'name'
+        'current_value','difference'
     ];
 }

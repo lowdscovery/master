@@ -15,18 +15,21 @@ class Incident extends Component
     public $search = "";
     public $dateIncident,$indexCH,$natureIncident,$caracteristique_moteur_id;
     public $cause,$action,$resultat,$intervenant_id;
-    public $transactions;
+   // public $transactions;
 
     //edit
     public $editId;
 
-
+    public function updatedSearch(){
+        $this->resetPage();
+    }
+    
     public function render()
     {
-        $this->transactions = ModelsIncident::all();
-       // $searchCriteria = "%".$this->search."%";
+      //  $this->transactions = ModelsIncident::all();
+        $searchCriteria = "%".$this->search."%";
         $data= [
-         //   "transactions" => ModelsIncident::where("natureIncident","like",$searchCriteria)->latest()->paginate(1),
+            "transactions" => ModelsIncident::where("natureIncident","like",$searchCriteria)->latest()->paginate(5),
             "inters" => ModelsIntervenant::get(),
             "caracteristiques" => CaracteristiqueMoteur::get(),
         ];
@@ -55,7 +58,7 @@ class Incident extends Component
             'heure' => $difference,
         ]);
         $this->dispatchBrowserEvent("showSuccessMessage", ["message"=>"Incident ajoutée avec succès!"]);
-        $this->transactions = ModelsIncident::all();
+     //   $this->transactions = ModelsIncident::all();
         $this->indexCH = '';
         $this->dateIncident = '';
         $this->natureIncident = '';
@@ -98,7 +101,7 @@ class Incident extends Component
             'heure' => $difference,
         ]);
         $this->dispatchBrowserEvent("showSuccessMessage", ["message"=> "Incident mis à jour avec succès!"]);
-        $this->transactions = ModelsIncident::all();
+      // $this->transactions = ModelsIncident::all();
         $this->indexCH = '';
         $this->dateIncident = '';
         $this->natureIncident = '';

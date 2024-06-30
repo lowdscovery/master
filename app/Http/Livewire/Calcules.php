@@ -8,38 +8,57 @@ use Illuminate\Support\Facades\DB;
 
 class Calcules extends Component
 {
-    public $newItem;
+    public $values;
+    public $currentValue;
+    public $selectedId;
 
-    public function addItemToSecondRow()
+    public function mount()
     {
-        $this->validate([
-            'newItem' => 'required|string|max:255',
-        ]);
-
-        $items = CalculeColonne::all();
-
-        if ($items->count() < 2) {
-            // Si moins de 2 éléments, ajouter à la fin
-            CalculeColonne::create(['name' => $this->newItem]);
-        } else {
-            // Insérer en deuxième position
-            $secondItem = $items[1];
-            $secondItem->update(['name' => $this->newItem]);
-        }
-
-        $this->newItem = '';
+        $this->values = CalculeColonne::all();
     }
+
 
     public function render()
     {
-        return view('livewire.calcules', [
-            'items' => CalculeColonne::all(),
-        ])
+        return view('livewire.calcules')
         ->extends("layouts.principal")
         ->section("contenu");
-       // ->extends("layouts.invoice")
-       // ->section("contenu");
     }
 
-   
+    
+
+    public function saveOrUpdateValue()
+    {
+        if ($this->selectedId) {
+            $value = CalculeColonne::find($this->selectedId);
+            $previousValue = $value->current_value;
+            $value->update([
+                'current_value' => $this->currentValue,
+                'difference' => $this->currentValue - $previousValue,
+            ]);
+        } else {
+            $lastValue = CalculeColonne::latest()->first();
+            $previousValue = $lastValue ? $lastValue->current_value : 0;
+            CalculeColonne::create([
+                'current_value' => $this->currentValue,
+                'difference' => $this->currentValue - $previousValue,
+            ]);
+        }
+
+        $this->resetInputFields();
+        $this->mount(); // Reload values after saving or updating
+    }
+
+    public function editValue($id)
+    {
+        $value = CalculeColonne::find($id);
+        $this->currentValue = $value->current_value;
+        $this->selectedId = $id;
+    }
+
+    public function resetInputFields()
+    {
+        $this->currentValue = '';
+        $this->selectedId = null;
+    }
 }
