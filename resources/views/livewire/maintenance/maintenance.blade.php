@@ -26,7 +26,7 @@
                  @enderror 
                     <option value="">---------</option>
                 @foreach ($inters as $inter)
-                    <option value="{{$inter->id}}">{{$inter->nom}} {{$inter->prenom}}</option>
+                    <option value="{{$inter->nom}} {{$inter->prenom}}">{{$inter->nom}} {{$inter->prenom}}</option>
                 @endforeach       
            </select>
           </div>
@@ -45,7 +45,7 @@
                  @enderror 
                     <option value="">---------</option>
                     @foreach ($caracteristiques as $caracteristique)
-                          <option value="{{$caracteristique->id}}">{{$caracteristique->ressources->nom}}</option>
+                          <option value="{{$caracteristique->ressources->nom}}">{{$caracteristique->ressources->nom}}</option>
                     @endforeach      
            </select>
           </div>
@@ -189,11 +189,11 @@
                                   @endif
                                   <td class="text-center" style="width:10%;">{{ date('d/m/Y',strtotime($maintenance->dateMaintenance))}}</td>
                                   <td class="text-center" style="width:20%;">{{ $maintenance->actionEntreprise}}</td>
-                                  <td class="text-center" style="width:20%;">{{ $maintenance->inters->nom}} {{ $maintenance->inters->prenom}}</td>
+                                  <td class="text-center" style="width:20%;">{{ $maintenance->intervenant_id}}</td>
                                   <td class="text-center" style="width:10%;">{{ $maintenance->DureeIntervention}}</td>
                                   <td class="text-center" style="color:black;width:10%;"><i class="fa fa-spinner fa-2x fa-fw"></i></td>
                                   <td class="text-center" style="color:black;width:5%;"><i class="fa fa-spinner fa-2x fa-fw"></i></td>                        
-                                  <td class="text-center" style="width:5%;">{{ $caracteristique->ressources->nom}}</td>
+                                  <td class="text-center" style="width:5%;">{{ $maintenance->caracteristique_moteurs_id}}</td>
                                   <td style="width:20%;">       
                                 <div class="btn-group open">
                                 <a class="btn btn-info dropdown-toggle" data-toggle="dropdown">
@@ -212,11 +212,11 @@
                               <tr style="color:red;">
                                   <td class="text-center" style="width:10%;">{{ date('d/m/Y',strtotime($maintenance->dateMaintenance))}}</td>
                                   <td class="text-center" style="width:20%;">{{ $maintenance->actionEntreprise}}</td>
-                                  <td class="text-center" style="width:20%;">{{ $maintenance->inters->nom}} {{ $maintenance->inters->prenom}}</td>
+                                  <td class="text-center" style="width:20%;">{{ $maintenance->intervenant_id}}</td>
                                   <td class="text-center" style="width:10%;">{{ $maintenance->DureeIntervention}}</td>
                                   <td class="text-center" style="color:black;width:10%;"><i class="fa fa-spinner fa-2x fa-fw"></i></td>
                                   <td class="text-center" style="color:black;width:5%;"><i class="fa fa-spinner fa-2x fa-fw"></i></td>                        
-                                  <td class="text-center" style="width:5%;">{{ $caracteristique->ressources->nom}}</td>
+                                  <td class="text-center" style="width:5%;">{{ $maintenance->caracteristique_moteurs_id}}</td>
                                   <td style="width:20%;">       
                                 <div class="btn-group open">
                                 <a class="btn btn-info dropdown-toggle" data-toggle="dropdown">
@@ -236,13 +236,13 @@
                               <tr>
                                     <td class="text-center" style="width:10%;">{{ date('d/m/Y',strtotime($maintenance->dateMaintenance))}}</td>
                                       <td class="text-center" style="width:20%;">{{ $maintenance->actionEntreprise}}</td>
-                                      <td class="text-center" style="width:20%;">{{ $maintenance->inters->nom}} {{ $maintenance->inters->prenom}}</td>
+                                      <td class="text-center" style="width:20%;">{{ $maintenance->intervenant_id}}</td>
                                       <td class="text-center" style="width:10%;">{{ $maintenance->DureeIntervention}}</td>
                                       <td class="text-center" style="width:10%;">{{ $maintenance->DureeReel}}</td>
                                       <td class="text-center" style="width:5%;">
                                       <button class="btn btn-link" wire:click="selectDocument({{$maintenance->id}})" data-toggle="modal" data-target="#pdfmodal"> <i class="fa fa-file-pdf"  style="color:red;font-size:25px;"></i></button>        
                                       </td>
-                                      <td class="text-center" style="width:5%;">{{ $caracteristique->ressources->nom}}</td>  
+                                      <td class="text-center" style="width:5%;">{{ $maintenance->caracteristique_moteurs_id}}</td>  
                                     <td style="width:20%;">       
                                     <div class="btn-group open">
                                     <a class="btn btn-info dropdown-toggle" data-toggle="dropdown">

@@ -35,7 +35,9 @@ class Rapport extends Component
     {
         $searchCriteria = "%".$this->search."%";
        $data = [
-        "rapports" => ModelsRapport::where("lieu","like",$searchCriteria)->latest()->paginate(2),
+        "rapports" => ModelsRapport::where("dateDebut","like",$searchCriteria)
+        ->OrWhere("intervenant_id", "like", $searchCriteria)
+        ->latest()->paginate(2),
         "inters" => ModelsIntervenant::get(),
        ];
         return view('livewire.rapport.rapport',$data)
@@ -89,31 +91,31 @@ class Rapport extends Component
       }
 
       //show input 
-      public function editInput(ModelsRapport $rappore){
-        $this->editRapport = $rappore->toArray();
+      public function editInput(ModelsRapport $rapport){
+        $this->editRapport = $rapport->toArray();
         $this->showInput();
        }
        public function updateInput(){
         $this->validate([
             'editImage'=> "required|mimes:pdf|max:10240",
         ]);
-        $rappore = ModelsRapport::find($this->editRapport["id"]);
-        $rappore->fill($this->editRapport);
+        $rapport = ModelsRapport::find($this->editRapport["id"]);
+        $rapport->fill($this->editRapport);
 
         if($this->editImage){
          $path = $this->editImage->store("rapport", "public");
          $imagePath = "storage/".$path;
-         Storage::disk("local")->delete(str_replace("storage/", "public/", $rappore->rapport));
-         $rappore->rapport = $imagePath;
+         Storage::disk("local")->delete(str_replace("storage/", "public/", $rapport->rapport));
+         $rapport->rapport = $imagePath;
      }
 
-        $rappore->save();
+        $rapport->save();
         $this->dispatchBrowserEvent("showSuccessMessage", ["message"=> "Mis à jour avec succès!"]);
         $this->editRapport =[];
         $this->cacheInput();
         $this->resetValueInput++;
     }
-
+//
       public function editRapport(ModelsRapport $rapport){
         $this->editRapport = $rapport->toArray();
       //  $this->showInput();
@@ -123,12 +125,12 @@ class Rapport extends Component
            $rapport = ModelsRapport::find($this->editRapport["id"]);
            $rapport->fill($this->editRapport);
 
-         /*  if($this->editImage){
+           if($this->editImage){
             $path = $this->editImage->store("rapport", "public");
             $imagePath = "storage/".$path;
             Storage::disk("local")->delete(str_replace("storage/", "public/", $rapport->rapport));
             $rapport->rapport = $imagePath;
-        }*/
+        }
 
            $rapport->save();
            $this->dispatchBrowserEvent("showSuccessMessage", ["message"=> "Mis à jour avec succès!"]);

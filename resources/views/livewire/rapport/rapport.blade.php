@@ -26,7 +26,7 @@
                  @enderror 
                     <option value="">---------</option>
                @foreach ($inters as $inter)
-                    <option value="{{$inter->id}}">{{$inter->nom}} {{$inter->prenom}}</option>
+                    <option value="{{$inter->nom}} {{$inter->prenom}}">{{$inter->nom}} {{$inter->prenom}}</option>
                 @endforeach      
            </select>
           </div>
@@ -80,12 +80,12 @@
                           
         
 
-<div class="row p-4" >
+<div class="row p-3" >
  <div class="col-12">
      <div class="card">
         
-         <div class="card-header bg-gradient-cyan d-flex align-items-center">
-          <h3 class="card-title flex-grow-1"><i class="nav-icon fas fa-cogs"></i>Rapport de mission</h3>
+         <div class="card-header d-flex align-items-center" style="background-color:#E54400;">
+          <h3 class="card-title flex-grow-1" style="color:white;"><i class="nav-icon fas fa-cogs"></i>Rapport de mission</h3>
             <div class="card-tools d-flex align-items-center ">
                       
                 <div class="input-group input-group-md" style="width: 250px;">
@@ -135,7 +135,7 @@
                     <tr style="color:red;">
                         <td class="text-center">{{ date('d-m-Y',strtotime($rapport->dateDebut))}}</td>
                         <td class="text-center" style="color:black;"><i class="fa fa-spinner fa-2x fa-fw"></i></td>
-                        <td class="text-center">{{ $rapport->inters->nom}} {{ $rapport->inters->prenom}}</td>
+                        <td class="text-center">{{ $rapport->intervenant_id}}</td>
                         <td class="text-center">{{ $rapport->lieu}}</td>
                         <td class="text-center">{{ $rapport->motif}}</td>
                         <td class="text-center" style="color:black;"><i class="fa fa-spinner fa-2x fa-fw"></i></td>
@@ -157,7 +157,7 @@
                     <tr>
                       <td class="text-center">{{  date('d-m-Y',strtotime($rapport->dateDebut))}}</td>
                       <td class="text-center">{{  date('d-m-Y',strtotime($rapport->dateFin))}}</td>
-                      <td class="text-center">{{ $rapport->inters->nom}} {{ $rapport->inters->prenom}}</td>
+                      <td class="text-center">{{ $rapport->intervenant_id}}</td>
                       <td class="text-center">{{ $rapport->lieu}}</td>
                       <td class="text-center">{{ $rapport->motif}}</td>
                       <td class="text-center">

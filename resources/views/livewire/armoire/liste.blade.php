@@ -7,12 +7,12 @@
     @endif
 
     @if($currentPage == PAGELIST)
-<div class="row p-4" >
+<div class="row p-1" >
  <div class="col-12">
      <div class="card">
         
-         <div class="card-header bg-gradient-cyan d-flex align-items-center">
-          <h3 class="card-title flex-grow-1"><i class="nav-icon fas fa-cogs"></i>Armoire de commande</h3>
+         <div class="card-header d-flex align-items-center" style="background-color:#334791;">
+          <h3 class="card-title flex-grow-1" style="color:white;"><i class="nav-icon fas fa-cogs"></i>Armoire de commande</h3>
             <div class="card-tools d-flex align-items-center ">
                       
                 <div class="input-group input-group-md" style="width: 250px;">

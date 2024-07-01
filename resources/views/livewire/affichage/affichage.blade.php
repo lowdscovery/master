@@ -133,12 +133,8 @@
 											</li>
                                             @if  ($cardselect)
                                             <li class="list-group-item d-flex px-0 justify-content-between">
-												<strong>Encombrement</strong>
-												<span class="mb-0">{{$caracteristique->encombrement}}</span>
-											</li>
-                                            <li class="list-group-item d-flex px-0 justify-content-between">
 												<strong>Année de fabrication</strong>
-												<span class="mb-0">{{$caracteristique->anneeFabrication}}</span>
+												<span class="mb-0">{{date('d-m-Y',strtotime($caracteristique->anneeFabrication))}}</span>
 											</li>
                                             <li class="list-group-item d-flex px-0 justify-content-between">
 												<strong>Fournisseur</strong>
@@ -146,11 +142,11 @@
 											</li>
                                             <li class="list-group-item d-flex px-0 justify-content-between">
 												<strong>Date d'acquisition</strong>
-												<span class="mb-0">{{$caracteristique->dateAcquisition}}</span>
+												<span class="mb-0">{{date('d-m-Y',strtotime($caracteristique->dateAcquisition))}}</span>
 											</li>
                                             <li class="list-group-item d-flex px-0 justify-content-between">
 												<strong>Date mise en service</strong>
-												<span class="mb-0">{{$caracteristique->dateMiseEnService}}</span>
+												<span class="mb-0">{{date('d-m-Y',strtotime($caracteristique->dateMiseEnService))}}</span>
 											</li>
                                             <li class="list-group-item d-flex px-0 justify-content-between">
 												<strong>Roulement</strong>
@@ -240,12 +236,8 @@
 											</li>
                                              @if ($card)
                                             <li class="list-group-item d-flex px-0 justify-content-between">
-												<strong>Encombrement</strong>
-												<span class="mb-0">{{$caracteristique->encombrement}}</span>
-											</li>
-                                            <li class="list-group-item d-flex px-0 justify-content-between">
 												<strong>Année de fabrication</strong>
-												<span class="mb-0">{{$caracteristique->anneeFabrication}}</span>
+												<span class="mb-0">{{date('d-m-Y',strtotime($caracteristique->anneeFabrication))}}</span>
 											</li>
                                             <li class="list-group-item d-flex px-0 justify-content-between">
 												<strong>Fournisseur</strong>
@@ -253,11 +245,11 @@
 											</li>
                                             <li class="list-group-item d-flex px-0 justify-content-between">
 												<strong>Date d'acquisition</strong>
-												<span class="mb-0">{{$caracteristique->dateAcquisition}}</span>
+												<span class="mb-0">{{date('d-m-Y',strtotime($caracteristique->dateAcquisition))}}</span>
 											</li>
                                             <li class="list-group-item d-flex px-0 justify-content-between">
 												<strong>Date mise en service</strong>
-												<span class="mb-0">{{$caracteristique->dateMiseEnService}}</span>
+												<span class="mb-0">{{date('d-m-Y',strtotime($caracteristique->dateMiseEnService))}}</span>
 											</li>
                                             <li class="list-group-item d-flex px-0 justify-content-between">
 												<strong>Roulement</strong>

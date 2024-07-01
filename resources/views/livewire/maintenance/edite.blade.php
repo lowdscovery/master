@@ -23,9 +23,16 @@
                  @enderror 
                     <option value="">---------</option>
                 @foreach ($inters as $inter)
-                    <option value="{{$inter->id}}">{{$inter->nom}} {{$inter->prenom}}</option>
+                    <option value="{{$inter->nom}} {{$inter->prenom}}">{{$inter->nom}} {{$inter->prenom}}</option>
                 @endforeach        
            </select>
+          </div>
+          <div class="form-group ">
+            <label for="recipient-name" class="col-form-label">Duree Intervention</label>
+            <input type="number" class="form-control  @error("editMaintenance.DureeIntervention") is-invalid @enderror" wire:model="editMaintenance.DureeIntervention">
+            @error("editMaintenance.DureeIntervention")
+                          <span class="text-danger">{{$message}}</span>
+            @enderror
           </div>
           <div class="form-group">
             <label for="recipient-name" class="col-form-label">Caracteristique</label>
@@ -35,18 +42,36 @@
                  @enderror 
                     <option value="">---------</option>
                     @foreach ($caracteristiques as $caracteristique)
-                          <option value="{{$caracteristique->id}}">{{$caracteristique->ressources->nom}}</option>
+                          <option value="{{$caracteristique->ressources->nom}}">{{$caracteristique->ressources->nom}}</option>
                     @endforeach      
            </select>
           </div>
           
-          <div class="form-group">
-            <label for="message-text" class="col-form-label">Action d'entreprise</label>
-            <textarea class="form-control @error("editMaintenance.actionEntreprise") is-invalid @enderror" wire:model="editMaintenance.actionEntreprise">
+          <div class="d-flex">
+                <div class="form-group flex-grow-1 mr-2">
+                        <label >Durée Réel</label>
+                        <input type="number" class="form-control @error("editMaintenance.DureeReel") is-invalid @enderror" wire:model="editMaintenance.DureeReel" placeholder="Durée Réel">
+                        @error("editMaintenance.DureeReel")
+                          <span class="text-danger">{{$message}}</span>
+                      @enderror 
+                       
+                </div>
+
+                <div class="form-group flex-grow-1">
+                        <label >Rapport</label>
+                        <input type="file" class="form-control" id="editImage{{$resetValueInput}}" wire:model="editImage">
+                      @error("editImage")
+                          <span class="text-danger">{{$message}}</span>
+                      @enderror                 
+                </div>
+            </div>
+  
+           <div class="form-group ">
+            <label for="recipient-name" class="col-form-label">Action d'entreprise</label>
+            <input type="text" class="form-control  @error("editMaintenance.actionEntreprise") is-invalid @enderror" wire:model="editMaintenance.actionEntreprise">
             @error("editMaintenance.actionEntreprise")
                           <span class="text-danger">{{$message}}</span>
-            @enderror 
-            </textarea>
+            @enderror
           </div>
        
 

@@ -7,7 +7,7 @@
     @endif
 @if($currentPage == PAGELIST)
 
-<div class="pt-4">
+<div class="pt-2">
     <div class="col-12">
         <div class="card">
             <div class="card-header bg-gradient-primary d-flex align-items-center">

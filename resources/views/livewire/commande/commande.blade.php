@@ -9,7 +9,7 @@
                           
         
 
-<div class="row p-4" >
+<div class="row p-2" >
  <div class="col-12">
      <div class="card">
   

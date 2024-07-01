@@ -23,7 +23,7 @@
                  @enderror 
                     <option value="">---------</option>
                @foreach ($inters as $inter)
-                    <option value="{{$inter->id}}">{{$inter->nom}} {{$inter->prenom}}</option>
+                    <option value="{{$inter->nom}} {{$inter->prenom}}">{{$inter->nom}} {{$inter->prenom}}</option>
                 @endforeach      
            </select>
           </div>
@@ -34,6 +34,23 @@
                           <span class="text-danger">{{$message}}</span>
             @enderror
           </div>
+           <div class="d-flex">
+          <div class="form-group flex-grow-1 mr-2">
+            <label class="col-form-label">Date Fin</label>
+            <input type="date" wire:model="editRapport.dateFin" class="form-control">
+            @error("editRapport.dateFin")
+                          <span class="text-danger">{{$message}}</span>
+            @enderror
+          </div>
+          <div class="form-group flex-grow-1">
+            <label class="col-form-label">Rapport de mission</label>
+                            <input type="file" class="form-control" id="editImage{{$resetValueInput}}" wire:model="editImage">
+            @error("editImage")
+                          <span class="text-danger">{{$message}}</span>
+            @enderror
+          </div>
+          </div>
+
           <div class="form-group">
             <label for="message-text" class="col-form-label">Motif</label>
             <textarea class="form-control @error("editRapport.motif") is-invalid @enderror" wire:model="editRapport.motif" placeholder="Rapport">

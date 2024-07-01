@@ -57,7 +57,9 @@ class Maintenance extends Component
     {
        $searchCriteria = "%".$this->search."%";
        $data = [
-        "maintenances" => ModelsMaintenance::where("actionEntreprise","like",$searchCriteria)->latest()->paginate($this->perPage),
+        "maintenances" => ModelsMaintenance::where("dateMaintenance","like",$searchCriteria)
+        ->OrWhere("intervenant_id", "like", $searchCriteria)
+        ->latest()->paginate($this->perPage),
         "inters" => ModelsIntervenant::get(),
         "caracteristiques" => CaracteristiqueMoteur::get(),
        // "events" =>  ModelsMaintenance::paginate(3),

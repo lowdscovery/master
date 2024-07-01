@@ -17,7 +17,7 @@ class Rapports extends Migration
             $table->id();
             $table->date('dateDebut');
             $table->date('dateFin')->nullable();
-            $table->foreignId('intervenant_id');
+            $table->string('intervenant_id');
             $table->string('lieu');
             $table->string('motif');
             $table->string('rapport')->nullable();  
