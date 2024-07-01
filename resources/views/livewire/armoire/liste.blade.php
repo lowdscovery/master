@@ -46,7 +46,7 @@
                       <td class="text-center">{{ $armoire->marque}}</td>
                       <td class="text-center">{{ $armoire->type}}</td>
                       <td class="text-center">{{ $armoire->reglage}}</td>
-                      <td class="text-center">{{ $armoire->datePose}}</td>
+                      <td class="text-center">{{ date('d-m-Y',strtotime($armoire->datePose))}}</td>
                       <td class="text-center">       
                     <div class="btn-group open">
                     <a class="btn btn-info dropdown-toggle" data-toggle="dropdown">

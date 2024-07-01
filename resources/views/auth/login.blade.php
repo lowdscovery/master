@@ -35,7 +35,7 @@
                             </div>
                             </div>
                              <div class="pb-3"> 
-                              <input type="checkbox" id="togglePassword"> <label> Afficher le mot de passe </label>
+                              <input type="checkbox" id="togglePassword"> <label for="togglePassword"> Afficher le mot de passe </label>
                                 <script>
                                     const passwordInput = document.getElementById('password');
                                     const togglePassword = document.getElementById('togglePassword');

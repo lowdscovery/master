@@ -15,6 +15,11 @@ class Commande extends Component
     protected $paginationTheme ="bootstrap";
     public $editCommande = [];
 
+
+    public function updatedSearch(){
+        $this->resetPage();
+    }
+    
     public function render()
     {
         $searchCriteria = "%".$this->search."%";

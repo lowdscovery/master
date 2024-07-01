@@ -46,11 +46,11 @@
 
     <div class="col-xl-3 col-md-6">
       <div class="card bg-success text-white mb-2">
-        <div class="card-body">Forage</div>
+        <div class="card-body">Forage - Puits</div>
           <div class="card-footer d-flex align-items-center justify-content-between">
 		 
           @if (count($ressources) > 0)          
-                <select class="form-control" wire:model="selectedressource.ressource_id" required="required">
+                <select class="form-control @error('selectedressource.ressource_id') is-invalid @enderror" wire:model="selectedressource.ressource_id" required="required">
                  <option value="">---------</option>
                     @foreach ($ressources as $ressource)
                         <option value="{{$ressource->id}}">{{$ressource->nom}}</option>
@@ -62,6 +62,9 @@
         @endif
 
         </div>
+         @error("selectedressource.ressource_id")
+                    <span class="text-white">{{ $message }}</span>
+                @enderror
       </div>
     </div>
 
@@ -75,6 +78,13 @@
                  <option value="">---------</option>
                     @foreach ($forages as $forage)
                         <option value="{{$forage->id}}">{{$forage->nom}}</option>
+                    @endforeach                          
+                </select>
+            @elseif(count($basse) > 0)
+            <select class="form-control" wire:model="selectedForage.forage_id" required="required">
+                 <option value="">---------</option>
+                    @foreach ($basse as $bass)
+                        <option value="{{$bass->id}}">{{$bass->nom}}</option>
                     @endforeach                          
                 </select>
             @else

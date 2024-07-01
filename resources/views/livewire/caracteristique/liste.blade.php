@@ -1,5 +1,7 @@
 @if ($affiche == AFFICHAGE)
   @include("livewire.affichage.affichage")
+@elseif($affichebassin==AFFICHAGEBASSIN)
+  @include("livewire.affichage.affichebassin")
 @else
   @include("livewire.caracteristique.card")
 <div>
@@ -75,14 +77,9 @@
             <div class="card-tools d-flex align-items-center ">
               @if (count($forages) > 0) 
                 <li class="breadcrumb-item active"> <button type="button" wire:click="addCaract" class="btn btn-primary mr-4 d-block" >Enregistrer</button></li>
+              @elseif (count($basse) > 0) 
+                <li class="breadcrumb-item active"> <button type="button" wire:click="addCaract" class="btn btn-primary mr-4 d-block" >Enregistrer</button></li>
               @endif
-                <div class="input-group input-group-md" style="width: 250px;">
-            <input type="text" name="table_search" wire:model.debounce.250ms="search" class="form-control float-right" placeholder="Search">
-
-            <div class="input-group-append">
-             <button type="submit" class="btn btn-default"><i class="fas fa-search"></i></button>
-                    </div>
-                  </div>
                 </div>
               </div>
               <!-- /.card-header -->
@@ -103,8 +100,13 @@
                     <tr>
                       <td style="width:15%;">{{ $caracteristique->districts->nom }}</td>
                       <td style="width:15%;">{{ $caracteristique->sites->nom }}</td>
-                      <td style="width:15%;">{{ $caracteristique->ressources->nom }}</td>  
-                      <td style="width:15%;">{{ $caracteristique->forages->nom }}</td>    
+                      <td style="width:15%;">{{ $caracteristique->ressources->nom }}</td> 
+
+                    @if ($caracteristique->ressource_id == "13" || $caracteristique->ressource_id == "14" || $caracteristique->ressource_id == "19")
+                      <td style="width:15%;">{{ $caracteristique->basses->nom }}</td>
+                    @else
+                    <td style="width:15%;">{{ $caracteristique->forages->nom }}</td>
+                    @endif    
                       <td style="width:20%;">
         
         <div class="btn-group open">
@@ -112,20 +114,24 @@
               <span class="fa fa-caret-down" title="Toggle dropdown menu"></span>
           </a>
           <ul class="dropdown-menu" style="padding:10px; z-index: 10;" >
-          @if (($caracteristique->forages->nom)=="Forage")
-        <li><button class="btn btn-link" wire:click="showModal({{$caracteristique->id}})"  data-toggle="modal" data-target="#electrique"> <i class="far fa-edit"></i>Moteur</button></li>
-        <li><button class="btn btn-link" wire:click="showModal({{$caracteristique->id}})" data-toggle="modal" data-target="#exampleModa"> <i class="fa fa-plus-circle"></i>Pompe</button></li>
-          @elseif(($caracteristique->ressources->nom)=="GEPD DN 400" || ($caracteristique->ressources->nom)=="GEPD DN 300" || 
-          ($caracteristique->ressources->nom)=="GEPD DN 250" && ($caracteristique->forages->nom)=="Bassin")
+      
+          @if(($caracteristique->ressource_id) == "13" || ($caracteristique->ressource_id) == "14" || ($caracteristique->ressource_id) == "19")
         <li><button class="btn btn-link" wire:click="showModal({{$caracteristique->id}})"  data-toggle="modal" data-target="#electrique"> <i class="far fa-edit"></i>Moteur</button></li>
         <li><button class="btn btn-link" wire:click="showModal({{$caracteristique->id}})" data-toggle="modal" data-target="#doseuse"> <i class="fa fa-plus-circle"></i>Doseuse</button></li>
+        @elseif (($caracteristique->forages->nom)=="Forage" || ($caracteristique->forages->nom)=="Puits")
+        <li><button class="btn btn-link" wire:click="showModal({{$caracteristique->id}})"  data-toggle="modal" data-target="#electrique"> <i class="far fa-edit"></i>Moteur</button></li>
+        <li><button class="btn btn-link" wire:click="showModal({{$caracteristique->id}})" data-toggle="modal" data-target="#exampleModa"> <i class="fa fa-plus-circle"></i>Pompe</button></li>
           @endif
           </ul>
         </div>  
           @if(count($caracteristique->pompes)== 0 AND count($caracteristique->moteurs)== 0 AND count($caracteristique->doseuses)== 0)          
           <button class="btn btn-link" wire:click="confirmDelete('{{$caracteristique->marque}}',{{$caracteristique->id}})"> <i class="far fa-trash-alt"></i> </button>  
           @else
+           @if ($caracteristique->ressource_id == "13" || $caracteristique->ressource_id == "14" || $caracteristique->ressource_id == "19")
+           <button class="btn btn-link" wire:click="affichagebassin({{$caracteristique->id}})"> <i class="fa fa-eye"></i> </button>
+           @else
            <button class="btn btn-link" wire:click="affichage({{$caracteristique->id}})"> <i class="fa fa-eye"></i> </button>
+           @endif
           @endif              
                       </td>
                     </tr>
@@ -160,6 +166,9 @@
 
 </div>
 </div>
+@endif
+
+
 
 <script>
     window.addEventListener("showSuccessMessage", event=>{
@@ -206,6 +215,5 @@
     })
 
 </script>
-@endif
 
 

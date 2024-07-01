@@ -43,8 +43,8 @@
       <div class="d-flex my-4 bg-gray-light p-2">
               <div class="d-flex flex-grow-1 mr-2">
                   <div class="flex-grow-1 mr-2">
-                      <input type="text" placeholder="Encombrement"  wire:model="addModal.encombrement" class="form-control @error("addModal.encombrement") is-invalid @enderror" title="encombrement">
-                      @error("addModal.encombrement")
+                      <input type="text" placeholder="Corps de pompe"  wire:model="addModal.corpsDePompe" class="form-control @error("addModal.corpsDePompe") is-invalid @enderror" title="corps de pompe">
+                      @error("addModal.corpsDePompe")
                           <span class="text-danger">{{$message}}</span>
                       @enderror
                   </div>
@@ -117,8 +117,26 @@
           <div class="d-flex my-4 bg-gray-light p-2">
               <div class="d-flex flex-grow-1 mr-2">
                   <div class="flex-grow-1 mr-2">
-                      <input type="text" placeholder="Corps de pompe"  wire:model="addModal.corpsDePompe" class="form-control @error("addModal.corpsDePompe") is-invalid @enderror" title="corps de pompe">
-                      @error("addModal.corpsDePompe")
+                      <input type="text" placeholder="Longueur"  wire:model="addModal.longueur" class="form-control @error("addModal.longueur") is-invalid @enderror" title="Longueur">
+                      @error("addModal.longueur")
+                          <span class="text-danger">{{$message}}</span>
+                      @enderror
+                  </div>
+                   <div class="flex-grow-1 mr-2">
+                      <input type="text" placeholder="Largeur"  wire:model="addModal.largeur" class="form-control @error("addModal.largeur") is-invalid @enderror" title="Largeur">
+                      @error("addModal.largeur")
+                          <span class="text-danger">{{$message}}</span>
+                      @enderror
+                  </div>
+                  <div class="flex-grow-1 mr-2">
+                      <input type="text" placeholder="Hauteur"  wire:model="addModal.hauteur" class="form-control @error("addModal.hauteur") is-invalid @enderror" title="Hauteur">
+                      @error("addModal.hauteur")
+                          <span class="text-danger">{{$message}}</span>
+                      @enderror
+                  </div>
+                  <div class="flex-grow-1 mr-2">
+                      <input type="text" placeholder="Masse"  wire:model="addModal.masse" class="form-control @error("addModal.masse") is-invalid @enderror" title="Masse">
+                      @error("addModal.masse")
                           <span class="text-danger">{{$message}}</span>
                       @enderror
                   </div>
@@ -130,6 +148,7 @@
                   </div>            
                </div>
               </div>
+              
                <div class="p-2">
               <button class="btn btn-success" wire:click="editModalPompe()">Ajouter</button>
               <button type="button" class="btn btn-secondary" data-dismiss="modal" wire.click="">Close</button>

@@ -5,9 +5,10 @@
             <h4 class="modal-title">Caracteristique des <strong>MOTEURS</strong> </h4>
       </div>
       <div class="modal-body">
+      
       @if ($showInputPompe)
-          <div class="d-flex my-4 bg-gray-light p-2">
-              <div class="d-flex flex-grow-1 mr-2">
+            <div class="d-flex my-4 bg-gray-light p-2">
+                <div class="d-flex flex-grow-1 mr-2">
                   <div class="flex-grow-1 mr-2">
                       <input type="text" placeholder="Marque"  wire:model="addMoteur.marque" class="form-control @error("addMoteur.marque") is-invalid @enderror" title="marque">
                       @error("addMoteur.marque")
@@ -38,8 +39,8 @@
                           <span class="text-danger">{{$message}}</span>
                       @enderror
                   </div>
-              </div>
-              </div>
+                </div>
+            </div>
 
 
               <div class="d-flex my-4 bg-gray-light p-2">
@@ -65,9 +66,9 @@
                       @enderror
                   </div>
 
-                  <div class="flex-grow-1 mr-2">
-                      <input type="text" placeholder="Encombrement"  wire:model="addMoteur.encombrement" class="form-control @error("addMoteur.encombrement") is-invalid @enderror" title="encombrement">
-                      @error("addMoteur.encombrement")
+                   <div class="flex-grow-1 mr-2">
+                      <input type="text" placeholder="Type de marrage"  wire:model="addMoteur.typeDeDemarrage" class="form-control @error("addMoteur.typeDeDemarrage") is-invalid @enderror" title="type de demarrage">
+                      @error("addMoteur.typeDeDemarrage")
                           <span class="text-danger">{{$message}}</span>
                       @enderror
                   </div>
@@ -82,7 +83,7 @@
 
               
           <div class="d-flex my-4 bg-gray-light p-2">
-              <div class="d-flex flex-grow-1 mr-2">
+            <div class="d-flex flex-grow-1 mr-2">
                   <div class="flex-grow-1 mr-2">
                 <select class="form-control @error("addMoteur.roulement") is-invalid @enderror" wire:model="addMoteur.roulement" required="required" title="roulement">
                 @error("addMoteur.roulement")
@@ -124,19 +125,19 @@
               <div class="d-flex my-4 bg-gray-light p-2">
               <div class="d-flex flex-grow-1 mr-2">
 
-              <div class="flex-grow-1 mr-2">
+                 <div class="flex-grow-1 mr-2">
                       <input type="date" placeholder="Annee Fabrication"  wire:model="addMoteur.anneeFabrication" class="form-control @error("addMoteur.anneeFabrication") is-invalid @enderror" title="année de fabrication">
                       @error("addMoteur.anneeFabrication")
                           <span class="text-danger">{{$message}}</span>
                       @enderror
-             </div>
-               <div class="flex-grow-1 mr-2">
+                   </div>
+                  <div class="flex-grow-1 mr-2">
                       <input type="text" placeholder="Fournisseur"  wire:model="addMoteur.fournisseur" class="form-control @error("addMoteur.fournisseur") is-invalid @enderror" title="fournisseur">
                       @error("addMoteur.fournisseur")
                           <span class="text-danger">{{$message}}</span>
                       @enderror
                   </div>
-              <div class="flex-grow-1 mr-2">
+                  <div class="flex-grow-1 mr-2">
                        <input type="Date" placeholder="Date Acquisition"  wire:model="addMoteur.dateAcquisition" class="form-control @error("addMoteur.dateAcquisition") is-invalid @enderror" title="date d'acquisition">
                       @error("addMoteur.dateAcquisition")
                           <span class="text-danger">{{$message}}</span>
@@ -154,16 +155,47 @@
                           <span class="text-danger">{{$message}}</span>
                       @enderror
                   </div>
+              </div>
+              </div>
+
+              <div class="d-flex my-4 bg-gray-light p-2">
+              <div class="d-flex flex-grow-1 mr-2">
+
+                 <div class="flex-grow-1 mr-2">
+                      <input type="text" placeholder="Longueur"  wire:model="addMoteur.longueur" class="form-control @error("addMoteur.longueur") is-invalid @enderror" title="Longueur">
+                      @error("addMoteur.longueur")
+                          <span class="text-danger">{{$message}}</span>
+                      @enderror
+                  </div>
+                  <div class="flex-grow-1 mr-2">
+                      <input type="text" placeholder="Largeur"  wire:model="addMoteur.largeur" class="form-control @error("addMoteur.largeur") is-invalid @enderror" title="Largeur">
+                      @error("addMoteur.largeur")
+                          <span class="text-danger">{{$message}}</span>
+                      @enderror
+                  </div>
+                  <div class="flex-grow-1 mr-2">
+                       <input type="text" placeholder="Hauteur"  wire:model="addMoteur.hauteur" class="form-control @error("addMoteur.hauteur") is-invalid @enderror" title="Hauteur">
+                      @error("addMoteur.hauteur")
+                          <span class="text-danger">{{$message}}</span>
+                      @enderror
+                  </div>
+                  <div class="flex-grow-1 mr-2">
+                      <input type="text" placeholder="Masse"  wire:model="addMoteur.masse" class="form-control @error("addMoteur.masse") is-invalid @enderror" title="Masse">
+                      @error("addMoteur.masse")
+                          <span class="text-danger">{{$message}}</span>
+                      @enderror
+                  </div>
                    <div class="flex-grow-1 mr-2">
-                      <input type="text" placeholder="Type de marrage"  wire:model="addMoteur.typeDeDemarrage" class="form-control @error("addMoteur.typeDeDemarrage") is-invalid @enderror" title="type de demarrage">
-                      @error("addMoteur.typeDeDemarrage")
+                      <input type="text" placeholder="Classe isolant"  wire:model="addMoteur.classeIsolant" class="form-control @error("addMoteur.classeIsolant") is-invalid @enderror" title="classe isolant">
+                      @error("addMoteur.classeIsolant")
                           <span class="text-danger">{{$message}}</span>
                       @enderror
                   </div>
               </div>
-              <div>
               </div>
-              </div>
+
+              
+        
               <div class="p-2">
               <button class="btn btn-success" wire:click="editModalMoteur()">Ajouter</button>
               <button type="button" class="btn btn-secondary" data-dismiss="modal" wire.click="">Close</button>

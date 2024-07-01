@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire;
 
+use App\Models\Forage;
 use App\Models\Ouvrage as ModelsOuvrage;
 use App\Models\Ressource;
 use Livewire\Component;
@@ -26,7 +27,7 @@ class Ouvrage extends Component
     {
         $data = [
             "ouvrages" => ModelsOuvrage::latest()->paginate(5),
-            "ressources" => Ressource::all(),
+            "forages" => Forage::all(),
           ];
         return view('livewire.ouvrage.ouvrage',$data)
         ->extends("layouts.principal")

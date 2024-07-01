@@ -133,7 +133,7 @@
                 @forelse ($rapports as $rapport)      
                 @if ($rapport->dateFin==null || $rapport->rapport==null)
                     <tr style="color:red;">
-                        <td class="text-center">{{ $rapport->dateDebut}}</td>
+                        <td class="text-center">{{ date('d-m-Y',strtotime($rapport->dateDebut))}}</td>
                         <td class="text-center" style="color:black;"><i class="fa fa-spinner fa-2x fa-fw"></i></td>
                         <td class="text-center">{{ $rapport->inters->nom}} {{ $rapport->inters->prenom}}</td>
                         <td class="text-center">{{ $rapport->lieu}}</td>
@@ -155,8 +155,8 @@
                     </tr>
                  @else
                     <tr>
-                      <td class="text-center">{{ $rapport->dateDebut}}</td>
-                      <td class="text-center">{{ $rapport->dateFin}}</td>
+                      <td class="text-center">{{  date('d-m-Y',strtotime($rapport->dateDebut))}}</td>
+                      <td class="text-center">{{  date('d-m-Y',strtotime($rapport->dateFin))}}</td>
                       <td class="text-center">{{ $rapport->inters->nom}} {{ $rapport->inters->prenom}}</td>
                       <td class="text-center">{{ $rapport->lieu}}</td>
                       <td class="text-center">{{ $rapport->motif}}</td>

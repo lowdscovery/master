@@ -48,9 +48,9 @@
 
               <div class="d-flex my-4 bg-gray-light p-2">
               <div class="d-flex flex-grow-1 mr-2">
-                 <div class="col">
-                    <input type="text" wire:model="addDoseuse.encombrement" class="form-control @error("addDoseuse.encombrement") is-invalid @enderror" placeholder="Encombrement" title="encombrement">
-                    @error("addDoseuse.encombrement")
+                <div class="col">
+                    <input type="text" wire:model="addDoseuse.observations" class="form-control  @error("addDoseuse.observations") is-invalid @enderror" placeholder="Observations" title="observations">
+                    @error("addDoseuse.observations")
                           <span class="text-danger">{{$message}}</span>
                     @enderror
                 </div>
@@ -107,8 +107,26 @@
                 </div>
                   
                   <div class="col">
-                    <input type="text" wire:model="addDoseuse.observations" class="form-control  @error("addDoseuse.observations") is-invalid @enderror" placeholder="Observations" title="observations">
-                    @error("addDoseuse.observations")
+                    <input type="text" wire:model="addDoseuse.longueur" class="form-control  @error("addDoseuse.longueur") is-invalid @enderror" placeholder="Longueur" title="Longueur">
+                    @error("addDoseuse.longueur")
+                          <span class="text-danger">{{$message}}</span>
+                    @enderror
+                </div>
+                <div class="col">
+                    <input type="text" wire:model="addDoseuse.largeur" class="form-control  @error("addDoseuse.largeur") is-invalid @enderror" placeholder="Largeur" title="Largeur">
+                    @error("addDoseuse.largeur")
+                          <span class="text-danger">{{$message}}</span>
+                    @enderror
+                </div>
+                <div class="col">
+                    <input type="text" wire:model="addDoseuse.hauteur" class="form-control  @error("addDoseuse.hauteur") is-invalid @enderror" placeholder="Hauteur" title="Hauteur">
+                    @error("addDoseuse.hauteur")
+                          <span class="text-danger">{{$message}}</span>
+                    @enderror
+                </div>
+                <div class="col">
+                    <input type="text" wire:model="addDoseuse.masse" class="form-control  @error("addDoseuse.masse") is-invalid @enderror" placeholder="Masse" title="Masse">
+                    @error("addDoseuse.masse")
                           <span class="text-danger">{{$message}}</span>
                     @enderror
                 </div>
@@ -290,7 +308,7 @@
       
               
 
-             
+          
       </div>
 
   

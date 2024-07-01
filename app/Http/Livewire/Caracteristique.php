@@ -2,6 +2,8 @@
 
 namespace App\Http\Livewire;
 
+use App\Models\Bass;
+use App\Models\Bassin;
 use App\Models\CaracteristiqueMoteur;
 use App\Models\District;
 use App\Models\Doseuse;
@@ -13,6 +15,7 @@ use App\Models\Ressource;
 use App\Models\Site;
 use Livewire\Component;
 use Livewire\WithPagination;
+use App\Models\Ouvrage as ModelsOuvrage;
 
 class Caracteristique extends Component
 {
@@ -31,12 +34,15 @@ class Caracteristique extends Component
     public $selectedSite=[];
     public $selectedressource=[];
     public $selectedForage=[];
+    public $selectedBasse=[];
     public $sites = [];
     public $ressources = [];
     public $forages = [];
+    public $basse = [];
     public $card=false;
     public $showInputPompe = false;
     public $affiche = false;
+    public $affichebassin = false;
     public $selectedId;
     public $cardselect;
     public $inputDoseuse=false;
@@ -96,6 +102,9 @@ class Caracteristique extends Component
         if(!empty($this->selectedressource)){
             $this->forages = Forage::where('ressource_id', $this->selectedressource)->get();
             }
+        if(!empty($this->selectedressource)){
+            $this->basse = Bass::where('ressource_id', $this->selectedressource)->get();
+            }
 
         $searchCriteria = "%".$this->search."%";
         $data = [
@@ -109,6 +118,7 @@ class Caracteristique extends Component
         "electriq" => MoteurElectrique::all(),
         "ouvrages" => Ouvrage::all(),
         "doseus" => Doseuse::all(),
+        "bassins"=> Bassin::all(),
         
        /* Table relation
         "caract"=>District::with('caract')->get(),
@@ -122,6 +132,11 @@ class Caracteristique extends Component
 
     public function affichage(CaracteristiqueMoteur $affichage){
         $this->affiche=AFFICHAGE;
+        $this->selectedId = $affichage;
+    }
+
+    public function affichagebassin(CaracteristiqueMoteur $affichage){
+        $this->affichebassin=AFFICHAGEBASSIN;
         $this->selectedId = $affichage;
     }
 
@@ -168,7 +183,7 @@ class Caracteristique extends Component
      $this->validate([
         'selectedDistrict.district_id' => 'required',
         'selectedSite.site_id' => 'required',
-        'selectedressource.ressource_id' => 'required',
+        'selectedressource.ressource_id' => 'required|unique:caracteristique_moteurs,ressource_id',
         'selectedForage.forage_id' => 'required',
     ]);
     CaracteristiqueMoteur::create([
@@ -184,6 +199,8 @@ class Caracteristique extends Component
          $this->selectedSite ="";
          $this->selectedressource ="";
          $this->selectedForage ="";
+         $this->selectedForage ="";
+         $this->selectedBasse="";
          $this->dispatchBrowserEvent("showSuccessMessage", ["message"=>"Création avec succès!"]);
        //  $this->card = false;
     }
@@ -238,7 +255,6 @@ public function editModalPompe(){
         "addModal.numeroSerie" =>"required",
         "addModal.numeroFabrication" =>"required",
         "addModal.vitesse" =>"required",
-        "addModal.encombrement" =>"required",
         "addModal.anneeFabrication" =>"required",
         "addModal.fournisseur" =>"required",
         "addModal.dateAcquisition" =>"required",
@@ -249,7 +265,11 @@ public function editModalPompe(){
         "addModal.debitNominal" =>"required",
         "addModal.hauteurManometrique" =>"required",
         "addModal.corpsDePompe" =>"required",
-        "addModal.chemiseArbre" =>"required"
+        "addModal.chemiseArbre" =>"required",
+        "addModal.longueur" =>"required",
+        "addModal.largeur" =>"required",
+        "addModal.hauteur" =>"required",
+        "addModal.masse" =>"required",
 
     ]);
     MoteurPompe::updateOrCreate(
@@ -262,7 +282,6 @@ public function editModalPompe(){
             "numeroSerie" => $this->addModal["numeroSerie"],
             "numeroFabrication" => $this->addModal["numeroFabrication"],
             "vitesse" => $this->addModal["vitesse"],
-            "encombrement" => $this->addModal["encombrement"],
             "anneeFabrication" => $this->addModal["anneeFabrication"],
             "fournisseur" => $this->addModal["fournisseur"],
             "dateAcquisition" => $this->addModal["dateAcquisition"],
@@ -274,6 +293,10 @@ public function editModalPompe(){
             "hauteurManometrique" => $this->addModal["hauteurManometrique"],
             "corpsDePompe" => $this->addModal["corpsDePompe"],
             "chemiseArbre" => $this->addModal["chemiseArbre"],
+            "longueur" => $this->addModal["longueur"],
+            "largeur" => $this->addModal["largeur"],
+            "hauteur" => $this->addModal["hauteur"],
+            "masse" => $this->addModal["masse"],
             "caracteristique_moteur_id"=> $this->selectedMoteur->id,
         ]
      );
@@ -299,7 +322,6 @@ public function editModalMoteur(){
         "addMoteur.numeroSerie" =>"required",
         "addMoteur.numeroFabrication" =>"required",
         "addMoteur.vitesse" =>"required",
-        "addMoteur.encombrement" =>"required",
         "addMoteur.anneeFabrication" =>"required",
         "addMoteur.fournisseur" =>"required",
         "addMoteur.dateAcquisition" =>"required",
@@ -315,7 +337,11 @@ public function editModalMoteur(){
         "addMoteur.sectionCable" =>"required",
         "addMoteur.indiceDeProtection" =>"required",
         "addMoteur.classeIsolant" =>"required",
-        "addMoteur.typeDeDemarrage" =>"required"
+        "addMoteur.typeDeDemarrage" =>"required",
+        "addMoteur.longueur" =>"required",
+        "addMoteur.largeur" =>"required",
+        "addMoteur.hauteur" =>"required",
+        "addMoteur.masse" =>"required",
     ]);
     MoteurElectrique::updateOrCreate(
         [
@@ -327,7 +353,6 @@ public function editModalMoteur(){
             "numeroSerie" => $this->addMoteur["numeroSerie"],
             "numeroFabrication" => $this->addMoteur["numeroFabrication"],
             "vitesse" => $this->addMoteur["vitesse"],
-            "encombrement" => $this->addMoteur["encombrement"],
             "anneeFabrication" => $this->addMoteur["anneeFabrication"],
             "fournisseur" => $this->addMoteur["fournisseur"],
             "dateAcquisition" => $this->addMoteur["dateAcquisition"],
@@ -344,6 +369,10 @@ public function editModalMoteur(){
             "indiceDeProtection" => $this->addMoteur["indiceDeProtection"],
             "classeIsolant" => $this->addMoteur["classeIsolant"],
             "typeDeDemarrage" => $this->addMoteur["typeDeDemarrage"],
+            "longueur" => $this->addMoteur["longueur"],
+            "largeur" => $this->addMoteur["largeur"],
+            "hauteur" => $this->addMoteur["hauteur"],
+            "masse" => $this->addMoteur["masse"],
             "caracteristique_moteur_id"=> $this->selectedMoteur->id,
         ]
      );
@@ -369,7 +398,6 @@ public function addDoseuses(){
         "addDoseuse.numeroSerie" =>"required",
         "addDoseuse.numeroFabrication" =>"required",
         "addDoseuse.vitesse" =>"required",
-        "addDoseuse.encombrement" =>"required",
         "addDoseuse.anneeFabrication" =>"required",
         "addDoseuse.fournisseur" =>"required",
         "addDoseuse.dateAcquisition" =>"required",
@@ -393,6 +421,10 @@ public function addDoseuses(){
         "addDoseuse.calpetRefoulement" =>"required",
         "addDoseuse.tarage" =>"required",
         "addDoseuse.debitMax" =>"required",
+        "addDoseuse.longueur" =>"required",
+        "addDoseuse.largeur" =>"required",
+        "addDoseuse.hauteur" =>"required",
+        "addDoseuse.masse" =>"required",
         
     ]);
     Doseuse::updateOrCreate(
@@ -405,7 +437,6 @@ public function addDoseuses(){
             "numeroSerie" => $this->addDoseuse["numeroSerie"],
             "numeroFabrication" => $this->addDoseuse["numeroFabrication"],
             "vitesse" => $this->addDoseuse["vitesse"],
-            "encombrement" => $this->addDoseuse["encombrement"],
             "anneeFabrication" => $this->addDoseuse["anneeFabrication"],
             "fournisseur" => $this->addDoseuse["fournisseur"],
             "dateAcquisition" => $this->addDoseuse["dateAcquisition"],
@@ -428,7 +459,11 @@ public function addDoseuses(){
             "calpetAspiration" => $this->addDoseuse["calpetAspiration"],
             "calpetRefoulement" => $this->addDoseuse["calpetRefoulement"],
             "tarage" => $this->addDoseuse["tarage"],
-            "debitMax" => $this->addDoseuse["debitMax"],       
+            "debitMax" => $this->addDoseuse["debitMax"],  
+            "longueur" => $this->addDoseuse["longueur"],
+            "largeur" => $this->addDoseuse["largeur"],
+            "hauteur" => $this->addDoseuse["hauteur"],
+            "masse" => $this->addDoseuse["masse"],     
             "caracteristique_moteur_id"=> $this->selectedMoteur->id,
         ]
      );
@@ -507,5 +542,16 @@ public function deleteModalDoseuse(Doseuse $doseuse){
     $this->addMoteur = [];
     $this->addMoteur["edit"] = false;
 }*/
+
+//show pdf
+public $documents;
+public $selectedDocument;
+
+public function mount(){
+  $this->documents = ModelsOuvrage::all();
+}
+public function selectDocument($documentId){
+  $this->selectedDocument = ModelsOuvrage::find($documentId);
+}
 
 }

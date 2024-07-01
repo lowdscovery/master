@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire;
 
+use App\Models\Bass;
 use App\Models\Bassin as ModelsBassin;
 use Livewire\Component;
 use App\Models\Ressource;
@@ -46,7 +47,7 @@ class Bassin extends Component
     {
         $data = [
             "bassins" => ModelsBassin::latest()->paginate(5),
-            "ressources" => Ressource::all(),
+            "bass" => Bass::all(),
           ];
         return view('livewire.bassin.bassin',$data)
         ->extends("layouts.principal")

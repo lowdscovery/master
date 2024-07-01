@@ -9,8 +9,7 @@
    <div class="row p-2 pt-3">
  
      <div class="col-md-6">
-        <div class="card card-teal">
-            <div class="card-body">
+      
            <form wire:submit.prevent="addCommande">
                     <div class="form-group">
                         <label >Date</label>
@@ -65,16 +64,12 @@
                           <span class="text-danger">{{$message}}</span>
                        @enderror             
                      </div>
-             </div>    
-        </div>  
-    </div>
+           </div>
   <!-- separation -->     
         <div class="col-md-6">
           <div class="row ">       
             <div class="col-md-12">
-             <div class="card card-info" style=".card:blue;">
-               <div class="p-3 table-striped">
-
+          
                     <div class="d-flex">
                      <div class="form-group flex-grow-1 mr-2">
                         <label >Situation</label>
@@ -127,8 +122,7 @@
                         <span class="text-danger">{{$message}}</span>
                         @enderror
                     </div>
-                </div>
-              </div>
+
             </div>         
           </div>
         </div>

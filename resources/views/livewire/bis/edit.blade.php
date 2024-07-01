@@ -9,8 +9,6 @@
    <div class="row p-2 pt-3">
  
      <div class="col-md-6">
-        <div class="card card-teal">
-            <div class="card-body">
            <form wire:submit.prevent="updateCommande">
                     <div class="form-group">
                         <label >Repere</label>
@@ -54,16 +52,11 @@
                           <span class="text-danger">{{$message}}</span>
                        @enderror             
                      </div>
-
-             </div>    
-        </div>  
     </div>
   <!-- separation -->     
         <div class="col-md-6">
           <div class="row ">       
             <div class="col-md-12">
-             <div class="card card-info" style=".card:blue;">
-               <div class="p-3 table-striped">
 
                    <div class="form-group">
                         <label >Pn</label>
@@ -106,8 +99,6 @@
                     </div>
                 </div>
               </div>
-            </div>         
-          </div>
         </div>
         <div class="col-md-6">
         <button type="submit" class="btn btn-primary">Enregistrer</button>

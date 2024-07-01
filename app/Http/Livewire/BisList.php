@@ -14,6 +14,12 @@ class BisList extends Component
     protected $paginationTheme = "bootstrap";
     public $addBis = [];
     public $editBis = [];
+
+
+    public function updatedSearch(){
+        $this->resetPage();
+    }
+    
     public function render()
     {
         $searchCriteria = "%".$this->search."%";

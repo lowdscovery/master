@@ -13,6 +13,7 @@ define("UPDATEINTERVENANT", "update");
 define("LISTINTERVENANT", "intervenant");
 define("PAGEGRILLE", "grille");
 define("AFFICHAGE", "affichage");
+define("AFFICHAGEBASSIN", "affichagebassin");
 
 /*Affiche le nom et prenom*/
 function userFullName(){

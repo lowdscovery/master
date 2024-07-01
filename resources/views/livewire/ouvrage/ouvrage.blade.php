@@ -131,8 +131,8 @@
                                 <span class="text-danger">{{$message}}</span>
                         @enderror 
                             <option value="">---------</option>
-                            @foreach ($ressources as $ressource)                          
-                            <option value="{{$ressource->id}}">{{$ressource->nom}}</option>
+                            @foreach ($forages as $forage)                          
+                            <option value="{{$forage->ressources->id}}">{{$forage->ressources->nom}}</option>
                             @endforeach
                         </select>
                     </div>                  
@@ -240,8 +240,8 @@
                                 <span class="text-danger">{{$message}}</span>
                         @enderror 
                             <option value="">---------</option>
-                            @foreach ($ressources as $ressource)                          
-                            <option value="{{$ressource->id}}">{{$ressource->nom}}</option>
+                            @foreach ($forages as $forage)                          
+                            <option value="{{$forage->ressources->id}}">{{$forage->ressources->nom}}</option>
                             @endforeach
                         </select>
                     </div>                  

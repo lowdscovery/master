@@ -17,6 +17,7 @@ class Doseuse extends Model
         'rapportReduction','course','ballonAmortisseur','ballonAmortisseurRefoulement',
         'corpsDoseur','membrane','arbre','calpetAspiration','calpetRefoulement',
         'tarage','debitMax','caracteristique_moteur_id',
+        'longueur','largeur','masse','hauteur',
     ];
     public function caracteristiques(){
         return $this->belongsTo(CaracteristiqueMoteur::class, "caracteristique_moteur_id","id");

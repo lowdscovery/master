@@ -26,6 +26,11 @@ class Rapport extends Component
     public function cacheInput(){
         $this->input = false;
        }
+
+       public function updatedSearch(){
+        $this->resetPage();
+    }
+    
     public function render()
     {
         $searchCriteria = "%".$this->search."%";

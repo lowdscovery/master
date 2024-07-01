@@ -10,7 +10,7 @@ use App\Models\CaracteristiqueMoteur;
 class Maintenance extends Model
 {
     use HasFactory;
-
+    protected $table = 'maintenances';
     protected $fillable = [
         "dateMaintenance","actionEntreprise","intervenant_id","caracteristique_moteurs_id",
         "DureeIntervention","DureeReel","Rapport",

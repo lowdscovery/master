@@ -42,4 +42,8 @@ class CaracteristiqueMoteur extends Model
     public function maintenances(){
         return $this->hasMany(Maintenance::class);
     }
+    public function basses(){
+        return $this->belongsTo(Bass::class, "forage_id", "id");
+    }
+    
 }

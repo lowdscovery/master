@@ -38,7 +38,7 @@
                         <tbody>
                      @forelse ($mesures as $mesure)                
                          <tr>
-                            <td class="text-center">{{$mesure->Date}}</td>
+                            <td class="text-center">{{date('d-m-Y',strtotime($mesure->Date))}}</td>
                             <td class="text-center">{{$mesure->IndexCH}}</td>
                             <td class="text-center">{{$mesure->Puissance}}</td>
                             <td class="text-center">{{$mesure->Debit}}</td>

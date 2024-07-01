@@ -21,7 +21,15 @@ class Maintenance extends Component
     public $editImage;
     public $button = true;
     public $resetValueInput =0;
+    public $perPage = 5;
     //
+    public function updatedPerPage(){
+        $this->resetPage();
+    }
+    public function updatedSearch(){
+        $this->resetPage();
+    }
+
     public $input = false;
     public function showInput(){
         $this->input = true;
@@ -37,6 +45,8 @@ class Maintenance extends Component
     public function cacheButton(){
         $this->button = false;
     }
+
+   
     public function mount(){
         $this->documents = ModelsMaintenance::all();
         $today = Carbon::today();
@@ -47,7 +57,7 @@ class Maintenance extends Component
     {
        $searchCriteria = "%".$this->search."%";
        $data = [
-        "maintenances" => ModelsMaintenance::where("dateMaintenance","like",$searchCriteria)->latest()->paginate(3),
+        "maintenances" => ModelsMaintenance::where("actionEntreprise","like",$searchCriteria)->latest()->paginate($this->perPage),
         "inters" => ModelsIntervenant::get(),
         "caracteristiques" => CaracteristiqueMoteur::get(),
        // "events" =>  ModelsMaintenance::paginate(3),

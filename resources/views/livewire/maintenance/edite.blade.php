@@ -39,6 +39,7 @@
                     @endforeach      
            </select>
           </div>
+          
           <div class="form-group">
             <label for="message-text" class="col-form-label">Action d'entreprise</label>
             <textarea class="form-control @error("editMaintenance.actionEntreprise") is-invalid @enderror" wire:model="editMaintenance.actionEntreprise">

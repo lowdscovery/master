@@ -20,7 +20,6 @@ class CreateMoteurElectriquesTable extends Migration
             $table->string('numeroSerie');
             $table->string('numeroFabrication');
             $table->string('vitesse');
-            $table->string('encombrement');
             $table->date('anneeFabrication');
             $table->string('fournisseur');
             $table->date('dateAcquisition');
@@ -28,7 +27,6 @@ class CreateMoteurElectriquesTable extends Migration
             $table->string('roulement');
             $table->string('misesEnServices');
             $table->string('observations');
-            
             $table->string('puissance');
             $table->string('tension');
             $table->string('cosphi');
@@ -38,6 +36,11 @@ class CreateMoteurElectriquesTable extends Migration
             $table->string('classeIsolant');
             $table->string('typeDeDemarrage');
             $table->foreignId('caracteristique_moteur_id');
+
+            $table->string('longueur');
+            $table->string('largeur');
+            $table->string('masse');
+            $table->string('hauteur');
             $table->timestamps();
         });
     }

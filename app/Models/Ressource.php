@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\CaracteristiqueMoteur;
+use App\Models\Bass;
 
 class Ressource extends Model
 {
@@ -26,5 +27,8 @@ class Ressource extends Model
 
     public function forage(){
         return $this->hasMany(Forage::class);
+    }
+    public function bass(){
+        return $this->hasMany(Bass::class);
     }
 }

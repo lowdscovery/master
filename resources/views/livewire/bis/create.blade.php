@@ -9,8 +9,6 @@
    <div class="row p-2 pt-3">
  
      <div class="col-md-6">
-        <div class="card card-teal">
-            <div class="card-body">
            <form wire:submit.prevent="addBis">
                     <div class="form-group">
                         <label >Repere</label>
@@ -53,16 +51,12 @@
                         @error("addBis.Dn")
                           <span class="text-danger">{{$message}}</span>
                        @enderror             
-                     </div>
-             </div>    
-        </div>  
-    </div>
+                     </div>  
+        </div>
   <!-- separation -->     
         <div class="col-md-6">
           <div class="row ">       
             <div class="col-md-12">
-             <div class="card card-info" style=".card:blue;">
-               <div class="p-3 table-striped">
                     
                      <div class="form-group flex-grow-1">
                         <label >Pn</label>
@@ -103,9 +97,7 @@
                         @endforeach             
                         </select>
                     </div>
-                </div>
-              </div>
-            </div>         
+                </div>         
           </div>
         </div>
       <div class="col-md-6">

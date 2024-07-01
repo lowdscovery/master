@@ -26,12 +26,17 @@ class Armoire extends Component
     {
         $searchCriteria = "%".$this->search."%";
         $data = [
-         "armoires" => ModelsArmoire::where("marque","like",$searchCriteria)->latest()->paginate(2),
+         "armoires" => ModelsArmoire::where("marque","like",$searchCriteria)->latest()->paginate(5),
         ];
         return view('livewire.armoire.liste',$data)
         ->extends("layouts.principal")
         ->section("contenu");
     }
+
+    public function updatedSearch(){
+        $this->resetPage();
+    }
+
     public function goToAddArmoire(){
         $this->currentPage = PAGECREATEFORM;
     }

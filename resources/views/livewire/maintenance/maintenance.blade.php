@@ -92,8 +92,30 @@
 </div>                        
         
 
-<div class="row p-3 pt-2" >
+<div class="row p-2" >
  <div class="col-12">
+ 
+ <div class="content py-2">
+<section class="content">
+<div class="container-fluid">
+<div class="row">
+<div class="col-md-8 offset-md-2">
+<form action="simple-results.html">
+<div class="input-group">
+<input type="text" class="form-control form-control-lg" wire:model.debounce.250ms="search" placeholder="Recherche">
+<div class="input-group-append">
+<button type="submit" class="btn btn-lg btn-default">
+<i class="fa fa-search"></i>
+</button>
+</div>
+</div>
+</form>
+</div>
+</div>
+</div>
+</section>
+</div>
+
      <div class="card">
         
          <div class="card-header d-flex align-items-center" style="background-color:#009BFF;">
@@ -101,16 +123,23 @@
             <div class="card-tools d-flex align-items-center ">
 
                 <div class="input-group input-group-md" style="width: 250px;">
-            <input type="text" name="table_search" wire:model.debounce.250ms="search" class="form-control float-right" placeholder="Search">
 
-            <div class="input-group-append">
-             <button type="submit" class="btn btn-default"><i class="fas fa-search"></i></button>
-                    </div>
+                  <label class="mr-1" style="color:white;font-size:20px;">Par page</label>
+                <div class="card-tools d-flex align-items-center ">
+                  <div class="float-right">         
+                    <select class="form-control" wire:model.live="perPage"> 
+                     <option value="5">5</option>
+                     <option value="10">10</option>
+                     <option value="50">50</option>
+                   </select>
+                  </div>
+                </div>
+
                   </div>
                 </div>
               </div>
               <!-- /.card-header -->
-              <div class="card-body table-responsive p-0 table-striped" style="max-height: 400px;">
+              <div class="card-body table-responsive p-0 table-striped" style="max-height: 450px;">
                 <table class="table table-head-fixed">
                   <thead>
                     <tr>

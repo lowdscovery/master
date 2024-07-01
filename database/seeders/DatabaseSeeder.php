@@ -29,6 +29,7 @@ class DatabaseSeeder extends Seeder
          $this->call(SiteTableSeeder::class);
          $this->call(RessourceTableSeeder::class);
          $this->call(ForageTableSeeder::class);
+         $this->call(BassinTableSeeder::class);
 
          User::find(1)->roles()->attach(1);
          User::find(2)->roles()->attach(2);
