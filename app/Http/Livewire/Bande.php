@@ -12,7 +12,6 @@ class Bande extends Component
     protected $paginationTheme = "bootstrap";
     public $isSelectededit = false;
     public $isSelected = false;
-    public $Nombre;
     public $U1;
     public $U2;
     public $U3;
@@ -72,7 +71,6 @@ class Bande extends Component
         $this->averageResult = $average * $average1 * 0.8 * 1.732;
         $this->finalResult = $this->averageResult;
          $this->validate([
-             "Nombre" =>"required",
              "U1" =>"required",
              "U2" =>"required",
              "U3" =>"required",
@@ -85,7 +83,6 @@ class Bande extends Component
         
          ModelsBande::create(
              [
-                 "Nombre"=> $this->Nombre,
                  "U1" => $this->U1,
                  "U2" => $this->U2,
                  "U3" => $this->U3,
@@ -110,7 +107,6 @@ class Bande extends Component
      public function editBande($id){
         $data = ModelsBande::findOrFail($id);
         $this->dataId = $id;
-        $this->Nombre = $data->Nombre;
         $this->U1 = $data->U1;
         $this->U2 = $data->U2;
         $this->U3 = $data->U3;
@@ -124,7 +120,6 @@ class Bande extends Component
     
     public function updateBande(){
         $this->validate([
-          "Nombre" =>"required",
           "U1" =>"required",
           "U2" =>"required",
           "U3" =>"required",
@@ -143,7 +138,6 @@ class Bande extends Component
             $this->finalResult = $this->averageResult;
 
             $data->update([
-                'Nombre' => $this->Nombre,
                 'U1' => $this->U1,
                 'U2' => $this->U2,
                 'U3' => $this->U3,
@@ -180,6 +174,6 @@ class Bande extends Component
       private function resetInputs()
     {
         $this->U1="";$this->U2="";$this->U3="";$this->I1="";$this->I2="";$this->I3="";$this->Debit="";
-        $this->Pression="";$this->Nombre="";
+        $this->Pression="";
     }
 }

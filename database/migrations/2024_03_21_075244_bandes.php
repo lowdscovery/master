@@ -15,7 +15,6 @@ class Bandes extends Migration
     {
         Schema::create('bandes', function(Blueprint $table){
             $table->id();
-            $table->float('Nombre');
             $table->float('U1');
             $table->float('U2');
             $table->float('U3');

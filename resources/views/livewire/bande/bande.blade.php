@@ -22,7 +22,7 @@
         var chart = new Chart(ctx, {
             type: 'line',
             data: {
-                labels: @json($data->pluck('Nombre')),
+                labels: @json($data->pluck('Debit')),
                 datasets: [{
                     label: 'Tension Moyenne',
                     backgroundColor: 'rgba(75, 192, 192, 0.2)',
@@ -40,7 +40,14 @@
                     backgroundColor: 'rgba(226, 7, 134, 0.2)',
                     borderColor: 'rgba(226, 7, 134, 1)',
                     data: @json($data->pluck('Puissance'))
-            }]
+            },
+              {
+                    label: 'Pression',
+                    backgroundColor: 'rgba(226, 200, 14, 0.2)',
+                    borderColor: 'rgba(226, 200, 14, 1)',
+                    data: @json($data->pluck('Pression'))
+            }
+            ]
                 
             },
             
@@ -71,12 +78,6 @@
             <div class="p-4">
                     <div>
                     <div class="form-row">
-                    <div class="col">
-     <input type="number" class="form-control @error('Nombre') is-invalid @enderror" wire:model="Nombre" placeholder="Valeur" required="required" title="Valeur">
-                   @error("Nombre")
-                    <span class="text-danger">{{$message}}</span>
-                    @enderror
-                    </div>
 
                     <div class="col">
      <input type="number" class="form-control @error('U1') is-invalid @enderror" wire:model="U1" placeholder=" Tension U1" required="required" title="Tension U1">
@@ -95,6 +96,13 @@
                     <div class="col">
      <input type="number" class="form-control @error('U3') is-invalid @enderror" wire:model="U3" placeholder="Tension U3" required="required" title="Tension U3">
                    @error("U3")
+                    <span class="text-danger">{{$message}}</span>
+                    @enderror
+                    </div>
+
+                    <div class="col">
+      <input type="number" class="form-control @error('Pression') is-invalid @enderror" wire:model="Pression" placeholder="Pression" required="required" title="Pression">
+                    @error("Pression")
                     <span class="text-danger">{{$message}}</span>
                     @enderror
                     </div>
@@ -129,16 +137,7 @@
                     @enderror
                     </div>                   
                 </div>
-
-                <div class="form-row">
-                  <div class="col pt-3">
-      <input type="number" class="form-control @error('Pression') is-invalid @enderror" wire:model="Pression" placeholder="Pression" required="required" title="Pression">
-                    @error("Pression")
-                    <span class="text-danger">{{$message}}</span>
-                    @enderror
-                    </div>
-                                        
-                  </div>      
+     
                     </div>
                     
                     <div class="pt-3">                  
@@ -155,13 +154,7 @@
             <div class="p-4">
                     <div>
                     <div class="form-row">
-                    <div class="col">
-     <input type="number" class="form-control @error('Nombre') is-invalid @enderror" wire:model="Nombre" placeholder="Puissance" required="required" title="Puissance">
-                   @error("Nombre")
-                    <span class="text-danger">{{$message}}</span>
-                    @enderror
-                    </div>
-
+                    
                     <div class="col">
      <input type="number" class="form-control @error('U1') is-invalid @enderror" wire:model="U1" placeholder=" Tension U1" required="required" title="Tension U1">
                     @error("U1")
@@ -179,6 +172,13 @@
                     <div class="col">
      <input type="number" class="form-control @error('U3') is-invalid @enderror" wire:model="U3" placeholder="Tension U3" required="required" title="Tension U3">
                    @error("U3")
+                    <span class="text-danger">{{$message}}</span>
+                    @enderror
+                    </div>
+
+                    <div class="col">
+      <input type="number" class="form-control @error('Pression') is-invalid @enderror" wire:model="Pression" placeholder="Pression" required="required" title="Pression">
+                    @error("Pression")
                     <span class="text-danger">{{$message}}</span>
                     @enderror
                     </div>
@@ -213,16 +213,7 @@
                     @enderror
                     </div>                   
                 </div>
-
-                <div class="form-row">
-                  <div class="col pt-3">
-      <input type="number" class="form-control @error('Pression') is-invalid @enderror" wire:model="Pression" placeholder="Pression" required="required" title="Pression">
-                    @error("Pression")
-                    <span class="text-danger">{{$message}}</span>
-                    @enderror
-                    </div>
-                                        
-                  </div>      
+     
                     </div>
                     
                     <div class="pt-3">            
@@ -237,7 +228,6 @@
                     <table class="table table-head-fixed">
                         <thead>
                             <tr>
-                                <th class="text-center">#</th>
                                 <th class="text-center">U1</th>
                                 <th class="text-center">U2</th>
                                 <th class="text-center">U3</th>
@@ -255,7 +245,6 @@
                         <tbody>
                        @forelse ($bandes as $bande)
                          <tr>
-                            <td class="text-center">{{$bande->Nombre}}</td>
                             <td class="text-center">{{$bande->U1}}</td>
                             <td class="text-center">{{$bande->U2}}</td>
                             <td class="text-center">{{$bande->U3}}</td>

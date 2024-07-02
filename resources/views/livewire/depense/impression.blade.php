@@ -22,35 +22,19 @@
 
 <div class="row invoice-info">
 <div class="col-sm-4 invoice-col">
-149
+<h5><strong>J</strong>irama <strong>M</strong>ahajanga</h5>
 <address>
-Rue Rainandriamampandry<br>
-BP : 200<br>
-NIF 1 000 000 704<br>
-Statique N° 36003 11 1957 0 1005<br>
-RCS 2004 B 00 553
+Water Production And Distribution<br>
+Water Production<br>
 </address>
 </div>
 
 <div class="col-sm-4 invoice-col">
-To
 <address>
-<strong>John Doe</strong><br>
-795 Folsom Ave, Suite 600<br>
-Commune : Mahajanga<br>
-Phone: 555 539-1037<br>
-Email: jirama@gmail.com
-</address>
-</div>
-
-<div class="col-sm-4 invoice-col">
-<b>Invoice #007612</b><br>
 <br>
-<b>Order ID:</b> 4F3S8J<br>
-<b>Payment Due:</b> 2/22/2014<br>
-<b>Account:</b> 968-34567
+<h3><strong>DEPENSE ENGAGE</strong><br></h3>
+</address>
 </div>
-
 </div>
 
 

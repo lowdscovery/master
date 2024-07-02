@@ -80,13 +80,14 @@
           <h3 class="card-title flex-grow-1" style="color:white;"><i class="nav-icon fas fa-cogs"></i>Depense</h3>
             <div class="card-tools d-flex align-items-center ">
       <a wire:click.prevent="showImpression()" class="btn btn-default mr-4 d-block" rel="noopener" target="_blank"><i class="fas fa-print"></i> Imprimer</a>
+      <label for="filtreType" class="mr-2 d-block" style="color:white;">Filtrer par date </label>
                 <div class="input-group input-group-md" style="width: 250px;">
-            <input type="text" name="table_search" wire:model.debounce.250ms="search" class="form-control float-right" placeholder="Search">
-
+            <input type="date" name="table_search" wire:model.debounce.250ms="datedebut" class="form-control float-right mr-4 d-block" placeholder="Search">
+                 </div>
             <div class="input-group-append">
-             <button type="submit" class="btn btn-default"><i class="fas fa-search"></i></button>
+            <input type="date" wire:model.debounce.250ms="datefin" class="form-control float-right">
                     </div>
-                  </div>
+                 
                 </div>
               </div>
               <!-- /.card-header -->
@@ -154,7 +155,7 @@
               <!-- /.card-body -->
               <div class="card-footer">
                 <div class="float-right">
-                    {{ $depenses->links() }}
+                   
                 </div>
             </div>
 </div>

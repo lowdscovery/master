@@ -19,6 +19,8 @@ class Depense extends Component
     public $dataId;
     public $totalSum;
     public $today;
+    public $datedebut;
+    public $datefin;
 
     public $impression = false;
     public $imprimer = false;
@@ -42,9 +44,17 @@ class Depense extends Component
     }
     public function render()
     {
-        $searchCriteria = "%".$this->search."%";
-        $depenses = ModelsDepense::where("date","like",$searchCriteria)->latest()->paginate(5);
-        $this->totalSum = $depenses->sum('Total');
+        $query = ModelsDepense::query();
+        if($this->datedebut && $this->datefin)
+        {
+            $query->whereBetween('date',[$this->datedebut,$this->datefin]);
+        }
+        $depenses = $query->get();
+     /*   $searchCriteria = "%".$this->search."%";
+        $depenses = ModelsDepense::where("date","like",$searchCriteria)->latest()->paginate(5);*/
+      //  $searchCriteria = "%".$this->search."%";
+      //  $depenses = ModelsDepense::whereBetween("date",[$this->datedebut,$this->datefin])->latest()->paginate(5);
+       $this->totalSum = $depenses->sum('Total');
         
         return view('livewire.depense.depense',[
             'depenses' => $depenses,
