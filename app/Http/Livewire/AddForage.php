@@ -2,16 +2,18 @@
 
 namespace App\Http\Livewire;
 
-use Livewire\Component;
-use App\Models\District;
+use App\Models\Ressource;
 use App\Models\Site;
+use Livewire\Component;
 use Livewire\WithPagination;
 
-class AddDistricts extends Component
+class AddForage extends Component
 {
+
     use WithPagination;
     protected $paginationTheme = "bootstrap";
     public $nom;
+    public $site_id;
     public $isSelectededit = false;
     public $isSelected = false;
     public $data;
@@ -39,67 +41,72 @@ class AddDistricts extends Component
     public function render()
     {
         $data = [
-            "districts" => District::latest()->paginate(5),
+            "ressources" => Ressource::latest()->paginate(5),
+            "sites" => Site::all(),
           ];
-        return view('livewire.addDistricts.add-districts',$data)
+        return view('livewire.addForage.add-forage',$data)
         ->extends("layouts.principal")
         ->section("contenu");
     }
 
-    public function AddDistrict(){
-         $this->validate([
-             "nom" =>"required",
-         ]);
-        
-        District::create(
-             [
-                 "nom" => $this->nom,         
-             ]
-          );
-         $this->resetErrorBag();
-         $this->resetInputs();
-         $this->dispatchBrowserEvent("showSuccessMessage", ["message"=>"Votre demande reussi avec succès!"]);
-     }
+    public function AddRessource(){
+        $this->validate([
+            "nom" =>"required",
+            "site_id" =>"required",
+        ]);
+       
+       Ressource::create(
+            [
+                "nom" => $this->nom,
+                "site_id" => $this->site_id,         
+            ]
+         );
+        $this->resetErrorBag();
+        $this->resetInputs();
+        $this->dispatchBrowserEvent("showSuccessMessage", ["message"=>"Votre demande reussi avec succès!"]);
+    }
      //
-     //
-     public function editDistrict($id){
-        $data = District::findOrFail($id);
+     public function editRessource($id){
+        $data = Ressource::findOrFail($id);
         $this->dataId = $id;
         $this->nom = $data->nom;
+        $this->site_id = $data->site_id;
         $this->editselect();
     }
     
-    public function updateDistrict(){
+    public function updateRessource(){
         $this->validate([
           "nom" =>"required",
+          "site_id" =>"required",
         ]);
         if ($this->dataId) {
-            $data = District::find($this->dataId);
+            $data = Ressource::find($this->dataId);
             $data->update([
                 'nom' => $this->nom, 
+                'site_id' => $this->site_id, 
                
             ]);
             $this->resetInputs();
         }
-        $this->dispatchBrowserEvent("showSuccessMessage", ["message"=> "District mis à jour avec succès!"]);
+        $this->dispatchBrowserEvent("showSuccessMessage", ["message"=> "Ressource mis à jour avec succès!"]);
       }
-     //
-     public function confirmDelete(District $district){
+    //
+    public function confirmDelete(Ressource $ressource){
         $this->dispatchBrowserEvent("showConfirmMessage", ["message"=> [
             "text" => "Vous êtes sur le point pour supprimer? Voulez-vous continuer?",
             "title" => "Êtes-vous sûr de continuer?",
             "type" => "warning",
-            "data" => ["district_id" => $district->id]
+            "data" => ["ressource_id" => $ressource->id]
         ]]);
     }
     
-      public function deleteDistrict(District $district){
-        $district->delete();
-        $this->dispatchBrowserEvent("showSuccessMessage", ["message"=>"District supprimé avec succès!"]);
+      public function deleteRessource(Ressource $ressource){
+        $ressource->delete();
+        $this->dispatchBrowserEvent("showSuccessMessage", ["message"=>"Ressource supprimé avec succès!"]);
       }
 
     private function resetInputs()
-      {
-          $this->nom="";
-      }
+    {
+        $this->nom="";$this->site_id="";
+    }
 }

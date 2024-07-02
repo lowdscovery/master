@@ -13,6 +13,10 @@ class Ressource extends Model
 
     protected $fillable = ['id','nom','site_id'];
     
+    public function site(){
+        return $this->belongsTo(Site::class, 'site_id','id');
+    }
+
     public function caract(){
         return $this->hasMany(CaracteristiqueMoteur::class);
     }

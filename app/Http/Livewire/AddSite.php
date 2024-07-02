@@ -2,16 +2,17 @@
 
 namespace App\Http\Livewire;
 
-use Livewire\Component;
 use App\Models\District;
 use App\Models\Site;
+use Livewire\Component;
 use Livewire\WithPagination;
 
-class AddDistricts extends Component
+class AddSite extends Component
 {
     use WithPagination;
     protected $paginationTheme = "bootstrap";
     public $nom;
+    public $district_id;
     public $isSelectededit = false;
     public $isSelected = false;
     public $data;
@@ -36,70 +37,77 @@ class AddDistricts extends Component
         $this->isSelected = false;
         $this->resetErrorBag();
     }
+
     public function render()
     {
         $data = [
-            "districts" => District::latest()->paginate(5),
+            "districts" => District::all(),
+            "sites" => Site::latest()->paginate(5),
           ];
-        return view('livewire.addDistricts.add-districts',$data)
+        return view('livewire.addSite.add-site',$data)
         ->extends("layouts.principal")
         ->section("contenu");
     }
 
-    public function AddDistrict(){
-         $this->validate([
-             "nom" =>"required",
-         ]);
-        
-        District::create(
-             [
-                 "nom" => $this->nom,         
-             ]
-          );
-         $this->resetErrorBag();
-         $this->resetInputs();
-         $this->dispatchBrowserEvent("showSuccessMessage", ["message"=>"Votre demande reussi avec succès!"]);
-     }
+    public function AddSite(){
+        $this->validate([
+            "nom" =>"required",
+            "district_id" =>"required",
+        ]);
+       
+       Site::create(
+            [
+                "nom" => $this->nom,
+                "district_id" => $this->district_id,         
+            ]
+         );
+        $this->resetErrorBag();
+        $this->resetInputs();
+        $this->dispatchBrowserEvent("showSuccessMessage", ["message"=>"Votre demande reussi avec succès!"]);
+    }
+
      //
-     //
-     public function editDistrict($id){
-        $data = District::findOrFail($id);
+     public function editSite($id){
+        $data = Site::findOrFail($id);
         $this->dataId = $id;
         $this->nom = $data->nom;
+        $this->district_id = $data->district_id;
         $this->editselect();
     }
     
-    public function updateDistrict(){
+    public function updateSite(){
         $this->validate([
           "nom" =>"required",
+          "district_id" =>"required",
         ]);
         if ($this->dataId) {
-            $data = District::find($this->dataId);
+            $data = Site::find($this->dataId);
             $data->update([
                 'nom' => $this->nom, 
+                'district_id' => $this->district_id, 
                
             ]);
             $this->resetInputs();
         }
-        $this->dispatchBrowserEvent("showSuccessMessage", ["message"=> "District mis à jour avec succès!"]);
+        $this->dispatchBrowserEvent("showSuccessMessage", ["message"=> "Site mis à jour avec succès!"]);
       }
      //
-     public function confirmDelete(District $district){
+     public function confirmDelete(Site $site){
         $this->dispatchBrowserEvent("showConfirmMessage", ["message"=> [
             "text" => "Vous êtes sur le point pour supprimer? Voulez-vous continuer?",
             "title" => "Êtes-vous sûr de continuer?",
             "type" => "warning",
-            "data" => ["district_id" => $district->id]
+            "data" => ["site_id" => $site->id]
         ]]);
     }
     
-      public function deleteDistrict(District $district){
-        $district->delete();
-        $this->dispatchBrowserEvent("showSuccessMessage", ["message"=>"District supprimé avec succès!"]);
+      public function deleteSite(Site $site){
+        $site->delete();
+        $this->dispatchBrowserEvent("showSuccessMessage", ["message"=>"Site supprimé avec succès!"]);
       }
 
     private function resetInputs()
-      {
-          $this->nom="";
-      }
+    {
+        $this->nom="";$this->district_id="";
+    }
 }

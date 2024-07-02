@@ -12,6 +12,9 @@ class District extends Model
 
     protected $fillable = ['id','nom',];
     
+    public function site(){
+        return $this->hasMany(Site::class);
+    }
     public function caract(){
         return $this->hasMany(CaracteristiqueMoteur::class);
     }

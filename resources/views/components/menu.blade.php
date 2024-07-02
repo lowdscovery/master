@@ -58,6 +58,52 @@
         </li>
  @endcan
  @can("manager")
+ <li class="nav-item {{setMenuClass('admin.localisations.', 'menu-open')}}">
+            <a href="#" class="nav-link {{setMenuClass('admin.localisations.', 'active')}}">
+                <i class="nav-icon fas fa-cogs"></i>
+                <p>
+                Localisation
+                <i class="right fas fa-angle-left"></i>
+                </p>
+            </a>
+            <ul class="nav nav-treeview">
+                <li class="nav-item">
+                    <a href="{{route('admin.localisations.addDistricts.add-districts')}}"
+                        class="nav-link {{setMenuActive('admin.localisations.addDistricts.add-districts')}}">
+                    <i class="nav-icon far fa-circle"></i>
+                    <p>District</p>
+                    </a>
+                </li>     
+            </ul>
+            <ul class="nav nav-treeview">
+                <li class="nav-item">
+                    <a href="{{route('admin.localisations.addSite.add-site')}}"
+                        class="nav-link {{setMenuActive('admin.localisations.addSite.add-site')}}">
+                    <i class="nav-icon far fa-circle"></i>
+                    <p>Site</p>
+                    </a>
+                </li>     
+            </ul>
+            <ul class="nav nav-treeview">
+                <li class="nav-item">
+                    <a href="{{route('admin.localisations.addForage.add-forage')}}"
+                        class="nav-link {{setMenuActive('admin.localisations.addForage.add-forage')}}">
+                    <i class="nav-icon far fa-circle"></i>
+                    <p>Ressources</p>
+                    </a>
+                </li>     
+            </ul>
+            <ul class="nav nav-treeview">
+                <li class="nav-item">
+                    <a href="{{route('admin.localisations.addType.add-type')}}"
+                        class="nav-link {{setMenuActive('admin.localisations.addType.add-type')}}">
+                    <i class="nav-icon far fa-circle"></i>
+                    <p>Type</p>
+                    </a>
+                </li>     
+            </ul>
+        </li>
+
         <li class="nav-item {{setMenuClass('admin.caracteristiques.', 'menu-open')}}">
             <a href="#" class="nav-link {{setMenuClass('admin.caracteristiques.', 'active')}}">
                 <i class="nav-icon fas fa-cogs"></i>

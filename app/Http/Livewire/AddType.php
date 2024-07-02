@@ -2,16 +2,17 @@
 
 namespace App\Http\Livewire;
 
+use App\Models\Forage;
+use App\Models\Ressource;
 use Livewire\Component;
-use App\Models\District;
-use App\Models\Site;
 use Livewire\WithPagination;
 
-class AddDistricts extends Component
+class AddType extends Component
 {
     use WithPagination;
     protected $paginationTheme = "bootstrap";
     public $nom;
+    public $ressource_id;
     public $isSelectededit = false;
     public $isSelected = false;
     public $data;
@@ -36,70 +37,78 @@ class AddDistricts extends Component
         $this->isSelected = false;
         $this->resetErrorBag();
     }
+
     public function render()
     {
         $data = [
-            "districts" => District::latest()->paginate(5),
+            
+            "ressources" => Ressource::all(),
+            "forages" => Forage::latest()->paginate(5),
           ];
-        return view('livewire.addDistricts.add-districts',$data)
+        return view('livewire.type.add-type',$data)
         ->extends("layouts.principal")
         ->section("contenu");
     }
-
-    public function AddDistrict(){
-         $this->validate([
-             "nom" =>"required",
-         ]);
-        
-        District::create(
-             [
-                 "nom" => $this->nom,         
-             ]
-          );
-         $this->resetErrorBag();
-         $this->resetInputs();
-         $this->dispatchBrowserEvent("showSuccessMessage", ["message"=>"Votre demande reussi avec succès!"]);
-     }
+    
+    public function AddType(){
+        $this->validate([
+            "nom" =>"required",
+            "ressource_id" =>"required",
+        ]);
+       
+        Forage::create(
+            [
+                "nom" => $this->nom,
+                "ressource_id" => $this->ressource_id,         
+            ]
+         );
+        $this->resetErrorBag();
+        $this->resetInputs();
+        $this->dispatchBrowserEvent("showSuccessMessage", ["message"=>"Votre demande reussi avec succès!"]);
+    }
      //
-     //
-     public function editDistrict($id){
-        $data = District::findOrFail($id);
+     public function editType($id){
+        $data = Forage::findOrFail($id);
         $this->dataId = $id;
         $this->nom = $data->nom;
+        $this->ressource_id = $data->ressource_id;
         $this->editselect();
     }
     
-    public function updateDistrict(){
+    public function updateType(){
         $this->validate([
           "nom" =>"required",
+          "ressource_id" =>"required",
         ]);
         if ($this->dataId) {
-            $data = District::find($this->dataId);
+            $data = Forage::find($this->dataId);
             $data->update([
                 'nom' => $this->nom, 
+                'ressource_id' => $this->ressource_id, 
                
             ]);
             $this->resetInputs();
         }
-        $this->dispatchBrowserEvent("showSuccessMessage", ["message"=> "District mis à jour avec succès!"]);
+        $this->dispatchBrowserEvent("showSuccessMessage", ["message"=> "Ressource mis à jour avec succès!"]);
       }
-     //
-     public function confirmDelete(District $district){
+
+    //
+    public function confirmDelete(Forage $forage){
         $this->dispatchBrowserEvent("showConfirmMessage", ["message"=> [
             "text" => "Vous êtes sur le point pour supprimer? Voulez-vous continuer?",
             "title" => "Êtes-vous sûr de continuer?",
             "type" => "warning",
-            "data" => ["district_id" => $district->id]
+            "data" => ["forage_id" => $forage->id]
         ]]);
     }
     
-      public function deleteDistrict(District $district){
-        $district->delete();
-        $this->dispatchBrowserEvent("showSuccessMessage", ["message"=>"District supprimé avec succès!"]);
+      public function deleteType(Forage $forage){
+        $forage->delete();
+        $this->dispatchBrowserEvent("showSuccessMessage", ["message"=>"Forage supprimé avec succès!"]);
       }
 
     private function resetInputs()
-      {
-          $this->nom="";
-      }
+    {
+        $this->nom="";$this->ressource_id="";
+    }
 }

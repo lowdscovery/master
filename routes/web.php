@@ -3,6 +3,10 @@
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\UserController;
+use App\Http\Livewire\AddDistricts;
+use App\Http\Livewire\AddForage;
+use App\Http\Livewire\AddSite;
+use App\Http\Livewire\AddType;
 use App\Http\Livewire\Affichage;
 use App\Http\Livewire\Armoire;
 use App\Http\Livewire\Bande;
@@ -35,6 +39,7 @@ use Carbon\Carbon;
 //permission
 use App\Http\Livewire\ManagerArticles;
 use App\Http\Livewire\ManagerProducts;
+use App\Models\Site;
 
 /*
 |--------------------------------------------------------------------------
@@ -79,6 +84,67 @@ Route::group([
     ], function(){
 
         Route::get("/moteurs", Caracteristique::class)->name("caracteristique.caracteristique")->middleware("auth.manager");
+    });
+});
+//
+
+//
+Route::group([
+    "middleware" => ["auth", "auth.manager"],
+    'as' => 'admin.'
+], function(){
+
+    Route::group([
+        "prefix" => "localisations",
+        'as' => 'localisations.'
+    ], function(){
+
+        Route::get("/district", AddDistricts::class)->name("addDistricts.add-districts")->middleware("auth.manager");
+    });
+});
+//
+//
+Route::group([
+    "middleware" => ["auth", "auth.manager"],
+    'as' => 'admin.'
+], function(){
+
+    Route::group([
+        "prefix" => "localisations",
+        'as' => 'localisations.'
+    ], function(){
+
+        Route::get("/site", AddSite::class)->name("addSite.add-site")->middleware("auth.manager");
+    });
+});
+//
+//
+Route::group([
+    "middleware" => ["auth", "auth.manager"],
+    'as' => 'admin.'
+], function(){
+
+    Route::group([
+        "prefix" => "localisations",
+        'as' => 'localisations.'
+    ], function(){
+
+        Route::get("/forage", AddForage::class)->name("addForage.add-forage")->middleware("auth.manager");
+    });
+});
+//
+//
+Route::group([
+    "middleware" => ["auth", "auth.manager"],
+    'as' => 'admin.'
+], function(){
+
+    Route::group([
+        "prefix" => "localisations",
+        'as' => 'localisations.'
+    ], function(){
+
+        Route::get("/type", AddType::class)->name("addType.add-type")->middleware("auth.manager");
     });
 });
 //

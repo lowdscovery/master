@@ -17,6 +17,7 @@ class Forages extends Migration
             $table->id();
             $table->string('nom');
             $table->foreignId('ressource_id');
+            $table->timestamps();
         });
     }
 
