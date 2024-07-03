@@ -13,10 +13,13 @@
             <div class="card-header bg-gradient-primary d-flex align-items-center">
                 <h3 class="card-title flex-grow-1"><i class="fa fa-list fa-2x"></i> Mesure </h3>
                 <div class="card-tools d-flex align-items-center ">
+                    @foreach($mesures as $mesure)
 
+                    @endforeach  
+                    @can('create',$mesure)
                     <a class="btn btn-link btn-db text-white mr-4 d-block" wire:click="showInput()"><i
                             class="fas fa-user-plus"></i> Nouveau Mesure</a>
-
+                    @endcan
                 </div>
             </div>
             <!-- /.card-header -->
@@ -47,7 +50,9 @@
                             <td class="text-center">{{$mesure->Agent}}</td>
                             <td class="text-center">
                                 <button wire:click="editMesures({{$mesure->id}})" class="btn btn-link"> <i class="far fa-edit"></i> </button>
+                                @can('delete',$mesure)
                                 <button class="btn btn-link" wire:click="confirmDelete({{$mesure->id}})"> <i class="far fa-trash-alt"></i> </button>
+                                @endcan
                             </td>
                         </tr>
                      @empty

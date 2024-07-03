@@ -201,10 +201,14 @@
               <button type="button" class="btn btn-secondary" data-dismiss="modal" wire.click="">Close</button>
                </div> 
       @else
-      <button class="btn btn-success" wire:click="showInput()">Ajout</button> 
-      
-
-             <table class="table table-head-fixed">
+      @foreach ($electriq as $electriqs)
+     
+        @endforeach 
+        @can('create', $electriqs)
+        <button class="btn btn-success" wire:click="showInput()">Ajout</button> 
+        @endcan
+        
+   <table class="table table-head-fixed">
                     <thead style="color: orange;">
                     <tr>
                     <th style="width:7%;">Puissance</th>
@@ -231,7 +235,9 @@
                 <td style="width:15%;">{{$electrique->typeDeDemarrage}}</td>
                 <td class="text-center" style="width:20%;">
                     <button class="btn btn-link" wire:click="editMoteur({{$electrique->id}})"> <i class="far fa-edit"></i> </button>  
+                    @can('delete', $electrique)
                     <button class="btn btn-link" wire:click="confirmDeleteMoteur({{$electrique->id}})"> <i class="far fa-trash-alt"></i> </button>     
+                    @endcan
                 </td>
                 </tr>
                 @empty

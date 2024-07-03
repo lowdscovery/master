@@ -67,7 +67,12 @@
             <div class="card-header bg-gradient-primary d-flex align-items-center">
                 <h3 class="card-title flex-grow-1"><i class="fa fa-list fa-2x"></i> Bande d'essaie </h3>
                 <button type="submit" class="btn btn-success mr-4 d-block" data-toggle="modal" data-target="#addModal"> <i class="fas fa-line-chart"></i> Graphe</button>
+                  @foreach ($bandes as $bande)
+                  @endforeach
+                @can('create', $bande)
 <a class="btn btn-link btn-db text-white mr-4 d-block" wire:click="selected"><i class="fa fa-plus-square"></i> Ajouter Nouveau</a>
+                @endcan
+                
                 </div>
             </div>
 
@@ -258,7 +263,9 @@
                             <td class="text-center">{{$bande->Pression}}</td>
                             <td class="text-center">
                                 <button wire:click="editBande({{$bande->id}})" class="btn btn-link"> <i class="far fa-edit"></i> </button>
+                                @can('delete', $bande)
                                 <button class="btn btn-link" wire:click="confirmDelete({{$bande->id}})"> <i class="far fa-trash-alt"></i> </button>
+                                @endcan
                             </td>
                         </tr>
                        @empty

@@ -121,9 +121,13 @@
                             <span class="fa fa-caret-down" title="Toggle dropdown menu"></span>
                         </a>
                         <ul class="dropdown-menu" style="padding:10px; z-index: 10;" >
+                        @can('create', $depense)
                             <li><button class="btn btn-link" data-toggle="modal" data-target="#addModal"> <i class="fa fa-plus-circle"></i> Ajouter</button></li>
+                         @endcan
                             <li><button class="btn btn-link" wire:click="editDepense({{$depense->id}})" data-toggle="modal" data-target="#editModal"> <i class="far fa-edit"></i> Edit</button></li>
+                            @can('delete', $depense)
                             <li><button class="btn btn-link" wire:click="confirmDelete({{$depense->id}})"> <i class="far fa-trash-alt"></i> Delete</button></li>
+                            @endcan
                         </ul>
                         </div>
                           </td>

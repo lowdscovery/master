@@ -60,9 +60,13 @@
                         <span class="fa fa-caret-down" title="Toggle dropdown menu"></span>
                     </a>
                     <ul class="dropdown-menu" style="padding:10px; z-index: 10;" >
+                        @can('create',$bis)
                         <li><button class="btn btn-link" data-toggle="modal" data-target="#addModal"> <i class="fa fa-plus-circle"></i> Ajouter</button></li>
+                        @endcan
                         <li><button class="btn btn-link" wire:click="editBis({{$bis->id}})" data-toggle="modal" data-target="#editModal"> <i class="far fa-edit"></i> Edit</button></li>
+                        @can('delete',$bis)
                         <li><button class="btn btn-link" wire:click="confirmDelete({{$bis->id}})"> <i class="far fa-trash-alt"></i> Delete</button></li>
+                        @endcan
                     </ul>
                     </div>
                       </td>
@@ -75,7 +79,8 @@
                                       Aucune donnée trouvée par rapport aux éléments de recherche entrés.
                                     </div>
                               </td>
-                            <td class="text-center">        
+                            <td class="text-center"> 
+                            @can('create',$bis)       
                                 <div class="btn-group open">
                                 <a class="btn btn-info dropdown-toggle" data-toggle="dropdown">
                                     <span class="fa fa-caret-down" title="Toggle dropdown menu"></span>
@@ -84,6 +89,7 @@
                                     <li><button class="btn btn-link" data-toggle="modal" data-target="#addModal"> <i class="fa fa-plus-circle"></i> Ajouter</button></li>
                                 </ul>
                                 </div>
+                            @endcan
                            </td>
                           </tr>
                     @endforelse

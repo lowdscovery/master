@@ -145,12 +145,18 @@
                             <span class="fa fa-caret-down" title="Toggle dropdown menu"></span>
                         </a>
                         <ul class="dropdown-menu" style="padding:10px; z-index: 10;" >
+                            @can('create',$rapport)
                             <li><button class="btn btn-link" data-toggle="modal" data-target="#addModal"> <i class="fa fa-plus-circle"></i> Ajouter</button></li>
+                            @endcan
                             <li><button class="btn btn-link" wire:click="editRapport({{$rapport->id}})" data-toggle="modal" data-target="#editModal"> <i class="far fa-edit"></i> Edit</button></li>
+                            @can('delete',$rapport)
                             <li><button class="btn btn-link" wire:click="confirmDelete({{$rapport->id}})"> <i class="far fa-trash-alt"></i> Delete</button></li>
+                            @endcan
                         </ul>
                         </div>
+                        @can('create',$rapport)
                         <button class="btn btn-success" wire:click="editInput({{$rapport->id}})"> Rapport</button>
+                        @endcan
                           </td>
                     </tr>
                  @else
@@ -169,9 +175,13 @@
                         <span class="fa fa-caret-down" title="Toggle dropdown menu"></span>
                     </a>
                     <ul class="dropdown-menu" style="padding:10px; z-index: 10;" >
+                        @can('create',$rapport)
                         <li><button class="btn btn-link" data-toggle="modal" data-target="#addModal"> <i class="fa fa-plus-circle"></i> Ajouter</button></li>
+                        @endcan
                         <li><button class="btn btn-link" wire:click="editRapport({{$rapport->id}})" data-toggle="modal" data-target="#editModal"> <i class="far fa-edit"></i> Edit</button></li>
+                        @can('delete',$rapport)
                         <li><button class="btn btn-link" wire:click="confirmDelete({{$rapport->id}})"> <i class="far fa-trash-alt"></i> Delete</button></li>
+                        @endcan
                     </ul>
                     </div>
                       </td>
@@ -186,6 +196,7 @@
                                     </div>
                               </td>
                       <td>
+                      @can('create',$rapport)
                         <div class="btn-group open">
                         <a class="btn btn-info dropdown-toggle" data-toggle="dropdown">
                             <span class="fa fa-caret-down" title="Toggle dropdown menu"></span>
@@ -194,6 +205,7 @@
                             <li><button class="btn btn-link" data-toggle="modal" data-target="#addModal"> <i class="fa fa-plus-circle"></i> Ajouter</button></li>
                         </ul>
                         </div>
+                      @endcan
                     </td>
                           </tr>
                   @endforelse

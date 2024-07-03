@@ -260,7 +260,12 @@
               <button type="button" class="btn btn-secondary" data-dismiss="modal" wire.click="">Close</button>
                </div> 
       @else
+      @foreach ($doseus as $doseus)
+     
+      @endforeach 
+      @can('create',$doseus)
       <button class="btn btn-success" wire:click="shoInputDoseuse()">Ajout</button>
+      @endcan
             <table class="table table-head-fixed">
                     <thead style="color: orange;">
                     <tr>
@@ -288,7 +293,9 @@
                 <td style="width:15%;">{{$doseuse->ballonAmortisseurRefoulement}}</td>
                 <td class="text-center" style="width:20%;">
                     <button class="btn btn-link" wire:click="editDoseuse({{$doseuse->id}})"> <i class="far fa-edit"></i> </button>  
+                    @can('delete', $doseuse)
                     <button class="btn btn-link" wire:click="confirmDeleteDoseuese({{$doseuse->id}})"> <i class="far fa-trash-alt"></i> </button>     
+                    @endcan
                 </td>
             </tr>
         @empty

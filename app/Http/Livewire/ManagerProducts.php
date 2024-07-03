@@ -17,7 +17,9 @@ class ManagerProducts extends Component
     
     public function editProduct(Product $product)
     {
-        $this->authorize('update', $product);
+        if(Gate::allows('update',$product)){
+            abort(403);
+        }
     
     }
     public function deleteProduct(Product $product)

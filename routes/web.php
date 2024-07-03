@@ -73,155 +73,103 @@ Route::group([
 });
 
 //
-Route::group([
-    "middleware" => ["auth", "auth.manager"],
-    'as' => 'admin.'
-], function(){
-
     Route::group([
         "prefix" => "caracteristiques",
         'as' => 'caracteristiques.'
     ], function(){
 
-        Route::get("/moteurs", Caracteristique::class)->name("caracteristique.caracteristique")->middleware("auth.manager");
+        Route::get("/moteurs", Caracteristique::class)->name("caracteristique.caracteristique");
     });
-});
 //
 
 //
-Route::group([
-    "middleware" => ["auth", "auth.manager"],
-    'as' => 'admin.'
-], function(){
-
     Route::group([
         "prefix" => "localisations",
         'as' => 'localisations.'
     ], function(){
 
-        Route::get("/district", AddDistricts::class)->name("addDistricts.add-districts")->middleware("auth.manager");
+        Route::get("/district", AddDistricts::class)->name("addDistricts.add-districts");
     });
-});
 //
 //
-Route::group([
-    "middleware" => ["auth", "auth.manager"],
-    'as' => 'admin.'
-], function(){
-
     Route::group([
         "prefix" => "localisations",
         'as' => 'localisations.'
     ], function(){
 
-        Route::get("/site", AddSite::class)->name("addSite.add-site")->middleware("auth.manager");
+        Route::get("/site", AddSite::class)->name("addSite.add-site");
     });
-});
 //
 //
-Route::group([
-    "middleware" => ["auth", "auth.manager"],
-    'as' => 'admin.'
-], function(){
-
     Route::group([
         "prefix" => "localisations",
         'as' => 'localisations.'
     ], function(){
 
-        Route::get("/forage", AddForage::class)->name("addForage.add-forage")->middleware("auth.manager");
+        Route::get("/forage", AddForage::class)->name("addForage.add-forage");
     });
-});
 //
 //
-Route::group([
-    "middleware" => ["auth", "auth.manager"],
-    'as' => 'admin.'
-], function(){
-
     Route::group([
         "prefix" => "localisations",
         'as' => 'localisations.'
     ], function(){
 
-        Route::get("/type", AddType::class)->name("addType.add-type")->middleware("auth.manager");
+        Route::get("/type", AddType::class)->name("addType.add-type");
     });
-});
 //
-Route::group([
-    "middleware" => ["auth", "auth.manager"],
-    'as' => 'admin.'
-], function(){
 
     Route::group([
         "prefix" => "tableau",
         'as' => 'tableau.'
     ], function(){
 
-        Route::get("/bandes", Bande::class)->name("bande.bande")->middleware("auth.manager");
+        Route::get("/bandes", Bande::class)->name("bande.bande");
     });
-});
 //
-Route::group([
-    "middleware" => ["auth", "auth.manager"],
-    'as' => 'admin.'
-], function(){
-
     Route::group([
         "prefix" => "tableau",
         'as' => 'tableau.'
     ], function(){
 
-        Route::get("/depenses", Depense::class)->name("depense.depense")->middleware("auth.manager");
+        Route::get("/depenses", Depense::class)->name("depense.depense");
     });
-});
 //
-Route::get("/intervenants", Intervenant::class)->name("Intervenant.intervenant")->middleware("auth.admin");
-Route::get("/incidents", Incident::class)->name("Incident.incident")->middleware("auth.employe"); 
-Route::get("/uploads", Uploads::class)->name("uploads")->middleware("auth.admin");
+Route::get("/intervenants", Intervenant::class)->name("Intervenant.intervenant");
+Route::get("/incidents", Incident::class)->name("Incident.incident"); 
+Route::get("/uploads", Uploads::class)->name("uploads");
 Route::get("/tes", Teste::class)->name("teste")->middleware("auth.admin");
-Route::get("/maintenances", Maintenance::class)->name("maintenance.maintenance")->middleware("auth.admin");
-Route::get("/commandes", Commande::class)->name("commande.commande")->middleware("auth.manager");
-Route::get("/bis", BisList::class)->name("bis.bis")->middleware("auth.employe");
-Route::get("/mesures", Mesure::class)->name("mesure.mesure")->middleware("auth.manager");
-Route::get("/rapports", Rapport::class)->name("rapport.rapport")->middleware("auth.employe");
-Route::get("/armoires", Armoire::class)->name("armoire.armoire")->middleware("auth.employe");
-Route::get("/calcule", Calcules::class)->name("calcules")->middleware("auth.admin");
+Route::get("/maintenances", Maintenance::class)->name("maintenance.maintenance");
+Route::get("/commandes", Commande::class)->name("commande.commande");
+Route::get("/bis", BisList::class)->name("bis.bis");
+Route::get("/mesures", Mesure::class)->name("mesure.mesure");
+Route::get("/rapports", Rapport::class)->name("rapport.rapport");
+Route::get("/armoires", Armoire::class)->name("armoire.armoire");
+Route::get("/calcule", Calcules::class)->name("calcules");
 //Route::get("/Affichage", Affichage::class)->name("affichage.affichage")->middleware("auth.admin");
 Route::get("/profile", Profile::class)->name("profile");
 Route::get("/password", Password::class)->name("password");
 
+
 Route::group([
-    "middleware" => ["auth", "auth.manager"],
-    'as' => 'admin.'
+    "prefix" => "caracteristiques",
+    'as' => 'caracteristiques.'
 ], function(){
 
-    Route::group([
-        "prefix" => "caracteristiques",
-        'as' => 'caracteristiques.'
-    ], function(){
-
-        Route::get("/forages", Ouvrage::class)->name("ouvrage.ouvrage")->middleware("auth.manager");
-    });
+    Route::get("/forages", Ouvrage::class)->name("ouvrage.ouvrage");
 });
 //bassin
 Route::group([
-    "middleware" => ["auth", "auth.manager"],
-    'as' => 'admin.'
+    "prefix" => "caracteristiques",
+    'as' => 'caracteristiques.'
 ], function(){
 
-    Route::group([
-        "prefix" => "caracteristiques",
-        'as' => 'caracteristiques.'
-    ], function(){
-
-        Route::get("/bassins", Bassin::class)->name("bassin.bassin")->middleware("auth.manager");
-    });
+    Route::get("/bassins", Bassin::class)->name("bassin.bassin");
 });
 
 
 //permissions
-Route::get('/manage-products', ManagerProducts::class)->middleware("auth.admin"); //('can:delete, product');//middleware('can:update,App\Models\Product');
+Route::get('/manage-products', ManagerProducts::class); //('can:delete, product');//middleware('can:update,App\Models\Product');
 //lockscreen
 Route::get('lockscreen', [ProfileController::class, 'lockscreen'])->name("lockscreen");
 Route::post('/lockscreen', [ProfileController::class, 'lockScreenUpdate'])->name("lockscreen");

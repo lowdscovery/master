@@ -154,7 +154,12 @@
               <button type="button" class="btn btn-secondary" data-dismiss="modal" wire.click="">Close</button>
                </div>
       @else
+      @foreach ($pomp as $pomps)
+     
+      @endforeach 
+      @can("create",$pomps)
       <button class="btn btn-success" wire:click="showInput()">Ajout</button> 
+      @endcan
              <table class="table table-head-fixed">
                     <thead style="color: orange;">
                     <tr>
@@ -180,7 +185,9 @@
                     <td class="text-center" style="width:15%;">{{$pompe->chemiseArbre}}</td>
                     <td class="text-center" style="width:20%;">
                         <button class="btn btn-link" wire:click="editModal({{$pompe->id}})" data-toggle="modal" data-target="#addModal"> <i class="far fa-edit"></i> </button>  
+                        @can("delete",$pompe)
                         <button class="btn btn-link" wire:click="confirmDeleteModal({{$pompe->id}})"> <i class="far fa-trash-alt"></i> </button>     
+                        @endcan
                     </td>
                 </tr>
                 @empty

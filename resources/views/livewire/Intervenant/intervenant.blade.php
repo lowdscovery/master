@@ -100,7 +100,11 @@
             <div wire:loading.delay wire:target="AjoutIntervenant">
                    <span class="text-green">Encours...</span>
             </div>
+            @foreach($intervenants as $intervenant)
+            @endforeach
+            @can('create', $intervenant)
                 <button type="submit" class="btn btn-primary" wire:loading.attr="disabled">Enregistrer</button>
+            @endcan
             </div>
             </form>
         </div>
@@ -142,8 +146,9 @@
                              <td class="text-center" style="width:60%;">{{$intervenant->nom}} {{$intervenant->prenom}}</td>
                             <td class="text-center" style="width:30%;">
                                <button class="btn btn-link" wire:click="editIntervenant({{$intervenant->id}})"> <i class="far fa-edit"></i> </button>
+                            @can('delete', $intervenant)
                             <button class="btn btn-link" wire:click="confirmDelete({{$intervenant->id}})" style="color:red;"> <i class="far fa-trash-alt"></i> </button>
-                            
+                            @endcan
                             <button class="btn btn-link" wire:click="showInformation({{$intervenant->id}})" data-toggle="modal" data-target="#addModal"> <i class="fa fa-eye"></i> </button>
                             
                             </td>

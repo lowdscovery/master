@@ -76,9 +76,16 @@
 
             <div class="card-tools d-flex align-items-center ">
               @if (count($forages) > 0) 
+              @foreach ($caracteristiques as $caracteristique)    
+  
+                @endforeach 
+                @can('create', $caracteristique)
                 <li class="breadcrumb-item active"> <button type="button" wire:click="addCaract" class="btn btn-primary mr-4 d-block" >Enregistrer</button></li>
-              @elseif (count($basse) > 0) 
+                @endcan
+              @elseif (count($basse) > 0)
+              @can('create', $caracteristique) 
                 <li class="breadcrumb-item active"> <button type="button" wire:click="addCaract" class="btn btn-primary mr-4 d-block" >Enregistrer</button></li>
+              @endcan
               @endif
                 </div>
               </div>
@@ -124,8 +131,10 @@
           @endif
           </ul>
         </div>  
-          @if(count($caracteristique->pompes)== 0 AND count($caracteristique->moteurs)== 0 AND count($caracteristique->doseuses)== 0)          
+          @if(count($caracteristique->pompes)== 0 AND count($caracteristique->moteurs)== 0 AND count($caracteristique->doseuses)== 0)    
+          @can('delete', $caracteristique)      
           <button class="btn btn-link" wire:click="confirmDelete('{{$caracteristique->marque}}',{{$caracteristique->id}})"> <i class="far fa-trash-alt"></i> </button>  
+          @endcan
           @else
            @if ($caracteristique->ressource_id == "13" || $caracteristique->ressource_id == "14" || $caracteristique->ressource_id == "19")
            <button class="btn btn-link" wire:click="affichagebassin({{$caracteristique->id}})"> <i class="fa fa-eye"></i> </button>

@@ -3,8 +3,12 @@
         <div class="card">
             <div class="card-header d-flex align-items-center" style="background-color:#004A8F;">
                 <h3 class="card-title flex-grow-1" style="color:white;"><i class="fa fa-list fa-2x"></i> Ressource </h3>
-        
+ @foreach ($ressources as $ressource)
+     
+ @endforeach 
+ @can('create', $ressource)
 <a class="btn btn-link btn-db text-white mr-4 d-block" wire:click="selected"><i class="fa fa-plus-circle"></i> Ajouter Nouveau</a>
+@endcan
                 </div>
             </div>
 
@@ -94,7 +98,9 @@
                             <td class="text-center">{{$ressource->nom}}</td>
                             <td class="text-center">
                                 <button wire:click="editRessource({{$ressource->id}})" class="btn btn-link"> <i class="far fa-edit"></i> </button>
+                                @can('delete', $ressource)
                                 <button class="btn btn-link" wire:click="confirmDelete({{$ressource->id}})"> <i class="far fa-trash-alt"></i> </button>
+                                @endcan
                             </td>
                         </tr>
                        @empty

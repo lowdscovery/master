@@ -200,12 +200,18 @@
                                     <span class="fa fa-caret-down" title="Toggle dropdown menu"></span>
                                 </a>
                                 <ul class="dropdown-menu" style="padding:10px; z-index: 10;" >
+                                    @can('create',$maintenance)
                                     <li><button class="btn btn-link" data-toggle="modal" data-target="#addModal"> <i class="fa fa-plus-circle"></i> Ajouter</button></li>
+                                    @endcan
                                     <li><button class="btn btn-link" wire:click="editMaintenance({{$maintenance->id}})" data-toggle="modal" data-target="#editModal"> <i class="far fa-edit"></i> Edit</button></li>
+                                    @can('delete',$maintenance)
                                     <li><button class="btn btn-link" wire:click="confirmDelete({{$maintenance->id}})"> <i class="far fa-trash-alt"></i> Delete</button></li>
+                                    @endcan
                                 </ul>
                                 </div>
+                                @can('create',$maintenance)
                                 <button class="btn btn-warning" wire:click="editInput({{$maintenance->id}})"> Rapport</button>
+                                @endcan
                                 </td>
                               </tr>
                              @else
@@ -223,12 +229,18 @@
                                     <span class="fa fa-caret-down" title="Toggle dropdown menu"></span>
                                 </a>
                                 <ul class="dropdown-menu" style="padding:10px; z-index: 10;" >
+                                   @can('create',$maintenance)
                                     <li><button class="btn btn-link" data-toggle="modal" data-target="#addModal"> <i class="fa fa-plus-circle"></i> Ajouter</button></li>
+                                    @endcan
                                     <li><button class="btn btn-link" wire:click="editMaintenance({{$maintenance->id}})" data-toggle="modal" data-target="#editModal"> <i class="far fa-edit"></i> Edit</button></li>
+                                    @can('delete',$maintenance)
                                     <li><button class="btn btn-link" wire:click="confirmDelete({{$maintenance->id}})"> <i class="far fa-trash-alt"></i> Delete</button></li>
+                                    @endcan
                                 </ul>
                                 </div>
+                                @can('create',$maintenance)
                                 <button class="btn btn-warning" wire:click="editInput({{$maintenance->id}})"> Rapport</button>
+                                @endcan
                                 </td>
                               </tr>
                               @endif
@@ -249,9 +261,13 @@
                                       <span class="fa fa-caret-down" title="Toggle dropdown menu"></span>
                                     </a>
                                     <ul class="dropdown-menu" style="padding:10px; z-index: 10;" >
+                                    @can('create',$maintenance)
                                         <li><button class="btn btn-link" data-toggle="modal" data-target="#addModal"> <i class="fa fa-plus-circle"></i> Ajouter</button></li>
+                                      @endcan
                                         <li><button class="btn btn-link" wire:click="editMaintenance({{$maintenance->id}})" data-toggle="modal" data-target="#editModal"> <i class="far fa-edit"></i> Edit</button></li>
+                                        @can('delete',$maintenance)
                                         <li><button class="btn btn-link" wire:click="confirmDelete({{$maintenance->id}})"> <i class="far fa-trash-alt"></i> Delete</button></li>
+                                        @endcan
                                     </ul>
                                     </div>
                                     </td>
@@ -267,6 +283,7 @@
                                   </div>
                             </td>
                             <td class="text-center" style="width:20%;">
+                            @can('create',$maintenance)
                               <div class="btn-group open">
                               <a class="btn btn-info dropdown-toggle" data-toggle="dropdown">
                                   <span class="fa fa-caret-down" title="Toggle dropdown menu"></span>
@@ -275,6 +292,7 @@
                                   <li><button class="btn btn-link" data-toggle="modal" data-target="#addModal"> <i class="fa fa-plus-circle"></i> Ajouter</button></li>
                               </ul>
                               </div>
+                            @endcan
                             </td>
                         </tr>
                       @endforelse

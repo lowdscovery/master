@@ -3,8 +3,12 @@
         <div class="card">
             <div class="card-header d-flex align-items-center" style="background-color:#004A8F;">
                 <h3 class="card-title flex-grow-1" style="color:white;"><i class="fa fa-list fa-2x"></i> Districts </h3>
-        
+ @foreach ($districts as $district)
+     
+ @endforeach 
+ @can('create', $district)
 <a class="btn btn-link btn-db text-white mr-4 d-block" wire:click="selected"><i class="fa fa-plus-circle"></i> Ajouter Nouveau</a>
+@endcan
                 </div>
             </div>
 
@@ -67,8 +71,9 @@
                             <td class="text-center">{{$district->nom}}</td>
                             <td class="text-center">
                                 <button wire:click="editDistrict({{$district->id}})" class="btn btn-link"> <i class="far fa-edit"></i> </button>
+                                @can('delete', $district)
                                 <button class="btn btn-link" wire:click="confirmDelete({{$district->id}})"> <i class="far fa-trash-alt"></i> </button>
-                            </td>
+                                @endcan
                         </tr>
                        @empty
                          <tr>
