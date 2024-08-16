@@ -71,22 +71,28 @@
  <div class="col-12">
      <div class="card">
   
-         <div class="card-header d-flex align-items-center" style="background-color:#05B2FF;">
+         <div class="card-header d-flex align-items-center bg-primary">
           <h3 class="card-title flex-grow-1" style="color:white;"><i class="nav-icon fas fa-cogs"></i> Caracteristiques des materiels</h3>
 
             <div class="card-tools d-flex align-items-center ">
               @if (count($forages) > 0) 
-              @foreach ($caracteristiques as $caracteristique)    
-  
-                @endforeach 
-                @can('create', $caracteristique)
+              
                 <li class="breadcrumb-item active"> <button type="button" wire:click="addCaract" class="btn btn-primary mr-4 d-block" >Enregistrer</button></li>
-                @endcan
+              
               @elseif (count($basse) > 0)
-              @can('create', $caracteristique) 
+              
                 <li class="breadcrumb-item active"> <button type="button" wire:click="addCaract" class="btn btn-primary mr-4 d-block" >Enregistrer</button></li>
-              @endcan
+            
               @endif
+
+              <div class="input-group input-group-md" style="width: 250px;">
+                    <input type="text" name="table_search" wire:model.debounce.250ms="search" class="form-control float-right" placeholder="Search">
+
+                    <div class="input-group-append">
+                      <button type="submit" class="btn btn-default"><i class="fas fa-search"></i></button>
+                    </div>
+                  </div>
+
                 </div>
               </div>
               <!-- /.card-header -->
@@ -133,7 +139,7 @@
         </div>  
           @if(count($caracteristique->pompes)== 0 AND count($caracteristique->moteurs)== 0 AND count($caracteristique->doseuses)== 0)    
           @can('delete', $caracteristique)      
-          <button class="btn btn-link" wire:click="confirmDelete('{{$caracteristique->marque}}',{{$caracteristique->id}})"> <i class="far fa-trash-alt"></i> </button>  
+          <button class="btn btn-link" wire:click="confirmDelete('{{$caracteristique->marque}}',{{$caracteristique->id}})" style="color:red;"> <i class="far fa-trash-alt"></i> </button>  
           @endcan
           @else
            @if ($caracteristique->ressource_id == "13" || $caracteristique->ressource_id == "14" || $caracteristique->ressource_id == "19")

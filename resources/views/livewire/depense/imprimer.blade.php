@@ -69,7 +69,7 @@ Water Production<br>
 
 <div class="col-6">
 <p class="lead"> </p>
-<img src="{{asset("image/jiro.jpg")}}" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="height:50px;opacity:1;" width="50"> <span style="color:#FF4900;">JI</span>RO SY <span style="color:#FF4900;">RA</span>NO <span style="color:#FF4900;">MA</span>LAGASY
+
 </div>
 
 <div class="col-6">

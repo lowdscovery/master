@@ -40,7 +40,7 @@
 										
 									<button class="btn btn-link" wire:click="selectDocument({{$ouvrage->id}})" data-toggle="modal" data-target="#addModal" style="color:#6021FF;font-size:20px;"> <i class="fa fa-file-pdf"> Caracteristique de forage</i></button>
                                         @endif
-                                    @endforeach
+                                    
                                     </div>
                                 <div class="mt-1 col-xl-6 col-lg-6 col-md-6 col-sm-12">   
 								<div class="card">
@@ -96,6 +96,7 @@
 											</div>
 										</div>			
 									</div>
+									@endforeach
 								</div>
                                </div>
  <div class="mt-4 col-xl-6 col-lg-6 col-md-6 col-sm-12">

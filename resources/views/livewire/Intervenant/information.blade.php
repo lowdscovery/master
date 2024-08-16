@@ -7,45 +7,45 @@
       </div>
       <div class="modal-body">
         
-		<!DOCTYPE html>
-<html lang="en">
-<head>
-	<meta charset="utf-8">
-	<meta http-equiv="X-UA-Comptable" content="IE=edge">
-	<meta name="viewport" content="width=device-width, initial-scale1.0">
-	<link rel="stylesheet" href="{{asset('css/information.css')}}">
-</head>
-<body>
-	<div class="container">
-		<div class="header">
-		<div class="img-area">
-			<img src="{{asset(optional($selectedId)->photo)}}" style="width:100%; height:100%;">
-		</div>
-		<h1>{{optional($selectedId)->nom}} {{optional($selectedId)->prenom}}</h1>
-		<h3>{{optional($selectedId)->service}}</h3>
-		</div>
-		<h4>Information Personnel</h4>
-		<div class="main">
-		<div class="left">
-        <p><strong>Nom :</strong> {{optional($selectedId)->nom}}</p>
-        <p><strong>Prenom :</strong> {{optional($selectedId)->prenom}}</p>
-        <p><strong>Service :</strong> {{optional($selectedId)->service}}</p>
-        <p><strong>Matricule :</strong> {{optional($selectedId)->matricule}}</p>
-    
-		</div>
-		<div class="right1">		
-        	<p><strong>Sexe :</strong> {{optional($selectedId)->sexe}}</p>
-        	<p><strong>Telephone :</strong> {{optional($selectedId)->telephone}}</p>
-            <p><strong>Embauché :</strong> {{date('d-m-y',strtotime(optional($selectedId)->dateEmbauche))}}</p>
-		</div>
-		</div>
-	</div>
-</body>
-</html>
+<section class="content">
+<div class="card card-solid">
+<div class="card-body pb-0">
+<div class="row">
+<div class="col-12 d-flex align-items-stretch flex-column">
+<div class="card bg-light d-flex flex-fill">
+<div class="card-header text-muted border-bottom-0" style="color:blue;">
+Date d'embauche : {{date('d-m-y',strtotime(optional($selectedId)->dateEmbauche))}}
+</div>
+<div class="card-body pt-0">
+<div class="row">
+<div class="col-7">
+<h4 class="lead"><b>{{optional($selectedId)->nom}} {{optional($selectedId)->prenom}}</b></h4>
+<p class="text-muted text-avg"><b>Service: </b>{{optional($selectedId)->service}}</p>
+<ul class="ml-4 mb-0 fa-ul text-muted">
+<li class="small"><span class="fa-li"><i class="fas fa-lg fa-building"></i></span><b> Matricule :</b>  {{optional($selectedId)->matricule}} </li>
+<li class="small"><span class="fa-li"><i class="fas fa-lg fa-phone"></i></span> <b>Phone #:</b>{{optional($selectedId)->telephone}}</li>
+<li class="small"><span class="fa-li"><i class="fas fa-lg fa-phone"></i></span> <b>Sexe :</b>{{optional($selectedId)->sexe}}</li>
+</ul>
+</div>
+<div class="col-5 text-center">
+<img src="{{asset(optional($selectedId)->photo)}}" width="120" alt="user-avatar" class="img-circle img-fluid" style="height:120px;border: 5px groove #38E884;">
+</div>
+</div>
+</div>
+
+</div>
+</div>
+</div>
+</div>
+
+</div>
+</section>
+
 
     </div>
   </div>
 
+    
 
 
 

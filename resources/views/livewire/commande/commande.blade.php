@@ -76,7 +76,7 @@
                                     </div>
                               </td>
                         <td class="text-center">   
-                    @can('create',$commande)    
+                
                     <div class="btn-group open">
                     <a class="btn btn-info dropdown-toggle" data-toggle="dropdown">
                         <span class="fa fa-caret-down" title="Toggle dropdown menu"></span>
@@ -85,7 +85,7 @@
                         <li><button class="btn btn-link" data-toggle="modal" data-target="#addModal"> <i class="fa fa-plus-circle"></i> Ajouter</button></li>
                     </ul>
                     </div>
-                    @endcan
+                 
                         </td>
                           </tr>
                   @endforelse

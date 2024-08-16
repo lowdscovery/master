@@ -30,12 +30,10 @@
         <div class="card">
             <div class="card-header bg-gradient-primary d-flex align-items-center">
                 <h3 class="card-title flex-grow-1"><i class="fa fa-list fa-2x"></i> Forage -Puits </h3>
-                    @foreach ($ouvrages as $ouvrage)
-                    @endforeach
-                    @can('create',$ouvrage)
+                    
                     <a class="btn btn-link btn-db text-white mr-4 d-block" wire:click="selected"><i
                             class="fas fa-plus"></i> Ajouter Nouveau</a>
-                    @endcan
+                  
                 </div>
             </div>
             <!-- /.card-header -->

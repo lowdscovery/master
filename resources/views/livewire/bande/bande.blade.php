@@ -53,6 +53,15 @@
             
             options: {}
         });
+
+        Livewire.on('dataUpdated', function (data) {
+            chart.data.labels = data.labels;
+            chart.data.datasets[0].data = data.TensionMoyenne;
+            chart.data.datasets[1].data = data.IntensiteMoyenne;
+            chart.data.datasets[2].data = data.Puissance;
+            chart.data.datasets[3].data = data.Pression;
+            chart.update();
+        });
     });
 </script>
        
@@ -67,11 +76,15 @@
             <div class="card-header bg-gradient-primary d-flex align-items-center">
                 <h3 class="card-title flex-grow-1"><i class="fa fa-list fa-2x"></i> Bande d'essaie </h3>
                 <button type="submit" class="btn btn-success mr-4 d-block" data-toggle="modal" data-target="#addModal"> <i class="fas fa-line-chart"></i> Graphe</button>
-                  @foreach ($bandes as $bande)
-                  @endforeach
-                @can('create', $bande)
-<a class="btn btn-link btn-db text-white mr-4 d-block" wire:click="selected"><i class="fa fa-plus-square"></i> Ajouter Nouveau</a>
-                @endcan
+                 
+<button type="button" class="btn btn-primary mr-4 d-block" wire:click="selected"><i class="fa fa-plus-square"></i> Ajouter Nouveau</button>
+             <label for="filtreType" class="mr-2 d-block" style="color:white;">Filtrer par date </label>
+                <div class="input-group input-group-md" style="width: 250px;">
+            <input type="date" name="table_search" wire:model.debounce.250ms="startDate" class="form-control float-right mr-4 d-block" placeholder="Search">
+                 </div>
+            <div class="input-group-append">
+            <input type="date" wire:model.debounce.250ms="endDate" class="form-control float-right">
+                    </div>
                 
                 </div>
             </div>
@@ -145,7 +158,13 @@
      
                     </div>
                     
-                    <div class="pt-3">                  
+                    <div class="pt-3">
+                    <div class="form-group">
+    <input type="date" class="form-control @error('Date') is-invalid @enderror" wire:model="Date" required="required" title="Date">
+                    @error("Date")
+                     <span class="text-danger">{{$message}}</span>
+                    @enderror                  
+                    </div>
    <button type="submit" class="btn btn-primary" > <i class="fa fa-check"></i> Valider</button>
    <button type="button" wire:click="cancel" class="btn btn-warning"> <i class="fa fa-times"></i> Annuler</button>
                     </div>
@@ -221,7 +240,13 @@
      
                     </div>
                     
-                    <div class="pt-3">            
+                    <div class="pt-3">
+                    <div class="form-group">
+    <input type="date" class="form-control @error('Date') is-invalid @enderror" wire:model="Date" required="required" title="Date">
+                    @error("Date")
+                     <span class="text-danger">{{$message}}</span>
+                    @enderror                  
+                    </div>            
     <button type="submit" class="btn btn-success" > <i class="fa fa-check"></i> Edit</button>
    <button type="button" wire:click="cancel" class="btn btn-warning"> <i class="fa fa-times"></i> Annuler</button>
                     </div>
@@ -233,6 +258,7 @@
                     <table class="table table-head-fixed">
                         <thead>
                             <tr>
+                                <th class="text-center">Date</th>
                                 <th class="text-center">U1</th>
                                 <th class="text-center">U2</th>
                                 <th class="text-center">U3</th>
@@ -248,8 +274,9 @@
                             </tr>
                         </thead>
                         <tbody>
-                       @forelse ($bandes as $bande)
+                       @forelse ($data as $bande)
                          <tr>
+                            <td class="text-center">{{date('d-m-Y',strtotime($bande->Date))}}</td>
                             <td class="text-center">{{$bande->U1}}</td>
                             <td class="text-center">{{$bande->U2}}</td>
                             <td class="text-center">{{$bande->U3}}</td>
@@ -270,7 +297,7 @@
                         </tr>
                        @empty
                          <tr>
-                            <td colspan="13">
+                            <td colspan="14">
                                 <div class="alert alert-info">
 
                                     <h5><i class="icon fas fa-ban"></i> Information!</h5>
@@ -284,7 +311,7 @@
                 </div>
                 <div class="card-footer">
                 <div class="float-right">
-                 {{ $bandes->links() }}
+                 
                 </div>
             </div>
             </div>

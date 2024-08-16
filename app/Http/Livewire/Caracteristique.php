@@ -105,11 +105,22 @@ class Caracteristique extends Component
         if(!empty($this->selectedressource)){
             $this->basse = Bass::where('ressource_id', $this->selectedressource)->get();
             }
+/*relation 3 table */
+        $caracteristiques= CaracteristiqueMoteur::whereHas('districts',function($query1){
+            $query1->where('nom', 'like', '%' .$this->search . '%');
+        })->latest()->paginate(5);
 
-        $searchCriteria = "%".$this->search."%";
+       /* $caracteristiques = CaracteristiqueMoteur::whereHas('districts', function($postQuery) {
+            $postQuery->where('nom', true) 
+                    ->whereHas('sites', function($commentQuery) {
+                         $commentQuery->where('nom', true)
+                            ->where('nom', 'like','%' .$this->search . '%');
+                      });
+        })->latest()->paginate(5);*/
+
         $data = [
+        'caracteristiques'=>$caracteristiques,
         "districts" =>District::all(), 
-        "caracteristiques" => CaracteristiqueMoteur::where("ressource_id","like",$searchCriteria)->latest()->paginate(5),
         "caracteristiq" => CaracteristiqueMoteur::where("id",optional($this->selectedId)->id)->get(),
         "electriques" => MoteurElectrique::where("caracteristique_moteur_id",optional($this->selectedMoteur)->id)->get(),
         "pompes" => MoteurPompe::where("caracteristique_moteur_id",optional($this->selectedMoteur)->id)->get(),
@@ -120,9 +131,6 @@ class Caracteristique extends Component
         "doseus" => Doseuse::all(),
         "bassins"=> Bassin::all(),
         
-       /* Table relation
-        "caract"=>District::with('caract')->get(),
-        "district"=>CaracteristiqueMoteur::with('districts')->get(),*/
         ];
         
         return view('livewire.caracteristique.index',$data)

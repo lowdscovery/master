@@ -79,6 +79,17 @@
          <div class="card-header d-flex align-items-center" style="background-color:#785DF0;">
           <h3 class="card-title flex-grow-1" style="color:white;"><i class="nav-icon fas fa-cogs"></i>Depense</h3>
             <div class="card-tools d-flex align-items-center ">
+            <label class="mr-1" style="color:white;font-size:20px;">Par page</label>
+                <div class="card-tools d-flex align-items-center ">
+                  <div class="float-right flex-wrap mr-4 d-block">         
+                    <select class="form-control" wire:model.live="perPage"> 
+                     <option value="15">15</option>
+                     <option value="20">20</option>
+                     <option value="100">100</option>
+                   </select>
+                  </div>
+                </div> 
+              </div>
       <a wire:click.prevent="showImpression()" class="btn btn-default mr-4 d-block" rel="noopener" target="_blank"><i class="fas fa-print"></i> Imprimer</a>
       <label for="filtreType" class="mr-2 d-block" style="color:white;">Filtrer par date </label>
                 <div class="input-group input-group-md" style="width: 250px;">
@@ -159,7 +170,7 @@
               <!-- /.card-body -->
               <div class="card-footer">
                 <div class="float-right">
-                   
+                   {{$depenses->links()}}
                 </div>
             </div>
 </div>

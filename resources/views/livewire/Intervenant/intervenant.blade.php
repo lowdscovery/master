@@ -100,11 +100,9 @@
             <div wire:loading.delay wire:target="AjoutIntervenant">
                    <span class="text-green">Encours...</span>
             </div>
-            @foreach($intervenants as $intervenant)
-            @endforeach
-            @can('create', $intervenant)
+           
                 <button type="submit" class="btn btn-primary" wire:loading.attr="disabled">Enregistrer</button>
-            @endcan
+        
             </div>
             </form>
         </div>

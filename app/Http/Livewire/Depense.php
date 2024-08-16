@@ -21,6 +21,7 @@ class Depense extends Component
     public $today;
     public $datedebut;
     public $datefin;
+    public $perPage = 5;
 
     public $impression = false;
     public $imprimer = false;
@@ -49,7 +50,8 @@ class Depense extends Component
         {
             $query->whereBetween('date',[$this->datedebut,$this->datefin]);
         }
-        $depenses = $query->get();
+        $depenses = $query->latest()->paginate($this->perPage);
+        $this->resetPage();
      /*   $searchCriteria = "%".$this->search."%";
         $depenses = ModelsDepense::where("date","like",$searchCriteria)->latest()->paginate(5);*/
       //  $searchCriteria = "%".$this->search."%";

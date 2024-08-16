@@ -59,7 +59,7 @@
                         </div>
                         <label> </label>
                         <div>
-                          <p style="text-align:center;"> Avez-vous déjà un compte?<a class="nav-link" href="{{ route('register') }}" style="font-size:1.2em">{{ __('Registre') }}</a> </p>
+                          <p style="text-align:center;"> Avez-vous déjà un compte?<a class="nav-link" href="{{ route('register') }}" style="font-size:1.2em"> </p>
                         </div>
                     </form>
                 </div>

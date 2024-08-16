@@ -10,6 +10,6 @@ class Bande extends Model
     use HasFactory;
 
     protected $fillable = [
-      'U1','U2','U3','MoyenU','I1','I2','I3','MoyenI','Puissance','Debit','Pression',
+      'Date','U1','U2','U3','MoyenU','I1','I2','I3','MoyenI','Puissance','Debit','Pression',
     ];
 }

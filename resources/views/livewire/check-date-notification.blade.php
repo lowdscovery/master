@@ -13,19 +13,28 @@
       <li class="nav-item dropdown">
         <a class="nav-link" data-toggle="dropdown" href="#">
           <i class="far fa-bell"></i>
-          <span class="badge badge-warning navbar-badge">15</span>
+           @if ($notificationCount > 0)
+          <span class="badge badge-warning navbar-badge">{{ $notificationCount }}</span>
+           @endif
         </a>
         <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
-          <span class="dropdown-header">15 Notifications</span>
+        
+          <span class="dropdown-header"> </span>
+       
           <div class="dropdown-divider"></div>
           <a href="#" class="dropdown-item">
             
-             @foreach(auth()->user()->unreadnotifications as $notification)
              
-            <a class="ml-3" href="{{route('markasred',$notification->id)}}" style="color:grey;"><i class="fas fa-envelope mr-1" style="color:purple;"></i> {{$notification->data['nom']}}
-            <span class="text-muted text-sm">{{ auth()->user()->created_at->diffForHumans() }}</span>
+             @if (count($notifications) > 0)
+             @foreach ($notifications as $notification)
+      <a class="ml-3" href="#" style="color:grey;"><i class="fas fa-envelope mr-1" style="color:purple;"></i>{{ $notification }}
+               @endforeach
+            <span class="text-muted text-sm"></span>
+            @else
+             <span class="text-muted text-sm">Aucune notification pour le moment.</span>
+           @endif
             </a><br>
-              @endforeach
+              
 
           </a>
           <div class="dropdown-divider"></div>
@@ -44,8 +53,4 @@
       </li>
     </ul>
   </nav>
-  
 
-  
-
-  

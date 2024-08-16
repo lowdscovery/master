@@ -73,7 +73,7 @@
                                     </div>
                               </td>
                       <td>
-                      @can('create',$armoire)
+                
                         <div class="btn-group open">
                         <a class="btn btn-info dropdown-toggle" data-toggle="dropdown">
                             <span class="fa fa-caret-down" title="Toggle dropdown menu"></span>
@@ -82,7 +82,7 @@
                             <li><button class="btn btn-link" wire:click="goToAddArmoire"> <i class="fa fa-plus-circle"></i> Ajouter</button></li>
                         </ul>
                         </div>
-                      @endcan
+                    
                     </td>
                           </tr>
                   @endforelse

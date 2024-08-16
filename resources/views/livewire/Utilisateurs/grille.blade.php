@@ -1,48 +1,69 @@
 
-<div class="row tab-content pt-3">
-  {{ $users->links() }}
-  
-        <div id="grid-view" class="tab-pane fade col-lg-12 active show">
-            <div class="row">
-              @foreach ($users as $user)
-                <div class="col-lg-4 col-md-6 col-sm-6 col-12" >
-                    <div class="card card-profile" > 
-                        <div class="card-body pt-2">
-                            <div class="text-center">
-                            @if ($user->photo !="" || $user->photo !=null)
-                            <div class="profile-photo pt-3">
-                        <img src="{{asset($user->photo)}}" width="120" class="img-fluid rounded-circle" alt="" style="height:120px;border: 9px groove #38E884;">
-                            </div>
-                            @else
-                           <div class="profile-photo pt-3">
-                        <img src="{{asset('image/user.png')}}" width="120" class="img-fluid rounded-circle" alt="" style="height:120px;border: 9px groove #38E884;">
-                            </div>
-                            @endif
-                                
-                                <h3 class="mt-1 mb-1" style="font-family: montserrat;">{{ $user->nom }}</h3>
-                                <p class="text-muted">{{ $user->prenom }}</p>
-                                <ul class="list-group mb-2 list-group-flush">
-                                    <li class="list-group-item px-0 d-flex justify-content-between" style="font-family: montserrat;">
-                                    <span>Utilisateur N°</span><strong>0{{ $user->id }}</strong></li>
-                                    <li class="list-group-item px-0 d-flex justify-content-between" style="font-family: montserrat;">
-                                        <span class="mb-0"> Sexe :</span><strong>{{ $user->sexe }}</strong></li>
-                                    <li class="list-group-item px-0 d-flex justify-content-between" style="font-family: montserrat;">
-                                    <span class="mb-0">Telephone :</span><strong>{{ $user->telephone1 }}</strong></li>
-                                    <li class="list-group-item px-0 d-flex justify-content-between" style="font-family: montserrat;">
-                                        <span class="mb-0">Email:</span><strong>{{ $user->email }}</strong></li>
-                                    <li class="list-group-item px-0 d-flex justify-content-between" style="font-family: montserrat;">
-                                        <span class="mb-0">Piece d'identité :</span><strong>{{ $user->pieceIdentite }}</strong></li>
-                                    <li class="list-group-item px-0 d-flex justify-content-between" style="font-family: montserrat;">
-                                        <span class="mb-0">Numero piece d'identité:</span><strong>{{ $user->numeroPieceIdentite }}</strong></li>
-                                </ul>
-                                <a class="btn btn-outline-primary btn-rounded mt-3 px-4" href="" wire:click.prevent="goToListUser()">Vue de liste</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            @endforeach
-            </div>
-        </div>
+<div class="content pt-2" style="min-height: 2646.44px;">
+
+<section class="content">
+
+<div class="card card-solid">
+<div class="card-body pb-0">
+<div class="row">
+@foreach ($users as $user)
+<div class="col-12 col-sm-6 col-md-4 d-flex align-items-stretch flex-column">
+<div class="card bg-light d-flex flex-fill">
+<div class="card-header text-muted border-bottom-0" style="color:blue;">
+Utilisateur
+</div>
+<div class="card-body pt-0">
+<div class="row">
+<div class="col-7">
+<h4 class="lead" style="color:blue;"><b>{{ $user->nom }} {{ $user->prenom }}</b></h4>
+<p class="text-muted text-sm"><b>Sexe: </b><b><span style="color:dark;">{{ $user->sexe }}</span></b></p>
+<ul class="ml-4 mb-0 fa-ul text-muted">
+<li class="small"><span class="fa-li"><i class="fas fa-lg fa-calendar"></i></span> Piece Identite : <b><span style="color:dark;">{{ $user->pieceIdentite }}</span></b></li>
+<li class="small"><span class="fa-li"><i class="fas fa-lg fa-map"></i></span> N° CIN : <b><span style="color:dark;"> {{ $user->numeroPieceIdentite }}</span></b></li>
+<li class="small"><span class="fa-li"><i class="fas fa-lg fa-phone"></i></span> Phone #: <b><span style="color:dark;">{{ $user->telephone1 }}</span></b></li>
+<li class="small"><span class="fa-li"><i class="fas fa-lg fa-building"></i></span> Mail: <b><span style="color:dark;">{{ $user->email }}</span></b></li>
+</ul>
+</div>
+<div class="col-5 text-center">
+@if ($user->photo !="" || $user->photo !=null)
+    <div class="profile-photo pt-3">
+        <img src="{{asset($user->photo)}}" width="120" class="img-fluid rounded-circle" alt="" style="height:120px;border: 3px groove #FF5100;">
     </div>
+@else
+    <div class="profile-photo pt-3">
+        <img src="{{asset('image/user.png')}}" width="120" class="img-fluid rounded-circle" alt="user-avatar" style="height:120px;border: 3px groove #FF5100;">
+    </div>
+@endif
+
+</div>
+</div>
+</div>
+<div class="card-footer">
+<div class="text-right">
+<a href="#" class="btn btn-sm btn-danger" wire:click="goToListUser()" data-toggle="modal" data-target="#addModal" style="background-color:#FF5100;">
+<i class="fas fa-user"></i> Retour
+</a>
+
+</div>
+</div>
+</div>
+</div>
+ @endforeach
+</div>
+</div>
+
+<div class="card-footer">
+<nav aria-label="Contacts Page Navigation">
+<ul class="pagination justify-content-center m-0">
+   {{ $users->links() }}
+</ul>
+</nav>
+</div>
+
+</div>
+
+</section>
+
+</div>
 
     

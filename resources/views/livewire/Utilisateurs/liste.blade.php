@@ -7,7 +7,7 @@
                 <div class="card-tools d-flex align-items-center ">
                   <div class="float-right">         
                     <select class="form-control" wire:model.live="perPage"> 
-                     <option value="5">5</option>
+                     <option value="6">6</option>
                      <option value="10">10</option>
                      <option value="50">50</option>
                    </select>
@@ -16,14 +16,14 @@
               </div>
                     
             <div class="card">
-              <div class="card-header bg-gradient-cyan d-flex align-items-center">
+              <div class="card-header bg-gradient-primary d-flex align-items-center">
                 <h3 class="card-title flex-grow-1"><i class="fas fa-users fa-2x"></i> Liste des utilisateurs</h3>
 
                 <div class="card-tools d-flex align-items-center ">
                 <div wire:loading.delay wire:target="goToAddUser">
 											<span class="text-white">Encours...</span>
 								</div>
-                <a wire:loading.attr="disabled" wire:click.prevent="goToAddUser()" class="btn btn-primary mr-4 d-block" style="background-color:#00F2D8;"><i class="fas fa-user-plus"></i> Nouvel utilisateur</a>
+                <a wire:loading.attr="disabled" wire:click.prevent="goToAddUser()" class="btn btn-primary mr-4 d-block" style="background-color:#0000FF;border-radius:20px;"><i class="fas fa-user-plus"></i> Nouvel utilisateur</a>
                   <div class="input-group input-group-md" style="width: 250px;">
                     <input type="text" name="table_search" wire:model.debounce.250ms="search" class="form-control float-right" placeholder="Search">
 
@@ -34,7 +34,7 @@
                 </div>
               </div>
               <!-- /.card-header -->
-              <div class="card-body table-responsive p-0 table-striped" style="max-height: 400px;">
+              <div class="card-body table-responsive p-0 table-striped" style="max-height: 500px;">
                 <table class="table table-head-fixed">
                   <thead>
                     <tr>
@@ -68,7 +68,7 @@
                       <td style="color:green;width:15%;">
                         <button class="btn btn-link" wire:click="goToEditUser({{$user->id}})" style="color:green;"> <i class="far fa-edit"></i> </button>
                          @if(count($user->roles) == 0)
-                         <button class="btn btn-link" wire:click="confirmDelete('{{ $user->prenom }} {{ $user->nom }}', {{$user->id}})" style="color:green;"> <i class="far fa-trash-alt"></i> </button>
+                         <button class="btn btn-link" wire:click="confirmDelete('{{ $user->prenom }} {{ $user->nom }}', {{$user->id}})" style="color:red;"> <i class="far fa-trash-alt"></i> </button>
                          @endif
                       </td>
                     </tr>

@@ -13,30 +13,6 @@
 </li>
 
 
-
-<li class="nav-item {{setMenuClass('tableau.', 'menu-open')}}">
-            <a href="#" class="nav-link {{setMenuClass('tableau.', 'active')}}">
-              <i class="nav-icon fas fa-tachometer-alt"></i>
-              <p>
-                Tableau de bord
-                <i class="right fas fa-angle-left"></i>
-              </p>
-            </a>
-            <ul class="nav nav-treeview">
-              <li class="nav-item">
-                <a href="{{route('tableau.depense.depense')}}" class="nav-link {{setMenuActive('tableau.depense.depense')}}">
-                  <i class="nav-icon fas fa-chart-line"></i>
-                  <p>Depense</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="{{route('tableau.bande.bande')}}" class="nav-link {{setMenuActive('tableau.bande.bande')}}">
-                  <i class="nav-icon fas fa-swatchbook"></i>
-                  <p>Bande d'essai</p>
-                </a>
-            </li>
-     </ul>
-</li>
 @can("admin")
 <li class="nav-item {{setMenuClass('admin.habilitations.', 'menu-open')}}">
             <a href="#" class="nav-link {{setMenuClass('admin.habilitations.', 'active')}}">
@@ -56,6 +32,30 @@
             </ul>
         </li>
 @endcan
+
+<li class="nav-item {{setMenuClass('tableau.', 'menu-open')}}">
+            <a href="#" class="nav-link {{setMenuClass('tableau.', 'active')}}">
+              <i class="nav-icon fas fa-tachometer-alt"></i>
+              <p>
+                Depense & Bande
+                <i class="right fas fa-angle-left"></i>
+              </p>
+            </a>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="{{route('tableau.depense.depense')}}" class="nav-link {{setMenuActive('tableau.depense.depense')}}">
+                  <i class="nav-icon fas fa-chart-line"></i>
+                  <p>Depense</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="{{route('tableau.bande.bande')}}" class="nav-link {{setMenuActive('tableau.bande.bande')}}">
+                  <i class="nav-icon fas fa-swatchbook"></i>
+                  <p>Bande d'essai</p>
+                </a>
+            </li>
+     </ul>
+</li>
  <li class="nav-item {{setMenuClass('localisations.', 'menu-open')}}">
             <a href="#" class="nav-link {{setMenuClass('localisations.', 'active')}}">
                 <i class="nav-icon fas fa-cogs"></i>
@@ -138,7 +138,6 @@
                 </li>     
             </ul>
         </li>
-         <li class="nav-header">LOCATION</li>
         <li class="nav-item">
             <a href="{{route('Intervenant.intervenant')}}" class="nav-link {{setMenuActive('Intervenant.intervenant')}}">
                 <i class="nav-icon fas fa-users"></i>

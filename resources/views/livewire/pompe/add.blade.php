@@ -154,12 +154,10 @@
               <button type="button" class="btn btn-secondary" data-dismiss="modal" wire.click="">Close</button>
                </div>
       @else
-      @foreach ($pomp as $pomps)
-     
-      @endforeach 
-      @can("create",$pomps)
+       
+      
       <button class="btn btn-success" wire:click="showInput()">Ajout</button> 
-      @endcan
+    
              <table class="table table-head-fixed">
                     <thead style="color: orange;">
                     <tr>

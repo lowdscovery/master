@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\NotificationeController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\UserController;
 use App\Http\Livewire\AddDistricts;
@@ -21,6 +22,8 @@ use App\Http\Livewire\Maintenance;
 use App\Http\Livewire\Mesure;
 use App\Http\Livewire\Ouvrage;
 use App\Http\Livewire\Calcules;
+use App\Http\Livewire\CheckDateNotification;
+use App\Http\Livewire\DataChart;
 use App\Http\Livewire\Depense;
 use App\Http\Livewire\Password;
 use App\Http\Livewire\Profile;
@@ -40,6 +43,7 @@ use Carbon\Carbon;
 use App\Http\Livewire\ManagerArticles;
 use App\Http\Livewire\ManagerProducts;
 use App\Models\Site;
+use App\View\Components\NotificationBell;
 
 /*
 |--------------------------------------------------------------------------
@@ -150,6 +154,7 @@ Route::get("/calcule", Calcules::class)->name("calcules");
 Route::get("/profile", Profile::class)->name("profile");
 Route::get("/password", Password::class)->name("password");
 
+Route::get("/chart", DataChart::class)->name("chart");
 
 Route::group([
     "prefix" => "caracteristiques",
@@ -177,11 +182,12 @@ Route::post('/lockscreen', [ProfileController::class, 'lockScreenUpdate'])->name
 
 
 
+/*route teste*/
+Route::get('/notificationes', [NotificationeController::class, 'index'])->name('notificationes.index');
+Route::patch('/notificationes/{id}/read', [NotificationeController::class, 'markAsRead'])->name('notificationes.read');
 
-
-
-
-
+/*fin route teste*/
+Route::get('/notifications', CheckDateNotification::class)->name("notification");
 //Route::get("/notify",[App\Http\Controllers\HomeController::class, 'notify']);
 Route::get("/markasred/{id}",[App\Http\Controllers\HomeController::class, 'markasred'])->name('markasred');
 //Route::get("/markasred",Utilisateurs::class)->name('markasred')->middleware("auth.admin");
