@@ -29,7 +29,7 @@
 <div class="wrapper">
 
 <!-- Les topnav sont dans le dossier components -->
-<x-topnav />
+<livewire:check-date-notification />
 
 <aside class="main-sidebar sidebar-dark-primary elevation-4">
 
@@ -41,7 +41,7 @@
 <div class="sidebar">
 
 <div class="user-panel mt-3 pb-3 mb-3 d-flex">
-<div class="rounded-circle" >
+<div class="rounded-circle">
  @if (auth()->user()->photo !="" || auth()->user()->photo !=null)
    <img src="{{asset(auth()->user()->photo)}}" class="rounded-circle" width="100" style="height:40px;">
    @else

@@ -5,9 +5,9 @@
 
   <li class="nav-item">
             <a href="{{route('home')}}" class="nav-link {{setMenuActive('home')}}">
-              <i class="nav-icon fas fa-home"></i>
+              <i class="nav-icon fas fa-tachometer-alt"></i>
               <p>
-                Accueil
+                Tableau de bord
          </p>
      </a>
 </li>
@@ -32,12 +32,12 @@
             </ul>
         </li>
 @endcan
-
+@canany(['manager', 'employe'])
 <li class="nav-item {{setMenuClass('tableau.', 'menu-open')}}">
             <a href="#" class="nav-link {{setMenuClass('tableau.', 'active')}}">
               <i class="nav-icon fas fa-tachometer-alt"></i>
               <p>
-                Depense & Bande
+                Depense & Bancs
                 <i class="right fas fa-angle-left"></i>
               </p>
             </a>
@@ -51,7 +51,7 @@
               <li class="nav-item">
                 <a href="{{route('tableau.bande.bande')}}" class="nav-link {{setMenuActive('tableau.bande.bande')}}">
                   <i class="nav-icon fas fa-swatchbook"></i>
-                  <p>Bande d'essai</p>
+                  <p>Bancs d'essai</p>
                 </a>
             </li>
      </ul>
@@ -91,15 +91,7 @@
                     </a>
                 </li>     
             </ul>
-            <ul class="nav nav-treeview">
-                <li class="nav-item">
-                    <a href="{{route('localisations.addType.add-type')}}"
-                        class="nav-link {{setMenuActive('localisations.addType.add-type')}}">
-                    <i class="nav-icon far fa-circle"></i>
-                    <p>Type</p>
-                    </a>
-                </li>     
-            </ul>
+          
         </li>
 
         <li class="nav-item {{setMenuClass('caracteristiques.', 'menu-open')}}">
@@ -112,15 +104,6 @@
             </a>
             <ul class="nav nav-treeview">
                 <li class="nav-item">
-                    <a href="{{route('caracteristiques.caracteristique.caracteristique')}}"
-                        class="nav-link {{setMenuActive('caracteristiques.caracteristique.caracteristique')}}">
-                    <i class="nav-icon far fa-circle"></i>
-                    <p>Materiels</p>
-                    </a>
-                </li>     
-            </ul>
-             <ul class="nav nav-treeview">
-                <li class="nav-item">
                     <a href="{{route('caracteristiques.ouvrage.ouvrage')}}"
                         class="nav-link {{setMenuActive('caracteristiques.ouvrage.ouvrage')}}">
                     <i class="nav-icon fa fa-university"></i>
@@ -128,15 +111,7 @@
                     </a>
                 </li>     
             </ul>
-            <ul class="nav nav-treeview">
-                <li class="nav-item">
-                    <a href="{{route('caracteristiques.bassin.bassin')}}"
-                        class="nav-link {{setMenuActive('caracteristiques.bassin.bassin')}}">
-                    <i class="nav-icon fa fa-filter"></i>
-                    <p>Bassin</p>
-                    </a>
-                </li>     
-            </ul>
+           
         </li>
         <li class="nav-item">
             <a href="{{route('Intervenant.intervenant')}}" class="nav-link {{setMenuActive('Intervenant.intervenant')}}">
@@ -164,6 +139,14 @@
             </a>
         </li>
         <li class="nav-item">
+            <a href="{{route('rapport.rapport')}}" class="nav-link {{setMenuActive('rapport.rapport')}}">
+                <i class="fa fa-file"></i>
+                <p>
+                Rapport de mission
+                </p>
+            </a>
+        </li>
+        <li class="nav-item">
             <a href="{{route('commande.commande')}}" class="nav-link {{setMenuActive('commande.commande')}}">
                 <i class="fa fa-credit-card"></i>
                 <p>
@@ -179,19 +162,12 @@
                 </p>
             </a>
         </li>
+        <!--
         <li class="nav-item">
             <a href="{{route('mesure.mesure')}}" class="nav-link {{setMenuActive('mesure.mesure')}}">
                 <i class="fa fa-podcast"></i>
                 <p>
                 Mesure
-                </p>
-            </a>
-        </li>
-        <li class="nav-item">
-            <a href="{{route('rapport.rapport')}}" class="nav-link {{setMenuActive('rapport.rapport')}}">
-                <i class="fa fa-file"></i>
-                <p>
-                Rapport de mission
                 </p>
             </a>
         </li>
@@ -202,7 +178,8 @@
                 Armoire de commande
                 </p>
             </a>
-        </li>
-    
+        </li> 
+-->
+@endcanany
 </ul>
 </nav>

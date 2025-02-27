@@ -35,7 +35,8 @@ class CreateMoteurElectriquesTable extends Migration
             $table->string('indiceDeProtection');
             $table->string('classeIsolant');
             $table->string('typeDeDemarrage');
-            $table->foreignId('caracteristique_moteur_id');
+            $table->foreignId('caracteristique_moteur_id')->nullable();
+            $table->foreignId('ouvrage_id')->nullable();
 
             $table->string('longueur');
             $table->string('largeur');

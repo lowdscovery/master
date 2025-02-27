@@ -1,7 +1,7 @@
 <div class="row p-4 pt-1">
     <div class="col-md-6">
         <!-- general form elements -->
-        <div class="card card-cyan">
+        <div class="card card-primary">
             <div class="card-header">
             <h3 class="card-title"><i class="fas fa-user-plus fa-2x"></i> Formulaire d'édition utilisateur</h3>
             </div>
@@ -68,19 +68,6 @@
                         @enderror
                 </div>
 
-            <div class="form-group">
-                <label >Piece d'identité</label>
-                <select class="form-control @error('editUser.pieceIdentite') is-invalid @enderror" wire:model="editUser.pieceIdentite" required="required" title="Choisir votre piece d'identité">
-                    <option value="">---------</option>
-                    <option value="CIN">CIN</option>
-                    <option value="PASSPORT">PASSPORT</option>
-                    <option value="PERMIS DE CONDUIRE">PERMIS DE CONDUIRE</option>
-                </select>
-                @error("editUser.pieceIdentite")
-                    <span class="text-danger">{{ $message }}</span>
-                @enderror
-                </div>
-
                 <div class="form-group">
                         <label >Numero de piece d'identité</label>
                         <input type="text" class="form-control @error('editUser.numeroPieceIdentite') is-invalid @enderror" wire:model="editUser.numeroPieceIdentite" required="required" title="Le numero de piece d'identité doit être 12 chiffre" pattern="\d{12}">
@@ -116,7 +103,7 @@
                 <span class="text-green">Encours...</span>
             </div>
                 <button type="submit" class="btn btn-primary" wire:loading.attr="disabled">Appliquer les modifications</button>
-                <button type="button" wire:click="goToListUser()" class="btn btn-danger">Retour à la liste</button>
+                <a href="{{route('admin.habilitations.users.index')}}" class="btn btn-danger">Retour à la liste</a>
             </div>
             </form>
         </div>
@@ -130,7 +117,7 @@
        <div class="col-md-6">
         <div class="row ">
             <div class="col-md-12">
-                <div class="card card-cyan">
+                <div class="card card-primary">
                     <div class="card-header">
                     <h3 class="card-title"><i class="fas fa-key fa-2x"></i> Réinitialisation de mot de passe</h3>
                     </div>
@@ -147,7 +134,7 @@
             </div>
             
             <div class="col-md-12 mt-4">
-                <div class="card card-cyan">
+                <div class="card card-primary">
                     <div class="card-header d-flex align-items-center">
                     <h3 class="card-title flex-grow-1"><i class="fas fa-fingerprint fa-2x"></i> Roles</h3>
                     <button class="btn bg-gradient-success" wire:click="updateRoleAndPermissions"><i class="fas fa-check"></i> Appliquer les modifications</button>

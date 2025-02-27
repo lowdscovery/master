@@ -6,6 +6,9 @@ use App\Models\Bis;
 use App\Models\CaracteristiqueMoteur;
 use Livewire\Component;
 use Livewire\WithPagination;
+use App\Models\MoteurElectrique;
+use App\Models\MoteurPompe;
+use App\Models\Forage;
 
 class BisList extends Component
 {
@@ -14,7 +17,14 @@ class BisList extends Component
     protected $paginationTheme = "bootstrap";
     public $addBis = [];
     public $editBis = [];
+   // public $selectedItem = '';
 
+
+   /* public function updatedSelectedItem($value)
+   {
+       $this->caracteristique = '';
+       $this->selectedItem = $value;
+   }*/
 
     public function updatedSearch(){
         $this->resetPage();
@@ -24,8 +34,12 @@ class BisList extends Component
     {
         $searchCriteria = "%".$this->search."%";
         $data = [
-        "biss" => Bis::where("marque","like",$searchCriteria)->latest()->paginate(5),
+        "biss" => Bis::where("dateDePose","like",$searchCriteria)
+                       ->orwhere("caracteristique","like",$searchCriteria)->latest()->paginate(5),
         "caracteristiques" => CaracteristiqueMoteur::get(),
+        "moteurs" => MoteurElectrique::get(),
+        "pompes" => MoteurPompe::get(),
+        "forages" => Forage::all(),
         ];
         return view('livewire.bis.list',$data)
         ->extends("layouts.principal")
@@ -69,21 +83,27 @@ class BisList extends Component
             "dateDePose"=>$this->addBis["dateDePose"],
             "tarage"=>$this->addBis["tarage"],
             "caracteristique"=>$this->addBis["caracteristique"],
+          //  'typemoteur' => $this->selectedItem,
         ]);
         $this->resetErrorBag();
         $this->addBis = [];
+      //  $this->selectedItem="";
         $this->dispatchBrowserEvent("showSuccessMessage", ["message"=>"Bis ajoutée avec succès!"]);
     }
 
     //update
     public function editBis(Bis $bis){
         $this->editBis = $bis->toArray();
+    //    $this->selectedItem = $this->editBis['typemoteur'];
        }
    public function updateCommande(Bis $bis){
     $this->validate();
     $bis = Bis::find($this->editBis["id"]);
+  //  $this->editBis['typemoteur'] = $this->selectedItem;
     $bis->fill($this->editBis);
     $bis->save();
+    $this->editBis = [];
+   // $this->selectedItem="";
     $this->dispatchBrowserEvent("showSuccessMessage", ["message"=> "Mis à jour avec succès!"]);
     }
 
@@ -101,5 +121,10 @@ class BisList extends Component
     public function deleteBis(Bis $bis){
         $bis->delete();
         $this->dispatchBrowserEvent("showSuccessMessage", ["message"=>"Le bis supprimé avec succès!"]);
+      }
+
+      public function cancel(){
+        $this->editBis = [];
+     //   $this->selectedItem="";
       }
 }

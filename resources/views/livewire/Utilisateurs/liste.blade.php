@@ -2,7 +2,7 @@
           <div class="col-12">
                 
               <div class="card-header d-flex align-items-center" style="background:#6811C4;">
-                 <a href="" wire:click.prevent="goToGrille()" data-toggle="tab" class="nav-link btn-primary show active mr-4 d-block">Vue de la grille</a>            
+                 <a href="" wire:click.prevent="goToGrille()" data-toggle="tab" class="nav-link btn-primary show active mr-4 d-block" style="border-radius:30px;">Vue de la grille</a>            
                  <label class="mr-1" style="color:white;font-size:20px;">Par page</label>
                 <div class="card-tools d-flex align-items-center ">
                   <div class="float-right">         
@@ -23,7 +23,7 @@
                 <div wire:loading.delay wire:target="goToAddUser">
 											<span class="text-white">Encours...</span>
 								</div>
-                <a wire:loading.attr="disabled" wire:click.prevent="goToAddUser()" class="btn btn-primary mr-4 d-block" style="background-color:#0000FF;border-radius:20px;"><i class="fas fa-user-plus"></i> Nouvel utilisateur</a>
+                <a wire:loading.attr="disabled" wire:click.prevent="goToAddUser()" class="btn btn-primary mr-4 d-block" style="background-color:#0000FF;border-radius:20px;border-radius:30px;"><i class="fas fa-user-plus"></i> Nouvel utilisateur</a>
                   <div class="input-group input-group-md" style="width: 250px;">
                     <input type="text" name="table_search" wire:model.debounce.250ms="search" class="form-control float-right" placeholder="Search">
 

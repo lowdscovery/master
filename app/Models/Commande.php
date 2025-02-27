@@ -11,6 +11,6 @@ class Commande extends Model
 
     protected $fillable = [
         "dateCommande","motif","article","reference","quantiteCommande","numeroDA","Situation",
-        "quantiteReception","dateReception","observation","caracteristique",
+        "quantiteReception","dateReception","observation","type","caracteristique",
     ];
 }

@@ -22,6 +22,7 @@ class Depense extends Component
     public $datedebut;
     public $datefin;
     public $perPage = 5;
+    public $cachesearch=false;
 
     public $impression = false;
     public $imprimer = false;
@@ -50,6 +51,13 @@ class Depense extends Component
         {
             $query->whereBetween('date',[$this->datedebut,$this->datefin]);
         }
+
+        if (!empty($this->search)) {
+            $query->where(function($q) {
+                $q->where('motif', 'like', '%' . $this->search . '%');
+            });
+        }
+
         $depenses = $query->latest()->paginate($this->perPage);
         $this->resetPage();
      /*   $searchCriteria = "%".$this->search."%";
@@ -65,7 +73,10 @@ class Depense extends Component
         ->extends("layouts.principal")
         ->section("contenu");
     }
-
+    
+    public function cache(){
+        $this->cachesearch=true;
+    }
 
     public function updatedSearch(){
         $this->resetPage();

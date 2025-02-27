@@ -39,6 +39,8 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use Carbon\Carbon;
 
+use App\Http\Controllers\HomeController;
+
 //permission
 use App\Http\Livewire\ManagerArticles;
 use App\Http\Livewire\ManagerProducts;
@@ -60,6 +62,11 @@ use App\View\Components\NotificationBell;
 Auth::routes();
 
 Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::get('/delete/{id}', [App\Http\Controllers\HomeController::class, 'remove']);
+Route::resource('intervenants', HomeController::class);
+Route::get('/intervenants', [HomeController::class, 'index'])->name('intervenants.index');
+
+
 
 
 Route::group([

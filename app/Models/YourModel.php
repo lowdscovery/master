@@ -8,5 +8,5 @@ use Illuminate\Database\Eloquent\Model;
 class YourModel extends Model
 {
     use HasFactory;
-    protected $fillable= ["date"];
+    protected $fillable = ['message', 'date', 'read'];
 }

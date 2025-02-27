@@ -16,7 +16,15 @@ class AddDistricts extends Component
     public $isSelected = false;
     public $data;
     public $dataId;
+    public $search = "";
 
+    public function updatedPerPage(){
+        $this->resetPage();
+    }
+    public function updatedSearch(){
+        $this->resetPage();
+    }
+    
     public function selected(){
         $this->isSelected = true;
         $this->isSelectededit = false;
@@ -38,8 +46,9 @@ class AddDistricts extends Component
     }
     public function render()
     {
+        $searchCriteria = "%".$this->search."%";
         $data = [
-            "districts" => District::latest()->paginate(5),
+            "districts" => District::where("nom", "like", $searchCriteria)->latest()->paginate(5),
           ];
         return view('livewire.addDistricts.add-districts',$data)
         ->extends("layouts.principal")

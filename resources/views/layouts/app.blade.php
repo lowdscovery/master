@@ -27,7 +27,7 @@
 background-size:cover;background-repeat:no-repeat;height:100vh;">
     <div id="app">
 
-        <main class="py-4">
+        <main class="py-2">
             @yield('content')
         </main>
     </div>

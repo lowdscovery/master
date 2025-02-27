@@ -17,6 +17,14 @@ class AddSite extends Component
     public $isSelected = false;
     public $data;
     public $dataId;
+    public $search = "";
+
+    public function updatedPerPage(){
+        $this->resetPage();
+    }
+    public function updatedSearch(){
+        $this->resetPage();
+    }
 
     public function selected(){
         $this->isSelected = true;
@@ -40,9 +48,15 @@ class AddSite extends Component
 
     public function render()
     {
+        
+        $searchCriteria = "%".$this->search."%";
         $data = [
             "districts" => District::all(),
-            "sites" => Site::latest()->paginate(5),
+            "sites" => Site::where("nom", "like", $searchCriteria)->latest()->paginate(5),
+        //    "sites"=> Site::whereHas('dist',function($query){
+        //     $query->where('nom', 'like', '%' .$this->search . '%')
+        //     ->Orwhere('nom', 'like', '%' .$this->search . '%');
+        // })->latest()->paginate(5),
           ];
         return view('livewire.addSite.add-site',$data)
         ->extends("layouts.principal")

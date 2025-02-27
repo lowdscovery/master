@@ -18,6 +18,14 @@ class AddForage extends Component
     public $isSelected = false;
     public $data;
     public $dataId;
+    public $search = "";
+
+    public function updatedPerPage(){
+        $this->resetPage();
+    }
+    public function updatedSearch(){
+        $this->resetPage();
+    }
 
     public function selected(){
         $this->isSelected = true;
@@ -40,8 +48,9 @@ class AddForage extends Component
     }
     public function render()
     {
+        $searchCriteria = "%".$this->search."%";
         $data = [
-            "ressources" => Ressource::latest()->paginate(5),
+            "ressources" => Ressource::where("nom", "like", $searchCriteria)->latest()->paginate(5),
             "sites" => Site::all(),
           ];
         return view('livewire.addForage.add-forage',$data)

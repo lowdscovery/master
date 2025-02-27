@@ -11,6 +11,6 @@ class Bis extends Model
 
     protected $fillable = [
         "repere","designation","marque","type","Dn",
-        "Pn","dateDePose","tarage","caracteristique",
+        "Pn","dateDePose","tarage","typemoteur","caracteristique",
     ];
 }

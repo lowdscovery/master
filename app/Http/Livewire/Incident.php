@@ -7,6 +7,8 @@ use App\Models\Incident as ModelsIncident;
 use App\Models\Intervenant as ModelsIntervenant;
 use Livewire\Component;
 use Livewire\WithPagination;
+use App\Models\MoteurElectrique;
+use App\Models\MoteurPompe;
 
 class Incident extends Component
 {
@@ -15,26 +17,77 @@ class Incident extends Component
     public $search = "";
     public $dateIncident,$indexCH,$natureIncident,$caracteristique_moteur_id;
     public $cause,$action,$resultat,$intervenant_id;
-   // public $transactions;
+    public $datedebut;
+    public $datefin;
+    public $perPage = 5;
+    public $selectedItem = '';
 
+    //
+    public $editId = null;
+
+    public function mount()
+{
+    // Réinitialisation initiale du formulaire
+    $this->resetForm();
+}
+
+public function resetForm()
+{
+    // Réinitialiser toutes les propriétés à des valeurs vides
+    $this->editId = null;
+    $this->dateIncident = '';
+    $this->indexCH = '';
+    $this->natureIncident = '';
+    $this->selectedItem = '';
+    $this->caracteristique_moteur_id = '';
+    $this->cause = '';
+    $this->action = '';
+    $this->resultat = '';
+    $this->intervenant_id = '';
+}
+
+public function cancelEdit()
+{
+    $this->resetForm(); // Réinitialiser le formulaire lorsqu'on annule l'édition
+}
     //edit
-    public $editId;
+   // public $editId;
 
     public function updatedSearch(){
         $this->resetPage();
     }
+
     
     public function render()
     {
-      //  $this->transactions = ModelsIncident::all();
-        $searchCriteria = "%".$this->search."%";
-        $data= [
-            "transactions" => ModelsIncident::where("natureIncident","like",$searchCriteria)->latest()->paginate(5),
-            "inters" => ModelsIntervenant::get(),
-            "caracteristiques" => CaracteristiqueMoteur::get(),
-        ];
+        $query = ModelsIncident::query();
 
-        return view('livewire.Incident.liste',$data)
+        if ($this->datedebut && $this->datefin) {
+            $query->whereBetween('dateIncident', [$this->datedebut, $this->datefin]);
+        }
+        
+        if (!empty($this->search)) {
+            $query->where(function($q) {
+                $q->where('intervenant_id', 'like', '%' . $this->search . '%')
+                ->orWhere('caracteristique_moteur_id','like', '%' . $this->search . '%')
+                  ->orWhere('type', 'like', '%' . $this->search . '%');
+            });
+        }
+        $transactions = $query->orderBy('created_at', 'asc')->paginate(5);
+      // $transactions = $query->latest()->paginate($this->perPage);
+        
+        $this->resetPage();
+
+            $inters = ModelsIntervenant::get();
+            $moteurs = MoteurElectrique::get();
+            $pompes = MoteurPompe::get();
+
+        return view('livewire.Incident.liste',[
+            'transactions' => $transactions,
+            'inters'=>$inters,
+            'moteurs'=>$moteurs,
+            'pompes'=>$pompes
+            ])
         ->extends("layouts.principal")
         ->section("contenu");
 
@@ -56,6 +109,7 @@ class Incident extends Component
             'intervenant_id' => $this->intervenant_id,
            // 'old_value' => $oldValue,
             'heure' => $difference,
+            'type'=>$this->selectedItem,
         ]);
         $this->dispatchBrowserEvent("showSuccessMessage", ["message"=>"Incident ajoutée avec succès!"]);
      //   $this->transactions = ModelsIncident::all();
@@ -67,6 +121,9 @@ class Incident extends Component
         $this->action = '';
         $this->resultat = '';
         $this->intervenant_id = '';
+        $this->selectedItem='';
+
+        $this->resetForm();
     }
 
    
@@ -82,6 +139,7 @@ class Incident extends Component
         $this->action = $transaction->action;
         $this->resultat = $transaction->resultat;
         $this->intervenant_id = $transaction->intervenant_id;
+        $this->selectedItem = $transaction->type;
 
     }
     //update
@@ -99,6 +157,7 @@ class Incident extends Component
             'resultat' => $this->resultat,
             'intervenant_id' => $this->intervenant_id,
             'heure' => $difference,
+            'type'=>$this->selectedItem,
         ]);
         $this->dispatchBrowserEvent("showSuccessMessage", ["message"=> "Incident mis à jour avec succès!"]);
       // $this->transactions = ModelsIncident::all();
@@ -111,6 +170,7 @@ class Incident extends Component
         $this->resultat = '';
         $this->intervenant_id = '';
         $this->editId = null;
+        $this->selectedItem='';
     }
 
      //supression
@@ -129,135 +189,12 @@ class Incident extends Component
         $incident->delete();
         $this->dispatchBrowserEvent("showSuccessMessage", ["message"=>"L'incident supprimé avec succès!"]);
       }
-   /* use WithPagination;
-    protected $paginationTheme ="bootstrap";
-    public $search = "";
-    public $changed;
-    public $oldValue = [];
-    public $addIncident = [];
-    public $editIncident = [];
+   //affiche moteur et pompe
+     
 
-    public $previousValue;
-    public $indexCH;
-    public $heure;
-
-    public function mount(){
-        $lastTransaction = ModelsIncident::latest()->first();
-        $this->previousValue = $lastTransaction ? $lastTransaction->indexCH : 1;
-        }
-  
-
-    public function render()
-    {
-        $searchCriteria = "%".$this->search."%";
-        $data= [
-            "incidents" => ModelsIncident::where("natureIncident","like",$searchCriteria)->latest()->paginate(5),
-            "inters" => ModelsIntervenant::get(),
-            "caracteristiques" => CaracteristiqueMoteur::get(),
-        ];
-
-        if($this->editIncident != []){
-            $this->showButton();
-        }
-
-        return view('livewire.Incident.liste',$data)
-        ->extends("layouts.principal")
-        ->section("contenu");
-
-    }
-//showButton
-    public function showButton(){
-        $this->changed = false;
-        if(
-          $this->editIncident["dateIncident"] != $this->oldValue["dateIncident"] ||
-          $this->editIncident["indexCH"] != $this->oldValue["indexCH"] ||
-          $this->editIncident["heure"] != $this->oldValue["heure"] ||
-          $this->editIncident["natureIncident"] != $this->oldValue["natureIncident"] ||
-          $this->editIncident["cause"] != $this->oldValue["cause"] ||
-          $this->editIncident["action"] != $this->oldValue["action"] ||
-          $this->editIncident["resultat"] != $this->oldValue["resultat"] ||
-          $this->editIncident["intervenant_id"] != $this->oldValue["intervenant_id"] ||
-          $this->editIncident["caracteristique_moteur_id"] != $this->oldValue["caracteristique_moteur_id"]
-          ){
-          $this->changed = true;
-         }
+      public function updatedSelectedItem($value)
+      {
+        $this->caracteristique_moteur_id = '';
+          $this->selectedItem = $value;
       }
-
-    //rules
-    protected function rules(){
-        return[
-            'editIncident.dateIncident'=> 'required',
-            'indexCH'=> 'required',
-            'editIncident.natureIncident'=> 'required',
-            'editIncident.cause'=> 'required',
-            'editIncident.action'=> 'required',
-            'editIncident.resultat'=> 'required',
-            'editIncident.intervenant_id'=> 'required',
-            'editIncident.caracteristique_moteur_id'=> 'required',
-        ];
-      }
-
-    public function addIncident(){
-        $this->validate([
-            "addIncident.dateIncident"=> "string|required",
-           //"addIncident.indexCH"=> "numeric|required",
-            "indexCH"=> "numeric|required",
-            "addIncident.natureIncident"=> "string|required",
-            "addIncident.cause"=> "string|required",
-            "addIncident.action"=> "string|required",
-            "addIncident.resultat"=> "string|required",
-            "addIncident.intervenant_id"=> "string",
-            "addIncident.caracteristique_moteur_id"=> "string",
-        ]);
-        $this->heure = $this->indexCH - $this->previousValue;
-        ModelsIncident::create([
-            "dateIncident" => $this->addIncident["dateIncident"],
-          //"indexCH" => $this->addIncident["indexCH"],
-            "indexCH" => $this->indexCH,
-            "heure" => $this->heure,
-            "natureIncident" => $this->addIncident["natureIncident"],
-            "cause" => $this->addIncident["cause"],
-            "action" => $this->addIncident["action"],
-            "resultat" => $this->addIncident["resultat"],
-            "intervenant_id" => $this->addIncident["intervenant_id"],
-            "caracteristique_moteur_id" => $this->addIncident["caracteristique_moteur_id"],
-        ]);
-        $this->previousValue = $this->indexCH;
-        $this->reset('indexCH');
-
-    $this->resetErrorBag();
-    $this->addIncident = [];
-    $this->dispatchBrowserEvent("showSuccessMessage", ["message"=>"Incident ajoutée avec succès!"]);
-    }
-
-
-      //supression
-      public function confirmDelete(ModelsIncident $incident){
-        $this->dispatchBrowserEvent("showConfirmMessage", [
-            "message"=> 
-        [
-            "text" => "Vous êtes sur le point de supprimer ". $incident->cause ." sur la liste des intervenants. Voulez-vous continuer?",
-            "title" => "Êtes-vous sûr de continuer?",
-            "type" => "warning",
-            "data" => ["models_incident_id" => $incident->id]
-        ]]);
-    }
-
-    public function deleteIncident(ModelsIncident $incident){
-        $incident->delete();
-        $this->dispatchBrowserEvent("showSuccessMessage", ["message"=>"L'incident supprimé avec succès!"]);
-      }
-      //modifier
-    public function editIncident(ModelsIncident $incident){
-     $this->editIncident = $incident->toArray();
-     $this->indexCH = $incident['indexCH'];
-     $this->oldValue = $this->editIncident;
-    }
-    public function updateIncident(){
-        $this->validate();
-        $incident = ModelsIncident::find($this->editIncident["id"]);
-        $incident->fill($this->editIncident);
-        $incident->save();
-        $this->dispatchBrowserEvent("showSuccessMessage", ["message"=> "Incident mis à jour avec succès!"]);
-    }*/
 }

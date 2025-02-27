@@ -15,18 +15,20 @@ class Bandes extends Migration
     {
         Schema::create('bandes', function(Blueprint $table){
             $table->id();
-            $table->date('Date');
-            $table->float('U1');
-            $table->float('U2');
-            $table->float('U3');
+            $table->date('Date')->nullable();
+            $table->string('Moteur')->nullable();
+            $table->string('Pompe')->nullable();
+            $table->float('U1')->nullable();
+            $table->float('U2')->nullable();
+            $table->float('U3')->nullable();
             $table->float('MoyenU')->nullable();
-            $table->float('I1');
-            $table->float('I2');
-            $table->float('I3');
+            $table->float('I1')->nullable();
+            $table->float('I2')->nullable();
+            $table->float('I3')->nullable();
             $table->float('MoyenI')->nullable();
             $table->float('Puissance')->nullable();
-            $table->float('Debit');
-            $table->float('Pression');
+            $table->float('Debit')->nullable();
+            $table->float('Pression')->nullable();
             $table->timestamps();
         });
     }

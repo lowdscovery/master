@@ -20,6 +20,7 @@ class Rapports extends Migration
             $table->string('intervenant_id');
             $table->string('lieu');
             $table->string('motif');
+            $table->string('status')->nullable();
             $table->string('rapport')->nullable();  
             $table->timestamps();
         });

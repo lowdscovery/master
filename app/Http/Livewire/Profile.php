@@ -15,7 +15,6 @@ class Profile extends Component
     public $prenom;
     public $sexe;
     public $telephone1;
-    public $pieceIdentite;
     public $numeroPieceIdentite;
     public $email;
     public $password;
@@ -29,7 +28,6 @@ class Profile extends Component
         $this->prenom = $user->prenom;
         $this->sexe = $user->sexe;
         $this->telephone1 = $user->telephone1;
-        $this->pieceIdentite = $user->pieceIdentite;
         $this->numeroPieceIdentite = $user->numeroPieceIdentite;
         $this->email = $user->email;
     }
@@ -48,7 +46,6 @@ class Profile extends Component
             'prenom' => 'required|string|max:255',
             'sexe' => 'required|string|max:255',
             'telephone1' => 'required|numeric',
-            'pieceIdentite' => 'required|string|max:255',
             'numeroPieceIdentite' => 'required|string|max:255',
             'email' => 'required|email',
             'password' => 'nullable|string|min:8|confirmed',
@@ -60,7 +57,6 @@ class Profile extends Component
         $user->prenom = $this->prenom;
         $user->sexe = $this->sexe;
         $user->telephone1 = $this->telephone1;
-        $user->pieceIdentite = $this->pieceIdentite;
         $user->numeroPieceIdentite = $this->numeroPieceIdentite;
         $user->email = $this->email;
 

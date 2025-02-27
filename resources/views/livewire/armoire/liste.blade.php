@@ -35,7 +35,9 @@
                       <th class="text-center"> Type</th>
                       <th class="text-center"> Reglage</th>
                       <th class="text-center"> Date de Pose</th>
+                      @can("employe")
                       <th class="text-center"> Action</th>
+                      @endcan
                     </tr>
                   </thead>
                   <tbody>                             
@@ -47,6 +49,7 @@
                       <td class="text-center">{{ $armoire->type}}</td>
                       <td class="text-center">{{ $armoire->reglage}}</td>
                       <td class="text-center">{{ date('d-m-Y',strtotime($armoire->datePose))}}</td>
+                      @can("employe")
                       <td class="text-center">       
                     <div class="btn-group open">
                     <a class="btn btn-info dropdown-toggle" data-toggle="dropdown">
@@ -63,6 +66,7 @@
                     </ul>
                     </div>
                       </td>
+                      @endcan
                     </tr>
                     @empty
                           <tr>
@@ -72,8 +76,8 @@
                                       Aucune donnée trouvée par rapport aux éléments de recherche entrés.
                                     </div>
                               </td>
+                      @can("employe")
                       <td>
-                
                         <div class="btn-group open">
                         <a class="btn btn-info dropdown-toggle" data-toggle="dropdown">
                             <span class="fa fa-caret-down" title="Toggle dropdown menu"></span>
@@ -84,6 +88,7 @@
                         </div>
                     
                     </td>
+                    @endcan
                           </tr>
                   @endforelse
                </tbody>

@@ -122,7 +122,8 @@ class Caracteristique extends Component
         'caracteristiques'=>$caracteristiques,
         "districts" =>District::all(), 
         "caracteristiq" => CaracteristiqueMoteur::where("id",optional($this->selectedId)->id)->get(),
-        "electriques" => MoteurElectrique::where("caracteristique_moteur_id",optional($this->selectedMoteur)->id)->get(),
+       // "electriques" => MoteurElectrique::where("caracteristique_moteur_id",optional($this->selectedMoteur)->id)->get(),
+        "electriques" => MoteurElectrique::where("ouvrage_id",optional($this->selectedMoteur)->id)->get(),
         "pompes" => MoteurPompe::where("caracteristique_moteur_id",optional($this->selectedMoteur)->id)->get(),
         "doseuses" => Doseuse::where("caracteristique_moteur_id",optional($this->selectedMoteur)->id)->get(),
         "pomp" => MoteurPompe::all(),
@@ -382,6 +383,7 @@ public function editModalMoteur(){
             "hauteur" => $this->addMoteur["hauteur"],
             "masse" => $this->addMoteur["masse"],
             "caracteristique_moteur_id"=> $this->selectedMoteur->id,
+           
         ]
      );
 

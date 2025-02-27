@@ -80,14 +80,22 @@
                           
         
 
-<div class="row p-3" >
+<div class="row p-3 pt-2" >
+@can("employe")
+<button class="btn btn-success ml-3 mb-3" data-toggle="modal" data-target="#addModal">
+    <i class="fa fa-plus-circle"></i> Nouveau
+</button>
+@endcan
  <div class="col-12">
      <div class="card">
         
-         <div class="card-header d-flex align-items-center" style="background-color:#E54400;">
-          <h3 class="card-title flex-grow-1" style="color:white;"><i class="nav-icon fas fa-cogs"></i>Rapport de mission</h3>
-            <div class="card-tools d-flex align-items-center ">
-                      
+              <div class="card-header d-flex align-items-center" style="background-color:#007BFF;">
+            <h3 class="card-title flex-grow-1" style="color:white;">
+                <i class="nav-icon fas fa-star"></i> Rapport de mission
+            </h3>
+            <div class="card-tools d-flex align-items-center">
+                <!-- Autres outils peuvent être ajoutés ici -->
+            </div>
                 <div class="input-group input-group-md" style="width: 250px;">
             <input type="text" name="table_search" wire:model.debounce.250ms="search" class="form-control float-right" placeholder="Search">
 
@@ -102,13 +110,15 @@
                 <table class="table table-head-fixed">
                   <thead>
                     <tr>
+                    <th class="text-center"> Intervenants</th>
                       <th class="text-center"> Date debut</th>
                       <th class="text-center"> Date fin</th>
-                      <th class="text-center"> Intervenants</th>
                       <th class="text-center"> Lieu</th>
                       <th class="text-center"> Motifs</th>
                       <th class="text-center"> Rapports</th>
+                      @can("employe")
                       <th class="text-center"> Action</th>
+                      @endcan
                     </tr>
                   </thead>
                   <tbody>
@@ -130,83 +140,174 @@
                           </td>
                         </tr>
                       @endif                             
-                @forelse ($rapports as $rapport)      
+                @forelse ($rapports as $rapport) 
+                  @php
+                  $isToday = \Carbon\Carbon::parse($rapport->dateDebut)->isToday();
+                  $isPast = \Carbon\Carbon::parse($rapport->dateDebut)->isPast();
+                  @endphp     
                 @if ($rapport->dateFin==null || $rapport->rapport==null)
-                    <tr style="color:red;">
-                        <td class="text-center">{{ date('d-m-Y',strtotime($rapport->dateDebut))}}</td>
-                        <td class="text-center" style="color:black;"><i class="fa fa-spinner fa-2x fa-fw"></i></td>
+                @if($isToday)
+                    <tr class="bg-warning text-white">
                         <td class="text-center">{{ $rapport->intervenant_id}}</td>
+                        <td class="text-center">{{ date('d-m-Y',strtotime($rapport->dateDebut))}}</td>
+                        <td class="text-center" style="color:black;">
+                         @if($rapport->status == 'en_cours')
+                              <span class="badge badge-success">En cours</span>
+                          @else
+                              <span class="badge badge-danger">Programmer</span>
+                          @endif
+                        </td>
                         <td class="text-center">{{ $rapport->lieu}}</td>
                         <td class="text-center">{{ $rapport->motif}}</td>
-                        <td class="text-center" style="color:black;"><i class="fa fa-spinner fa-2x fa-fw"></i></td>
+                        <td class="text-center" style="color:black;">
+                         @if($rapport->status == 'en_cours')
+                              <span class="badge badge-success">En cours</span>
+                          @else
+                              <span class="badge badge-danger">Programmer</span>
+                          @endif
+                        </td>
+                        @can("employe")
                         <td>       
                         <div class="btn-group open">
                         <a class="btn btn-info dropdown-toggle" data-toggle="dropdown">
                             <span class="fa fa-caret-down" title="Toggle dropdown menu"></span>
                         </a>
                         <ul class="dropdown-menu" style="padding:10px; z-index: 10;" >
-                            @can('create',$rapport)
-                            <li><button class="btn btn-link" data-toggle="modal" data-target="#addModal"> <i class="fa fa-plus-circle"></i> Ajouter</button></li>
-                            @endcan
                             <li><button class="btn btn-link" wire:click="editRapport({{$rapport->id}})" data-toggle="modal" data-target="#editModal"> <i class="far fa-edit"></i> Edit</button></li>
                             @can('delete',$rapport)
                             <li><button class="btn btn-link" wire:click="confirmDelete({{$rapport->id}})"> <i class="far fa-trash-alt"></i> Delete</button></li>
                             @endcan
                         </ul>
                         </div>
-                        @can('create',$rapport)
-                        <button class="btn btn-success" wire:click="editInput({{$rapport->id}})"> Rapport</button>
-                        @endcan
+                        @if($rapport->status == 'en_cours')
+                            @can('create', $rapport)
+                            <button class="btn btn-info" wire:click="editInput({{ $rapport->id }})">Rapport</button>
+                            @endcan   
+                            @else
+                            @can("employe")
+                            <button class="btn btn-info" wire:click="startMaintenance({{ $rapport->id }})">Lancer</button>
+                            @endcan
+                            @endif
                           </td>
-                    </tr>
-                 @else
-                    <tr>
-                      <td class="text-center">{{  date('d-m-Y',strtotime($rapport->dateDebut))}}</td>
-                      <td class="text-center">{{  date('d-m-Y',strtotime($rapport->dateFin))}}</td>
-                      <td class="text-center">{{ $rapport->intervenant_id}}</td>
-                      <td class="text-center">{{ $rapport->lieu}}</td>
-                      <td class="text-center">{{ $rapport->motif}}</td>
-                      <td class="text-center">
-                      <button class="btn btn-link" wire:click="selectDocument({{$rapport->id}})" data-toggle="modal" data-target="#pdfmodal"> <i class="fa fa-file-pdf"  style="color:red;font-size:25px;"></i></button>
-                      </td>
-                      <td>       
-                    <div class="btn-group open">
-                    <a class="btn btn-info dropdown-toggle" data-toggle="dropdown">
-                        <span class="fa fa-caret-down" title="Toggle dropdown menu"></span>
-                    </a>
-                    <ul class="dropdown-menu" style="padding:10px; z-index: 10;" >
-                        @can('create',$rapport)
-                        <li><button class="btn btn-link" data-toggle="modal" data-target="#addModal"> <i class="fa fa-plus-circle"></i> Ajouter</button></li>
                         @endcan
-                        <li><button class="btn btn-link" wire:click="editRapport({{$rapport->id}})" data-toggle="modal" data-target="#editModal"> <i class="far fa-edit"></i> Edit</button></li>
-                        @can('delete',$rapport)
-                        <li><button class="btn btn-link" wire:click="confirmDelete({{$rapport->id}})"> <i class="far fa-trash-alt"></i> Delete</button></li>
-                        @endcan
-                    </ul>
-                    </div>
-                      </td>
                     </tr>
-                  @endif    
-                    @empty
-                          <tr>
-                              <td colspan="6">
-                                  <div class="alert alert-danger">
-                                      <h5><i class="icon fas fa-ban"></i> Information!</h5>
-                                      Aucune donnée trouvée par rapport aux éléments de recherche entrés.
-                                    </div>
-                              </td>
-                      <td>
-                     
+                  @elseif($isPast)
+                  <tr>
+                        <td class="text-center">{{ $rapport->intervenant_id}}</td>
+                        <td class="text-center">{{ date('d-m-Y',strtotime($rapport->dateDebut))}}</td>
+                        <td class="text-center" style="color:black;">
+                         @if($rapport->status == 'en_cours')
+                              <span class="badge badge-success">En cours</span>
+                          @else
+                              <span class="badge badge-warning">À exécuter</span>
+                          @endif
+                        </td>
+                        <td class="text-center">{{ $rapport->lieu}}</td>
+                        <td class="text-center">{{ $rapport->motif}}</td>
+                        <td class="text-center" style="color:black;">
+                        @if($rapport->status == 'en_cours')
+                              <span class="badge badge-success">En cours</span>
+                          @else
+                              <span class="badge badge-warning">À exécuter</span>
+                          @endif
+                        </td>
+                        @can("employe")
+                        <td>       
                         <div class="btn-group open">
                         <a class="btn btn-info dropdown-toggle" data-toggle="dropdown">
                             <span class="fa fa-caret-down" title="Toggle dropdown menu"></span>
                         </a>
                         <ul class="dropdown-menu" style="padding:10px; z-index: 10;" >
-                            <li><button class="btn btn-link" data-toggle="modal" data-target="#addModal"> <i class="fa fa-plus-circle"></i> Ajouter</button></li>
+                            <li><button class="btn btn-link" wire:click="editRapport({{$rapport->id}})" data-toggle="modal" data-target="#editModal"> <i class="far fa-edit"></i> Edit</button></li>
+                            @can('delete',$rapport)
+                            <li><button class="btn btn-link" wire:click="confirmDelete({{$rapport->id}})"> <i class="far fa-trash-alt"></i> Delete</button></li>
+                            @endcan
                         </ul>
                         </div>
-                   
-                    </td>
+                        @if($rapport->status == 'en_cours')
+                            @can('create', $rapport)
+                            <button class="btn btn-info" wire:click="editInput({{ $rapport->id }})">Rapport</button>
+                            @endcan   
+                            @else
+                            @can("employe")
+                            <button class="btn btn-info" wire:click="startMaintenance({{ $rapport->id }})">Lancer</button>
+                            @endcan
+                            @endif
+                          </td>
+                        @endcan
+                    </tr>
+                  @else
+                  <tr>
+                        <td class="text-center">{{ $rapport->intervenant_id}}</td>
+                        <td class="text-center">{{ date('d-m-Y',strtotime($rapport->dateDebut))}}</td>
+                        <td class="text-center" style="color:black;">
+                        @if($rapport->status == 'en_cours')
+                              <span class="badge badge-success">En cours</span>
+                          @else
+                              <span class="badge badge-danger">Programmer</span>
+                          @endif
+                        </td>
+                        <td class="text-center">{{ $rapport->lieu}}</td>
+                        <td class="text-center">{{ $rapport->motif}}</td>
+                        <td class="text-center" style="color:black;">
+                        @if($rapport->status == 'en_cours')
+                              <span class="badge badge-success">En cours</span>
+                          @else
+                              <span class="badge badge-danger">Programmer</span>
+                          @endif
+                        </td>
+                        @can("employe")
+                        <td>       
+                        <div class="btn-group open">
+                        <a class="btn btn-info dropdown-toggle" data-toggle="dropdown">
+                            <span class="fa fa-caret-down" title="Toggle dropdown menu"></span>
+                        </a>
+                        <ul class="dropdown-menu" style="padding:10px; z-index: 10;" >
+                            <li><button class="btn btn-link" wire:click="editRapport({{$rapport->id}})" data-toggle="modal" data-target="#editModal"> <i class="far fa-edit"></i> Edit</button></li>
+                            @can('delete',$rapport)
+                            <li><button class="btn btn-link" wire:click="confirmDelete({{$rapport->id}})"> <i class="far fa-trash-alt"></i> Delete</button></li>
+                            @endcan
+                        </ul>
+                        </div>
+                          </td>
+                        @endcan
+                    </tr>
+                    @endif
+                    @else
+                    <tr>
+                      <td class="text-center">{{ $rapport->intervenant_id}}</td>
+                      <td class="text-center">{{  date('d-m-Y',strtotime($rapport->dateDebut))}}</td>
+                      <td class="text-center">{{  date('d-m-Y',strtotime($rapport->dateFin))}}</td>
+                      <td class="text-center">{{ $rapport->lieu}}</td>
+                      <td class="text-center">{{ $rapport->motif}}</td>
+                      <td class="text-center">
+                      <button class="btn btn-link" wire:click="selectDocument({{$rapport->id}})" data-toggle="modal" data-target="#pdfmodal"> <i class="fa fa-file-pdf"  style="color:red;font-size:25px;"></i></button>
+                      </td>
+                      @can("employe")
+                      <td>       
+                    <div class="btn-group">
+                    <a class="btn btn-info dropdown-toggle" data-toggle="dropdown">
+                        <span class="fa fa-caret-down" title="Toggle dropdown menu"></span>
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li><button class="dropdown-item" wire:click="editRapport({{$rapport->id}})" data-toggle="modal" data-target="#editModal"> <i class="far fa-edit"></i> Edit</button></li>
+                        @can('delete',$rapport)
+                        <li><button class="dropdown-item" wire:click="confirmDelete({{$rapport->id}})"> <i class="far fa-trash-alt"></i> Delete</button></li>
+                        @endcan
+                    </ul>
+                    </div>
+                      </td>
+                      @endcan
+                    </tr>
+                    @endif
+                    @empty
+                          <tr>
+                              <td colspan="7">
+                                  <div class="alert alert-danger">
+                                      <h5><i class="icon fas fa-ban"></i> Information!</h5>
+                                      Aucune donnée trouvée par rapport aux éléments de recherche entrés.
+                                    </div>
+                              </td>
                           </tr>
                   @endforelse
                </tbody>

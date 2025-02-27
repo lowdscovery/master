@@ -36,8 +36,9 @@ class Rapport extends Component
         $searchCriteria = "%".$this->search."%";
        $data = [
         "rapports" => ModelsRapport::where("dateDebut","like",$searchCriteria)
+        ->OrWhere("dateFin", "like", $searchCriteria)
         ->OrWhere("intervenant_id", "like", $searchCriteria)
-        ->latest()->paginate(2),
+        ->latest()->paginate(5),
         "inters" => ModelsIntervenant::get(),
        ];
         return view('livewire.rapport.rapport',$data)
@@ -119,6 +120,9 @@ class Rapport extends Component
       public function editRapport(ModelsRapport $rapport){
         $this->editRapport = $rapport->toArray();
       //  $this->showInput();
+      if($this->editRapport['dateFin']!==null){
+        $this->show();
+    }
        }
        public function updateRapport(){
            $this->validate();
@@ -148,4 +152,22 @@ class Rapport extends Component
       public function selectDocument($documentId){
         $this->selectedDocument = ModelsRapport::find($documentId);
       }
+
+      public $cacheRapport = false;
+   public function show(){
+    $this->cacheRapport = true;
+   }
+   public function cache(){
+    $this->cacheRapport=false;
+   }
+
+   //lancer programmer
+   public function startMaintenance($id)
+{
+    $rapport = ModelsRapport::find($id);
+    $rapport->status = 'en_cours';
+    $rapport->save();
+
+    session()->flash('message', 'La maintenance a démarré avec succès.');
+}
 }

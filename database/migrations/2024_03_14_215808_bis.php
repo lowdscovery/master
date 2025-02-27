@@ -23,6 +23,7 @@ class Bis extends Migration
             $table->string('Pn');
             $table->date('dateDePose');
             $table->string('tarage');
+            $table->string('typemoteur');
             $table->string('caracteristique');
             $table->timestamps();
         });

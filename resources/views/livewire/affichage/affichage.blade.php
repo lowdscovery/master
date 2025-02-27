@@ -29,80 +29,82 @@
 							 <span class="float-right">
                                     <strong>Site :</strong> {{optional($selectedId)->sites->nom}}</span> </div>
                             <div class="card-body">
-                                <div class="row mb-5">
-                                    <div class="mt-1 col-xl-6 col-lg-6 col-md-6 col-sm-12">
-									
-                                    @foreach ($ouvrages as $ouvrage)
-                                        @if (optional($selectedId)->ressource_id == $ouvrage->ressource_id)
-                                        <div>
-                                            <img class="img-fluid" style="height: 58vh;border-radius:10%;" src="{{asset($ouvrage->photo)}}" alt="">
-                                        </div>
-										
-									<button class="btn btn-link" wire:click="selectDocument({{$ouvrage->id}})" data-toggle="modal" data-target="#addModal" style="color:#6021FF;font-size:20px;"> <i class="fa fa-file-pdf"> Caracteristique de forage</i></button>
-                                        @endif
-                                    
-                                    </div>
-                                <div class="mt-1 col-xl-6 col-lg-6 col-md-6 col-sm-12">   
-								<div class="card">
-									<div class="card-header" style="background-color:#FFAD00;font-size: 1.3em;font-family: montserrat;">
-										<h2 class="card-title">{{optional($selectedId)->forages->nom}} : {{optional($selectedId)->ressources->nom}}</h2>
-									</div>
-									<div class="card-body pb-0">
-										<ul class="list-group list-group-flush">
-										<li class="list-group-item d-flex px-0 justify-content-between">
-												<strong>Debit nominale</strong>
-												<span class="mb-0">{{$ouvrage->debitNominale}}</span>
-											</li>
-											<li class="list-group-item d-flex px-0 justify-content-between">
-												<strong>Debit d'exploitation</strong>
-												<span class="mb-0">{{$ouvrage->debitExploite}}</span>
-											</li>
-											<li class="list-group-item d-flex px-0 justify-content-between">
-												<strong>Debit conseiller</strong>
-												<span class="mb-0">{{$ouvrage->debitConseiller}}</span>
-											</li>
-											<li class="list-group-item d-flex px-0 justify-content-between">
-												<strong>Type</strong>
-												<span class="mb-0">{{$ouvrage->type}}</span>
-											</li>
-											<li class="list-group-item d-flex px-0 justify-content-between">
-												<strong>Diametre</strong>
-												<span class="mb-0">{{$ouvrage->diametre}}</span>
-											</li>
-											<li class="list-group-item d-flex px-0 justify-content-between">
-												<strong>Nombre Exhaure</strong>
-												<span class="mb-0">{{$ouvrage->nombreExhaur}}</span>
-											</li>
-											
-										</ul>
-									</div>
-									<div class="card-footer pt-0 pb-0 text-center">
-										<div class="row">
-											<div class="col-3 pt-3 pb-3 border-right">
-												<h3 class="mb-1 text-primary">{{$ouvrage->annee}}</h3>
-												<span>Année</span>
-											</div>
-											<div class="col-3 pt-3 pb-3 border-right">
-												<h3 class="mb-1 text-primary">{{$ouvrage->sondeBas}}</h3>
-												<span>Sonde Bas</span>
-											</div>
-											<div class="col-3 pt-3 pb-3 border-right">
-												<h3 class="mb-1 text-primary">{{$ouvrage->sondeHaut}}</h3>
-												<span>Sonde Haut</span>
-											</div>	
-											<div class="col-3 pt-3 pb-3">
-												<h3 class="mb-1 text-primary">{{$ouvrage->profondeur}}</h3>
-												<span>Profondeur</span>
-											</div>
-										</div>			
-									</div>
-									@endforeach
+						<div class="row mb-5">
+							<div class="mt-1 col-xl-6 col-lg-6 col-md-6 col-sm-12">
+							
+							@foreach ($ouvrages->where('ressource_id',optional($selectedId)->id) as $ouvrage)
+								@if (optional($selectedId)->ressource_id == $ouvrage->ressource_id)
+								<div>
+									<img class="img-fluid" style="height: 58vh;border-radius:10%;" src="{{asset($ouvrage->photo)}}" alt="">
 								</div>
-                               </div>
- <div class="mt-4 col-xl-6 col-lg-6 col-md-6 col-sm-12">
+								
+							<button class="btn btn-link" wire:click="selectDocument({{$ouvrage->id}})" data-toggle="modal" data-target="#addModal" style="color:#6021FF;font-size:20px;"> <i class="fa fa-file-pdf"> Caracteristique de forage</i></button>
+								@endif
+						
+						</div>
+						<div class="mt-1 col-xl-6 col-lg-6 col-md-6 col-sm-12">   
+						<div class="card">
+							<div class="card-header" style="background-color:#FFAD00;font-size: 1.3em;font-family: montserrat;">
+								<h2 class="card-title">{{optional($selectedId)->forages->nom}} : {{optional($selectedId)->ressources->nom}}</h2>
+							</div>
+							<div class="card-body pb-0">
+								<ul class="list-group list-group-flush">
+								<li class="list-group-item d-flex px-0 justify-content-between">
+										<strong>Debit nominale</strong>
+										<span class="mb-0">{{$ouvrage->debitNominale}}</span>
+									</li>
+									<li class="list-group-item d-flex px-0 justify-content-between">
+										<strong>Debit d'exploitation</strong>
+										<span class="mb-0">{{$ouvrage->debitExploite}}</span>
+									</li>
+									<li class="list-group-item d-flex px-0 justify-content-between">
+										<strong>Debit conseiller</strong>
+										<span class="mb-0">{{$ouvrage->debitConseiller}}</span>
+									</li>
+									<li class="list-group-item d-flex px-0 justify-content-between">
+										<strong>Type</strong>
+										<span class="mb-0">{{$ouvrage->type}}</span>
+									</li>
+									<li class="list-group-item d-flex px-0 justify-content-between">
+										<strong>Diametre</strong>
+										<span class="mb-0">{{$ouvrage->diametre}}</span>
+									</li>
+									<li class="list-group-item d-flex px-0 justify-content-between">
+										<strong>Nombre Exhaure</strong>
+										<span class="mb-0">{{$ouvrage->nombreExhaur}}</span>
+									</li>
+									
+								</ul>
+							</div>
+							<div class="card-footer pt-0 pb-0 text-center">
+								<div class="row">
+									<div class="col-3 pt-3 pb-3 border-right">
+										<h3 class="mb-1 text-primary">{{$ouvrage->annee}}</h3>
+										<span>Année</span>
+									</div>
+									<div class="col-3 pt-3 pb-3 border-right">
+										<h3 class="mb-1 text-primary">{{$ouvrage->sondeBas}}</h3>
+										<span>Sonde Bas</span>
+									</div>
+									<div class="col-3 pt-3 pb-3 border-right">
+										<h3 class="mb-1 text-primary">{{$ouvrage->sondeHaut}}</h3>
+										<span>Sonde Haut</span>
+									</div>	
+									<div class="col-3 pt-3 pb-3">
+										<h3 class="mb-1 text-primary">{{$ouvrage->profondeur}}</h3>
+										<span>Profondeur</span>
+									</div>
+								</div>			
+							</div>
+							
+						</div>
+						@endforeach
+						</div>
+						
+                <div class="mt-4 col-xl-6 col-lg-6 col-md-6 col-sm-12">
                                     @foreach ($pomp as $caracteristique)
-                                        @if (optional($selectedId)->id == $caracteristique->caracteristique_moteur_id)
-                                <div class="card">
+                                   @if (optional($selectedId)->id == $caracteristique->caracteristique_moteur_id)
+								   <div class="card">
 									<div class="card-header" style="background-color:#FFAD00;font-size: 1.3em;font-family: montserrat;">
 										<h2 class="card-title">POMPE</h2>
 									</div>
@@ -204,8 +206,9 @@
                             
                             <div class="mt-4 col-xl-6 col-lg-6 col-md-6 col-sm-12">
                                     @foreach ($electriq as $caracteristique)
-                                        @if (optional($selectedId)->id == $caracteristique->caracteristique_moteur_id)
-                                        <div class="card">
+                                       @if (optional($selectedId)->id == $caracteristique->caracteristique_moteur_id)
+									 
+									 <div class="card">
 									<div class="card-header" style="background-color:#FFAD00;font-size: 1.3em;font-family: montserrat;">
 										<h2 class="card-title">MOTEUR</h2>
 									</div>

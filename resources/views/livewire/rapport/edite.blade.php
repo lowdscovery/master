@@ -2,7 +2,7 @@
     <div class="modal-content">
       <div class="modal-header">
         <h5 class="modal-title" id="editModalLabel">Edit rapport de mission</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+        <button type="button" class="close" wire:click="cache()" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
@@ -34,6 +34,7 @@
                           <span class="text-danger">{{$message}}</span>
             @enderror
           </div>
+          @if($cacheRapport)
            <div class="d-flex">
           <div class="form-group flex-grow-1 mr-2">
             <label class="col-form-label">Date Fin</label>
@@ -50,6 +51,7 @@
             @enderror
           </div>
           </div>
+          @endif
 
           <div class="form-group">
             <label for="message-text" class="col-form-label">Motif</label>

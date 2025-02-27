@@ -1,12 +1,17 @@
+<!-- Modal pour la gestion des moteurs -->
+<div class="modal-dialog modal-xl">
+    <div class="modal-content">
+        <!-- Header -->
+        <div class="modal-header bg-primary text-white">
+            <h5 class="modal-title">Caractéristique des <strong>MOTEURS</strong></h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
 
-  <!-- xl ou lg modal-->
-
-        <div class="modal-header">
-            <h4 class="modal-title">Caracteristique des <strong>MOTEURS</strong> </h4>
-      </div>
-      <div class="modal-body">
-      
-      @if ($showInputPompe)
+        <!-- Body -->
+        <div class="modal-body">
+            @if ($showInputPompe)
             <div class="d-flex my-4 bg-gray-light p-2">
                 <div class="d-flex flex-grow-1 mr-2">
                   <div class="flex-grow-1 mr-2">
@@ -89,7 +94,7 @@
                 @error("addMoteur.roulement")
                           <span class="text-danger">{{$message}}</span>
                  @enderror 
-                    <option value="">--------------------------</option>
+                    <option value="">------------------------</option>
                     <option value="CA">CA</option>
                     <option value="COA">COA</option>
                 </select>
@@ -188,64 +193,60 @@
               </div>
               </div>
 
-              
-        
-              <div class="p-2">
-              <button class="btn btn-success" wire:click="editModalMoteur()">Ajouter</button>
-              <button type="button" class="btn btn-secondary" data-dismiss="modal" wire.click="">Close</button>
-               </div> 
-      @else
-     
-        <button class="btn btn-success" wire:click="showInput()">Ajout</button> 
-        
-        
-   <table class="table table-head-fixed">
-                    <thead style="color: orange;">
-                    <tr>
-                    <th style="width:7%;">Puissance</th>
-                    <th style="width:7%;">Tension</th>
-                    <th style="width:10%;">Cosphi</th>
-                    <th style="width:5%;">Intensite</th>
-                    <th style="width:15%;">Cablage</th>
-                    <th style="width:6%;">Indice</th>
-                    <th style="width:15%;">Classe isolant</th>
-                    <th style="width:15%;">Type demarrage</th>
-                    <th class="text-center" style="width:20%;">Action</th>
-                    </tr>
+                <!-- Boutons d'action -->
+                <div class="d-flex justify-content-end mb-4">
+                    <button class="btn btn-success mr-2" wire:click="editModalMoteur()">Ajouter</button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal" wire:click="cancele()">Fermer</button>
+                </div>
+            @else
+                <!-- Bouton d'ajout -->
+                <button class="btn btn-success mb-4" wire:click="showInput()">Ajouter un moteur</button>
+
+                <!-- Tableau des moteurs -->
+                <table class="table table-hover table-striped table-bordered">
+                    <thead class="bg-warning text-dark">
+                        <tr>
+                            <th>Puissance</th>
+                            <th>Tension</th>
+                            <th>Cosphi</th>
+                            <th>Intensité</th>
+                            <th>Câblage</th>
+                            <th>Indice de Protection</th>
+                            <th>Classe d'isolant</th>
+                            <th>Type de Démarrage</th>
+                            <th class="text-center">Action</th>
+                        </tr>
                     </thead>
-             <tbody>
-        @forelse($electriques as $electrique) 
-                <tr>
-                <td style="width:7%;">{{$electrique->puissance}}</td>
-                <td style="width:7%;">{{$electrique->tension}}</td>
-                <td style="width:10%;">{{$electrique->cosphi}}</td>
-                <td style="width:5%;">{{$electrique->intensite}}</td>
-                <td style="width:15%;">{{$electrique->sectionCable}}</td>
-                <td style="width:6%;">{{$electrique->indiceDeProtection}}</td>
-                <td style="width:15%;">{{$electrique->classeIsolant}}</td>
-                <td style="width:15%;">{{$electrique->typeDeDemarrage}}</td>
-                <td class="text-center" style="width:20%;">
-                    <button class="btn btn-link" wire:click="editMoteur({{$electrique->id}})"> <i class="far fa-edit"></i> </button>  
-                    @can('delete', $electrique)
-                    <button class="btn btn-link" wire:click="confirmDeleteMoteur({{$electrique->id}})"> <i class="far fa-trash-alt"></i> </button>     
-                    @endcan
-                </td>
-                </tr>
-                @empty
-                    <tr>
-                        <td colspan="9">
-                        <div class="alert alert-info">                  
-                        <h5><i class="icon fas fa-ban"></i> Information!</h5>
-                        Vous n'avez pas encore des données définies.
-                        </div>
-                        </td>
-                    </tr>
-            @endforelse
-          </tbody>
-        </table>
-        @endif
-      </div>
-
-
-  
-
+                    <tbody>
+                        @forelse($moteurs as $moteur)
+                            <tr>
+                                <td>{{$moteur->puissance}}</td>
+                                <td>{{$moteur->tension}}</td>
+                                <td>{{$moteur->cosphi}}</td>
+                                <td>{{$moteur->intensite}}</td>
+                                <td>{{$moteur->sectionCable}}</td>
+                                <td>{{$moteur->indiceDeProtection}}</td>
+                                <td>{{$moteur->classeIsolant}}</td>
+                                <td>{{$moteur->typeDeDemarrage}}</td>
+                                <td class="text-center">
+                                    <button class="btn btn-link text-primary" wire:click="editMoteur({{$moteur->id}})"><i class="far fa-edit"></i></button>
+                                    @can('delete', $moteur)
+                                        <button class="btn btn-link text-danger" wire:click="confirmDeleteMoteur({{$moteur->id}})"><i class="far fa-trash-alt"></i></button>
+                                    @endcan
+                                </td>
+                            </tr>
+                        @empty
+                            <tr>
+                                <td colspan="9" class="text-center">
+                                    <div class="alert alert-info">
+                                        <i class="icon fas fa-ban"></i> Vous n'avez pas encore de données définies.
+                                    </div>
+                                </td>
+                            </tr>
+                        @endforelse
+                    </tbody>
+                </table>
+            @endif
+        </div>
+    </div>
+</div>

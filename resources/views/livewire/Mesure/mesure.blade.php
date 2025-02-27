@@ -13,10 +13,10 @@
             <div class="card-header bg-gradient-primary d-flex align-items-center">
                 <h3 class="card-title flex-grow-1"><i class="fa fa-list fa-2x"></i> Mesure </h3>
                 <div class="card-tools d-flex align-items-center ">
-                  
+                @can("employe")
                     <a class="btn btn-link btn-db text-white mr-4 d-block" wire:click="showInput()"><i
                             class="fas fa-user-plus"></i> Nouveau Mesure</a>
-               
+               @endcan
                 </div>
             </div>
             <!-- /.card-header -->
@@ -32,7 +32,9 @@
                                 <th class="text-center">Vacuo</th>
                                 <th class="text-center">Mano</th>
                                 <th class="text-center">Agent</th>
+                                @can("employe")
                                 <th class="text-center">Action</th>
+                                @endcan
                             </tr>
                         </thead>
                         <tbody>
@@ -45,12 +47,14 @@
                             <td class="text-center">{{$mesure->Vacuo}}</td>
                             <td class="text-center">{{$mesure->Mano}}</td>
                             <td class="text-center">{{$mesure->Agent}}</td>
+                            @can("employe")
                             <td class="text-center">
                                 <button wire:click="editMesures({{$mesure->id}})" class="btn btn-link"> <i class="far fa-edit"></i> </button>
                                 @can('delete',$mesure)
                                 <button class="btn btn-link" wire:click="confirmDelete({{$mesure->id}})"> <i class="far fa-trash-alt"></i> </button>
                                 @endcan
                             </td>
+                            @endcan
                         </tr>
                      @empty
                          <tr>

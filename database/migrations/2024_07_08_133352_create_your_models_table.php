@@ -15,7 +15,9 @@ class CreateYourModelsTable extends Migration
     {
         Schema::create('your_models', function (Blueprint $table) {
             $table->id();
-            $table->date("date");
+            $table->string('message');
+            $table->date('date'); // Stocke la date de la notification
+            $table->boolean('read')->default(false); // Stocke si la notification est lue
             $table->timestamps();
         });
     }

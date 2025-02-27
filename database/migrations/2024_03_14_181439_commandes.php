@@ -25,6 +25,7 @@ class Commandes extends Migration
             $table->string('quantiteReception');
             $table->date('dateReception');
             $table->string('observation');
+            $table->string('type')->nullable();
             $table->string('caracteristique');
             $table->timestamps();
         });

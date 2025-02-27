@@ -10,10 +10,14 @@ define("PAGEADDFORM", "add");
 define("PAGELISTFORM", "liste");
 define("INFORMATION", "information");
 define("UPDATEINTERVENANT", "update");
+define("CARDINTERVENANT","card");
 define("LISTINTERVENANT", "intervenant");
 define("PAGEGRILLE", "grille");
 define("AFFICHAGE", "affichage");
 define("AFFICHAGEBASSIN", "affichagebassin");
+define("OUVRAGE","show");
+define("DETAILLEOUVRAGE","detaille");
+define("DETAILLEMAINTENANCE","detaille");
 
 /*Affiche le nom et prenom*/
 function userFullName(){

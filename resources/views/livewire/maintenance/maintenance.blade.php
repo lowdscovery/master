@@ -1,76 +1,12 @@
+
+@if($currentPage==DETAILLEMAINTENANCE)
+@include("livewire.maintenance.detaille")
+@elseif($currentPage==PAGELIST)
 <div>
 <div>
 <div class="modal fade" id="addModal"tabindex="-1" role="dialog" aria-hidden="true" wire:ignore.self>
-<div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Ajout maintenance</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-        <form wire:submit.prevent="ajoutMaintenance">
-          <div class="form-group">
-            <label for="recipient-name" class="col-form-label">Date</label>
-            <input type="Date" class="form-control  @error("addMaintenance.dateMaintenance") is-invalid @enderror" wire:model="addMaintenance.dateMaintenance">
-            @error("addMaintenance.dateMaintenance")
-                          <span class="text-danger">{{$message}}</span>
-            @enderror
-          </div>
-          <div class="form-group">
-            <label for="recipient-name" class="col-form-label">Intervenant</label>
-           <select class="form-control @error("addIntervenant.intervenant_id") is-invalid @enderror" wire:model="addMaintenance.intervenant_id">
-                @error("addIntervenant.intervenant_id")
-                          <span class="text-danger">{{$message}}</span>
-                 @enderror 
-                    <option value="">---------</option>
-                @foreach ($inters as $inter)
-                    <option value="{{$inter->nom}} {{$inter->prenom}}">{{$inter->nom}} {{$inter->prenom}}</option>
-                @endforeach       
-           </select>
-          </div>
-          <div class="form-group">
-            <label for="recipient-name" class="col-form-label">Duree Intervention</label>
-            <input type="number" class="form-control  @error("addMaintenance.DureeIntervention") is-invalid @enderror" wire:model="addMaintenance.DureeIntervention">
-            @error("addMaintenance.DureeIntervention")
-                          <span class="text-danger">{{$message}}</span>
-            @enderror
-          </div>
-          <div class="form-group">
-            <label for="recipient-name" class="col-form-label">Caracteristique</label>
-            <select class="form-control @error("addMaintenance.caracteristique_moteurs_id") is-invalid @enderror" wire:model="addMaintenance.caracteristique_moteurs_id">
-                @error("addMaintenance.caracteristique_moteurs_id")
-                          <span class="text-danger">{{$message}}</span>
-                 @enderror 
-                    <option value="">---------</option>
-                    @foreach ($caracteristiques as $caracteristique)
-                          <option value="{{$caracteristique->ressources->nom}}">{{$caracteristique->ressources->nom}}</option>
-                    @endforeach      
-           </select>
-          </div>
-          <div class="form-group">
-            <label for="message-text" class="col-form-label">Action d'entreprise</label>
-            <textarea class="form-control @error("addMaintenance.actionEntreprise") is-invalid @enderror" wire:model="addMaintenance.actionEntreprise">
-            @error("addMaintenance.actionEntreprise")
-                          <span class="text-danger">{{$message}}</span>
-            @enderror 
-            </textarea>
-          </div>
-        
-      </div>
-      <div class="modal-footer">
-        <button type="submit" class="btn btn-primary">Enregistrer</button>
-      </div>
-      </form>
-    </div>
-  </div>
+@include("livewire.maintenance.create")
 </div> 
-
-<div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-hidden="true" wire:ignore.self>
-@includeIf("livewire.maintenance.edite")
-</div>
-
 
 <div class="modal fade" id="pdfmodal"tabindex="-1" role="dialog" aria-hidden="true" wire:ignore.self>
 <div class="modal-dialog  modal-xl">
@@ -92,221 +28,339 @@
 </div>                        
         
 
-<div class="row p-2" >
- <div class="col-12">
- 
- <div class="content py-2">
-<section class="content">
-<div class="container-fluid">
-<div class="row">
-<div class="col-md-8 offset-md-2">
-<form action="simple-results.html">
-<div class="input-group">
-<input type="text" class="form-control form-control-lg" wire:model.debounce.250ms="search" placeholder="Recherche">
-<div class="input-group-append">
-<button type="submit" class="btn btn-lg btn-default">
-<i class="fa fa-search"></i>
-</button>
-</div>
-</div>
-</form>
-</div>
-</div>
-</div>
-</section>
-</div>
+<div class="row p-2">
+    <div class="col-12">
+    <div class="card shadow-lg border-0">
+    <div class="card-header d-flex flex-column" style="background-color: #007bff; color: white; padding: 20px;">
+        <!-- Titre principal -->
+        <div class="d-flex justify-content-between align-items-center mb-3">
+            <h3 class="card-title m-0">
+                <i class="nav-icon fas fa-cogs"></i> Gestion des Maintenances
+            </h3>
 
-     <div class="card">
-        
-         <div class="card-header d-flex align-items-center" style="background-color:#009BFF;">
-          <h3 class="card-title flex-grow-1" style="color:white;"><i class="nav-icon fas fa-cogs"></i>Maintenance</h3>
-            <div class="card-tools d-flex align-items-center ">
+            <!-- Boutons "Ajouter" et "Voire plus" -->
+            <div class="d-flex">
+                @can('employe')
+                <button class="btn btn-light btn-sm mr-2" data-toggle="modal" data-target="#addModal" wire:click="cache()">
+                    <i class="fa fa-plus-circle"></i> Ajouter
+                </button>
+                @endcan
+                <button class="btn btn-light btn-sm" wire:click="detaille()">
+                    <i class="fas fa-eye"></i> Voire plus
+                </button>
+            </div>
+        </div>
 
-                <div class="input-group input-group-md" style="width: 250px;">
+        <!-- Filtres et paramètres -->
+        <div class="d-flex justify-content-between align-items-center">
+            <!-- Filtrer par page -->
+            <div class="d-flex align-items-center">
+                <label class="mr-2 mb-0" style="font-size: 16px;">Afficher par page :</label>
+                <select class="form-control form-control-sm" wire:model.live="perPage" style="width: 80px;">
+                    <option value="6">6</option>
+                    <option value="10">10</option>
+                    <option value="50">50</option>
+                </select>
+            </div>
 
-                  <label class="mr-1" style="color:white;font-size:20px;">Par page</label>
-                <div class="card-tools d-flex align-items-center ">
-                  <div class="float-right">         
-                    <select class="form-control" wire:model.live="perPage"> 
-                     <option value="5">5</option>
-                     <option value="10">10</option>
-                     <option value="50">50</option>
-                   </select>
-                  </div>
-                </div>
+            <!-- Filtrer par date -->
+            <div class="d-flex align-items-center">
+                <label class="mr-2 mb-0">Filtrer par date :</label>
+                <input type="date" wire:model.debounce.250ms="datedebut" class="form-control form-control-sm mr-2" style="width: 160px;">
+                <input type="date" wire:model.debounce.250ms="datefin" class="form-control form-control-sm" style="width: 160px;">
+            </div>
 
-                  </div>
-                </div>
-              </div>
-              <!-- /.card-header -->
-              <div class="card-body table-responsive p-0 table-striped" style="max-height: 450px;">
-                <table class="table table-head-fixed">
-                  <thead>
-                    <tr>
-                      <th class="text-center" style="width:10%;"> Date </th>
-                      <th class="text-center" style="width:20%;"> Action entreprise </th>
-                      <th class="text-center" style="width:20%;"> Intervenant </th>
-                      <th class="text-center" style="width:10%;"> Duree intervention </th>
-                      <th class="text-center" style="width:10%;"> Duree reel </th>
-                      <th class="text-center" style="width:5%;"> Rapport </th>
-                      <th class="text-center" style="width:5%;"> Forage</th>
-                      <th class="text-center" style="width:20%;"> Action</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-
-                      @if ($input)
-                        <tr>
-                          <td colspan="3">
-                          <label class="col-form-label">Durée Réel</label>
-                            <input type="number" wire:model="editMaintenance.DureeReel" class="form-control" required>
-                          </td>
-                          <td colspan="3">
-                          <label class="col-form-label">Rapport de maintenance pdf</label>
-                            <input type="file" class="form-control" id="editImage{{$resetValueInput}}" required wire:model="editImage">
-                          </td>
-                          <td colspan="3">
-                          <div style="padding-top:36px;">
-                            <button class="btn btn-primary" wire:click="updateInput">Enregistrer</button>
-                             <button class="btn btn-danger" wire:click="cacheInput">Annuler</button>
-                          </div>
-                          </td>
-                        </tr>
-                      @endif
-
-                      @forelse ($maintenances as $maintenance) 
-                            @php
-                              $isToday = \Carbon\Carbon::parse($maintenance->dateMaintenance)->isToday();
-                            @endphp
-                            @if ($maintenance->DureeReel==null || $maintenance->Rapport==null)
-                             @if($isToday)
-                               <tr class="bg-success text-white">
-                                  @if($button)
-                                  <button onclick="stopSound()" class="btn btn-danger mr-4 d-block" wire:click="cacheButton()">Stop Alarme</button>
-                                  <audio id ="notificationSound" src="{{asset('/path/zaza.mp3')}}" autoplay loop></audio>
-                                  @else
-                                  <audio id ="notificationSound" src="{{asset('/path/zaza.mp3')}}" style="display:none;"></audio>
-                                  @endif
-                                  <td class="text-center" style="width:10%;">{{ date('d/m/Y',strtotime($maintenance->dateMaintenance))}}</td>
-                                  <td class="text-center" style="width:20%;">{{ $maintenance->actionEntreprise}}</td>
-                                  <td class="text-center" style="width:20%;">{{ $maintenance->intervenant_id}}</td>
-                                  <td class="text-center" style="width:10%;">{{ $maintenance->DureeIntervention}}</td>
-                                  <td class="text-center" style="color:black;width:10%;"><i class="fa fa-spinner fa-2x fa-fw"></i></td>
-                                  <td class="text-center" style="color:black;width:5%;"><i class="fa fa-spinner fa-2x fa-fw"></i></td>                        
-                                  <td class="text-center" style="width:5%;">{{ $maintenance->caracteristique_moteurs_id}}</td>
-                                  <td style="width:20%;">       
-                                <div class="btn-group open">
-                                <a class="btn btn-info dropdown-toggle" data-toggle="dropdown">
-                                    <span class="fa fa-caret-down" title="Toggle dropdown menu"></span>
-                                </a>
-                                <ul class="dropdown-menu" style="padding:10px; z-index: 10;" >
-                                    @can('create',$maintenance)
-                                    <li><button class="btn btn-link" data-toggle="modal" data-target="#addModal"> <i class="fa fa-plus-circle"></i> Ajouter</button></li>
-                                    @endcan
-                                    <li><button class="btn btn-link" wire:click="editMaintenance({{$maintenance->id}})" data-toggle="modal" data-target="#editModal"> <i class="far fa-edit"></i> Edit</button></li>
-                                    @can('delete',$maintenance)
-                                    <li><button class="btn btn-link" wire:click="confirmDelete({{$maintenance->id}})"> <i class="far fa-trash-alt"></i> Delete</button></li>
-                                    @endcan
-                                </ul>
-                                </div>
-                                @can('create',$maintenance)
-                                <button class="btn btn-warning" wire:click="editInput({{$maintenance->id}})"> Rapport</button>
-                                @endcan
-                                </td>
-                              </tr>
-                             @else
-                              <tr style="color:red;">
-                                  <td class="text-center" style="width:10%;">{{ date('d/m/Y',strtotime($maintenance->dateMaintenance))}}</td>
-                                  <td class="text-center" style="width:20%;">{{ $maintenance->actionEntreprise}}</td>
-                                  <td class="text-center" style="width:20%;">{{ $maintenance->intervenant_id}}</td>
-                                  <td class="text-center" style="width:10%;">{{ $maintenance->DureeIntervention}}</td>
-                                  <td class="text-center" style="color:black;width:10%;"><i class="fa fa-spinner fa-2x fa-fw"></i></td>
-                                  <td class="text-center" style="color:black;width:5%;"><i class="fa fa-spinner fa-2x fa-fw"></i></td>                        
-                                  <td class="text-center" style="width:5%;">{{ $maintenance->caracteristique_moteurs_id}}</td>
-                                  <td style="width:20%;">       
-                                <div class="btn-group open">
-                                <a class="btn btn-info dropdown-toggle" data-toggle="dropdown">
-                                    <span class="fa fa-caret-down" title="Toggle dropdown menu"></span>
-                                </a>
-                                <ul class="dropdown-menu" style="padding:10px; z-index: 10;" >
-                                   @can('create',$maintenance)
-                                    <li><button class="btn btn-link" data-toggle="modal" data-target="#addModal"> <i class="fa fa-plus-circle"></i> Ajouter</button></li>
-                                    @endcan
-                                    <li><button class="btn btn-link" wire:click="editMaintenance({{$maintenance->id}})" data-toggle="modal" data-target="#editModal"> <i class="far fa-edit"></i> Edit</button></li>
-                                    @can('delete',$maintenance)
-                                    <li><button class="btn btn-link" wire:click="confirmDelete({{$maintenance->id}})"> <i class="far fa-trash-alt"></i> Delete</button></li>
-                                    @endcan
-                                </ul>
-                                </div>
-                                @can('create',$maintenance)
-                                <button class="btn btn-warning" wire:click="editInput({{$maintenance->id}})"> Rapport</button>
-                                @endcan
-                                </td>
-                              </tr>
-                              @endif
-                            @else
-                              <tr>
-                                    <td class="text-center" style="width:10%;">{{ date('d/m/Y',strtotime($maintenance->dateMaintenance))}}</td>
-                                      <td class="text-center" style="width:20%;">{{ $maintenance->actionEntreprise}}</td>
-                                      <td class="text-center" style="width:20%;">{{ $maintenance->intervenant_id}}</td>
-                                      <td class="text-center" style="width:10%;">{{ $maintenance->DureeIntervention}}</td>
-                                      <td class="text-center" style="width:10%;">{{ $maintenance->DureeReel}}</td>
-                                      <td class="text-center" style="width:5%;">
-                                      <button class="btn btn-link" wire:click="selectDocument({{$maintenance->id}})" data-toggle="modal" data-target="#pdfmodal"> <i class="fa fa-file-pdf"  style="color:red;font-size:25px;"></i></button>        
-                                      </td>
-                                      <td class="text-center" style="width:5%;">{{ $maintenance->caracteristique_moteurs_id}}</td>  
-                                    <td style="width:20%;">       
-                                    <div class="btn-group open">
-                                    <a class="btn btn-info dropdown-toggle" data-toggle="dropdown">
-                                      <span class="fa fa-caret-down" title="Toggle dropdown menu"></span>
-                                    </a>
-                                    <ul class="dropdown-menu" style="padding:10px; z-index: 10;" >
-                                    @can('create',$maintenance)
-                                        <li><button class="btn btn-link" data-toggle="modal" data-target="#addModal"> <i class="fa fa-plus-circle"></i> Ajouter</button></li>
-                                      @endcan
-                                        <li><button class="btn btn-link" wire:click="editMaintenance({{$maintenance->id}})" data-toggle="modal" data-target="#editModal"> <i class="far fa-edit"></i> Edit</button></li>
-                                        @can('delete',$maintenance)
-                                        <li><button class="btn btn-link" wire:click="confirmDelete({{$maintenance->id}})"> <i class="far fa-trash-alt"></i> Delete</button></li>
-                                        @endcan
-                                    </ul>
-                                    </div>
-                                    </td>
-                                </tr>
-                            @endif
-                            
-                      @empty
-                        <tr>
-                            <td colspan="7">
-                                <div class="alert alert-danger">
-                                    <h5><i class="icon fas fa-ban"></i> Information!</h5>
-                                    Aucune donnée trouvée par rapport aux éléments de recherche entrés.
-                                  </div>
-                            </td>
-                            <td class="text-center" style="width:20%;">
-                           
-                              <div class="btn-group open">
-                              <a class="btn btn-info dropdown-toggle" data-toggle="dropdown">
-                                  <span class="fa fa-caret-down" title="Toggle dropdown menu"></span>
-                              </a>
-                              <ul class="dropdown-menu" style="padding:10px; z-index: 10;" >
-                                  <li><button class="btn btn-link" data-toggle="modal" data-target="#addModal"> <i class="fa fa-plus-circle"></i> Ajouter</button></li>
-                              </ul>
-                              </div>
-                        
-                            </td>
-                        </tr>
-                      @endforelse
-                  
-               </tbody>
-                </table>
-              </div>
-              <!-- /.card-body   -->
-              <div class="card-footer">
-                <div class="float-right">
-                 {{ $maintenances->links() }}
+            <!-- Recherche -->
+            <div class="input-group" style="width: 250px;">
+                <input type="text" wire:model.debounce.250ms="search" class="form-control form-control-sm" placeholder="Rechercher...">
+                <div class="input-group-append">
+                    <button class="btn btn-light btn-sm" type="submit">
+                        <i class="fas fa-search"></i>
+                    </button>
                 </div>
             </div>
+        </div>
+    </div>
 </div>
+
+
+            <!-- /.card-header -->
+            <div class="card-body table-responsive p-0 table-striped" style="max-height: 450px;">
+            @php
+    $stopAlarmDisplayed = false; // Variable pour contrôler l'affichage du bouton
+           @endphp
+
+<table class="table table-hover">
+    <thead>
+        @foreach ($maintenances as $maintenance) 
+            @php
+                $isToday = \Carbon\Carbon::parse($maintenance->dateMaintenance)->isToday();
+            @endphp
+
+            @if ($maintenance->DureeReel == null || $maintenance->Rapport == null)
+                @if($isToday && !$stopAlarmDisplayed)
+                @if($maintenance->status == 'en_cours')
+
+                @else
+                    @if($button)
+                        <button onclick="stopSound()" class="btn btn-danger mr-4 d-block" wire:click="cacheButton()">Stop Alarme</button>
+                        <audio id ="notificationSound" src="{{asset('/path/zaza.mp3')}}" autoplay loop></audio>
+                    @else
+                        <audio id ="notificationSound" src="{{asset('/path/zaza.mp3')}}" style="display:none;"></audio>
+                    @endif
+                    @php
+                        $stopAlarmDisplayed = true; // Empêcher l'affichage du bouton après la première occurrence
+                    @endphp
+                @endif
+                @endif
+            @endif
+        @endforeach
+        <tr class="text-center bg-light">
+            <th class="text-center">Intervenant</th>
+            <th class="text-center">Type</th>
+            <th class="text-center">N° de Serie</th>
+            <th class="text-center">Date</th>
+            <th class="text-center">Durée Intervention</th>
+            <th class="text-center">Durée réel</th>
+            <th class="text-center">Rapport</th>
+            @can("employe")
+            <th class="text-center">Action</th>
+            @endcan
+        </tr>
+    </thead>
+    <tbody>
+        @if ($input)
+            <tr>
+                <td colspan="2">
+                    <label class="col-form-label">Durée Réel</label>
+                    <input type="number" wire:model="editMaintenance.DureeReel" class="form-control">
+                </td>
+                <td colspan="2">
+                    <label class="col-form-label">Rapport de maintenance pdf</label>
+                    <input type="file" class="form-control" id="editImage{{$resetValueInput}}" wire:model="editImage">
+                </td>
+                <td colspan="3">
+                    <div style="padding-top:36px;">
+                        <button class="btn btn-primary" wire:click="updateInput">Enregistrer</button>
+                        <button class="btn btn-danger" wire:click="cacheInput">Annuler</button>
+                    </div>
+                </td>
+            </tr>
+        @endif
+
+        @forelse ($maintenances as $maintenance)
+            @php
+                $isToday = \Carbon\Carbon::parse($maintenance->dateMaintenance)->isToday();
+                $isPast = \Carbon\Carbon::parse($maintenance->dateMaintenance)->isPast();
+            @endphp
+            @if ($maintenance->DureeReel == null || $maintenance->Rapport == null)
+                @if($isToday)
+                        @if($maintenance->status == 'en_cours')
+                        <tr>
+                        @else
+                        <tr class="bg-warning text-white">
+                        @endif
+                        <td class="text-center">{{ $maintenance->intervenant_id }}</td>
+                        <td class="text-center">{{ $maintenance->type }}</td>
+                        <td class="text-center">{{ $maintenance->caracteristique_moteurs_id }}</td>
+                        <td class="text-center">{{ date('d/m/Y', strtotime($maintenance->dateMaintenance)) }}</td>
+                        <td class="text-center">{{ $maintenance->DureeIntervention }}</td>
+                        <td class="text-center">
+                            @if($maintenance->status == 'en_cours')
+                                <span class="badge badge-success">En cours</span>
+                            @else
+                                <span class="badge badge-danger">Programmer</span>
+                            @endif
+                        </td>
+                        <td class="text-center">
+                            @if($maintenance->status == 'en_cours')
+                                <span class="badge badge-success">En cours</span>
+                            @else
+                            <span class="badge badge-danger">Programmer</span>
+                            @endif
+                        </td>
+                        <td>
+                            <div class="btn-group">
+                            @can("employe")
+                            <button class="btn btn-link" wire:click="editTransaction({{ $maintenance->id }})" data-toggle="modal" data-target="#addModal">
+                                <i class="far fa-edit"></i> Modifier
+                            </button>
+                            @endcan
+                            @can("admin")
+                            <button class="btn btn-danger" wire:click="confirmDelete({{ $maintenance->id }})">
+                                <i class="far fa-trash-alt"></i> Supprimer
+                            </button>
+                            @endcan
+                            @if($maintenance->status == 'en_cours')
+                            @can('create', $maintenance)
+                            <button class="btn btn-info" wire:click="editInput({{ $maintenance->id }})">Rapport</button>
+                            @endcan   
+                            @else
+                            @can("employe")
+                            <button class="btn btn-info" wire:click="startMaintenance({{ $maintenance->id }})">Lancer</button>
+                            @endcan
+                            @endif
+                        </div>
+                        </td>
+                    </tr>
+                    @elseif($isPast)
+                    <tr>
+                        <td class="text-center">{{ $maintenance->intervenant_id }}</td>
+                        <td class="text-center">{{ $maintenance->type }}</td>
+                        <td class="text-center">{{ $maintenance->caracteristique_moteurs_id }}</td>
+                        <td class="text-center">{{ date('d/m/Y', strtotime($maintenance->dateMaintenance)) }}</td>
+
+                        <td class="text-center">{{ $maintenance->DureeIntervention }}</td>
+                        <td class="text-center">
+                            @if($maintenance->status == 'en_cours')
+                                <span class="badge badge-success">En cours</span>
+                            @else
+                            <span class="badge badge-primary">À exécuter</span>
+                            @endif
+                        </td>
+                        <td class="text-center">
+                            @if($maintenance->status == 'en_cours')
+                                <span class="badge badge-success">En cours</span>
+                            @else
+                               <span class="badge badge-primary">À exécuter</span>
+                            @endif
+                        </td>
+                        <td>
+                            <div class="btn-group">
+                                @can("employe")
+                                <button class="btn btn-link" wire:click="editTransaction({{ $maintenance->id }})" data-toggle="modal" data-target="#addModal">
+                                    <i class="far fa-edit"></i> Modifier
+                                </button>
+                                @endcan
+                                @can("admin")
+                                <button class="btn btn-danger" wire:click="confirmDelete({{ $maintenance->id }})">
+                                    <i class="far fa-trash-alt"></i> Supprimer
+                                </button>
+                                @endcan
+                                @if($maintenance->status == 'en_cours')
+                                @can('create', $maintenance)
+                                <button class="btn btn-info" wire:click="editInput({{ $maintenance->id }})">Rapport</button>
+                                @endcan   
+                                @else
+                                @can("employe")
+                                <button class="btn btn-info" wire:click="startMaintenance({{ $maintenance->id }})">Lancer</button>
+                                @endcan
+                                @endif
+                            </div>
+                        </td>
+                    </tr>
+                @else
+                    <tr>
+                        <td class="text-center">{{ $maintenance->intervenant_id }}</td>
+                        <td class="text-center">{{ $maintenance->type }}</td>
+                        <td class="text-center">{{ $maintenance->caracteristique_moteurs_id }}</td>
+                        <td class="text-center">{{ date('d/m/Y', strtotime($maintenance->dateMaintenance)) }}</td>
+
+                        <td class="text-center">{{ $maintenance->DureeIntervention }}</td>
+                        <td class="text-center"><span class="badge badge-danger">Programmer</span></td>
+                        <td class="text-center"><span class="badge badge-danger">Programmer</span></td>
+                        <td>
+                       
+                        <div class="btn-group">
+                        @can("employe")
+                        <button class="btn btn-link" wire:click="editTransaction({{ $maintenance->id }})" data-toggle="modal" data-target="#addModal">
+                            <i class="far fa-edit"></i> Modifier
+                        </button>
+                        @endcan
+                        @can("admin")
+                        <button class="btn btn-danger" wire:click="confirmDelete({{ $maintenance->id }})">
+                            <i class="far fa-trash-alt"></i> Supprimer
+                        </button>
+                        @endcan
+                    </div>
+                           
+                        </td>
+                    </tr>
+                @endif
+            @else
+                <tr>
+                    <td class="text-center">{{ $maintenance->intervenant_id }}</td>
+                    <td class="text-center">{{ $maintenance->type }}</td>
+                    <td class="text-center">{{ $maintenance->caracteristique_moteurs_id }}</td>
+                    <td class="text-center">{{ date('d/m/Y', strtotime($maintenance->dateMaintenance)) }}</td>
+
+                    <td class="text-center">{{ $maintenance->DureeIntervention }}</td>
+                    <td class="text-center">{{ $maintenance->DureeReel }}</td>
+                    <td class="text-center">
+                        <button class="btn btn-link" wire:click="selectDocument({{ $maintenance->id }})" data-toggle="modal" data-target="#pdfmodal">
+                            <i class="fa fa-file-pdf" style="color:red;font-size:25px;"></i>
+                        </button>
+                    </td>
+                    <td>
+                    <div class="btn-group">
+                    @can("employe")
+                        <button class="btn btn-info" wire:click="editTransaction({{ $maintenance->id }})" data-toggle="modal" data-target="#addModal">
+                            <i class="far fa-edit"></i> Modifier
+                        </button>
+                    @endcan
+                    @can("admin")
+                        <button class="btn btn-danger" wire:click="confirmDelete({{ $maintenance->id }})">
+                            <i class="far fa-trash-alt"></i> Supprimer
+                        </button>
+                    @endcan
+                    </div>
+                    </td>
+                </tr>
+            @endif
+        @empty
+            <tr>
+                <td colspan="7" class="text-center">Aucune maintenance trouvée.</td>
+            </tr>
+        @endforelse
+    </tbody>
+</table>
+
+            </div>
+            <!-- /.card-body -->
+            <div class="card-footer">
+                {{ $maintenances->links() }}
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal pour ajouter une maintenance -->
+<div class="modal fade" id="addModal" tabindex="-1" role="dialog" aria-labelledby="addModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="addModalLabel">Ajouter une Maintenance</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <!-- Contenu du formulaire pour ajouter une maintenance -->
+                <form>
+                    <!-- Ajoutez les champs nécessaires ici -->
+                    <div class="form-group">
+                        <label for="actionEntreprise">Action entreprise</label>
+                        <input type="text" class="form-control" id="actionEntreprise" wire:model="newMaintenance.actionEntreprise" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="intervenant">Intervenant</label>
+                        <input type="text" class="form-control" id="intervenant" wire:model="newMaintenance.intervenant" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="dureeIntervention">Durée intervention</label>
+                        <input type="number" class="form-control" id="dureeIntervention" wire:model="newMaintenance.dureeIntervention" required>
+                    </div>
+                    <!-- Ajoutez d'autres champs selon vos besoins -->
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Fermer</button>
+                <button type="button" class="btn btn-primary" wire:click="storeNewMaintenance">Ajouter Maintenance</button>
+            </div>
+        </div>
+    </div>
+</div>
+
  <!-- /.card -->
 </div>
 </div>
@@ -318,6 +372,7 @@
 </div>
 </div>
 </div>
+@endif
 <script>
     function stopSound(){
       var sound = document.getElementById('notificationSound');
@@ -362,6 +417,3 @@
     })
 
 </script>
-
-
-

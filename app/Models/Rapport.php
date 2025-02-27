@@ -10,7 +10,7 @@ class Rapport extends Model
     use HasFactory;
 
     protected $fillable = [
-        'dateDebut','dateFin','intervenant_id','lieu','motif','rapport',
+        'dateDebut','dateFin','intervenant_id','lieu','motif','rapport','status',
     ];
 
     public function inters(){

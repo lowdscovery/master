@@ -76,18 +76,6 @@
         </div>
         </div>
         <div class="form-group row">
-        <label for="piece" class="col-sm-2 col-form-label">Piece d'identité</label>
-        <div class="col-sm-10">
-        <select class="form-control" wire:model.lazy="pieceIdentite" required="required">
-            <option value=""> </option>
-            <option value="CIN">CIN</option>
-            <option value="PASSPORT">PASSPORT</option>
-            <option value="PERMIS DE CONDUIRE">PERMIS DE CONDUIRE</option>
-        </select>
-        @error('pieceIdentite') <span style="color: red;">{{ $message }}</span> @enderror
-        </div>
-        </div>
-        <div class="form-group row">
         <label for="numero" class="col-sm-2 col-form-label">Numero Identite</label>
         <div class="col-sm-10">
         <input type="text" class="form-control" id="numero" placeholder="Numero piece d'identite" wire:model.lazy="numeroPieceIdentite" required="required" title="Le numero de piece d'identité doit être 12 chiffre" pattern="\d{12}">

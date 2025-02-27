@@ -34,19 +34,46 @@
                           <span class="text-danger">{{$message}}</span>
             @enderror
           </div>
-          <div class="form-group">
-            <label for="recipient-name" class="col-form-label">Caracteristique</label>
-            <select class="form-control @error("editMaintenance.caracteristique_moteurs_id") is-invalid @enderror" wire:model="editMaintenance.caracteristique_moteurs_id">
-                @error("editMaintenance.caracteristique_moteurs_id")
-                          <span class="text-danger">{{$message}}</span>
-                 @enderror 
-                    <option value="">---------</option>
-                    @foreach ($caracteristiques as $caracteristique)
-                          <option value="{{$caracteristique->ressources->nom}}">{{$caracteristique->ressources->nom}}</option>
-                    @endforeach      
-           </select>
-          </div>
-          
+          <div class="d-flex">
+    <div class="form-group flex-grow-1 mr-2">
+        <label>Caracteristique</label>
+        <select class="form-control" wire:model="selectedItem">
+            <option value="">---------</option>
+            <option value="Moteur">Moteur</option>
+            <option value="Pompe">Pompe</option>
+        </select>
+    </div>
+
+    @if($selectedItem === 'Moteur') 
+    <div class="form-group flex-grow-1 mr-2" wire:key="moteur-select">
+        <label for="moteur">Moteur</label>
+        <select id="moteur" class="form-control @error('editMaintenance.caracteristique_moteurs_id') is-invalid @enderror" wire:model="editMaintenance.caracteristique_moteurs_id">
+            @error('editMaintenance.caracteristique_moteurs_id')
+                <span class="text-danger">{{ $message }}</span>
+            @enderror
+            <option value="">---------</option>
+            @foreach ($moteurs as $moteur)
+                <option value="{{ $moteur->numeroSerie }}">{{ $moteur->numeroSerie }}</option>
+            @endforeach
+        </select>
+    </div> 
+    @endif
+
+    @if($selectedItem === 'Pompe')
+    <div class="form-group flex-grow-1" wire:key="pompe-select">
+        <label for="pompe">Pompe</label>
+        <select id="pompe" class="form-control @error('editMaintenance.caracteristique_moteurs_id') is-invalid @enderror" wire:model="editMaintenance.caracteristique_moteurs_id">
+            @error('editMaintenance.caracteristique_moteurs_id')
+                <span class="text-danger">{{ $message }}</span>
+            @enderror
+            <option value="">---------</option>
+            @foreach ($pompes as $pompe)
+                <option value="{{ $pompe->numeroSerie }}">{{ $pompe->numeroSerie }}</option>
+            @endforeach
+        </select>
+    </div>
+    @endif  
+</div>
           <div class="d-flex">
                 <div class="form-group flex-grow-1 mr-2">
                         <label >Durée Réel</label>

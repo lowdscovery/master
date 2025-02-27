@@ -8,7 +8,5 @@ use Illuminate\Database\Eloquent\Model;
 class CalculeColonne extends Model
 {
     use HasFactory;
-    protected $fillable = [
-        'current_value','difference'
-    ];
+    protected $fillable = ['nom', 'description'];
 }

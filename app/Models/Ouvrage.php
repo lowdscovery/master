@@ -16,4 +16,10 @@ class Ouvrage extends Model
     public function ressource(){
         return $this->belongsTo(Ressource::class, 'ressource_id','id');
     }
+    public function moteurs(){
+        return $this->hasMany(MoteurElectrique::class);
+    }
+    public function pompes(){
+        return $this->hasMany(MoteurPompe::class);
+    }
 }

@@ -5,6 +5,8 @@ namespace App\Http\Livewire;
 use App\Models\Bande as ModelsBande;
 use Livewire\Component;
 use Livewire\WithPagination;
+use App\Models\MoteurElectrique;
+use App\Models\MoteurPompe;
 
 class Bande extends Component
 {
@@ -23,9 +25,15 @@ class Bande extends Component
     public $finalResult;
     public $Debit;
     public $Pression;
+    public $Moteur;
+    public $Pompe;
     public $data;
     public $dataId;
     public $graph= false;
+    public $CacheTable=false;
+    public $cacheInput=false;
+    public $valeurId;
+    public $search;
 
     //reiniitialise graphe
     public $startDate;
@@ -37,12 +45,14 @@ class Bande extends Component
     public function cacheGraph(){
         $this->graph=false;
     }
-   
+
     public function selected(){
         $this->isSelected = true;
         $this->isSelectededit = false;
+        $this->cacheInput=false;
         $this->resetErrorBag();
         $this->resetInputs();
+        $this->CacheTable=false;
         
     }
     public function cancel(){
@@ -50,64 +60,75 @@ class Bande extends Component
         $this->isSelectededit = false;
         $this->resetErrorBag();
         $this->resetInputs();
+        $this->CacheTable=false;
         
     }
     public function editselect(){
-        $this->isSelectededit = true;
         $this->isSelected = false;
+        $this->isSelectededit = true;
         $this->resetErrorBag();
+        $this->CacheTable=false;
     }
 
+    public function cacheEdit(){
+        $this->cacheInput=false;
+        $this->isSelected = false;
+        $this->CacheTable=false;
+        $this->startDate = "";
+        $this->endDate = "";
+    }
+
+    public function ShowInput(){
+        $this->cacheInput=true;
+        $this->isSelected = false;
+        $this->CacheTable=false;
+        $this->startDate = "";
+        $this->endDate = "";
+    }
+    
+    public function cacheSearch(){
+        $this->CacheTable=true;
+        $this->isSelected = false;
+        $this->isSelectededit = false;
+        $this->startDate = "";
+        $this->endDate = "";
+    }
 //graphe
     public function mount()
     {
         $this->startDate = null;
         $this->endDate = null;
-
+        $this->chargerDerniereValeur();
+        $this->search = '';
         // Charger les données
         $this->loadData();
     }
-    public function updated($propertyName)
+//recupere la derniere valeur
+    public function chargerDerniereValeur()
     {
-        if ($propertyName === 'startDate' || $propertyName === 'endDate') {
-            $this->loadData();
-        }
-    }
-
-    public function loadData()
-    {
-        if ($this->startDate && $this->endDate) {
-            // Filtrer les données si les dates sont définies
-            $this->data = ModelsBande::whereBetween('Date', [$this->startDate, $this->endDate])->get();
+        $derniereValeur = ModelsBande::latest()->first();
+        if ($derniereValeur) {
+            $this->valeurId = $derniereValeur->id;
+            $this->U1 = $derniereValeur->U1;
+            $this->U2 = $derniereValeur->U2;
+            $this->U3 = $derniereValeur->U3;
+            $this->Pression = $derniereValeur->Pression;
+            $this->I1 = $derniereValeur->I1;
+            $this->I2 = $derniereValeur->I2;
+            $this->I3 = $derniereValeur->I3;
+            $this->Puissance = $derniereValeur->Puissance;
+            $this->Debit = $derniereValeur->Debit;
+            $this->Date = $derniereValeur->Date;
+            
         } else {
-            // Afficher toutes les données si les dates ne sont pas définies
-            $this->data = ModelsBande::all();
+        $this->valeurId = null;
+        $this->Moteur="";$this->Pompe="";$this->U1="";$this->U2="";$this->U3="";$this->I1="";$this->I2="";$this->I3="";$this->Debit="";$this->Pression="";$this->Date="";
         }
-
-        $this->emit('dataUpdated', [
-            'labels' => $this->data->pluck('Debit')->toArray(),
-            'TensionMoyenne' => $this->data->pluck('MoyenU')->toArray(),
-            'IntensiteMoyenne' => $this->data->pluck('MoyenI')->toArray(),
-            'Puissance' => $this->data->pluck('Puissance')->toArray(),
-            'Pression' => $this->data->pluck('Pression')->toArray(),
-        ]);
     }
 
-
-    public function render()
+    public function modifierValeur()
     {
-        $this->loadData();
-        return view('livewire.bande.bande')
-        ->extends("layouts.principal")
-        ->section("contenu");
-    }
-
-    public function Bande(){
-        $average = ($this->U1 + $this->U2 + $this->U3) / 3;
-        $average1 = ($this->I1 + $this->I2 + $this->I3) / 3;
-        $this->averageResult = $average * $average1 * 0.8 * 1.732;
-        $this->finalResult = $this->averageResult;
-         $this->validate([
+        $this->validate([
             "Date" =>"required",
              "U1" =>"required",
              "U2" =>"required",
@@ -117,26 +138,112 @@ class Bande extends Component
              "I3" =>"required", 
              "Debit" =>"required",  
              "Pression" =>"required",
+        ]);
+
+        if ($this->valeurId) {
+            $valeur = ModelsBande::find($this->valeurId);
+
+            $average = ($this->U1 + $this->U2 + $this->U3) / 3;
+            $average1 = ($this->I1 + $this->I2 + $this->I3) / 3;
+            $this->averageResult = $average * $average1 * 0.8 * 1.732;
+            $this->finalResult = $this->averageResult;
+
+            if ($valeur) {
+                $valeur->update([
+                    'U1' => $this->U1,
+                    'U2' => $this->U2,
+                    'U3' => $this->U3,
+                    "MoyenU" => $average,
+                    'Pression' => $this->Pression,
+                    'I1' => $this->I1,
+                    'I2' => $this->I2,
+                    'I3' => $this->I3,
+                    "MoyenI" => $average1,     
+                    "Puissance" => $this->finalResult,
+                    'Debit' => $this->Debit,
+                    'Date' => $this->Date,
+                ]);
+                $this->selected();
+               // $this->resetInputs();
+                $this->dispatchBrowserEvent("showSuccessMessage", ["message"=>"Votre demande reussi avec succès!"]);
+            }
+        }
+    }
+
+    public function updated($propertyName)
+    {
+        if ($propertyName === 'startDate' || $propertyName === 'endDate' && $propertyName === 'search') {
+            $this->loadData();
+        }
+    }
+
+    public function loadData()
+    {
+        $query = ModelsBande::query();
+
+        if ($this->startDate && $this->endDate) {
+            $query->whereBetween('Date', [$this->startDate, $this->endDate]);
+        }
+        
+        // if (!empty($this->search)) {
+        //     $query->where('Moteur', 'like',"%".$this->search."%");
+        // }
+
+        if (!empty($this->search)) {
+            $query->where(function($q) {
+                $q->where('Moteur', 'like', '%' . $this->search . '%')
+                  ->orWhere('Pompe', 'like', '%' . $this->search . '%');
+            });
+        }
+        
+        $this->data = $query->get();
+      //  $this->data = $query->get(['column1', 'column2', 'column3', 'column4', 'column5']);
+
+        // if ($this->startDate && $this->endDate) {
+        //     $this->data = ModelsBande::whereBetween('Date', [$this->startDate, $this->endDate])->get();
+        // } else {
+        //     $this->data = ModelsBande::all();
+        // }
+
+        $this->emit('dataUpdated', [
+            'labels' => $this->data->pluck('Pression')->toArray(),
+            'TensionMoyenne' => $this->data->pluck('MoyenU')->toArray(),
+            'IntensiteMoyenne' => $this->data->pluck('MoyenI')->toArray(),
+            'Debit' => $this->data->pluck('Debit')->toArray(),
+        ]);
+    }
+
+
+    public function render()
+    {
+        $this->loadData();
+        $data = [
+            "bandes"=>ModelsBande::all(),
+            "moteurs" => MoteurElectrique::all(),
+            "pompes" => MoteurPompe::all(),
+          ];
+        return view('livewire.bande.bande',$data)
+        ->extends("layouts.principal")
+        ->section("contenu");
+    }
+
+    public function Bande(){
+         $this->validate([
+             "Date" => "required",
+            "Moteur"=> "required",
+            "Pompe"=> "required",
          ]);
         
          ModelsBande::create(
              [
-                "Date" => $this->Date,
-                 "U1" => $this->U1,
-                 "U2" => $this->U2,
-                 "U3" => $this->U3,
-                 "MoyenU" => $average,
-                 "I1" => $this->I1,
-                 "I2" => $this->I2,
-                 "I3" => $this->I3,
-                 "MoyenI" => $average1,     
-                 "Puissance" => $this->finalResult,
-                 "Debit" => $this->Debit,
-                 "Pression" => $this->Pression,          
+                 "Date" => $this->Date,
+                 "Moteur"=> $this->Moteur,
+                 "Pompe"=> $this->Pompe,     
              ]
           );
-   //       $this->emit('userProfileUpdated');
-        $this->emit('record');
+         $this->ShowInput();
+         $this->chargerDerniereValeur();
+         $this->emit('record');
          $this->resetErrorBag();
          $this->resetInputs();
          $this->dispatchBrowserEvent("showSuccessMessage", ["message"=>"Votre demande reussi avec succès!"]);
@@ -193,7 +300,6 @@ class Bande extends Component
                 "Pression" => $this->Pression, 
                
             ]);
-   //         $this->emit('userProfileUpdated');
             $this->resetInputs();
         }
         $this->dispatchBrowserEvent("showSuccessMessage", ["message"=> "Bande d'essai mis à jour avec succès!"]);
@@ -215,7 +321,7 @@ class Bande extends Component
     
       private function resetInputs()
     {
-        $this->U1="";$this->U2="";$this->U3="";$this->I1="";$this->I2="";$this->I3="";$this->Debit="";
+        $this->Moteur="";$this->Pompe="";$this->U1="";$this->U2="";$this->U3="";$this->I1="";$this->I2="";$this->I3="";$this->Debit="";
         $this->Pression="";$this->Date="";
     }
 }

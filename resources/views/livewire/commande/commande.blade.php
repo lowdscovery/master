@@ -1,5 +1,5 @@
+
 <div>
-  
 <div class="modal fade" id="addModal" tabindex="-1" role="dialog" aria-hidden="true" wire:ignore.self>
 @include("livewire.commande.create")
 </div>
@@ -8,107 +8,100 @@
 </div> 
                           
         
+@if($currentPage==DETAILLEMAINTENANCE)
+@include("livewire.commande.detaille")
+@elseif($currentPage==PAGELIST)
+<div class="row p-3 pt-2">
+    @can("employe")
+    <button class="btn btn-success ml-3 mb-3" wire:click="cancel" data-toggle="modal" data-target="#addModal">
+        <i class="fa fa-plus-circle"></i> Nouveau
+    </button>
+    @endcan
 
-<div class="row p-2" >
- <div class="col-12">
-     <div class="card">
-  
-         <div class="card-header bg-gradient-cyan d-flex align-items-center">
-          <h3 class="card-title flex-grow-1"><i class="nav-icon fas fa-cogs"></i>Commande</h3>
+    <button class="btn btn-primary ml-3 mb-3" wire:click="detaille()">
+        <i class="fa fa-info-circle"></i> Voir plus
+    </button>
 
-            <div class="card-tools d-flex align-items-center ">
-                <div class="input-group input-group-md" style="width: 250px;">
-            <input type="text" name="table_search" wire:model.debounce.250ms="search" class="form-control float-right" placeholder="Search">
+    <div class="col-12">
+        <div class="card shadow-lg rounded border-0">
+            <div class="card-header bg-info text-white d-flex align-items-center">
+                <h3 class="card-title flex-grow-1"><i class="nav-icon fas fa-list"></i> Commande</h3>
 
-            <div class="input-group-append">
-             <button type="submit" class="btn btn-default"><i class="fas fa-search"></i></button>
+                <div class="card-tools d-flex align-items-center">
+                    <div class="input-group input-group-md" style="width: 250px;">
+                        <input type="text" name="table_search" wire:model.debounce.250ms="search" class="form-control float-right" placeholder="Rechercher...">
+                        <div class="input-group-append">
+                            <button type="submit" class="btn btn-secondary"><i class="fas fa-search"></i></button>
+                        </div>
                     </div>
-                  </div>
-                </div>
-              </div>
-              <!-- /.card-header -->
-              <div class="card-body table-responsive p-0 table-striped" style="max-height: 400px;">
-                <table class="table table-head-fixed">
-                  <thead>
-                    <tr>
-                      <th class="text-center"> Date commande </th>
-                      <th class="text-center"> Motif </th>
-                      <th class="text-center"> Article </th>
-                      <th class="text-center"> Reference</th>
-                      <th class="text-center"> Caracteristique</th>
-                      <th class="text-center"> Action</th>
-                    </tr>
-                  </thead>
-                  <tbody>                             
-                @forelse ($commandes as $commande)          
-                    <tr>
-                      <td class="text-center">{{ date('d/m/Y',strtotime($commande->dateCommande))}}</td>
-                      <td class="text-center">{{ $commande->motif}}</td>
-                      <td class="text-center">{{ $commande->article}}</td>
-                      <td class="text-center">{{ $commande->reference}}</td>
-                      @forelse ($caracteristiques as $caracteristique)
-                      <td class="text-center">{{ $caracteristique->ressources->nom}}</td>
-                      @empty
-                      @endforelse
-                      <td class="text-center">       
-                    <div class="btn-group open">
-                    <a class="btn btn-info dropdown-toggle" data-toggle="dropdown">
-                        <span class="fa fa-caret-down" title="Toggle dropdown menu"></span>
-                    </a>
-                    <ul class="dropdown-menu" style="padding:10px; z-index: 10;" >
-                        @can('create', $commande)
-                        <li><button class="btn btn-link" data-toggle="modal" data-target="#addModal"> <i class="fa fa-plus-circle"></i> Ajouter</button></li>
-                        @endcan
-                        <li><button class="btn btn-link" wire:click="editCommande({{$commande->id}})" data-toggle="modal" data-target="#editModal"> <i class="far fa-edit"></i> Edit</button></li>
-                        @can('delete',$commande)
-                        <li><button class="btn btn-link" wire:click="confirmDelete({{$commande->id}})"> <i class="far fa-trash-alt"></i> Delete</button></li>
-                        @endcan
-                    </ul>
-                    </div>
-                      </td>
-                    </tr>
-                    @empty
-                          <tr>
-                              <td colspan="5">
-                                  <div class="alert alert-danger">
-                                      <h5><i class="icon fas fa-ban"></i> Information!</h5>
-                                      Aucune donnée trouvée par rapport aux éléments de recherche entrés.
-                                    </div>
-                              </td>
-                        <td class="text-center">   
-                
-                    <div class="btn-group open">
-                    <a class="btn btn-info dropdown-toggle" data-toggle="dropdown">
-                        <span class="fa fa-caret-down" title="Toggle dropdown menu"></span>
-                    </a>
-                    <ul class="dropdown-menu" style="padding:10px; z-index: 10;" >
-                        <li><button class="btn btn-link" data-toggle="modal" data-target="#addModal"> <i class="fa fa-plus-circle"></i> Ajouter</button></li>
-                    </ul>
-                    </div>
-                 
-                        </td>
-                          </tr>
-                  @endforelse
-               </tbody>
-                </table>
-              </div>
-              <!-- /.card-body -->
-              <div class="card-footer">
-                <div class="float-right">
-                    {{ $commandes->links() }}
                 </div>
             </div>
-</div>
- <!-- /.card -->
-</div>
-</div>
+
+            <div class="card-body p-0">
+                <table class="table table-hover table-striped table-bordered rounded" style="border-radius: 10px;">
+                    <thead class="thead-light">
+                        <tr>
+                            <th class="text-center">Date Commande</th>
+                            <th class="text-center">Motif</th>
+                            <th class="text-center">Article</th>
+                            <th class="text-center">Référence</th>
+                            <th class="text-center">Type</th>
+                            <th class="text-center">N° de Série</th>
+                            @can("employe")
+                            <th class="text-center">Action</th>
+                            @endcan
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @forelse ($commandes as $commande)
+                        <tr class="table-light">
+                            <td class="text-center">{{ date('d/m/Y', strtotime($commande->dateCommande)) }}</td>
+                            <td class="text-center">{{ $commande->motif }}</td>
+                            <td class="text-center">{{ $commande->article }}</td>
+                            <td class="text-center">{{ $commande->reference }}</td>
+                            <td class="text-center">{{ $commande->type }}</td>
+                            <td class="text-center">{{ $commande->caracteristique }}</td>
+                            @can("employe")
+                            <td class="text-center">
+                                <div class="btn-group">
+                                    <a class="btn btn-warning dropdown-toggle" data-toggle="dropdown">
+                                        <span class="fa fa-caret-down" title="Options"></span>
+                                    </a>
+                                    <ul class="dropdown-menu dropdown-menu-right">
+                                        <li><button class="btn btn-link text-dark" wire:click="editCommande({{ $commande->id }})" data-toggle="modal" data-target="#editModal">
+                                            <i class="far fa-edit"></i> Modifier
+                                        </button></li>
+                                        @can('delete', $commande)
+                                        <li><button class="btn btn-link text-danger" wire:click="confirmDelete({{ $commande->id }})">
+                                            <i class="far fa-trash-alt"></i> Supprimer
+                                        </button></li>
+                                        @endcan
+                                    </ul>
+                                </div>
+                            </td>
+                            @endcan
+                        </tr>
+                        @empty
+                        <tr>
+                            <td colspan="7" class="text-center">
+                                <div class="alert alert-warning">
+                                    <i class="icon fas fa-exclamation-triangle"></i> Aucune donnée trouvée
+                                </div>
+                            </td>
+                        </tr>
+                        @endforelse
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="card-footer bg-light d-flex justify-content-end">
+                {{ $commandes->links() }}
+            </div>
+        </div>
+    </div>
 </div>
 
-</div>
- 
-
-</div>
-</div>
+@endif
 </div>
 
 

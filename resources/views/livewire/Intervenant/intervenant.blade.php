@@ -6,6 +6,8 @@
      
     @if ($info == UPDATEINTERVENANT)
     @include("livewire.Intervenant.update")
+    @elseif($card==CARDINTERVENANT)
+    @include("livewire.Intervenant.card")
     @else
 
     <div class="modal fade" id="addModal"tabindex="-1" role="dialog" aria-hidden="true" wire:ignore.self>
@@ -85,7 +87,7 @@
                 </div>
             </div>
             <div class="form-group flex-grow-1">
-               <input class="form-control" type="file" wire:model="image" id="image{{$resetValueInput}}" wire:loading.attr="disabled" required="required">                   
+               <input class="form-control" type="file" wire:model="image" id="image{{$resetValueInput}}" wire:loading.attr="disabled" required="required" title="Choisir le photo">                   
             </div>
          <!-- <div style="border: 1px solid #d0d1d3; border-radius: 20px; height: 200px; width:200px; overflow:hidden;">
             @if ($image)
@@ -100,9 +102,9 @@
             <div wire:loading.delay wire:target="AjoutIntervenant">
                    <span class="text-green">Encours...</span>
             </div>
-           
+            @can("employe")
                 <button type="submit" class="btn btn-primary" wire:loading.attr="disabled">Enregistrer</button>
-        
+            @endcan
             </div>
             </form>
         </div>
@@ -118,6 +120,7 @@
                 <div class="card">
                     <div class="card-header d-flex align-items-center" style="background-color:#A52DFF;">
                     <h1 class="card-title flex-grow-1" style="color:white;"><i class="fa fa-user-circle fa-2x"></i> Liste d'intervenant</h1>
+                    <a href="" wire:click.prevent="showCard()" data-toggle="tab" class="nav-link btn-primary show active mr-4 d-block" style="border-radius:30px;">Plus details</a>    
                     <div class="input-group input-group-md" style="width: 250px;">
                     <input type="text" name="table_search" wire:model.debounce.250ms="search" class="form-control float-right" placeholder="Search">
 
@@ -143,7 +146,9 @@
                             </td>
                              <td class="text-center" style="width:60%;">{{$intervenant->nom}} {{$intervenant->prenom}}</td>
                             <td class="text-center" style="width:30%;">
+                            @can("employe")
                                <button class="btn btn-link" wire:click="editIntervenant({{$intervenant->id}})"> <i class="far fa-edit"></i> </button>
+                            @endcan
                             @can('delete', $intervenant)
                             <button class="btn btn-link" wire:click="confirmDelete({{$intervenant->id}})" style="color:red;"> <i class="far fa-trash-alt"></i> </button>
                             @endcan

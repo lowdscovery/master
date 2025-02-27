@@ -15,9 +15,12 @@ class MoteurElectrique extends Model
         'roulement','misesEnServices','observations',
        'puissance','tension','cosphi','intensite',
        'sectionCable','indiceDeProtection','classeIsolant','typeDeDemarrage','caracteristique_moteur_id',
-       'longueur','largeur','masse','hauteur',
+       'longueur','largeur','masse','hauteur','ouvrage_id'
     ];
     public function caracteristiques(){
         return $this->belongsTo(CaracteristiqueMoteur::class, "caracteristique_moteur_id","id");
+    }
+    public function ouvrages(){
+        return $this->belongsTo(ModelsOuvrage::class, "ouvrage_id","id");
     }
 }

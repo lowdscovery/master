@@ -3,12 +3,19 @@
         <div class="card">
             <div class="card-header d-flex align-items-center" style="background-color:#004A8F;">
                 <h3 class="card-title flex-grow-1" style="color:white;"><i class="fa fa-list fa-2x"></i> Site </h3>
-@foreach ($sites as $site)
-     
- @endforeach 
- @can('create', $site)
+@can('employe')
 <a class="btn btn-link btn-db text-white mr-4 d-block" wire:click="selected"><i class="fa fa-plus-circle"></i> Ajouter Nouveau</a>
 @endcan
+
+            <div class="input-group" style="width: 250px;">
+                <input type="text" wire:model.debounce.250ms="search" class="form-control form-control-sm" placeholder="Rechercher...">
+                <div class="input-group-append">
+                    <button class="btn btn-light btn-sm" type="submit">
+                        <i class="fas fa-search"></i>
+                    </button>
+                </div>
+            </div>
+
                 </div>
             </div>
 
@@ -88,7 +95,9 @@
                             <tr>
                                <th class="text-center">District</th>
                                 <th class="text-center">Site</th>
+                                @can("employe")
                                 <th class="text-center">Action</th>
+                                @endcan
                             </tr>
                         </thead>
                         <tbody>
@@ -96,12 +105,14 @@
                          <tr>
                          <td class="text-center">{{$site->dist->nom}}</td>
                             <td class="text-center">{{$site->nom}}</td>
+                            @can("employe")
                             <td class="text-center">
                                 <button wire:click="editSite({{$site->id}})" class="btn btn-link"> <i class="far fa-edit"></i> </button>
                                 @can('delete', $site)
-                                <button class="btn btn-link" wire:click="confirmDelete({{$site->id}})"> <i class="far fa-trash-alt"></i> </button>
+                                <button class="btn btn-link" wire:click="confirmDelete({{$site->id}})" style="color:red;"> <i class="far fa-trash-alt"></i> </button>
                                 @endcan
                             </td>
+                            @endcan
                         </tr>
                        @empty
                          <tr>

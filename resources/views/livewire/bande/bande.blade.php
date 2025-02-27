@@ -4,7 +4,7 @@
 <div class="modal-dialog modal-xl">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Ajout maintenance</h5>
+        <h5 class="modal-title" id="exampleModalLabel">Graphe Bancs d'essai</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
@@ -22,7 +22,7 @@
         var chart = new Chart(ctx, {
             type: 'line',
             data: {
-                labels: @json($data->pluck('Debit')),
+                labels: @json($data->pluck('Pression')),
                 datasets: [{
                     label: 'Tension Moyenne',
                     backgroundColor: 'rgba(75, 192, 192, 0.2)',
@@ -35,17 +35,11 @@
                     borderColor: 'rgba(75, 12, 20, 1)',
                     data: @json($data->pluck('MoyenI'))
                 },
-                 {
-                    label: 'Puissance',
-                    backgroundColor: 'rgba(226, 7, 134, 0.2)',
-                    borderColor: 'rgba(226, 7, 134, 1)',
-                    data: @json($data->pluck('Puissance'))
-            },
               {
-                    label: 'Pression',
+                    label: 'Debit',
                     backgroundColor: 'rgba(226, 200, 14, 0.2)',
                     borderColor: 'rgba(226, 200, 14, 1)',
-                    data: @json($data->pluck('Pression'))
+                    data: @json($data->pluck('Debit'))
             }
             ]
                 
@@ -58,8 +52,7 @@
             chart.data.labels = data.labels;
             chart.data.datasets[0].data = data.TensionMoyenne;
             chart.data.datasets[1].data = data.IntensiteMoyenne;
-            chart.data.datasets[2].data = data.Puissance;
-            chart.data.datasets[3].data = data.Pression;
+            chart.data.datasets[2].data = data.Debit;
             chart.update();
         });
     });
@@ -75,17 +68,17 @@
         <div class="card">
             <div class="card-header bg-gradient-primary d-flex align-items-center">
                 <h3 class="card-title flex-grow-1"><i class="fa fa-list fa-2x"></i> Bande d'essaie </h3>
+            @can("employe")  
+            <button type="button" class="btn btn-primary mr-4 d-block" wire:click="selected" style="background-color:#009375;"><i class="fa fa-plus-square"></i> Ajouter Nouveau</button>
+            @endcan
+            <div style="padding-right:500px;">
+            <button type="button" class="btn btn-primary mr-4 d-block"  wire:click="cacheSearch()" style="background-color:#FF6D00;"><i class="fa fa-search"></i> Consulter</button>
+            </div>
+
+               @if($CacheTable)
                 <button type="submit" class="btn btn-success mr-4 d-block" data-toggle="modal" data-target="#addModal"> <i class="fas fa-line-chart"></i> Graphe</button>
-                 
-<button type="button" class="btn btn-primary mr-4 d-block" wire:click="selected"><i class="fa fa-plus-square"></i> Ajouter Nouveau</button>
-             <label for="filtreType" class="mr-2 d-block" style="color:white;">Filtrer par date </label>
-                <div class="input-group input-group-md" style="width: 250px;">
-            <input type="date" name="table_search" wire:model.debounce.250ms="startDate" class="form-control float-right mr-4 d-block" placeholder="Search">
-                 </div>
-            <div class="input-group-append">
-            <input type="date" wire:model.debounce.250ms="endDate" class="form-control float-right">
-                    </div>
-                
+                @endif
+
                 </div>
             </div>
 
@@ -95,8 +88,59 @@
         <form wire:submit.prevent="Bande">
             <div class="p-4">
                     <div>
-                    <div class="form-row">
 
+                <div class="form-row pt-1">
+                <div class="col">
+                <label>Date</label>
+    <input type="date" class="form-control @error('Date') is-invalid @enderror" wire:model="Date" required="required" title="Date">
+                    @error("Date")
+                     <span class="text-danger">{{$message}}</span>
+                    @enderror                  
+                    </div>
+                   
+                    <div class="col">
+                    <label>Numero de serie Moteur</label>
+        <select class="form-control @error('Moteur') is-invalid @enderror" wire:model="Moteur" required="required" title="Choisissez le numero de serie Moteur">
+            @error("Moteur")
+                    <span class="text-danger">{{$message}}</span>
+            @enderror 
+                <option value="">---------</option>
+                @foreach ($moteurs as $moteur)                          
+                <option value="{{$moteur->numeroSerie}}">{{$moteur->numeroSerie}}</option>
+                @endforeach
+            </select>
+                    </div> 
+                    
+                    <div class="col">
+                    <label>Numero de serie Pompe</label>
+                    <select class="form-control @error('Pompe') is-invalid @enderror" wire:model="Pompe" required="required" title="Choisissez le numero de serie Pompe">
+            @error("Pompe")
+                    <span class="text-danger">{{$message}}</span>
+            @enderror 
+                <option value="">---------</option>
+                @foreach ($pompes as $pompe)                          
+                <option value="{{$pompe->numeroSerie}}">{{$pompe->numeroSerie}}</option>
+                @endforeach
+            </select>
+                    </div> 
+                </div>
+                    </div>
+                    
+                    <div class="pt-3">
+                    
+   <button type="submit" class="btn btn-primary" > <i class="fa fa-check"></i> Valider</button>
+   <button type="button" wire:click="cancel" class="btn btn-warning"> <i class="fa fa-times"></i> Annuler</button>
+                    </div>
+                </div>  
+        </form>
+        @endif
+       @if($cacheInput)
+       @if($valeurId)
+       <form wire:submit.prevent="modifierValeur">
+            <div class="p-4">
+                    <div>
+                    <div class="form-row">
+                    
                     <div class="col">
      <input type="number" class="form-control @error('U1') is-invalid @enderror" wire:model="U1" placeholder=" Tension U1" required="required" title="Tension U1">
                     @error("U1")
@@ -158,21 +202,15 @@
      
                     </div>
                     
-                    <div class="pt-3">
-                    <div class="form-group">
-    <input type="date" class="form-control @error('Date') is-invalid @enderror" wire:model="Date" required="required" title="Date">
-                    @error("Date")
-                     <span class="text-danger">{{$message}}</span>
-                    @enderror                  
-                    </div>
-   <button type="submit" class="btn btn-primary" > <i class="fa fa-check"></i> Valider</button>
-   <button type="button" wire:click="cancel" class="btn btn-warning"> <i class="fa fa-times"></i> Annuler</button>
+                    <div class="pt-3">           
+    <button type="submit" class="btn btn-success" > <i class="fa fa-check"></i> Enregistrer</button>
                     </div>
                 </div>  
         </form>
-        @endif 
+        @endif
+       @endif
 
-             @if ($isSelectededit)
+            @if ($isSelectededit)
             @if($dataId)
             <form wire:submit.prevent="updateBande">
             <div class="p-4">
@@ -240,25 +278,40 @@
      
                     </div>
                     
-                    <div class="pt-3">
-                    <div class="form-group">
-    <input type="date" class="form-control @error('Date') is-invalid @enderror" wire:model="Date" required="required" title="Date">
-                    @error("Date")
-                     <span class="text-danger">{{$message}}</span>
-                    @enderror                  
-                    </div>            
+                    <div class="pt-3">           
     <button type="submit" class="btn btn-success" > <i class="fa fa-check"></i> Edit</button>
-   <button type="button" wire:click="cancel" class="btn btn-warning"> <i class="fa fa-times"></i> Annuler</button>
+   <button type="button" wire:click="cacheSearch()" class="btn btn-warning"> <i class="fa fa-times"></i> Annuler</button>
                     </div>
                 </div>  
         </form>
          @endif  
-        @endif       
+        @endif     
+        
+        @if($CacheTable)
+        <div class="form-row py-3">
+            <div class="col">
+            <label for="filtreType" class="mr-2 d-block">Filtrer par date debut</label>
+            <input type="date" name="table_search" wire:model.debounce.250ms="startDate" class="form-control d-block" placeholder="Search">
+            </div>
+            <div class="col">
+            <label for="filtreType" class="mr-2 d-block">Filtrer par date fin</label>
+            <input type="date" wire:model.debounce.250ms="endDate" class="form-control">
+            </div>
+            <div class="col">
+            <label>Numero de serie Moteur</label>
+            <input type="text"  wire:model="search" class="form-control">
+            </div>
+        </div>   
+        @endif
+
+        @if($CacheTable)
                 <div style="height:350px;">
                     <table class="table table-head-fixed">
                         <thead>
                             <tr>
                                 <th class="text-center">Date</th>
+                                <th class="text-center">Moteur</th>
+                                <th class="text-center">Pompe</th>
                                 <th class="text-center">U1</th>
                                 <th class="text-center">U2</th>
                                 <th class="text-center">U3</th>
@@ -270,13 +323,17 @@
                                 <th class="text-center">Puissance</th>
                                 <th class="text-center">Debit</th>
                                 <th class="text-center">Pression</th>
+                                @can("employe")
                                 <th class="text-center">Action</th>
+                                @endcan
                             </tr>
                         </thead>
                         <tbody>
                        @forelse ($data as $bande)
                          <tr>
                             <td class="text-center">{{date('d-m-Y',strtotime($bande->Date))}}</td>
+                            <td class="text-center">{{$bande->Moteur}}</td>
+                            <td class="text-center">{{$bande->Pompe}}</td>
                             <td class="text-center">{{$bande->U1}}</td>
                             <td class="text-center">{{$bande->U2}}</td>
                             <td class="text-center">{{$bande->U3}}</td>
@@ -288,12 +345,14 @@
                             <td class="text-center">{{$bande->Puissance}}</td>
                             <td class="text-center">{{$bande->Debit}}</td>
                             <td class="text-center">{{$bande->Pression}}</td>
+                            @can("employe")
                             <td class="text-center">
                                 <button wire:click="editBande({{$bande->id}})" class="btn btn-link"> <i class="far fa-edit"></i> </button>
                                 @can('delete', $bande)
                                 <button class="btn btn-link" wire:click="confirmDelete({{$bande->id}})"> <i class="far fa-trash-alt"></i> </button>
                                 @endcan
                             </td>
+                            @endcan
                         </tr>
                        @empty
                          <tr>
@@ -309,6 +368,7 @@
                         </tbody>
                     </table>
                 </div>
+                @endif
                 <div class="card-footer">
                 <div class="float-right">
                  

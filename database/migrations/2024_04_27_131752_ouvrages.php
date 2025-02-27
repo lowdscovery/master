@@ -27,7 +27,7 @@ class Ouvrages extends Migration
             $table->string('sondeHaut');
             $table->string('photo');
             $table->string('filePdf');
-            $table->foreignId('ressource_id')->nullable();
+            $table->foreignId('ressource_id');
             $table->timestamps();
         });
     }

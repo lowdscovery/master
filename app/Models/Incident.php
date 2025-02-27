@@ -11,7 +11,7 @@ class Incident extends Model
 
     protected $fillable = [
         "dateIncident","indexCH","heure","old_value","natureIncident",
-        "cause","action","resultat","intervenant_id","caracteristique_moteur_id",
+        "cause","action","resultat","intervenant_id","type","caracteristique_moteur_id",
     ];
 
     public function intervenants(){

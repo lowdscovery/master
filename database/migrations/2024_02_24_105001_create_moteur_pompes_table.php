@@ -31,8 +31,8 @@ class CreateMoteurPompesTable extends Migration
             $table->string('hauteurManometrique');
             $table->string('corpsDePompe');
             $table->string('chemiseArbre');
-            $table->foreignId('caracteristique_moteur_id');
-
+            $table->foreignId('caracteristique_moteur_id')->nullable();
+            $table->foreignId('ouvrage_id')->nullable();
             $table->string('longueur');
             $table->string('largeur');
             $table->string('masse');

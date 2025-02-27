@@ -77,7 +77,7 @@
      <div class="card">
         
          <div class="card-header d-flex align-items-center" style="background-color:#785DF0;">
-          <h3 class="card-title flex-grow-1" style="color:white;"><i class="nav-icon fas fa-cogs"></i>Depense</h3>
+          <h3 class="card-title flex-grow-1" style="color:white;"><i class="fa fa-wallet"></i> Depense</h3>
             <div class="card-tools d-flex align-items-center ">
             <label class="mr-1" style="color:white;font-size:20px;">Par page</label>
                 <div class="card-tools d-flex align-items-center ">
@@ -95,10 +95,19 @@
                 <div class="input-group input-group-md" style="width: 250px;">
             <input type="date" name="table_search" wire:model.debounce.250ms="datedebut" class="form-control float-right mr-4 d-block" placeholder="Search">
                  </div>
-            <div class="input-group-append">
+            <div class="input-group-append mr-2">
             <input type="date" wire:model.debounce.250ms="datefin" class="form-control float-right">
                     </div>
-                 
+                 @if($cachesearch)
+                    <div class="card-tools d-flex align-items-center">
+                    <div class="input-group input-group-md" style="width: 250px;">
+                        <input type="text" wire:model.debounce.250ms="search" class="form-control" placeholder="Recherche par motif">
+                        <div class="input-group-append">
+                            <button type="submit" class="btn btn-default"><i class="fas fa-search"></i></button>
+                        </div>
+                    </div>
+                </div>
+                  @endif
                 </div>
               </div>
               <!-- /.card-header -->
@@ -113,7 +122,9 @@
                       <th class="text-center"> PrixUnitaire</th>
                       <th class="text-center"> Quantite</th>
                        <th class="text-center"> Total</th>
+                       @can("employe")
                       <th class="text-center"> Action</th>
+                      @endcan
                     </tr>
                   </thead>
                   <tbody>               
@@ -126,22 +137,26 @@
                         <td class="text-center">{{ $depense->PrixUnitaire}}</td>
                         <td class="text-center">{{ $depense->Quantite}}</td>
                         <td class="text-center">{{ $depense->Total}}</td>
+                        
                         <td>       
                         <div class="btn-group open">
                         <a class="btn btn-info dropdown-toggle" data-toggle="dropdown">
                             <span class="fa fa-caret-down" title="Toggle dropdown menu"></span>
                         </a>
                         <ul class="dropdown-menu" style="padding:10px; z-index: 10;" >
-                        @can('create', $depense)
+                        @can("employe")
                             <li><button class="btn btn-link" data-toggle="modal" data-target="#addModal"> <i class="fa fa-plus-circle"></i> Ajouter</button></li>
-                         @endcan
-                            <li><button class="btn btn-link" wire:click="editDepense({{$depense->id}})" data-toggle="modal" data-target="#editModal"> <i class="far fa-edit"></i> Edit</button></li>
-                            @can('delete', $depense)
-                            <li><button class="btn btn-link" wire:click="confirmDelete({{$depense->id}})"> <i class="far fa-trash-alt"></i> Delete</button></li>
-                            @endcan
+                        
+                            <li><button class="btn btn-link" wire:click="editDepense({{$depense->id}})" data-toggle="modal" data-target="#editModal"> <i class="far fa-edit" style="color:gray;"></i> Edit</button></li>
+                        @endcan
+                        @can("admin")  
+                            <li><button class="btn btn-link" wire:click="confirmDelete({{$depense->id}})"> <i class="far fa-trash-alt" style="color:red;"></i> Delete</button></li>
+                        @endcan   
+                            <li><button class="btn btn-link" wire:click="cache()"> <i class="fas fa-search" style="color:green;"></i> Search</button></li>
                         </ul>
                         </div>
                           </td>
+                       
                     </tr>
                   
                     @empty

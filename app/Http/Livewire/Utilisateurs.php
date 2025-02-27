@@ -57,7 +57,6 @@ class Utilisateurs extends Component
         'newUser.prenom' => 'required',
         'newUser.email' => 'required|email|unique:users,email',
         'newUser.telephone1' => 'required|numeric|unique:users,telephone1',
-        'newUser.pieceIdentite' => 'required',
         'newUser.sexe' => 'required',
         'newUser.numeroPieceIdentite' => 'required|unique:users,numeroPieceIdentite',
     ];*/
@@ -69,10 +68,9 @@ class Utilisateurs extends Component
                 'editUser.nom' => 'required',
                 'editUser.prenom' => 'required',
                 'editUser.email' => ['required', 'email', Rule::unique("users", "email")->ignore($this->editUser['id']) ] ,
-                'editUser.telephone1' => ['required', 'numeric', Rule::unique("users", "telephone1")->ignore($this->editUser['id']) ]  ,
-                'editUser.pieceIdentite' => ['required'],
+                'editUser.telephone1' => ['required', 'numeric', Rule::unique("users", "telephone1")->ignore($this->editUser['id']) ] ,
                 'editUser.sexe' => 'required',
-                'editUser.numeroPieceIdentite' => ['required','numeric', Rule::unique("users", "pieceIdentite")->ignore($this->editUser['id']) ],
+                'editUser.numeroPieceIdentite' => ['required','numeric', Rule::unique("users", "numeroPieceIdentite")->ignore($this->editUser['id']) ],
              //   'editUser.password' => 'required|string|min:8',
             ];
         }
@@ -82,11 +80,10 @@ class Utilisateurs extends Component
             'newUser.prenom' => 'required',
             'newUser.email' => 'required|email|unique:users,email',
             'newUser.telephone1' => 'required|numeric|unique:users,telephone1',
-            'newUser.pieceIdentite' => 'required',
             'newUser.sexe' => 'required',
             'newUser.numeroPieceIdentite' => 'required|numeric|unique:users,numeroPieceIdentite',
-            'newUser.password' => 'required|string|min:8',
-            "image" => "image|max:10240"
+          //  'newUser.password' => 'required|string|min:8',
+         //   "image" => "image|max:10240"
         ];
     }
 
@@ -94,7 +91,6 @@ class Utilisateurs extends Component
                            'newUser.prenom.required' => "Le prenom de l'utilisateur est vide.",
                            'newUser.email.required' => "L'email de l'utilisateur est vide.",
                            'newUser.telephone1.required' => "Le numero de telephone est vide.",
-                           'newUser.pieceIdentite.required' => "Le piece d'identité est vide.",
                            'newUser.sexe.required' => "Le sexe est vide.",
                            'newUser.numeroPieceIdentite.required' => "Le numero de piece d'identité est vide.",
                            
@@ -141,33 +137,29 @@ class Utilisateurs extends Component
             'newUser.prenom' => 'required',
             'newUser.email' => 'required|email|unique:users,email',
             'newUser.telephone1' => 'required|numeric|unique:users,telephone1',
-            'newUser.pieceIdentite' => 'required',
             'newUser.sexe' => 'required',
             'newUser.numeroPieceIdentite' => 'required|numeric|unique:users,numeroPieceIdentite',
-            'newUser.password' => 'required|string|min:8',
-            "image" => "image|max:10240"
+           // 'newUser.password' => 'required|string|min:8',
+           // "image" => "image|max:10240"
        ]);
        $path="";
        if($this->image){
         $path=$this->image->store('files', 'public');
         $imagePath = "storage/".$path;
       }
-    //   $validationAttributes["newUser"]["password"] = "password";
-      // dump($validationAttributes);
-     // Ajouter un nouvel utilisateur
+       $validationAttributes["newUser"]["password"] = "password";
        User::create([
        "nom" => $this->newUser["nom"],
        "prenom" => $this->newUser["prenom"],
        "sexe" => $this->newUser["sexe"],
        "telephone1" => $this->newUser["telephone1"],
-       "pieceIdentite" => $this->newUser["pieceIdentite"],
        "numeroPieceIdentite" => $this->newUser["numeroPieceIdentite"],
        "email" => $this->newUser["email"],
-       "password" =>Hash::make($this->newUser["password"]),
+      // "password" =>Hash::make($this->newUser["password"]),
+       "password" =>Hash::make($validationAttributes["newUser"]["password"] = "password"),
        "photo" => $imagePath
        ]);
        //reinitialiser le formulaire
-       $this->notify();
        $this->newUser = [];
        $this->dispatchBrowserEvent("showSuccessMessage", ["message"=>"Utilisateur créé avec succès!"]);
        $this->resetValueInput++;
@@ -266,16 +258,5 @@ public function resetPassword(){
     $this->dispatchBrowserEvent("showSuccessMessage", ["message"=>"Mot de passe utilisateur réinitialisé avec succès!"]);
 }
 
-//
-public function notify()
-{
-    if(auth()->user()){
-        $user = User::whereId("")->first();
-        /*$searchCriteria = "%".$this->search."%";
-        $user = User::where("id", "like", $searchCriteria)->latest();*/
-        auth()->user()->notify(new UserFollowNotification($user));
-    }
-   // dd("done");
-}
 
 }

@@ -1,7 +1,62 @@
 
+
+@if($currentPage==PAGELIST)
 <div class="pt-2">
     <div class="col-12">
 
+    <div class="modal fade" id="Modal" tabindex="-1" role="dialog" aria-hidden="true" wire:ignore.self>
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+      </button>
+      </div>
+      <div class="modal-body" style="display: flex; justify-content: center; gap: 20px;">
+        <button class="button" style="border-radius: 30px;padding: 15px 40px;border: none;font-size: 16px;
+          color: white;cursor: pointer;transition: all 0.3s ease;box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+          background-color: #FF6F61;" data-toggle="modal" data-target="#moteur" data-dismiss="modal" wire:click="cancele()">Moteur</button>
+        
+        <button class="button" style="border-radius: 30px;padding: 15px 40px;border: none;font-size: 16px;
+          color: white;cursor: pointer;transition: all 0.3s ease;box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+          background-color: #4A90E2;" data-toggle="modal" data-target="#pompe" data-dismiss="modal">Pompe</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="moteur" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" wire:ignore.self>
+  <div class="modal-dialog modal-xl" role="document">
+    <div class="modal-content">
+      <div class="modal-body">
+        @include("livewire.ouvrage.moteur")
+      </div>
+      @if ($showInputPompe)
+      @else
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal" wire.click="cancel()">Close</button>
+      </div>
+      @endif
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="pompe" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" wire:ignore.self>
+  <div class="modal-dialog modal-xl" role="document">
+    <div class="modal-content">
+      <div class="modal-body">
+        @include("livewire.ouvrage.pompe")
+      </div>
+      @if ($showInputPompe)
+      @else
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal" wire.click="cancel()">Close</button>
+      </div>
+      @endif
+    </div>
+  </div>
+</div>
+    
 
 
 <div class="modal fade" id="addModal"tabindex="-1" role="dialog" aria-hidden="true" wire:ignore.self>
@@ -25,19 +80,28 @@
 </div> 
 </div>
 
-
-
         <div class="card">
             <div class="card-header bg-gradient-primary d-flex align-items-center">
                 <h3 class="card-title flex-grow-1"><i class="fa fa-list fa-2x"></i> Forage -Puits </h3>
-                    
+                <a class="btn btn-primary btn-db text-white mr-4 d-block " wire:click="detaille" style="border-radius:30px;"><i
+                class="fas fa-plus"></i> Plus detaille</a>
+                @can("employe")
                     <a class="btn btn-link btn-db text-white mr-4 d-block" wire:click="selected"><i
-                            class="fas fa-plus"></i> Ajouter Nouveau</a>
-                  
+                            class="fa fa-plus-circle"></i> Ajouter Nouveau</a>
+                @endcan
                 </div>
             </div>
             <!-- /.card-header -->
             <div class="card-body table-responsive p-0 table-striped">
+            @if ($errors->any())
+							  <div class="alert alert-danger">
+								<ul>
+								  @foreach ($errors->all() as $error)
+									<li>{{$error}}</li>
+								  @endforeach
+								</ul>
+							</div>
+							@endif
          @if ($isSelected)
             <form wire:submit.prevent="Ouvrage">
             <div class="p-4">
@@ -121,7 +185,7 @@
       <input class="form-control " type="file" wire:model="image" wire:loading.attr="disabled" id="image{{$resetValueInput}}" title="Selectionner l'image"> 
                         </div>
                         <div class="col pt-3">
-      <input class="form-control " type="file" wire:model="fichier" wire:loading.attr="disabled" id="fichier{{$resetValueInput}}" title="Selectionner le pdf"> 
+      <input class="form-control " type="file" wire:model="fichier" wire:loading.attr="disabled" id="fichier{{$resetValueInput}}" title="Selectionner le caracteristique pdf"> 
                         </div>
 
                       <div class="col pt-3">
@@ -266,7 +330,9 @@
                                 <th class="text-center">Profondeur</th>
                                 <th class="text-center">Type</th>
                                 <th class="text-center">Forages</th>
+                                @can("employe")
                                 <th class="text-center">Action</th>
+                                @endcan
                             </tr>
                         </thead>
                         <tbody>
@@ -278,13 +344,15 @@
                             <td class="text-center">{{$ouvrage->profondeur}}</td>
                             <td class="text-center">{{$ouvrage->type}}</td>
                             <td class="text-center">{{$ouvrage->ressource->nom}}</td>
+                            @can("employe")
                             <td class="text-center">
                                 <button wire:click="editOuvrage({{$ouvrage->id}})" class="btn btn-link"> <i class="far fa-edit"></i> </button>
-                                @can('delete', $ouvrage)
-                                <button class="btn btn-link" wire:click="confirmDelete({{$ouvrage->id}})"> <i class="far fa-trash-alt"></i> </button>
-                                @endcan
-                                <button class="btn btn-link" wire:click="selectDocument({{$ouvrage->id}})" data-toggle="modal" data-target="#addModal"> <i class="fa fa-file-pdf" style="color:#96BC00;font-size:18px;"></i></button>
-                            </td>
+                                @if(count($ouvrage->moteurs)== 0 AND count($ouvrage->pompes)== 0)    
+                                <button class="btn btn-link" wire:click="confirmDelete({{$ouvrage->id}})" style="color:red;"> <i class="far fa-trash-alt"></i> </button>
+                                @endif
+                                <button class="btn btn-link" wire:click="showModal({{$ouvrage->id}})" data-toggle="modal" data-target="#Modal"> <i class="fa fa-bars"></i></button>
+                              </td>
+                            @endcan
                         </tr>
                        @empty
                          <tr>
@@ -311,7 +379,12 @@
         <!-- /.card -->
     </div>
 </div>
-  
+@elseif($currentPage==OUVRAGE)
+@include ("livewire.ouvrage.show")
+@elseif($currentPage==DETAILLEOUVRAGE)
+@include("livewire.ouvrage.detaille")
+@endif
+
 
 
 <script>
@@ -340,10 +413,18 @@
         cancelButtonText: 'Annuler'
         }).then((result) => {
         if (result.isConfirmed) {
-            if(event.detail.message.data){
-               @this.deleteOuvrage(event.detail.message.data.models_ouvrage_id)
+          if (result.isConfirmed) {
+             if(event.detail.message.data.moteur_electrique_id){
+                @this.deleteModalPompe(event.detail.message.data.moteur_electrique_id)
             }
-        //    @this.resetPassword()
+            if(event.detail.message.data.moteur_pompe_id){
+                @this.deleteModalMoteur(event.detail.message.data.moteur_pompe_id)
+            }
+
+            if(event.detail.message.data.models_ouvrage_id){
+                @this.deleteOuvrage(event.detail.message.data.models_ouvrage_id)
+            }
+        }
         }
         })
     })

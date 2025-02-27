@@ -14,7 +14,7 @@
 <div class="col-12 d-flex align-items-stretch flex-column">
 <div class="card bg-light d-flex flex-fill">
 <div class="card-header text-muted border-bottom-0" style="color:blue;">
-Date d'embauche : {{date('d-m-y',strtotime(optional($selectedId)->dateEmbauche))}}
+Date d'embauche : {{date('d-m-Y',strtotime(optional($selectedId)->dateEmbauche))}}
 </div>
 <div class="card-body pt-0">
 <div class="row">
@@ -24,7 +24,7 @@ Date d'embauche : {{date('d-m-y',strtotime(optional($selectedId)->dateEmbauche))
 <ul class="ml-4 mb-0 fa-ul text-muted">
 <li class="small"><span class="fa-li"><i class="fas fa-lg fa-building"></i></span><b> Matricule :</b>  {{optional($selectedId)->matricule}} </li>
 <li class="small"><span class="fa-li"><i class="fas fa-lg fa-phone"></i></span> <b>Phone #:</b>{{optional($selectedId)->telephone}}</li>
-<li class="small"><span class="fa-li"><i class="fas fa-lg fa-phone"></i></span> <b>Sexe :</b>{{optional($selectedId)->sexe}}</li>
+<li class="small"><span class="fa-li"><i class="fas fa-lg fa-mars"></i></span> <b>Sexe :</b>{{optional($selectedId)->sexe}}</li>
 </ul>
 </div>
 <div class="col-5 text-center">

@@ -20,6 +20,7 @@ class Intervenant extends Component
     public $search = "";
     public $resetValueInput = 0;
     public $info=false;
+    public $card=false;
     public $selectedId;
     public $changed;
     public $oldvalue = [];
@@ -57,6 +58,13 @@ class Intervenant extends Component
     }
     public function updatedSearch(){
       $this->resetPage();
+  }
+
+  public function showCard(){
+    $this->card=CARDINTERVENANT;
+  }
+  public function cacheCard(){
+    $this->card=false;
   }
   
 

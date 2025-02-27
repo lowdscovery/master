@@ -15,8 +15,8 @@ class CalculeColonnes extends Migration
     {
         Schema::create('calcule_colonnes', function (Blueprint $table) {
             $table->id();
-            $table->string('current_value');
-            $table->string('difference');
+            $table->string('nom');
+            $table->string('description');
             $table->timestamps();
 
     

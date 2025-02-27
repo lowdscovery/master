@@ -9,8 +9,8 @@
              </div>
             <div class="card" style="transform: translateY(10px);">
                 <div class="card-body">
-                 <div style="text-align:center; font-size:2em">{{ __('Login') }}</div>
-                 <p style="text-align:center;font-family: montserrat;"> Accéder à notre tableau de bord </p>
+                 <div class="text-muted" style="text-align:center; font-size:2em;">{{ __('Login') }}</div>
+                 <p class="text-muted" style="text-align:center;font-family: montserrat;"> Accéder à notre tableau de bord </p>
                     <form method="POST" action="{{ route('login') }}">
                         @csrf
                         <label>Adresse mail</label>
@@ -59,7 +59,7 @@
                         </div>
                         <label> </label>
                         <div>
-                          <p style="text-align:center;"> Avez-vous déjà un compte?<a class="nav-link" href="{{ route('register') }}" style="font-size:1.2em"> </p>
+                          <p class="text-muted" style="text-align:center;"> Avez-vous déjà un compte?<a class="nav-link" href="#" style="font-size:1.2em"> </p>
                         </div>
                     </form>
                 </div>

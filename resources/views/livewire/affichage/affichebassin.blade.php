@@ -202,8 +202,9 @@
                             
                             <div class="mt-1 col-xl-4 col-lg-4 col-md-4 col-sm-12">
                                     @foreach ($electriq as $caracteristique)
-                                        @if (optional($selectedId)->id == $caracteristique->caracteristique_moteur_id)
-                                        <div class="card">
+                                      <!--  @if (optional($selectedId)->id == $caracteristique->caracteristique_moteur_id) -->
+									  @if (optional($selectedId)->id)
+									  <div class="card">
 									<div class="card-header" style="background-color:#FFAD00;font-size: 1.3em;font-family: montserrat;">
 										<h2 class="card-title">MOTEUR</h2>
 									</div>
